@@ -13,7 +13,7 @@
 --[[ Function: Retrieves Visible Panels ]]--
 --------------------------------------------
 
-function getVisiblePanels()
+function getVisibleWindows()
 
 
     --TODO: ..
