@@ -15,12 +15,3 @@
 ------------------
 
 resource = getResourceRootElement(getThisResource())
-
-inputDelayDuration = 500 --(In milliseconds)
-availableElements = {
-
-    ["ov_panel"] = {
-        __clearCache = __destroyPanel
-    }
-
-}

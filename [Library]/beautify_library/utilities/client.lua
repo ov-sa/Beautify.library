@@ -17,8 +17,9 @@
 addEventHandler("onClientElementDestroy", resourceRoot, function()
 
     local elementType = source:getType()
-    if availableElements[elementType] then
-        availableElements[elementType].__clearCache(source)
+    if availableElements[elementType] and availableElements[elementType].__clearCache and getType(availableElements[elementType].__clearCache) == "function" then
+        availableElements[elementType].__clearCache(source, true)
+        destroyElement(source, true)
     end
 
 end)

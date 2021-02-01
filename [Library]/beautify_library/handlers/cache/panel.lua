@@ -13,24 +13,27 @@
 --[[ Variables ]]--
 -------------------
 
-panelCache = {
+windowCache = {
 
 }
 
 
-----------------------------------
---[[ Function: Destroys Panel ]]--
-----------------------------------
+-----------------------------------
+--[[ Function: Destroys Window ]]--
+-----------------------------------
 
-function __destroyPanel(panel)
+function __destroyWindow(window, skipSelf)
 
-    if panel and panelCache[panel] then
-        for i, j in pairs(panelCache[panel]) do
+    if window and windowCache[window] then
+        for i, j in pairs(windowCache[window]) do
             if i and isElement(i) then
                 i:destroy()
             end
         end
-        panelCache[panel] = nil
+        windowCache[window] = nil
+        if not skipSelf then
+            window:destroy()
+        end
         return true
     end
     return false
