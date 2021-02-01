@@ -13,4 +13,7 @@
     <!-- Handlers -->
     <script src="handlers/cache/panel.lua" type="client" cache="false"/>
 
+    <!-- Params: getVisiblePanels() | Returns Data -->
+    <export function="getVisiblePanels" type="client"/>
+
 </meta>
