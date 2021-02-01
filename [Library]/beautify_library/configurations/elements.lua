@@ -16,9 +16,14 @@
 --inputDelayDuration = 500 --(In milliseconds)
 availableElements = {
 
-    ["ov_window"] = {,
+    ["ov_window"] = {
+        __functionName = "createWindow",
         __parameters = {
-            
+            {name = "x", type = "float"},
+            {name = "y", type = "float"},
+            {name = "width", type = "float"},
+            {name = "height", type = "float"},
+            {name = "title", type = "string"}
         },
         __destroyReferences = destroyWindow
     }
