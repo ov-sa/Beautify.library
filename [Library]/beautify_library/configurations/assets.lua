@@ -16,7 +16,17 @@
 availableAssets = {
 
     ["images"] = {
-        --TODO: ADD ALL ASSET LISTS HERE
+        "right_triangle/default.png",
+        "right_triangle/flipped.png",
+        "right_triangle/inverted.png",
+        "right_triangle/flipped_inverted.png",
+        "curved_square/left.png",
+        "curved_square/right.png",
+        "curved_square/top_left.png",
+        "curved_square/top_right.png",
+        "curved_square/bottom_left.png",
+        "curved_square/bottom_right.png",
+        "curved_square/square.png"
     }
 
 }

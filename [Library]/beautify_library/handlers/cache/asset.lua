@@ -13,11 +13,7 @@
 --[[ Variables ]]--
 -------------------
 
-createdAssets = {
-
-    ["images"] = {}
-
-}
+createdAssets = {}
 
 
 -----------------------------------------
@@ -26,6 +22,16 @@ createdAssets = {
 
 addEventHandler("onClientResourceStart", resource, function()
 
-    --TODO: CREATE ASSETS
+    for i, j in pairs(availableAssets) do
+        createdAssets[i] = {}
+        for k, v in ipairs(j) do
+            local assetPath = "files/assets/"..i.."/"..v
+            if File.exists(assetPath) then
+                if i == "images" then
+                    createdAssets[i][v] = DxTexture(assetPath, "argb", true, "clamp")
+                end
+            end
+        end
+    end
 
 end)
