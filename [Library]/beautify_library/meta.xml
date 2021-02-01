@@ -16,6 +16,7 @@
     <script src="handlers/element/manager.lua" type="client" cache="false"/>
 
     <!-- Configurations -->
+    <script src="configurations/assets.lua" type="client" cache="false"/>
     <script src="configurations/elements.lua" type="client" cache="false"/>
 
     <!-- Files: Assets: Images -->
