@@ -22,7 +22,7 @@ windowCache = {
 --[[ Function: Destroys Window ]]--
 -----------------------------------
 
-function __destroyWindow(window, skipSelf)
+function destroyWindow(window)
 
     if window and windowCache[window] then
         for i, j in pairs(windowCache[window]) do
@@ -31,9 +31,6 @@ function __destroyWindow(window, skipSelf)
             end
         end
         windowCache[window] = nil
-        if not skipSelf then
-            window:destroy()
-        end
         return true
     end
     return false

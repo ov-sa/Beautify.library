@@ -14,14 +14,6 @@
 -------------------
 
 createdElements = {}
---inputDelayDuration = 500 --(In milliseconds)
-availableElements = {
-
-    ["ov_window"] = {
-        __clearCache = __destroyWindow
-    }
-
-}
 
 
 -----------------------------------------------
@@ -57,13 +49,14 @@ function createElement(elementType)
 
 end
 
-function destroyElement(element, skipSelf)
+function destroyElement(element)
 
     if element and createdElements[element] then
-        createdElements[element] = nil
-        if not skipSelf then
-            element:destroy()
+        local elementType = element:getType()
+        if elementType and availableElements[elementType] and availableElements[elementType].__destroyReferences and type(availableElements[elementType].__destroyReferences) == "function" then
+            availableElements[elementType].__destroyReferences(element)
         end
+        createdElements[element] = nil
         return true
     end
     return false
