@@ -22,7 +22,7 @@ createdElements = {}
 
 function isElementValid(element)
 
-    if not element or not isElement(element) or not createdElements[element] then
+    if not element or not isElement(element) or not createdElements[element] or not createdElements[element].isValid then
         return false
     else
         return true
