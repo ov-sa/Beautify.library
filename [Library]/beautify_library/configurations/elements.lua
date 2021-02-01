@@ -16,7 +16,10 @@
 --inputDelayDuration = 500 --(In milliseconds)
 availableElements = {
 
-    ["ov_window"] = {
+    ["ov_window"] = {,
+        __parameters = {
+            
+        },
         __destroyReferences = destroyWindow
     }
 
