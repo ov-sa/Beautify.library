@@ -24,6 +24,21 @@ availableElements = {
 }
 
 
+-----------------------------------------------
+--[[ Function: Verifies Element's Validity ]]--
+-----------------------------------------------
+
+function isElementValid(element)
+
+    if not element or not isElement(element) or not createdElements[element] then
+        return false
+    else
+        return true
+    end
+
+end
+
+
 --------------------------------------------
 --[[ Function: Creates/Destroys Element ]]--
 --------------------------------------------
@@ -33,8 +48,12 @@ function createElement(elementType)
     if not elementType or not availableElements[elementType] then return false end
 
     local createdElement = Element(elementType)
-    createdElements[createdElement] = {}
-    return createdElement
+    if not createdElement or not isElement(createdElement) then 
+        return false
+    else
+        createdElements[createdElement] = {}
+        return createdElement        
+    end
 
 end
 
