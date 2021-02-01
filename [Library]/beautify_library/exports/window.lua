@@ -30,6 +30,6 @@ function createWindow(...)
         createdElements[createdElement].gui[j.name] = parameters[i]
     end
     createdElements[createdElement].isValid = true
-    return true
+    return createdElement
 
 end
