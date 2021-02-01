@@ -17,15 +17,17 @@
 availableElements = {
 
     ["ov_window"] = {
-        __functionName = "createWindow",
-        __parameters = {
-            {name = "x", type = "float"},
-            {name = "y", type = "float"},
-            {name = "width", type = "float"},
-            {name = "height", type = "float"},
-            {name = "title", type = "string"}
-        },
-        __destroyReferences = destroyWindow
+        __destroyReferences = destroyWindow,
+        __syntax = {
+            functionName = "createWindow",
+            parameters = {
+                {name = "x", type = "float"},
+                {name = "y", type = "float"},
+                {name = "width", type = "float"},
+                {name = "height", type = "float"},
+                {name = "title", type = "string"}
+            },
+        }
     }
 
 }

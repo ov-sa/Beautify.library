@@ -19,17 +19,17 @@ function isUIParametersValid(paremeters, elementType)
     if not paremeters or type(paremeters) ~= "table" or not elementType or not availableElements[elementType] then return false end
 
     local areParametersValid = true
-    for i, j in ipairs(availableElements[elementType].__parameters) do
+    for i, j in ipairs(availableElements[elementType].__syntax.parameters) do
         if not paremeters[i] or (type(paremeters[i]) ~= (((j.type == "float") and "number") or j.type)) then
             areParametersValid = false
             break
         end
     end
     if not areParametersValid then
-        local syntaxMessage = availableElements[elementType].__functionName.."("
-        for i, j in ipairs(availableElements[elementType].__parameters) do
+        local syntaxMessage = availableElements[elementType].__syntax.functionName.."("
+        for i, j in ipairs(availableElements[elementType].__syntax.parameters) do
             syntaxMessage = syntaxMessage..j.name.." : "..j.type
-            if i ~= #availableElements[elementType].__parameters then
+            if i ~= #availableElements[elementType].__syntax.parameters then
                 syntaxMessage = syntaxMessage..", "
             end
         end

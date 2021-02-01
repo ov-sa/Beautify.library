@@ -15,10 +15,21 @@
 
 function createWindow(...)
 
-    local passedParams = {...}
-    if not isUIParametersValid(passedParams, "ov_window") then return false end
+    local parameters = {...}
+    local elementType = "ov_window"
+    if not isUIParametersValid(parameters, elementType) then return false end
+    local createdElement = createElement(elementType)
+    if not createdElement then return false end
 
-    outputChatBox("CREATED UI")
+    createdElements[createdElement] = {
+        gui = {},
+        scroller = {}
+    }
+    windowReferences[createdElement] = {}
+    for i, j in ipairs(availableElements[elementType].__syntax.parameters) do
+        createdElements[createdElement].gui[j.name] = parameters[i]
+    end
+    createdElements[createdElement].isValid = true
     return true
 
 end

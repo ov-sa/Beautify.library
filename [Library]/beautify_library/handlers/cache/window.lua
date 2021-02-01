@@ -13,9 +13,7 @@
 --[[ Variables ]]--
 -------------------
 
-windowCache = {
-
-}
+windowReferences = {}
 
 
 -----------------------------------
@@ -24,13 +22,13 @@ windowCache = {
 
 function destroyWindow(window)
 
-    if window and windowCache[window] then
-        for i, j in pairs(windowCache[window]) do
+    if window and windowReferences[window] then
+        for i, j in pairs(windowReferences[window]) do
             if i and isElement(i) then
                 i:destroy()
             end
         end
-        windowCache[window] = nil
+        windowReferences[window] = nil
         return true
     end
     return false
