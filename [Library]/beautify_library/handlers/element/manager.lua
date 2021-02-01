@@ -14,10 +14,10 @@
 -------------------
 
 createdElements = {}
-inputDelayDuration = 500 --(In milliseconds)
+--inputDelayDuration = 500 --(In milliseconds)
 availableElements = {
 
-    ["ov_panel"] = {
+    ["ov_window"] = {
         __clearCache = __destroyWindow
     }
 

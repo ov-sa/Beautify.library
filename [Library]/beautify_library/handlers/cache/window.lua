@@ -1,11 +1,11 @@
 ----------------------------------------------------------------
 --[[ Resource: Beautify Library
-     Script: handlers: cache: element.lua
+     Script: handlers: cache: window.lua
      Server: -
      Author: OvileAmriam
      Developer: -
      DOC: 01/02/2021 (OvileAmriam)
-     Desc: Panel's Cache Handler ]]--
+     Desc: Window's Cache Handler ]]--
 ----------------------------------------------------------------
 
 

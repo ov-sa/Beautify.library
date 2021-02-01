@@ -11,7 +11,7 @@
     <script src="settings/client.lua" type="client" cache="false"/>
 
     <!-- Handlers -->
-    <script src="handlers/cache/panel.lua" type="client" cache="false"/>
+    <script src="handlers/cache/window.lua" type="client" cache="false"/>
     <script src="handlers/element/manager.lua" type="client" cache="false"/>
 
     <!-- Params: getVisibleWindows() | Returns Data -->
