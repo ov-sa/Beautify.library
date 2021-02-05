@@ -53,6 +53,7 @@ function destroyElement(element)
 
     if element and createdElements[element] then
         local elementType = element:getType()
+        createdElements[element].isValid = nil
         if elementType and availableElements[elementType] and availableElements[elementType].__destroyReferences and type(availableElements[elementType].__destroyReferences) == "function" then
             availableElements[elementType].__destroyReferences(element)
         end
