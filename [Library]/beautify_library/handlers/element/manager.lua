@@ -15,42 +15,19 @@
 
 createdElements = {}
 createdParentElements = {}
-local __createdChildElements = {}
+local ____createdChildElements = {}
 
 
 -----------------------------------------
 --[[ Function: Retrieves UI's Parent ]]--
 -----------------------------------------
 
-function getUIParent(element)
+function _getUIParent(element)
 
     if element and isElement(element) and not createdElements[element] then
-        local elementParent = __createdChildElements[element]
+        local elementParent = ____createdChildElements[element]
         if elementParent and isElement(elementParent) and createdParentElements[elementParent] and createdParentElements[elementParent][element] and createdElements[elementParent] then
             return elementParent
-        end
-    end
-    return false
-
-end
-
-
------------------------------------------------
---[[ Function: Verifies Element's Validity ]]--
------------------------------------------------
-
-function isElementValid(element)
-
-    if element and isElement(element) then
-        if createdElements[element] then
-            if createdElements[element].isValid then
-                return true
-            end
-        else
-            local elementParent = getUIParent(element)
-            if elementParent and createdElements[elementParent].isValid then
-                return true
-            end
         end
     end
     return false
@@ -80,7 +57,7 @@ function createElement(elementType, parentElement)
             end
         end
         if isChildElement then
-            __createdChildElements[createdElement] = parentElement
+            ____createdChildElements[createdElement] = parentElement
             createdParentElements[parentElement][createdElement] = {}
         else
             if availableElements[elementType].__allowedChildren then
@@ -101,7 +78,7 @@ function destroyElement(element)
             if createdParentElements[element] then
                 for i, j in pairs(createdParentElements[element]) do
                     if i and isElement(i) then
-                        __createdChildElements[i] = nil
+                        ____createdChildElements[i] = nil
                         i:destroy()
                     end
                 end
@@ -110,10 +87,10 @@ function destroyElement(element)
             createdElements[element] = nil
             return true
         else
-            local elementParent = __createdChildElements[element]
+            local elementParent = ____createdChildElements[element]
             if elementParent and createdParentElements[elementParent] then
                 createdParentElements[elementParent][element] = nil
-                __createdChildElements[element] = nil
+                ____createdChildElements[element] = nil
                 return true
             end
         end

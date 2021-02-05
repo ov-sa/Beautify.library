@@ -9,13 +9,35 @@
 ----------------------------------------------------------------
 
 
---------------------------------------------
---[[ Function: Retrieves Visible Panels ]]--
---------------------------------------------
+------------------------------------------
+--[[ Function: Verifies UI's Validity ]]--
+------------------------------------------
 
-function getVisibleWindows()
+function isUIValid(element)
+
+    if element and isElement(element) then
+        if createdElements[element] then
+            if createdElements[element].isValid then
+                return true
+            end
+        else
+            local elementParent = getUIParent(element)
+            if elementParent and createdElements[elementParent].isValid then
+                return true
+            end
+        end
+    end
+    return false
+
+end
 
 
-    --TODO: ..
+-----------------------------------------
+--[[ Function: Retrieves UI's Parent ]]--
+-----------------------------------------
+
+function getUIParent(element)
+
+    return _getUIParent(element)
 
 end
