@@ -38,6 +38,6 @@ end
 
 function getUIParent(element)
 
-    return _getUIParent(element)
+    return _____getUIParent(element)
 
 end

@@ -22,7 +22,7 @@ local ____createdChildElements = {}
 --[[ Function: Retrieves UI's Parent ]]--
 -----------------------------------------
 
-function _getUIParent(element)
+function _____getUIParent(element)
 
     if element and isElement(element) and not createdElements[element] then
         local elementParent = ____createdChildElements[element]
