@@ -24,13 +24,14 @@ availableElements = {
                 {name = "y", type = "float"},
                 {name = "width", type = "float"},
                 {name = "height", type = "float"},
-                {name = "title", type = "string"}
+                {name = "title", type = "string"},
+                {name = "color", type = "number"}
             },
         },
         __allowedChildren = {
             
         },
-        minimumSize = 75
+        __minimumSize = 75
     }
 
 }

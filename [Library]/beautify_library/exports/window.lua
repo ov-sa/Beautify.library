@@ -26,7 +26,11 @@ function createWindow(...)
         scroller = {}
     }
     for i, j in ipairs(availableElements[elementType].__syntax.parameters) do
-        createdElements[createdElement].gui[j.name] = parameters[i]
+        if j.name == "x" or j.name == "y" or j.name == "width" or j.name == "height" then
+            createdElements[createdElement].gui[j.name] = math.max(availableElements[elementType].__minimumSize, parameters[i])
+        else
+            createdElements[createdElement].gui[j.name] = parameters[i]
+        end
     end
     createdElements[createdElement].isValid = true
     return createdElement
