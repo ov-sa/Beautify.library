@@ -17,9 +17,6 @@
 availableElements = {
 
     ["ov_window"] = {
-        __allowedChildren = {
-            
-        },
         __syntax = {
             functionName = "createWindow",
             parameters = {
@@ -29,7 +26,11 @@ availableElements = {
                 {name = "height", type = "float"},
                 {name = "title", type = "string"}
             },
-        }
+        },
+        __allowedChildren = {
+            
+        },
+        minimumSize = 75
     }
 
 }
