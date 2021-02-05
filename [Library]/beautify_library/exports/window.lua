@@ -25,7 +25,6 @@ function createWindow(...)
         gui = {},
         scroller = {}
     }
-    windowReferences[createdElement] = {}
     for i, j in ipairs(availableElements[elementType].__syntax.parameters) do
         createdElements[createdElement].gui[j.name] = parameters[i]
     end

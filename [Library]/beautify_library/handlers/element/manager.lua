@@ -14,6 +14,8 @@
 -------------------
 
 createdElements = {}
+createdParentElements = {}
+local createdChildElements = {}
 
 
 -----------------------------------------------
@@ -22,11 +24,21 @@ createdElements = {}
 
 function isElementValid(element)
 
-    if not element or not isElement(element) or not createdElements[element] or not createdElements[element].isValid then
-        return false
-    else
-        return true
+    if element and isElement(element) then
+        if createdElements[element] then
+            if createdElements[element].isValid then
+                return true
+            end
+        else
+            local elementParent = createdChildElements[element]
+            if elementParent and isElement(elementParent) and createdParentElements[elementParent] and createdParentElements[elementParent][element] and createdElements[elementParent] then
+                if createdElements[elementParent].isValid then
+                    return true
+                end
+            end
+        end
     end
+    return false
 
 end
 
@@ -35,7 +47,7 @@ end
 --[[ Function: Creates/Destroys Element ]]--
 --------------------------------------------
 
-function createElement(elementType)
+function createElement(elementType, parentElement)
 
     if not elementType or not availableElements[elementType] then return false end
 
@@ -43,7 +55,23 @@ function createElement(elementType)
     if not createdElement or not isElement(createdElement) then 
         return false
     else
-        createdElements[createdElement] = {}
+        local isChildElement = false
+        if parentElement and isElement(parentElement) then
+            local parentType = parentElement:getType()
+            if createdElements[parentElement] and createdParentElements[parentElement] and availableElements[parentType] and availableElements[parentType].__allowedChildren and availableElements[parentType].__allowedChildren[elementType] then
+                isChildElement = true
+            else
+                return false
+            end
+        end
+        if isChildElement then
+            createdParentElements[parentElement][createdElement] = {}
+        else
+            if availableElements[elementType].__allowedChildren then
+                createdParentElements[createdElement] = {}
+            end
+            createdElements[createdElement] = {}
+        end
         return createdElement        
     end
 
@@ -51,14 +79,27 @@ end
 
 function destroyElement(element)
 
-    if element and createdElements[element] then
-        local elementType = element:getType()
-        createdElements[element].isValid = nil
-        if elementType and availableElements[elementType] and availableElements[elementType].__destroyReferences and type(availableElements[elementType].__destroyReferences) == "function" then
-            availableElements[elementType].__destroyReferences(element)
+    if element then
+        if createdElements[element] then
+            createdElements[element].isValid = nil
+            if createdParentElements[element] then
+                for i, j in pairs(createdParentElements[element]) do
+                    if i and isElement(i) then
+                        i:destroy()
+                    end
+                end
+                createdParentElements[element] = nil
+            end
+            createdElements[element] = nil
+            return true
+        else
+            for i, j in pairs(createdParentElements) do
+                if j[element] then
+                    j[element] = nil
+                    return true
+                end
+            end
         end
-        createdElements[element] = nil
-        return true
     end
     return false
 

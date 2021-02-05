@@ -17,7 +17,9 @@
 availableElements = {
 
     ["ov_window"] = {
-        __destroyReferences = destroyWindow,
+        __allowedChildren = {
+            
+        },
         __syntax = {
             functionName = "createWindow",
             parameters = {
