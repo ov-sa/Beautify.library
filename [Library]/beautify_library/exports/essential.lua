@@ -9,6 +9,17 @@
 ----------------------------------------------------------------
 
 
+-----------------------------------------
+--[[ Function: Retrieves UI's Parent ]]--
+-----------------------------------------
+
+function getUIParent(element)
+
+    return _____getUIParent(element)
+
+end
+
+
 ------------------------------------------
 --[[ Function: Verifies UI's Validity ]]--
 ------------------------------------------
@@ -17,13 +28,11 @@ function isUIValid(element)
 
     if element and isElement(element) then
         if createdElements[element] then
-            if createdElements[element].isValid then
-                return true
-            end
+            return createdElements[element].isValid
         else
             local elementParent = getUIParent(element)
-            if elementParent and createdElements[elementParent].isValid then
-                return true
+            if elementParent then
+                return createdElements[elementParent].isValid
             end
         end
     end
@@ -32,12 +41,22 @@ function isUIValid(element)
 end
 
 
------------------------------------------
---[[ Function: Retrieves UI's Parent ]]--
------------------------------------------
+---------------------------------------------
+--[[ Function: Retrieves UI's Visibility ]]--
+---------------------------------------------
 
-function getUIParent(element)
+function isUIVisible(element)
 
-    return _____getUIParent(element)
+    if element and isElement(element) and isUIValid(element) then
+        if createdElements[element] then
+            return createdElements[element].isVisible
+        else
+            local elementParent = getUIParent(element)
+            if elementParent then
+                return createdElements[elementParent].isVisible
+            end
+        end
+    end
+    return false
 
 end

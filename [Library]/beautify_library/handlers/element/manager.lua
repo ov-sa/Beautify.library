@@ -75,7 +75,9 @@ function createElement(elementType, parentElement, sourceResource)
                 createdParentElements[createdElement] = {}
             end
             createdElements[createdElement] = {
-                sourceResource = sourceResource
+                sourceResource = sourceResource,
+                isValid = false,
+                isVisible = false
             }
         end
         return createdElement
@@ -90,7 +92,7 @@ function destroyElement(element)
     local elementType = element:getType()
     if availableElements[elementType] then
         if createdElements[element] then
-            createdElements[element].isValid = nil
+            createdElements[element].isValid = false
             if createdParentElements[element] then
                 for i, j in pairs(createdParentElements[element]) do
                     if i and isElement(i) then

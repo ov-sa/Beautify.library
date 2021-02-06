@@ -43,11 +43,14 @@
     <!-- TODO: REMOVE LATER -->
     <script src="test.lua" type="client" cache="false"/>
 
+    <!-- Params: getUIParent(element) | Returns Element; Else false Boolean -->
+    <export function="getUIParent" type="client"/>
+
     <!-- Params: isUIValid(element) | Returns Boolean -->
     <export function="isUIValid" type="client"/>
 
-    <!-- Params: getUIParent(element) | Returns Element; Else false Boolean -->
-    <export function="getUIParent" type="client"/>
+    <!-- Params: isUIVisible(element) | Returns Boolean -->
+    <export function="isUIVisible" type="client"/>
 
     <!-- Params: createWindow(x, y, width, height, title, color, postGUI) | Returns Element; Else false Boolean -->
     <export function="createWindow" type="client"/>

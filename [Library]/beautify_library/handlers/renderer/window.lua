@@ -15,7 +15,7 @@
 
 function renderWindow(element)
 
-    if not isUIValid(element) or element:getType() ~= "beautify_window" then return false end
+    if not isUIValid(element) or element:getType() ~= "beautify_window" or not isUIVisible(element) then return false end
 
     local window_borderSize = availableElements["beautify_window"].__minimumSize/2
     local window_titleBar_paddingX, window_titleBar_height = availableElements["beautify_window"].__titleBar.paddingX, availableElements["beautify_window"].__titleBar.height
