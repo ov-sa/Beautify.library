@@ -34,6 +34,7 @@ function createWindow(...)
             createdElements[createdElement].gui[j.name] = parameters[i]
         end
     end
+    createdElements[createdElement].gui.postGUI = (parameters[7] and true) or false
     createdElements[createdElement].isValid = true
     return createdElement
 
