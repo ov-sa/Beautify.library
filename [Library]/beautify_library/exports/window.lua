@@ -16,7 +16,7 @@
 function createWindow(...)
 
     local parameters = {...}
-    local elementType = "ov_window"
+    local elementType = "beautify_window"
     if not isUIParametersValid(parameters, elementType) then return false end
     local createdElement = createElement(elementType)
     if not createdElement then return false end
@@ -26,7 +26,9 @@ function createWindow(...)
         scroller = {}
     }
     for i, j in ipairs(availableElements[elementType].__syntax.parameters) do
-        if j.name == "x" or j.name == "y" or j.name == "width" or j.name == "height" then
+        if j.name == "x" or j.name == "y" then
+            createdElements[createdElement].gui[j.name] = math.max(0, parameters[i])
+        elseif j.name == "width" or j.name == "height" then
             createdElements[createdElement].gui[j.name] = math.max(availableElements[elementType].__minimumSize, parameters[i])
         else
             createdElements[createdElement].gui[j.name] = parameters[i]

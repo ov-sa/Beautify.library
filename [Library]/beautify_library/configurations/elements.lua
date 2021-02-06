@@ -16,7 +16,7 @@
 --inputDelayDuration = 500 --(In milliseconds)
 availableElements = {
 
-    ["ov_window"] = {
+    ["beautify_window"] = {
         __syntax = {
             functionName = "createWindow",
             parameters = {
