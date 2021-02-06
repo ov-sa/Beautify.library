@@ -26,4 +26,4 @@ addEventHandler("onClientRender", root, function()
         end
     end
 
-end)
+end, true, "low-10")
