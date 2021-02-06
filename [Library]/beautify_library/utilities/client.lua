@@ -42,6 +42,25 @@ function isUIParametersValid(paremeters, elementType)
 end
 
 
+---------------------------------------------
+--[[ Function: Retrieves Colors From Int ]]--
+---------------------------------------------
+
+function fromColor(color)
+
+    color = tonumber(color)
+	if color then
+        local red = bitExtract(color, 16, 8)
+        local green = bitExtract(color, 8, 8)
+		local blue = bitExtract(color, 0, 8)
+		local alpha = bitExtract(color, 24, 8)
+		return {red, green, blue, alpha}
+	end
+    return false
+
+end
+
+
 ------------------------------------------
 --[[ Event: On Client Element Destroy ]]--
 ------------------------------------------

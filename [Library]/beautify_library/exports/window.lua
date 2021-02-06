@@ -35,6 +35,10 @@ function createWindow(...)
         end
     end
     createdElements[createdElement].gui.postGUI = (parameters[7] and true) or false
+    createdElements[createdElement].gui.titleBar = {
+        color = {175, 175, 175, 255},
+        closeBtn = {}
+    }
     createdElements[createdElement].isValid = true
     return createdElement
 

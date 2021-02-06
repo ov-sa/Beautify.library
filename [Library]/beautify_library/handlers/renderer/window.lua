@@ -21,10 +21,9 @@ function renderWindow(element)
     local window_titleBarHeight = availableElements["beautify_window"].__titleBar.height
     local window_startX, window_startY = createdElements[element].gui.x, createdElements[element].gui.y
     local window_width, window_height = createdElements[element].gui.width, createdElements[element].gui.height
-    local window_color = createdElements[element].gui.color
+    local window_color, window_titleBar_color = createdElements[element].gui.color, createdElements[element].gui.titleBar.color
     local window_renderTarget = createdElements[element].gui.renderTarget
     local window_postGUI = createdElements[element].gui.postGUI
-    local titlebarColor = tocolor(175, 175, 175, 250)
     local renderWindowTarget = false
 
     dxDrawImage(window_startX, window_startY, window_borderSize, window_borderSize, createdAssets["images"]["curved_square/top_left.png"], 0, 0, 0, window_color, window_postGUI)
@@ -44,9 +43,10 @@ function renderWindow(element)
         renderWindowTarget = true
     end
     if (window_width >= window_titleBarHeight) and (window_height >= window_titleBarHeight) then
-        dxDrawImage(window_startX, window_startY, window_titleBarHeight, window_titleBarHeight, createdAssets["images"]["curved_square/top_left.png"], 0, 0, 0, titlebarColor, window_postGUI)
-        dxDrawImage(window_startX + window_width - window_titleBarHeight, window_startY, window_titleBarHeight, window_titleBarHeight, createdAssets["images"]["curved_square/top_right.png"], 0, 0, 0, titlebarColor, window_postGUI)
-        dxDrawRectangle(window_startX + window_titleBarHeight, window_startY, window_width - (window_titleBarHeight*2), window_titleBarHeight, titlebarColor, window_postGUI)
+        dxDrawImage(window_startX, window_startY, window_titleBarHeight, window_titleBarHeight, createdAssets["images"]["curved_square/top_left.png"], 0, 0, 0, tocolor(unpack(window_titleBar_color)), window_postGUI)
+        dxDrawRectangle(window_startX + window_titleBarHeight, window_startY, window_width - (window_titleBarHeight*2), window_titleBarHeight, tocolor(unpack(window_titleBar_color)), window_postGUI)
+        --TODO: ANIMATE ON HVOER :)
+        dxDrawImage(window_startX + window_width - window_titleBarHeight, window_startY, window_titleBarHeight, window_titleBarHeight, createdAssets["images"]["curved_square/top_right.png"], 0, 0, 0, tocolor(window_titleBar_color[1]/1.5, window_titleBar_color[2]/1.5, window_titleBar_color[3]/1.5, window_titleBar_color[4]/1.5), window_postGUI)
     end
     if renderWindowTarget and window_renderTarget and isElement(window_renderTarget) then
         --TODO: DRAW TARGET HERE :)
