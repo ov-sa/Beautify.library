@@ -11,16 +11,17 @@
     <script src="utilities/client.lua" type="client" cache="false"/>
     <script src="settings/client.lua" type="client" cache="false"/>
 
-    <!-- Configurations -->
-    <script src="configurations/assets.lua" type="client" cache="false"/>
-    <script src="configurations/elements.lua" type="client" cache="false"/>
-
     <!-- Handlers -->
     <script src="handlers/logger/client.lua" type="client" cache="false"/>
     <script src="handlers/cache/asset.lua" type="client" cache="false"/>
     <script src="handlers/cache/window.lua" type="client" cache="false"/>
     <script src="handlers/element/manager.lua" type="client" cache="false"/>
     <script src="handlers/element/renderer.lua" type="client" cache="false"/>
+    <script src="handlers/renderer/window.lua" type="client" cache="false"/>
+
+    <!-- Configurations -->
+    <script src="configurations/assets.lua" type="client" cache="false"/>
+    <script src="configurations/elements.lua" type="client" cache="false"/>
 
     <!-- TODO: REMOVE LATER -->
     <script src="test.lua" type="client" cache="false"/>

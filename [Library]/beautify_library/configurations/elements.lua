@@ -28,6 +28,7 @@ availableElements = {
                 {name = "color", type = "number"}
             },
         },
+        __renderFunction = renderWindow,
         __allowedChildren = {
             
         },
