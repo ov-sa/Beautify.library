@@ -24,7 +24,7 @@ function renderWindow(element)
     local window_color, window_titleBar_color = createdElements[element].gui.color, createdElements[element].gui.titleBar.color
     local window_renderTarget = createdElements[element].gui.renderTarget
     local window_postGUI = createdElements[element].gui.postGUI
-    local renderWindowTarget = false
+    local isRenderTargetToBeRendered = false
 
     dxDrawImage(window_startX, window_startY, window_borderSize, window_borderSize, createdAssets["images"]["curved_square/top_left.png"], 0, 0, 0, window_color, window_postGUI)
     dxDrawImage(window_startX + window_width - window_borderSize, window_startY, window_borderSize, window_borderSize, createdAssets["images"]["curved_square/top_right.png"], 0, 0, 0, window_color, window_postGUI)
@@ -40,16 +40,26 @@ function renderWindow(element)
     end
     if window_width > availableElements["beautify_window"].__minimumSize and window_height > availableElements["beautify_window"].__minimumSize then
         dxDrawRectangle(window_startX + window_borderSize, window_startY + window_borderSize, window_width - availableElements["beautify_window"].__minimumSize, window_height - availableElements["beautify_window"].__minimumSize, window_color, window_postGUI)
-        renderWindowTarget = true
+        isRenderTargetToBeRendered = true
     end
     if (window_width >= window_titleBarHeight) and (window_height >= window_titleBarHeight) then
         dxDrawImage(window_startX, window_startY, window_titleBarHeight, window_titleBarHeight, createdAssets["images"]["curved_square/top_left.png"], 0, 0, 0, tocolor(unpack(window_titleBar_color)), window_postGUI)
         dxDrawRectangle(window_startX + window_titleBarHeight, window_startY, window_width - (window_titleBarHeight*2), window_titleBarHeight, tocolor(unpack(window_titleBar_color)), window_postGUI)
+        local window_close_button_startX, window_close_button_startY = window_startX + window_width - window_titleBarHeight, window_startY
+        dxDrawImage(window_close_button_startX, window_close_button_startY, window_titleBarHeight, window_titleBarHeight, createdAssets["images"]["curved_square/top_right.png"], 0, 0, 0, tocolor(window_titleBar_color[1]/1.5, window_titleBar_color[2]/1.5, window_titleBar_color[3]/1.5, window_titleBar_color[4]/1.5), window_postGUI)
         --TODO: ANIMATE ON HVOER :)
-        dxDrawImage(window_startX + window_width - window_titleBarHeight, window_startY, window_titleBarHeight, window_titleBarHeight, createdAssets["images"]["curved_square/top_right.png"], 0, 0, 0, tocolor(window_titleBar_color[1]/1.5, window_titleBar_color[2]/1.5, window_titleBar_color[3]/1.5, window_titleBar_color[4]/1.5), window_postGUI)
+        --dxDrawImage(window_close_button_startX, window_close_button_startY, window_titleBarHeight, window_titleBarHeight, createdAssets["images"]["curved_square/top_right.png"], 0, 0, 0, tocolor(window_titleBar_color[1]/1.5, window_titleBar_color[2]/1.5, window_titleBar_color[3]/1.5, window_titleBar_color[4]/1.5), window_postGUI)
+    	dxDrawLine(window_close_button_startX, window_close_button_startY, window_close_button_startX, window_close_button_startY + window_titleBarHeight, tocolor(0, 0, 0, 150), 2, window_postGUI)
     end
-    if renderWindowTarget and window_renderTarget and isElement(window_renderTarget) then
-        --TODO: DRAW TARGET HERE :)
+    if isRenderTargetToBeRendered and window_renderTarget and isElement(window_renderTarget) then
+        dxSetRenderTarget(window_renderTarget, true)
+        dxSetBlendMode("modulate_add")
+        --TODO: ADD ELEMENTS HERE FOR WINDOW    
+        dxSetBlendMode("blend")
+        dxSetRenderTarget()
+        dxSetBlendMode("add")
+        --dxDrawImage(0, 0, 500, 500, window_renderTarget, 0, 0, 0, tocolor(255, 255, 255, 255), window_postGUI)
+        dxSetBlendMode("blend")
     end
     return true
 

@@ -23,7 +23,8 @@ function createWindow(...)
 
     createdElements[createdElement] = {
         gui = {},
-        scroller = {}
+        scroller = {},
+        renderTarget = false
     }
     for i, j in ipairs(availableElements[elementType].__syntax.parameters) do
         if j.name == "x" or j.name == "y" then
@@ -35,9 +36,10 @@ function createWindow(...)
         end
     end
     createdElements[createdElement].gui.postGUI = (parameters[7] and true) or false
+    createdElements[createdElement].gui.renderTarget = DxRenderTarget(createdElements[createdElement].gui.width, createdElements[createdElement].gui.height, false)
     createdElements[createdElement].gui.titleBar = {
         color = {175, 175, 175, 255},
-        closeBtn = {}
+        close_button = {}
     }
     createdElements[createdElement].isValid = true
     return createdElement
