@@ -50,7 +50,7 @@ end
 --[[ Function: Creates/Destroys Element ]]--
 --------------------------------------------
 
-function createElement(elementType, parentElement)
+function createElement(elementType, parentElement, sourceResource)
 
     if not elementType or not availableElements[elementType] then return false end
 
@@ -61,7 +61,7 @@ function createElement(elementType, parentElement)
         local isChildElement = false
         if parentElement and isElement(parentElement) then
             local parentType = parentElement:getType()
-            if createdElements[parentElement] and createdParentElements[parentElement] and availableElements[parentType] and availableElements[parentType].__allowedChildren and availableElements[parentType].__allowedChildren[elementType] then
+            if createdElements[parentElement] and createdParentElements[parentElement] and availableElements[parentType] and availableElements[parentType].__allowedChildren and availableElements[parentType].__allowedChildren[elementType] and createdElements[parentElement].sourceResource == sourceResource then
                 isChildElement = true
             else
                 return false
@@ -74,9 +74,11 @@ function createElement(elementType, parentElement)
             if availableElements[elementType].__allowedChildren then
                 createdParentElements[createdElement] = {}
             end
-            createdElements[createdElement] = {}
+            createdElements[createdElement] = {
+                sourceResource = sourceResource
+            }
         end
-        return createdElement        
+        return createdElement
     end
 
 end

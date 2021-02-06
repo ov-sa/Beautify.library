@@ -18,7 +18,7 @@ function createWindow(...)
     local parameters = {...}
     local elementType = "beautify_window"
     if not isUIParametersValid(parameters, elementType) then return false end
-    local createdElement = createElement(elementType)
+    local createdElement = createElement(elementType, nil, sourceResource)
     if not createdElement then return false end
     local uiTemplate = getUITemplate(elementType)
     if not uiTemplate then return false end
