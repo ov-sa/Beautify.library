@@ -83,7 +83,9 @@ end
 
 function destroyElement(element)
 
-    if element then
+
+    local elementType = element:getType()
+    if availableElements[elementType] then
         if createdElements[element] then
             createdElements[element].isValid = nil
             if createdParentElements[element] then
@@ -95,11 +97,25 @@ function destroyElement(element)
                 end
                 createdParentElements[element] = nil
             end
+            if createdElements[element].gui then
+                for i, j in pairs(createdElements[element].gui) do
+                    if i and isElement(i) then
+                        i:destroy()
+                    end
+                end
+            end
             createdElements[element] = nil
             return true
         else
             local elementParent = ____createdChildElements[element]
             if elementParent and createdParentElements[elementParent] then
+                if createdParentElements[elementParent][element].gui then
+                    for i, j in pairs(createdParentElements[elementParent][element].gui) do
+                        if i and isElement(i) then
+                            i:destroy()
+                        end
+                    end
+                end
                 createdParentElements[elementParent][element] = nil
                 ____createdChildElements[element] = nil
                 return true
