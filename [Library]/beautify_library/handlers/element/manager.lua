@@ -83,6 +83,7 @@ end
 
 function destroyElement(element)
 
+    if not element or not isElement(element) then return false end
 
     local elementType = element:getType()
     if availableElements[elementType] then
