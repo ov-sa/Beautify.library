@@ -23,9 +23,6 @@
     <script src="configurations/assets.lua" type="client" cache="false"/>
     <script src="configurations/elements.lua" type="client" cache="false"/>
 
-    <!-- TODO: REMOVE LATER -->
-    <script src="test.lua" type="client" cache="false"/>
-
     <!-- Files: Assets: Images -->
     <file src="files/assets/images/right_triangle/default.png"/>
     <file src="files/assets/images/right_triangle/flipped.png"/>
@@ -38,6 +35,9 @@
     <file src="files/assets/images/curved_square/bottom_left.png"/>
     <file src="files/assets/images/curved_square/bottom_right.png"/>
     <file src="files/assets/images/curved_square/square.png"/>
+
+    <!-- TODO: REMOVE LATER -->
+    <script src="test.lua" type="client" cache="false"/>
 
     <!-- Params: isUIValid(element) | Returns Boolean -->
     <export function="isUIValid" type="client"/>
