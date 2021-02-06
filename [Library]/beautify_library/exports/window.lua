@@ -20,6 +20,8 @@ function createWindow(...)
     if not isUIParametersValid(parameters, elementType) then return false end
     local createdElement = createElement(elementType)
     if not createdElement then return false end
+    local uiTemplate = getUITemplate(elementType)
+    if not uiTemplate then return false end
 
     createdElements[createdElement] = {
         gui = {},
@@ -38,7 +40,7 @@ function createWindow(...)
     createdElements[createdElement].gui.postGUI = (parameters[7] and true) or false
     createdElements[createdElement].gui.renderTarget = DxRenderTarget(createdElements[createdElement].gui.width, createdElements[createdElement].gui.height, false)
     createdElements[createdElement].gui.titleBar = {
-        color = {175, 175, 175, 255},
+        color = uiTemplate.titleBar.color,
         close_button = {}
     }
     createdElements[createdElement].isValid = true

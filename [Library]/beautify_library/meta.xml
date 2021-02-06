@@ -14,7 +14,7 @@
     <!-- Handlers -->
     <script src="handlers/logger/client.lua" type="client" cache="false"/>
     <script src="handlers/cache/asset.lua" type="client" cache="false"/>
-    <script src="handlers/cache/window.lua" type="client" cache="false"/>
+    <script src="handlers/cache/template.lua" type="client" cache="false"/>
     <script src="handlers/element/manager.lua" type="client" cache="false"/>
     <script src="handlers/element/renderer.lua" type="client" cache="false"/>
     <script src="handlers/renderer/window.lua" type="client" cache="false"/>
@@ -22,6 +22,7 @@
     <!-- Configurations -->
     <script src="configurations/assets.lua" type="client" cache="false"/>
     <script src="configurations/elements.lua" type="client" cache="false"/>
+    <script src="configurations/template.lua" type="client" cache="false"/>
 
     <!-- Files: Assets: Images -->
     <file src="files/assets/images/right_triangle/default.png"/>
