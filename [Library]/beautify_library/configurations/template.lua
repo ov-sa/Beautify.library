@@ -19,7 +19,10 @@ availableTemplate = {
         titleBar = {
             font = DxFont("files/assets/fonts/signika_semibold.ttf", 12, true),
             fontColor = {0, 0, 0, 255},
-            color = {175, 175, 175, 255}
+            color = {175, 175, 175, 255},
+            close_button = {
+                fontColor = {0, 0, 0, 255}
+            }
         }
     }
 

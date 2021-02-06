@@ -43,7 +43,9 @@ function createWindow(...)
         font = uiTemplate.titleBar.font,
         fontColor = uiTemplate.titleBar.fontColor,
         color = uiTemplate.titleBar.color,
-        close_button = {}
+        close_button = {
+            fontColor = uiTemplate.titleBar.close_button.fontColor
+        }
     }
     createdElements[createdElement].isValid = true
     return createdElement

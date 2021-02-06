@@ -35,7 +35,10 @@ availableElements = {
         __minimumSize = 75,
         __titleBar = {
             paddingX = 5,
-            height = 28
+            height = 28,
+            close_button = {
+                hoverAnimDuration = 1500
+            }
         }
     }
 
