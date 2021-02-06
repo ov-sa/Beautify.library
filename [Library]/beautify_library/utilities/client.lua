@@ -61,12 +61,30 @@ function fromColor(color)
 end
 
 
+----------------------------------------
+--[[ Event: On Client Resource Stop ]]--
+----------------------------------------
+
+local isLibraryResourceStopping = false
+addEventHandler("onClientResourceStop", root, function()
+
+    if source == resource then
+        isLibraryResourceStopping = true
+    else
+        --TODO: CLEAR RESOURCE'S GUIs
+    end
+
+end)
+
+
 ------------------------------------------
 --[[ Event: On Client Element Destroy ]]--
 ------------------------------------------
 
 addEventHandler("onClientElementDestroy", resourceRoot, function()
 
-    destroyElement(source)
+    if not isLibraryResourceStopping then
+        destroyElement(source)
+    end
 
 end)

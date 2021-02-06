@@ -24,6 +24,9 @@
     <script src="configurations/elements.lua" type="client" cache="false"/>
     <script src="configurations/template.lua" type="client" cache="false"/>
 
+    <!-- Files: Assets: Fonts -->
+    <file src="files/assets/fonts/signika_semibold.ttf"/>
+
     <!-- Files: Assets: Images -->
     <file src="files/assets/images/right_triangle/default.png"/>
     <file src="files/assets/images/right_triangle/flipped.png"/>

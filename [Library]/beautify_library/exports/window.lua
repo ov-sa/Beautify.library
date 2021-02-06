@@ -40,6 +40,8 @@ function createWindow(...)
     createdElements[createdElement].gui.postGUI = (parameters[7] and true) or false
     createdElements[createdElement].gui.renderTarget = DxRenderTarget(createdElements[createdElement].gui.width, createdElements[createdElement].gui.height, false)
     createdElements[createdElement].gui.titleBar = {
+        font = uiTemplate.titleBar.font,
+        fontColor = uiTemplate.titleBar.fontColor,
         color = uiTemplate.titleBar.color,
         close_button = {}
     }
