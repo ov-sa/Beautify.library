@@ -9,6 +9,63 @@
      Desc: Client Sided Utilities ]]--
 ----------------------------------------------------------------
 
+-------------------
+--[[ Variables ]]--
+-------------------
+
+sX, sY = GuiElement.getScreenSize()
+
+
+------------------------------------------------------
+--[[ Function: Retrieves Interpolation's Progress ]]--
+------------------------------------------------------
+
+function getInterpolationProgress(tickCount, delay)
+
+    if not tickCount or not delay then return false end
+
+    local now = getTickCount()
+    local endTime = tickCount + delay
+    local elapsedTime = now - tickCount
+    local duration = endTime - tickCount
+    local progress = elapsedTime / duration
+    return progress
+
+end
+
+
+--------------------------------------------------------
+--[[ Function: Retrieves Cursor's Absolute Position ]]--
+--------------------------------------------------------
+
+function getAbsoluteCursorPosition()
+
+    if not isCursorShowing() then return false end
+
+    local cX, cY = getCursorPosition()
+    return cX*sX, cY*sY
+
+end
+
+
+---------------------------------------------
+--[[ Function: Verifies Mouse's Position ]]--
+---------------------------------------------
+
+function isMouseOnPosition(x, y, w, h)
+
+    x = tonumber(x); y = tonumber(y); w = tonumber(w); h = tonumber(h);
+    if not isCursorShowing() then return false end
+    if not x or not y or not w or not h then return false end
+
+    local cX, cY = getAbsoluteCursorPosition()
+    if (cX >= x and cX <= x + w and cY >= y and cY <= y + h) then
+        return true
+    end
+    return false
+
+end
+
 
 --------------------------------------------
 --[[ Function: Verifies UI's Parameters ]]--
