@@ -18,6 +18,17 @@ createdParentElements = {}
 local ____createdChildElements = {}
 
 
+--------------------------------------------
+--[[ Function: Retrieves Child Elements ]]--
+--------------------------------------------
+
+function _____getChildElements()
+
+    return ____createdChildElements
+
+end
+
+
 -----------------------------------------
 --[[ Function: Retrieves UI's Parent ]]--
 -----------------------------------------

@@ -15,7 +15,14 @@
 
 addEventHandler("onClientRender", root, function()
 
-    --TODO: DRAW NON PARENT ELEMENTS FIRSTS.
+    for i, j in pairs(_____getChildElements()) do
+        if isUIValid(i) then
+            local elementType = i:getType()
+            if availableElements[elementType] and availableElements[elementType].__renderFunction and type(availableElements[elementType].__renderFunction) == "function" then
+                availableElements[elementType].__renderFunction(i)
+            end
+        end
+    end
 
     for i, j in pairs(createdParentElements) do
         if isUIValid(i) then
@@ -26,4 +33,4 @@ addEventHandler("onClientRender", root, function()
         end
     end
 
-end, true, "low-10")
+end, true, "low-999")
