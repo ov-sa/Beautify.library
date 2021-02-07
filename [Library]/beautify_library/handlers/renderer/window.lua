@@ -61,11 +61,11 @@ function renderWindow(element)
                 createdElements[element].gui.titleBar.close_button.hoverAnimTickCounter = getTickCount()
             end
         end
-        if not createdElements[element].gui.titleBar.close_button.animAlphaPercent then createdElements[element].gui.titleBar.close_button.animAlphaPercent = 0 end
+        if not createdElements[element].gui.titleBar.close_button.animAlphaPercent then createdElements[element].gui.titleBar.close_button.animAlphaPercent = availableElements["beautify_window"].__titleBar.close_button.minmumAnimPercent end
         if createdElements[element].gui.titleBar.close_button.hoverStatus == "forward" then
-            createdElements[element].gui.titleBar.close_button.animAlphaPercent = interpolateBetween(createdElements[element].gui.titleBar.close_button.animAlphaPercent, 0, 0, 0.7, 0, 0, getInterpolationProgress(createdElements[element].gui.titleBar.close_button.hoverAnimTickCounter, availableElements["beautify_window"].__titleBar.close_button.hoverAnimDuration), "InQuad")
+            createdElements[element].gui.titleBar.close_button.animAlphaPercent = interpolateBetween(createdElements[element].gui.titleBar.close_button.animAlphaPercent, 0, 0, availableElements["beautify_window"].__titleBar.close_button.maximumAnimPercent, 0, 0, getInterpolationProgress(createdElements[element].gui.titleBar.close_button.hoverAnimTickCounter, availableElements["beautify_window"].__titleBar.close_button.hoverAnimDuration), "InQuad")
         else
-            createdElements[element].gui.titleBar.close_button.animAlphaPercent = interpolateBetween(createdElements[element].gui.titleBar.close_button.animAlphaPercent, 0, 0, 0.4, 0, 0, getInterpolationProgress(createdElements[element].gui.titleBar.close_button.hoverAnimTickCounter, availableElements["beautify_window"].__titleBar.close_button.hoverAnimDuration), "InQuad")
+            createdElements[element].gui.titleBar.close_button.animAlphaPercent = interpolateBetween(createdElements[element].gui.titleBar.close_button.animAlphaPercent, 0, 0, availableElements["beautify_window"].__titleBar.close_button.minmumAnimPercent, 0, 0, getInterpolationProgress(createdElements[element].gui.titleBar.close_button.hoverAnimTickCounter, availableElements["beautify_window"].__titleBar.close_button.hoverAnimDuration), "InQuad")
         end
         dxDrawImage(window_startX, window_startY, window_titleBar_height, window_titleBar_height, createdAssets["images"]["curved_square/top_left.png"], 0, 0, 0, tocolor(unpack(window_titleBar_color)), window_postGUI)
         dxDrawRectangle(window_startX + window_titleBar_height, window_startY, window_width - (window_titleBar_height*2), window_titleBar_height, tocolor(unpack(window_titleBar_color)), window_postGUI)

@@ -37,6 +37,8 @@ availableElements = {
             paddingX = 5,
             height = 28,
             close_button = {
+                minmumAnimPercent = 0.4,
+                maximumAnimPercent = 0.7,
                 hoverAnimDuration = 1500
             }
         },
