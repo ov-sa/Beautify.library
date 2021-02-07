@@ -39,6 +39,9 @@ availableElements = {
             close_button = {
                 hoverAnimDuration = 1500
             }
+        },
+        __contentSection = {
+            padding = 5
         }
     }
 

@@ -38,7 +38,6 @@ function createWindow(...)
         end
     end
     createdElements[createdElement].gui.postGUI = (parameters[7] and true) or false
-    createdElements[createdElement].gui.renderTarget = DxRenderTarget(createdElements[createdElement].gui.width, createdElements[createdElement].gui.height, false)
     createdElements[createdElement].gui.titleBar = {
         font = uiTemplate.titleBar.font,
         fontColor = uiTemplate.titleBar.fontColor,
@@ -47,6 +46,15 @@ function createWindow(...)
             fontColor = uiTemplate.titleBar.close_button.fontColor
         }
     }
+    createdElements[createdElement].gui.contentSection = {
+        startX = availableElements["beautify_window"].__contentSection.padding,
+        startY = availableElements["beautify_window"].__titleBar.height + availableElements["beautify_window"].__contentSection.padding,
+        width = createdElements[createdElement].gui.width - (availableElements["beautify_window"].__contentSection.padding*2),
+        height = createdElements[createdElement].gui.height - availableElements["beautify_window"].__titleBar.height - (availableElements["beautify_window"].__contentSection.padding*2)
+    }
+    if createdElements[createdElement].gui.contentSection.width > 0 and createdElements[createdElement].gui.contentSection.height > 0 then
+        createdElements[createdElement].gui.renderTarget = DxRenderTarget(createdElements[createdElement].gui.contentSection.width, createdElements[createdElement].gui.contentSection.height, false)
+    end
     createdElements[createdElement].isValid = true
     return createdElement
 

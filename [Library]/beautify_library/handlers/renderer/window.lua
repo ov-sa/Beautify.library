@@ -22,9 +22,10 @@ function renderWindow(element)
     local window_startX, window_startY = createdElements[element].gui.x, createdElements[element].gui.y
     local window_width, window_height = createdElements[element].gui.width, createdElements[element].gui.height
     local window_color, window_titleBar_color = createdElements[element].gui.color, createdElements[element].gui.titleBar.color
+    local window_renderTarget_startX, window_renderTarget_startY = window_startX + createdElements[element].gui.contentSection.startX, window_startY + createdElements[element].gui.contentSection.startY
+    local window_renderTarget_width, window_renderTarget_height = createdElements[element].gui.contentSection.width, createdElements[element].gui.contentSection.height
     local window_renderTarget = createdElements[element].gui.renderTarget
     local window_postGUI = createdElements[element].gui.postGUI
-    local isRenderTargetToBeRendered = false
 
     dxDrawImage(window_startX, window_startY, window_borderSize, window_borderSize, createdAssets["images"]["curved_square/top_left.png"], 0, 0, 0, window_color, window_postGUI)
     dxDrawImage(window_startX + window_width - window_borderSize, window_startY, window_borderSize, window_borderSize, createdAssets["images"]["curved_square/top_right.png"], 0, 0, 0, window_color, window_postGUI)
@@ -40,7 +41,6 @@ function renderWindow(element)
     end
     if window_width > availableElements["beautify_window"].__minimumSize and window_height > availableElements["beautify_window"].__minimumSize then
         dxDrawRectangle(window_startX + window_borderSize, window_startY + window_borderSize, window_width - availableElements["beautify_window"].__minimumSize, window_height - availableElements["beautify_window"].__minimumSize, window_color, window_postGUI)
-        isRenderTargetToBeRendered = true
     end
     if (window_width >= window_titleBar_height) and (window_height >= window_titleBar_height) then
         local window_close_button_startX, window_close_button_startY = window_startX + window_width - window_titleBar_height, window_startY
@@ -77,14 +77,16 @@ function renderWindow(element)
         dxDrawLine(window_close_button_startX, window_startY + window_titleBar_height, window_close_button_startX + window_titleBar_height, window_startY + window_titleBar_height, tocolor(0, 0, 0, 150*createdElements[element].gui.titleBar.close_button.animAlphaPercent), 2, window_postGUI)
         --TODO: ADD NIGHT/DAY MODE TOGGLER..
     end
-    if isRenderTargetToBeRendered and window_renderTarget and isElement(window_renderTarget) then
+    if window_renderTarget and isElement(window_renderTarget) then
         dxSetRenderTarget(window_renderTarget, true)
         dxSetBlendMode("modulate_add")
+        dxDrawRectangle(0, 0, 1366, 1366, tocolor(255, 0, 0, 255), false)
+
         --TODO: ADD ELEMENTS HERE FOR WINDOW    
         dxSetBlendMode("blend")
         dxSetRenderTarget()
         dxSetBlendMode("add")
-        --dxDrawImage(0, 0, 500, 500, window_renderTarget, 0, 0, 0, tocolor(255, 255, 255, 255), window_postGUI)
+        dxDrawImage(window_renderTarget_startX, window_renderTarget_startY, window_renderTarget_width, window_renderTarget_height, window_renderTarget, 0, 0, 0, tocolor(255, 255, 255, 255), window_postGUI)
         dxSetBlendMode("blend")
     end
     return true
