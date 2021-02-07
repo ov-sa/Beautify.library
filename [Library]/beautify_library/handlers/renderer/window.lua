@@ -80,8 +80,6 @@ function renderWindow(element)
     if window_renderTarget and isElement(window_renderTarget) then
         dxSetRenderTarget(window_renderTarget, true)
         dxSetBlendMode("modulate_add")
-        dxDrawRectangle(0, 0, 1366, 1366, tocolor(255, 0, 0, 255), false)
-
         --TODO: ADD ELEMENTS HERE FOR WINDOW    
         dxSetBlendMode("blend")
         dxSetRenderTarget()

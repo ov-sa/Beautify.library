@@ -53,7 +53,7 @@ function createWindow(...)
         height = createdElements[createdElement].gui.height - availableElements["beautify_window"].__titleBar.height - (availableElements["beautify_window"].__contentSection.padding*2)
     }
     if createdElements[createdElement].gui.contentSection.width > 0 and createdElements[createdElement].gui.contentSection.height > 0 then
-        createdElements[createdElement].gui.renderTarget = DxRenderTarget(createdElements[createdElement].gui.contentSection.width, createdElements[createdElement].gui.contentSection.height, false)
+        createdElements[createdElement].gui.renderTarget = DxRenderTarget(createdElements[createdElement].gui.contentSection.width, createdElements[createdElement].gui.contentSection.height, true)
     end
     createdElements[createdElement].isValid = true
     return createdElement
