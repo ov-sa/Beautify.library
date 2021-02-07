@@ -22,6 +22,7 @@ local prevLMBClickState = false
 
 addEventHandler("onClientRender", root, function()
 
+    -->> Detects Key State <<--
     if not GuiElement.isMTAWindowActive() then
         if not prevLMBClickState then
             if getKeyState("mouse1") then
@@ -37,6 +38,22 @@ addEventHandler("onClientRender", root, function()
         isLMBClicked = false
     end
 
+    -->> Attaches Element <<--
+    local attachedElement = getAttachedElement()
+    if attachedElement then
+        if not attachedElement.element or not isElement(attachedElement.element) or not createdElements[attachedElement.element] then
+            detachElement()
+        elseif GuiElement.isMTAWindowActive() or not isCursorShowing() or not getKeyState("mouse1") or not isUIValid(attachedElement.element) or not isUIVisible(attachedElement.element) then
+            detachElement()
+        else
+            local cX, cY = getAbsoluteCursorPosition()
+            if cX and cY then
+                createdElements[attachedElement.element].gui.x, createdElements[attachedElement.element].gui.y = cX - attachedElement.offsetX, cY - attachedElement.offsetY
+            end
+        end
+    end
+
+    -->> Renders Element <<--
     for i, j in pairs(_____getChildElements()) do
         if isUIValid(i) then
             local elementType = i:getType()
@@ -45,7 +62,6 @@ addEventHandler("onClientRender", root, function()
             end
         end
     end
-
     for i, j in pairs(createdParentElements) do
         if isUIValid(i) then
             local elementType = i:getType()

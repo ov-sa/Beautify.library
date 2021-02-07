@@ -87,6 +87,9 @@ function renderWindow(element)
         dxDrawImage(window_renderTarget_startX, window_renderTarget_startY, window_renderTarget_width, window_renderTarget_height, window_renderTarget, 0, 0, 0, tocolor(255, 255, 255, 255), window_postGUI)
         dxSetBlendMode("blend")
     end
+    if isLMBClicked then
+        attachElement(element)
+    end
     return true
 
 end
