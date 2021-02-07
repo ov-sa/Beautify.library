@@ -32,7 +32,7 @@ availableElements = {
         __allowedChildren = {
             
         },
-        __minimumSize = 75,
+        __minimumSize = 56,
         __titleBar = {
             paddingX = 5,
             height = 28,

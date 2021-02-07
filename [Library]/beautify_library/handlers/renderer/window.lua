@@ -46,6 +46,11 @@ function renderWindow(element)
         local window_close_button_startX, window_close_button_startY = window_startX + window_width - window_titleBar_height, window_startY
         local isCloseButtonHovered = isMouseOnPosition(window_close_button_startX, window_close_button_startY, window_titleBar_height, window_titleBar_height)
         if isCloseButtonHovered then
+            if isLMBClicked then
+                Timer(function(element)
+                    setUIVisible(element, false)
+                end, 1, 1, element)
+            end
             if createdElements[element].gui.titleBar.close_button.hoverStatus ~= "forward" then
                 createdElements[element].gui.titleBar.close_button.hoverStatus = "forward"
                 createdElements[element].gui.titleBar.close_button.hoverAnimTickCounter = getTickCount()

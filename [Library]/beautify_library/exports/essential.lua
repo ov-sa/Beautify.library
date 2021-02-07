@@ -60,3 +60,30 @@ function isUIVisible(element)
     return false
 
 end
+
+
+----------------------------------------
+--[[ Function: Sets UI's Visibility ]]--
+----------------------------------------
+
+function setUIVisible(element, state)
+
+    if element and isElement(element) and isUIValid(element) and (state == true or state == false) then
+        if createdElements[element] then
+            if createdElements[element].isVisible ~= state then
+                createdElements[element].isVisible = state
+                return true
+            end
+        else
+            local elementParent = getUIParent(element)
+            if elementParent then
+                if createdElements[elementParent].isVisible ~= state then
+                    createdElements[elementParent].isVisible = state
+                    return true
+                end
+            end
+        end
+    end
+    return false
+
+end

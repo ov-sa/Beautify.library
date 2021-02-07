@@ -15,6 +15,7 @@
     <script src="handlers/logger/client.lua" type="client" cache="false"/>
     <script src="handlers/cache/asset.lua" type="client" cache="false"/>
     <script src="handlers/cache/template.lua" type="client" cache="false"/>
+    <script src="handlers/element/event.lua" type="client" cache="false"/>
     <script src="handlers/element/manager.lua" type="client" cache="false"/>
     <script src="handlers/element/renderer.lua" type="client" cache="false"/>
     <script src="handlers/renderer/window.lua" type="client" cache="false"/>
@@ -51,6 +52,9 @@
 
     <!-- Params: isUIVisible(element) | Returns Boolean -->
     <export function="isUIVisible" type="client"/>
+
+    <!-- Params: setUIVisible(element, state) | Returns Boolean -->
+    <export function="setUIVisible" type="client"/>
 
     <!-- Params: createWindow(x, y, width, height, title, color, postGUI) | Returns Element; Else false Boolean -->
     <export function="createWindow" type="client"/>
