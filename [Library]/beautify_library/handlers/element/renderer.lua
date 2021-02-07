@@ -48,7 +48,7 @@ addEventHandler("onClientRender", root, function()
         else
             local cX, cY = getAbsoluteCursorPosition()
             if cX and cY then
-                createdElements[attachedElement.element].gui.x, createdElements[attachedElement.element].gui.y = cX - attachedElement.offsetX, cY - attachedElement.offsetY
+                createdElements[attachedElement.element].gui.x, createdElements[attachedElement.element].gui.y = interpolateBetween(createdElements[attachedElement.element].gui.x, createdElements[attachedElement.element].gui.y, 0, cX - attachedElement.offsetX, cY - attachedElement.offsetY, 0, 0.3, "InQuad")
             end
         end
     end
