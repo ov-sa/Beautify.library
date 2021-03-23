@@ -32,6 +32,9 @@ function createWindow(...)
             elementReference.gui[j.name] = math.max(0, parameters[i])
         elseif j.name == "width" or j.name == "height" then
             elementReference.gui[j.name] = math.max(availableElements[elementType].__minimumSize, parameters[i]) + (availableElements[elementType].__contentSection.padding*2)
+            if j.name == "height" then
+                elementReference.gui[j.name] = elementReference.gui[j.name] + availableElements["beautify_window"].__titleBar.height
+            end
         else
             elementReference.gui[j.name] = parameters[i]
         end

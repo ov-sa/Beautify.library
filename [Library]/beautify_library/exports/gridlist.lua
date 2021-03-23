@@ -25,6 +25,15 @@ function createGridlist(...)
 
     local elementReference = (elementParent and createdParentElements[elementParent][createdElement]) or createdElements[createdElement]
     elementReference.gui = {}
+    elementReference.gridData = {
+        columns = {
+            --TODO: TESTING... XD
+            {name = "S.No", width = 75},
+            {name = "Name", width = 250},
+            {name = "Rank", width = 100}
+        },
+        rows = {}
+    }
     elementReference.scroller = {}
     elementReference.renderTarget = {}
     for i, j in ipairs(availableElements[elementType].__syntax.parameters) do

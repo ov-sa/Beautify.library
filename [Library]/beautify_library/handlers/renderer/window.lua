@@ -19,10 +19,10 @@ function renderWindow(element)
 
     local elementReference = createdElements[element]
     local window_borderSize = availableElements["beautify_window"].__minimumSize/2
-    local window_titleBar_paddingX, window_titleBar_height = availableElements["beautify_window"].__titleBar.paddingX, availableElements["beautify_window"].__titleBar.height
     local window_startX, window_startY = elementReference.gui.x, elementReference.gui.y
     local window_width, window_height = elementReference.gui.width, elementReference.gui.height
     local window_color, window_titleBar_color = tocolor(unpack(elementReference.gui.color)), tocolor(unpack(elementReference.gui.titleBar.color))
+    local window_titleBar_paddingX, window_titleBar_height = availableElements["beautify_window"].__titleBar.paddingX, availableElements["beautify_window"].__titleBar.height
     local window_titleBar_divider_size, window_titleBar_divider_color = elementReference.gui.titleBar.divider.size, tocolor(unpack(elementReference.gui.titleBar.divider.color))
     local window_renderTarget_startX, window_renderTarget_startY = window_startX + elementReference.gui.contentSection.startX, window_startY + elementReference.gui.contentSection.startY
     local window_renderTarget_width, window_renderTarget_height = elementReference.gui.contentSection.width, elementReference.gui.contentSection.height
@@ -103,9 +103,7 @@ function renderWindow(element)
         end
         dxSetBlendMode("blend")
         dxSetRenderTarget()
-        dxSetBlendMode("add")
         dxDrawImage(window_renderTarget_startX, window_renderTarget_startY, window_renderTarget_width, window_renderTarget_height, window_renderTarget, 0, 0, 0, tocolor(255, 255, 255, 255), window_postGUI)
-        dxSetBlendMode("blend")
     end
     return true
 

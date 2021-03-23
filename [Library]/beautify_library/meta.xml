@@ -29,6 +29,7 @@
     <script src="configurations/template.lua" type="client" cache="false"/>
 
     <!-- Files: Assets: Fonts -->
+    <file src="files/assets/fonts/teko_medium.ttf"/>
     <file src="files/assets/fonts/signika_semibold.ttf"/>
 
     <!-- Files: Assets: Images -->

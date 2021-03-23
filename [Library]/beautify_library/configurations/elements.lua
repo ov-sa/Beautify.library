@@ -57,18 +57,10 @@ availableElements = {
         __renderFunction = renderGridlist,
         __allowedChildren = {},
         __minimumSize = 25,
-        --[[
-        __titleBar = {
-            paddingX = 5,
-            height = 25,
-            close_button = {
-                hoverAnimDuration = 1000
-            }
-        },
-        __contentSection = {
-            padding = 5
+        __columnBar = {
+            padding = 5,
+            height = 22,
         }
-        ]]--
     }
 
 }
