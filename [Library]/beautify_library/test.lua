@@ -9,7 +9,7 @@ addEventHandler("onClientResourceStart", resource, function()
 
     local window_width, window_height = 700, 350
     local createdWindow = createWindow((sX*1366 - window_width)/2, (sY*768 - window_height)/2, window_width, window_height, "My First Window", false)
-    local createdGridlist = createGridlist(0, 0, 680, 330, createdWindow, false)
+    local createdGridlist = createGridlist(0, 0, window_width, window_height, createdWindow, false)
     print(tostring(createdGridlist))
     setUIVisible(createdWindow, true)
     showCursor(true)
