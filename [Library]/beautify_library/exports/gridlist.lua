@@ -38,7 +38,7 @@ function createGridlist(...)
         end
     end
     ]]--
-    elementReference.gui.postGUI = (parameters[6] and true) or false
+    elementReference.gui.postGUI = (not elementParent and (parameters[6] and true)) or false
     for i, j in pairs(uiTemplate) do
         elementReference.gui[i] = table.copy(j, true)
     end
