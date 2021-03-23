@@ -16,6 +16,27 @@
 sX, sY = GuiElement.getScreenSize()
 
 
+-------------------------------------------
+--[[ Function: Retrieves Copy Of Table ]]--
+-------------------------------------------
+
+function table.copy(recievedTable, recursive)
+
+    if not recievedTable or type(recievedTable) ~= "table" then return false end
+
+    local copiedTable = {}
+    for key, value in pairs(recievedTable) do
+        if type(value) == "table" and recursive then
+            copiedTable[key] = table.copy(value, true)
+        else
+            copiedTable[key] = value
+        end
+    end
+    return copiedTable
+
+end
+
+
 ------------------------------------------------------
 --[[ Function: Retrieves Interpolation's Progress ]]--
 ------------------------------------------------------

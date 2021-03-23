@@ -38,14 +38,7 @@ function createWindow(...)
         end
     end
     createdElements[createdElement].gui.postGUI = (parameters[7] and true) or false
-    createdElements[createdElement].gui.titleBar = {
-        font = uiTemplate.titleBar.font,
-        fontColor = uiTemplate.titleBar.fontColor,
-        color = uiTemplate.titleBar.color,
-        close_button = {
-            fontColor = uiTemplate.titleBar.close_button.fontColor
-        }
-    }
+    createdElements[createdElement].gui.titleBar = table.copy(uiTemplate.titleBar, true)
     createdElements[createdElement].gui.contentSection = {
         startX = availableElements["beautify_window"].__contentSection.padding,
         startY = availableElements["beautify_window"].__titleBar.height + availableElements["beautify_window"].__contentSection.padding,

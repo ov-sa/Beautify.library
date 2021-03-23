@@ -18,10 +18,15 @@ availableTemplate = {
     ["beautify_window"] = {
         titleBar = {
             font = DxFont("files/assets/fonts/signika_semibold.ttf", 12, true),
-            fontColor = {0, 0, 0, 255},
-            color = {175, 175, 175, 255},
+            fontColor = {50, 75, 200, 255},
+            color = {0, 0, 0, 255},
+            divider = {
+                size = 2,
+                color = {80, 80, 255, 75}
+            },
             close_button = {
-                fontColor = {0, 0, 0, 255}
+                fontColor = {175, 175, 175, 0},
+                hoverColor = {50, 75, 200, 255}
             }
         }
     }

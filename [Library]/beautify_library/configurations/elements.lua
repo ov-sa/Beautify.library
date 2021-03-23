@@ -35,11 +35,9 @@ availableElements = {
         __minimumSize = 56,
         __titleBar = {
             paddingX = 5,
-            height = 28,
+            height = 25,
             close_button = {
-                minmumAnimPercent = 0.4,
-                maximumAnimPercent = 0.7,
-                hoverAnimDuration = 1500
+                hoverAnimDuration = 1000
             }
         },
         __contentSection = {
