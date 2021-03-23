@@ -9,9 +9,3 @@
 
 ### Documentation:
 
-***
-### Collaborators:
-  - #### Tron
-  - #### Mario
-  - #### Aviril
-  - #### IAN
