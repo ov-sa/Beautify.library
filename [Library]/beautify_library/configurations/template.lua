@@ -25,7 +25,8 @@ availableTemplate = {
                 color = {80, 80, 255, 75}
             },
             close_button = {
-                fontColor = {175, 175, 175, 0},
+                fontColor = {80, 80, 255, 255},
+                hoverFontColor = {0, 0, 0, 255},
                 hoverColor = {50, 75, 200, 255}
             }
         }
