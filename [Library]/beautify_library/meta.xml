@@ -21,6 +21,7 @@
     <script src="handlers/element/attacher.lua" type="client" cache="false"/>
     <script src="handlers/element/renderer.lua" type="client" cache="false"/>
     <script src="handlers/renderer/window.lua" type="client" cache="false"/>
+    <script src="handlers/renderer/gridlist.lua" type="client" cache="false"/>
 
     <!-- Configurations -->
     <script src="configurations/assets.lua" type="client" cache="false"/>

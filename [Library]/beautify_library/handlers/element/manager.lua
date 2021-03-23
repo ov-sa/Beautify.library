@@ -69,7 +69,10 @@ function createElement(elementType, parentElement, sourceResource)
         end
         if isChildElement then
             ____createdChildElements[createdElement] = parentElement
-            createdParentElements[parentElement][createdElement] = {}
+            createdParentElements[parentElement][createdElement] = {
+                isValid = false,
+                isVisible = true
+            }
         else
             if availableElements[elementType].__allowedChildren then
                 createdParentElements[createdElement] = {}
@@ -80,7 +83,7 @@ function createElement(elementType, parentElement, sourceResource)
                 isVisible = false
             }
         end
-        return createdElement
+        return createdElement, parentElement
     end
 
 end

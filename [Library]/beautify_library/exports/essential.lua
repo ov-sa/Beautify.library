@@ -52,8 +52,8 @@ function isUIVisible(element)
             return createdElements[element].isVisible
         else
             local elementParent = getUIParent(element)
-            if elementParent then
-                return createdElements[elementParent].isVisible
+            if elementParent and createdParentElements[elementParent][element] and createdElements[elementParent].isVisible then
+                return createdParentElements[elementParent][element].isVisible
             end
         end
     end
@@ -76,9 +76,9 @@ function setUIVisible(element, state)
             end
         else
             local elementParent = getUIParent(element)
-            if elementParent then
-                if createdElements[elementParent].isVisible ~= state then
-                    createdElements[elementParent].isVisible = state
+            if elementParent and createdParentElements[elementParent][element] then
+                if createdParentElements[elementParent][element].isVisible ~= state then
+                    createdParentElements[elementParent][element].isVisible = state
                     return true
                 end
             end

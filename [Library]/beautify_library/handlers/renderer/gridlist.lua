@@ -1,22 +1,26 @@
 ----------------------------------------------------------------
 --[[ Resource: Beautify Library
-     Script: handlers: renderer: window.lua
+     Script: handlers: renderer: gridlist.lua
      Server: -
      Author: OvileAmriam
      Developer: -
      DOC: 01/02/2021 (OvileAmriam)
-     Desc: Window's Renderer ]]--
+     Desc: Grid List's Renderer ]]--
 ----------------------------------------------------------------
 
 
-----------------------------------
---[[ Function: Renders Window ]]--
-----------------------------------
+-------------------------------------
+--[[ Function: Renders Grid List ]]--
+-------------------------------------
 
-function renderWindow(element)
+function renderGridlist(element)
 
-    if not isUIValid(element) or element:getType() ~= "beautify_window" then return false end
+    if not isUIValid(element) or element:getType() ~= "beautify_gridlist" then return false end
 
+    outputChatBox("WEW XD")
+    dxDrawRectangle(0, 0, 500, 500, tocolor(255, 0, 0, 255), false, true)
+
+    --[[
     local window_borderSize = availableElements["beautify_window"].__minimumSize/2
     local window_titleBar_paddingX, window_titleBar_height = availableElements["beautify_window"].__titleBar.paddingX, availableElements["beautify_window"].__titleBar.height
     local window_startX, window_startY = createdElements[element].gui.x, createdElements[element].gui.y
@@ -92,20 +96,14 @@ function renderWindow(element)
     if window_renderTarget and isElement(window_renderTarget) then
         dxSetRenderTarget(window_renderTarget, true)
         dxSetBlendMode("modulate_add")
-        for i, j in pairs(createdParentElements[element]) do
-            if isUIValid(i) and isUIVisible(i) then
-                local child_elementType = i:getType()
-                if availableElements[child_elementType] and availableElements[child_elementType].__renderFunction and type(availableElements[child_elementType].__renderFunction) == "function" then
-                    availableElements[child_elementType].__renderFunction(i)
-                end
-            end
-        end
+        --TODO: ADD ELEMENTS HERE FOR WINDOW    
         dxSetBlendMode("blend")
         dxSetRenderTarget()
         dxSetBlendMode("add")
         dxDrawImage(window_renderTarget_startX, window_renderTarget_startY, window_renderTarget_width, window_renderTarget_height, window_renderTarget, 0, 0, 0, tocolor(255, 255, 255, 255), window_postGUI)
         dxSetBlendMode("blend")
     end
+    ]]--
     return true
 
 end

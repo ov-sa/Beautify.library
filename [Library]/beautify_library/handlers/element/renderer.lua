@@ -55,16 +55,8 @@ addEventHandler("onClientRender", root, function()
     end
 
     -->> Renders Element <<--
-    for i, j in pairs(_____getChildElements()) do
-        if isUIValid(i) then
-            local elementType = i:getType()
-            if availableElements[elementType] and availableElements[elementType].__renderFunction and type(availableElements[elementType].__renderFunction) == "function" then
-                availableElements[elementType].__renderFunction(i)
-            end
-        end
-    end
     for i, j in pairs(createdParentElements) do
-        if isUIValid(i) then
+        if isUIValid(i) and isUIVisible(i) then
             local elementType = i:getType()
             if availableElements[elementType] and availableElements[elementType].__renderFunction and type(availableElements[elementType].__renderFunction) == "function" then
                 availableElements[elementType].__renderFunction(i)

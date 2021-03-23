@@ -23,34 +23,33 @@ function createWindow(...)
     local uiTemplate = getUITemplate(elementType)
     if not uiTemplate then return false end
 
-    createdElements[createdElement] = {
-        gui = {},
-        scroller = {},
-        renderTarget = false
-    }
+    local elementReference = createdElements[createdElement]
+    elementReference.gui = {}
+    elementReference.scroller = {}
+    elementReference.renderTarget = {}
     for i, j in ipairs(availableElements[elementType].__syntax.parameters) do
         if j.name == "x" or j.name == "y" then
-            createdElements[createdElement].gui[j.name] = math.max(0, parameters[i])
+            elementReference.gui[j.name] = math.max(0, parameters[i])
         elseif j.name == "width" or j.name == "height" then
-            createdElements[createdElement].gui[j.name] = math.max(availableElements[elementType].__minimumSize, parameters[i])
+            elementReference.gui[j.name] = math.max(availableElements[elementType].__minimumSize, parameters[i])
         else
-            createdElements[createdElement].gui[j.name] = parameters[i]
+            elementReference.gui[j.name] = parameters[i]
         end
     end
-    createdElements[createdElement].gui.postGUI = (parameters[6] and true) or false
+    elementReference.gui.postGUI = (parameters[6] and true) or false
     for i, j in pairs(uiTemplate) do
-        createdElements[createdElement].gui[i] = table.copy(j, true)
+        elementReference.gui[i] = table.copy(j, true)
     end
-    createdElements[createdElement].gui.contentSection = {
+    elementReference.gui.contentSection = {
         startX = availableElements["beautify_window"].__contentSection.padding,
         startY = availableElements["beautify_window"].__titleBar.height + availableElements["beautify_window"].__contentSection.padding,
-        width = createdElements[createdElement].gui.width - (availableElements["beautify_window"].__contentSection.padding*2),
-        height = createdElements[createdElement].gui.height - availableElements["beautify_window"].__titleBar.height - (availableElements["beautify_window"].__contentSection.padding*2)
+        width = elementReference.gui.width - (availableElements["beautify_window"].__contentSection.padding*2),
+        height = elementReference.gui.height - availableElements["beautify_window"].__titleBar.height - (availableElements["beautify_window"].__contentSection.padding*2)
     }
-    if createdElements[createdElement].gui.contentSection.width > 0 and createdElements[createdElement].gui.contentSection.height > 0 then
-        createdElements[createdElement].gui.renderTarget = DxRenderTarget(createdElements[createdElement].gui.contentSection.width, createdElements[createdElement].gui.contentSection.height, true)
+    if elementReference.gui.contentSection.width > 0 and elementReference.gui.contentSection.height > 0 then
+        elementReference.gui.renderTarget = DxRenderTarget(elementReference.gui.contentSection.width, elementReference.gui.contentSection.height, true)
     end
-    createdElements[createdElement].isValid = true
+    elementReference.isValid = true
     return createdElement
 
 end
