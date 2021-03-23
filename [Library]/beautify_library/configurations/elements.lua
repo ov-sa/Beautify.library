@@ -56,8 +56,8 @@ availableElements = {
         },
         __renderFunction = renderGridlist,
         __allowedChildren = {},
+        __minimumSize = 25,
         --[[
-        __minimumSize = 56,
         __titleBar = {
             paddingX = 5,
             height = 25,

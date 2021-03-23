@@ -27,7 +27,6 @@ function createGridlist(...)
     elementReference.gui = {}
     elementReference.scroller = {}
     elementReference.renderTarget = {}
-    --[[
     for i, j in ipairs(availableElements[elementType].__syntax.parameters) do
         if j.name == "x" or j.name == "y" then
             elementReference.gui[j.name] = math.max(0, parameters[i])
@@ -37,7 +36,6 @@ function createGridlist(...)
             elementReference.gui[j.name] = parameters[i]
         end
     end
-    ]]--
     elementReference.gui.postGUI = (not elementParent and (parameters[6] and true)) or false
     for i, j in pairs(uiTemplate) do
         elementReference.gui[i] = table.copy(j, true)
