@@ -29,7 +29,7 @@ availableElements = {
         },
         __renderFunction = renderWindow,
         __allowedChildren = {
-            
+            ["beautify_gridlist"] = true
         },
         __minimumSize = 56,
         __titleBar = {
@@ -42,6 +42,33 @@ availableElements = {
         __contentSection = {
             padding = 5
         }
+    },
+
+    ["beautify_gridlist"] = {
+        __syntax = {
+            functionName = "createGridlist",
+            parameters = {
+                {name = "x", type = "float"},
+                {name = "y", type = "float"},
+                {name = "width", type = "float"},
+                {name = "height", type = "float"}
+            },
+        },
+        __renderFunction = createGridlist,
+        __allowedChildren = {},
+        --[[
+        __minimumSize = 56,
+        __titleBar = {
+            paddingX = 5,
+            height = 25,
+            close_button = {
+                hoverAnimDuration = 1000
+            }
+        },
+        __contentSection = {
+            padding = 5
+        }
+        ]]--
     }
 
 }

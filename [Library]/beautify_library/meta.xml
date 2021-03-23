@@ -6,6 +6,7 @@
     <!-- Exports -->
     <script src="exports/essential.lua" type="client" cache="false"/>
     <script src="exports/window.lua" type="client" cache="false"/>
+    <script src="exports/gridlist.lua" type="client" cache="false"/>
 
     <!-- Settings & Utilities -->
     <script src="utilities/client.lua" type="client" cache="false"/>
@@ -57,7 +58,10 @@
     <!-- Params: setUIVisible(element, state) | Returns Boolean -->
     <export function="setUIVisible" type="client"/>
 
-    <!-- Params: createWindow(x, y, width, height, title, color, postGUI) | Returns Element; Else false Boolean -->
+    <!-- Params: createWindow(x, y, width, height, title, postGUI) | Returns Element; Else false Boolean -->
     <export function="createWindow" type="client"/>
+
+    <!-- Params: createGridlist(x, y, width, height, parent, postGUI) | Returns Element; Else false Boolean -->
+    <export function="createGridlist" type="client"/>
 
 </meta>
