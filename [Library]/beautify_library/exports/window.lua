@@ -37,8 +37,10 @@ function createWindow(...)
             createdElements[createdElement].gui[j.name] = parameters[i]
         end
     end
-    createdElements[createdElement].gui.postGUI = (parameters[7] and true) or false
-    createdElements[createdElement].gui.titleBar = table.copy(uiTemplate.titleBar, true)
+    createdElements[createdElement].gui.postGUI = (parameters[6] and true) or false
+    for i, j in pairs(uiTemplate) do
+        createdElements[createdElement].gui[i] = table.copy(j, true)
+    end
     createdElements[createdElement].gui.contentSection = {
         startX = availableElements["beautify_window"].__contentSection.padding,
         startY = availableElements["beautify_window"].__titleBar.height + availableElements["beautify_window"].__contentSection.padding,

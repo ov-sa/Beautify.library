@@ -21,8 +21,8 @@ function renderWindow(element)
     local window_titleBar_paddingX, window_titleBar_height = availableElements["beautify_window"].__titleBar.paddingX, availableElements["beautify_window"].__titleBar.height
     local window_startX, window_startY = createdElements[element].gui.x, createdElements[element].gui.y
     local window_width, window_height = createdElements[element].gui.width, createdElements[element].gui.height
-    local window_color, window_titleBar_color = createdElements[element].gui.color, createdElements[element].gui.titleBar.color
-    local window_titleBar_divider_size, window_titleBar_divider_color = createdElements[element].gui.titleBar.divider.size, createdElements[element].gui.titleBar.divider.color
+    local window_color, window_titleBar_color = tocolor(unpack(createdElements[element].gui.color)), tocolor(unpack(createdElements[element].gui.titleBar.color))
+    local window_titleBar_divider_size, window_titleBar_divider_color = createdElements[element].gui.titleBar.divider.size, tocolor(unpack(createdElements[element].gui.titleBar.divider.color))
     local window_renderTarget_startX, window_renderTarget_startY = window_startX + createdElements[element].gui.contentSection.startX, window_startY + createdElements[element].gui.contentSection.startY
     local window_renderTarget_width, window_renderTarget_height = createdElements[element].gui.contentSection.width, createdElements[element].gui.contentSection.height
     local window_renderTarget = createdElements[element].gui.renderTarget
@@ -78,15 +78,15 @@ function renderWindow(element)
         else
             createdElements[element].gui.titleBar.close_button.animAlphaPercent = interpolateBetween(createdElements[element].gui.titleBar.close_button.animAlphaPercent, 0, 0, 0, 0, 0, getInterpolationProgress(createdElements[element].gui.titleBar.close_button.hoverAnimTickCounter, availableElements["beautify_window"].__titleBar.close_button.hoverAnimDuration), "InQuad")
         end
-        dxDrawImage(window_startX, window_startY, window_titleBar_height, window_titleBar_height, createdAssets["images"]["curved_square/top_left.png"], 0, 0, 0, tocolor(unpack(window_titleBar_color)), window_postGUI)
-        dxDrawRectangle(window_startX + window_titleBar_height, window_startY, window_width - (window_titleBar_height*2), window_titleBar_height, tocolor(unpack(window_titleBar_color)), window_postGUI, true)
-        dxDrawImage(window_close_button_startX, window_close_button_startY, window_titleBar_height, window_titleBar_height, createdAssets["images"]["curved_square/top_right.png"], 0, 0, 0, tocolor(unpack(window_titleBar_color)), window_postGUI)
+        dxDrawImage(window_startX, window_startY, window_titleBar_height, window_titleBar_height, createdAssets["images"]["curved_square/top_left.png"], 0, 0, 0, window_titleBar_color, window_postGUI)
+        dxDrawRectangle(window_startX + window_titleBar_height, window_startY, window_width - (window_titleBar_height*2), window_titleBar_height, window_titleBar_color, window_postGUI, true)
+        dxDrawImage(window_close_button_startX, window_close_button_startY, window_titleBar_height, window_titleBar_height, createdAssets["images"]["curved_square/top_right.png"], 0, 0, 0, window_titleBar_color, window_postGUI)
         dxDrawImage(window_close_button_startX, window_close_button_startY, window_titleBar_height, window_titleBar_height, createdAssets["images"]["curved_square/top_right.png"], 0, 0, 0, tocolor(createdElements[element].gui.titleBar.close_button.hoverColor[1], createdElements[element].gui.titleBar.close_button.hoverColor[2], createdElements[element].gui.titleBar.close_button.hoverColor[3], createdElements[element].gui.titleBar.close_button.hoverColor[4]*createdElements[element].gui.titleBar.close_button.animAlphaPercent), window_postGUI)
         dxDrawText("X", window_close_button_startX, window_close_button_startY, window_close_button_startX + window_titleBar_height, window_startY + window_titleBar_height, tocolor(unpack(createdElements[element].gui.titleBar.close_button.fontColor)), 1, createdElements[element].gui.titleBar.font, "center", "center", true, false, window_postGUI, false, true)
         dxDrawText("X", window_close_button_startX, window_close_button_startY, window_close_button_startX + window_titleBar_height, window_startY + window_titleBar_height, tocolor(createdElements[element].gui.titleBar.close_button.hoverFontColor[1], createdElements[element].gui.titleBar.close_button.hoverFontColor[2], createdElements[element].gui.titleBar.close_button.hoverFontColor[3], createdElements[element].gui.titleBar.close_button.hoverFontColor[4]*createdElements[element].gui.titleBar.close_button.animAlphaPercent), 1, createdElements[element].gui.titleBar.font, "center", "center", true, false, window_postGUI, false, true)
         dxDrawText(createdElements[element].gui.title, window_startX + window_titleBar_paddingX, window_startY, window_startX + window_width - window_titleBar_height - window_titleBar_paddingX, window_startY + window_titleBar_height, tocolor(unpack(createdElements[element].gui.titleBar.fontColor)), 1, createdElements[element].gui.titleBar.font, "center", "center", true, false, window_postGUI, false, true)
-    	dxDrawLine(window_close_button_startX, window_close_button_startY, window_close_button_startX, window_close_button_startY + window_titleBar_height, tocolor(unpack(window_titleBar_divider_color)), window_titleBar_divider_size, window_postGUI)
-        dxDrawLine(window_startX, window_startY + window_titleBar_height, window_startX + window_width, window_startY + window_titleBar_height, tocolor(unpack(window_titleBar_divider_color)), window_titleBar_divider_size, window_postGUI)
+    	dxDrawLine(window_close_button_startX, window_close_button_startY, window_close_button_startX, window_close_button_startY + window_titleBar_height, window_titleBar_divider_color, window_titleBar_divider_size, window_postGUI)
+        dxDrawLine(window_startX, window_startY + window_titleBar_height, window_startX + window_width, window_startY + window_titleBar_height, window_titleBar_divider_color, window_titleBar_divider_size, window_postGUI)
         --TODO: ADD NIGHT/DAY MODE TOGGLER..
     end
     if window_renderTarget and isElement(window_renderTarget) then

@@ -16,8 +16,9 @@
 availableTemplate = {
 
     ["beautify_window"] = {
+        color = {0, 0, 0, 250},
         titleBar = {
-            font = DxFont("files/assets/fonts/signika_semibold.ttf", 12, true),
+            font = DxFont("files/assets/fonts/signika_semibold.ttf", 12),
             fontColor = {50, 75, 200, 255},
             color = {0, 0, 0, 255},
             divider = {

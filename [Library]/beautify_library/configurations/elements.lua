@@ -24,8 +24,7 @@ availableElements = {
                 {name = "y", type = "float"},
                 {name = "width", type = "float"},
                 {name = "height", type = "float"},
-                {name = "title", type = "string"},
-                {name = "color", type = "number"}
+                {name = "title", type = "string"}
             },
         },
         __renderFunction = renderWindow,
