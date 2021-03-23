@@ -31,6 +31,19 @@ availableTemplate = {
                 hoverColor = {50, 75, 200, 255}
             }
         }
+    },
+
+    ["beautify_gridlist"] = {
+        color = {10, 10, 10, 250},
+        titleBar = {
+            font = DxFont("files/assets/fonts/signika_semibold.ttf", 10),
+            fontColor = {50, 75, 200, 255},
+            color = {0, 0, 0, 255},
+            divider = {
+                size = 2,
+                color = {80, 80, 255, 75}
+            }
+        }
     }
 
 }

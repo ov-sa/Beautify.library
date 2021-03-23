@@ -54,7 +54,7 @@ availableElements = {
                 {name = "height", type = "float"}
             },
         },
-        __renderFunction = createGridlist,
+        __renderFunction = renderGridlist,
         __allowedChildren = {},
         --[[
         __minimumSize = 56,
