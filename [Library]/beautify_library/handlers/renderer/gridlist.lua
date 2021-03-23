@@ -32,13 +32,13 @@ function renderGridlist(element)
     for i, j in ipairs(elementReference.gridData.columns) do
         local _column_offsetX = (tonumber(column_offsets[i - 1] and column_offsets[i - 1].endX) or 0) + gridlist_columnBar_divider_size
         column_offsets[i] = {
-            startX = gridlist_startX + _column_offsetX - gridlist_columnBar_padding,
-            endX = gridlist_startX + _column_offsetX + j.width + gridlist_columnBar_divider_size + gridlist_columnBar_padding
+            startX = _column_offsetX,
+            endX = _column_offsetX + j.width + gridlist_columnBar_divider_size
         }
         if i ~= #elementReference.gridData.columns then
-            dxDrawRectangle(_column_offsetX + j.width + gridlist_columnBar_divider_size, gridlist_startY + gridlist_columnBar_height + gridlist_columnBar_padding, gridlist_columnBar_divider_size, gridlist_height - gridlist_columnBar_height - (gridlist_columnBar_padding*2), gridlist_columnBar_divider_color, gridlist_postGUI, true)
+            dxDrawRectangle(gridlist_startX + _column_offsetX + j.width + gridlist_columnBar_divider_size, gridlist_startY + gridlist_columnBar_height + gridlist_columnBar_padding, gridlist_columnBar_divider_size, gridlist_height - gridlist_columnBar_height - (gridlist_columnBar_padding*2), gridlist_columnBar_divider_color, gridlist_postGUI, true)
         end
-        dxDrawText(j.name, column_offsets[i].startX + gridlist_columnBar_padding, gridlist_startY + gridlist_columnBar_padding, column_offsets[i].endX - gridlist_columnBar_padding, gridlist_startY + gridlist_columnBar_height, gridlist_columnBar_fontColor, 1, elementReference.gui.columnBar.font, "center", "center", true, false, gridlist_postGUI, false, true)
+        dxDrawText(j.name, gridlist_startX + column_offsets[i].startX + gridlist_columnBar_padding, gridlist_startY + gridlist_columnBar_padding, gridlist_startX + column_offsets[i].endX - gridlist_columnBar_padding, gridlist_startY + gridlist_columnBar_height, gridlist_columnBar_fontColor, 1, elementReference.gui.columnBar.font, "center", "center", true, false, gridlist_postGUI, false, true)
     end
     --TODO: DRAW GRIDLIST's ROWS into its RT :)
     for i, j in ipairs(elementReference.gridData.rows) do
