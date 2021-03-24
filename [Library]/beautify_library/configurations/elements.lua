@@ -31,6 +31,7 @@ availableElements = {
         __allowedChildren = {
             ["beautify_gridlist"] = true
         },
+        __apis = {},
         __minimumSize = 56,
         __titleBar = {
             paddingX = 5,
@@ -56,6 +57,14 @@ availableElements = {
         },
         __renderFunction = renderGridlist,
         __allowedChildren = {},
+        __apis = {
+            ["test"] = {
+                parameters = {
+                    {name = "x", type = "float"},
+                    {name = "y", type = "float"}
+                }
+            }
+        },
         __minimumSize = 25,
         __columnBar = {
             padding = 5,

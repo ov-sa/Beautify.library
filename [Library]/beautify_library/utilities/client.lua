@@ -92,22 +92,25 @@ end
 --[[ Function: Verifies UI's Parameters ]]--
 --------------------------------------------
 
-function isUIParametersValid(paremeters, elementType)
+function isUIParametersValid(paremeters, elementType, apiName)
 
-    if not paremeters or type(paremeters) ~= "table" or not elementType or not availableElements[elementType] then return false end
+    if not paremeters or type(paremeters) ~= "table" or not elementType or not availableElements[elementType] or (apiName and not availableElements[elementType].__apis[apiName]) then return false end
 
     local areParametersValid = true
-    for i, j in ipairs(availableElements[elementType].__syntax.parameters) do
+    local functionReference = (not apiName and availableElements[elementType].__syntax) or availableElements[elementType].__apis[apiName]
+    local functionName = (not apiName and availableElements[elementType].__syntax.functionName) or apiName
+    local functionParemers = functionReference.parameters
+    for i, j in ipairs(functionParemers) do
         if not paremeters[i] or (type(paremeters[i]) ~= (((j.type == "float") and "number") or j.type)) then
             areParametersValid = false
             break
         end
     end
     if not areParametersValid then
-        local syntaxMessage = availableElements[elementType].__syntax.functionName.."("
-        for i, j in ipairs(availableElements[elementType].__syntax.parameters) do
+        local syntaxMessage = functionName.."("
+        for i, j in ipairs(functionParemers) do
             syntaxMessage = syntaxMessage..j.name.." : "..j.type
-            if i ~= #availableElements[elementType].__syntax.parameters then
+            if i ~= #functionParemers then
                 syntaxMessage = syntaxMessage..", "
             end
         end
