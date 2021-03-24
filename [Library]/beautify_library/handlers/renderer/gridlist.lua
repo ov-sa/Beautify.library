@@ -24,8 +24,12 @@ function renderGridlist(element)
     local gridlist_color, gridlist_columnBar_color, gridlist_columnBar_fontColor = tocolor(unpack(elementReference.gui.color)), tocolor(unpack(elementReference.gui.columnBar.color)), tocolor(unpack(elementReference.gui.columnBar.fontColor))
     local gridlist_columnBar_padding, gridlist_columnBar_height = availableElements["beautify_gridlist"].__columnBar.padding, availableElements["beautify_gridlist"].__columnBar.height
     local gridlist_columnBar_divider_size, gridlist_columnBar_divider_color = elementReference.gui.columnBar.divider.size, tocolor(unpack(elementReference.gui.columnBar.divider.color))
+    local gridlist_renderTarget_startX, gridlist_renderTarget_startY = gridlist_startX, gridlist_startY + gridlist_columnBar_height
+    local gridlist_renderTarget_width, gridlist_renderTarget_height = gridlist_width, gridlist_height - gridlist_columnBar_height
+    local gridlist_renderTarget = elementReference.gui.renderTarget
     local gridlist_postGUI = elementReference.gui.postGUI
 
+    if not elementParent then dxSetRenderTarget() end
     local column_offsets = {}
     dxDrawRectangle(gridlist_startX, gridlist_startY, gridlist_width, gridlist_height, gridlist_color, gridlist_postGUI, true)
     dxDrawRectangle(gridlist_startX, gridlist_startY, gridlist_width, gridlist_columnBar_height, gridlist_columnBar_color, gridlist_postGUI, true)
@@ -41,65 +45,53 @@ function renderGridlist(element)
         dxDrawText(j.name, gridlist_startX + column_offsets[i].startX + gridlist_columnBar_padding, gridlist_startY + gridlist_columnBar_padding, gridlist_startX + column_offsets[i].endX - gridlist_columnBar_padding, gridlist_startY + gridlist_columnBar_height, gridlist_columnBar_fontColor, 1, elementReference.gui.columnBar.font, "center", "center", true, false, gridlist_postGUI, false, true)
     end
     --TODO: DRAW GRIDLIST's ROWS into its RT :)
-    for i, j in ipairs(elementReference.gridData.rows) do
-        if not j.animAlphaPercent then
-            j.animAlphaPercent = 0
-            j.hoverStatus = "backward"
-            j.hoverAnimTickCounter = getTickCount()
-        end
-        local row_offsetX, row_offsetY = 0, 0
-
-        --[[
-        local isRowHovered = isAnimationDone and isMouseWithinRangeOf(panel_offsetX + cache.generalUI.wrapper.contentRenderer.startX + cache.generalUI.wrapper.tabPane.startX, panel_offsetY + cache.generalUI.wrapper.contentRenderer.startY + cache.generalUI.wrapper.tabPane.startY + cache.generalUI.wrapper.tabPane.tabs[selectedTab].columns.title.height, cache.generalUI.wrapper.tabPane.tabs[selectedTab].width, cache.generalUI.wrapper.tabPane.tabs[selectedTab].height, true) and isMouseWithinRangeOf(panel_offsetX + cache.generalUI.wrapper.contentRenderer.startX + cache.generalUI.wrapper.tabPane.startX, panel_offsetY + cache.generalUI.wrapper.contentRenderer.startY + cache.generalUI.wrapper.tabPane.startY + cache.generalUI.wrapper.tabPane.tabs[selectedTab].columns.title.height + column_offsetY, cache.generalUI.wrapper.tabPane.tabs[selectedTab].width, cache.generalUI.wrapper.tabPane.tabs[selectedTab].columns.data.height, true)
-        if isRowHovered or cache.generalUI.wrapper.tabPane.tabs[selectedTab].selectedRow == i then
-            if isMouseBtnClicked and cache.generalUI.wrapper.tabPane.tabs[selectedTab].selectedRow ~= i then
-                cache.generalUI.wrapper.tabPane.tabs[selectedTab].selectedRow = i
-                if cache.generalUI.wrapper.tabPane.tabs[selectedTab].tabType == "ranks" then
-                    resetClanRankModification()
-                    cache.generalUI.wrapper.tabPane.tabs[selectedTab].rankRights.editbox[1].text = gridData[(cache.generalUI.wrapper.tabPane.tabs[selectedTab].selectedRow)].name
-                end
-            end
-            if j.hoverStatus ~= "forward" then
-                j.hoverStatus = "forward"
-                j.hoverAnimTickCounter = getTickCount()
-            end
-            if isRowHovered then
-                prevRowHoverState = i
-            end
-        else
-            if j.hoverStatus ~= "backward" then
+    if gridlist_renderTarget and isElement(gridlist_renderTarget) then
+        dxSetRenderTarget(gridlist_renderTarget, true)
+        dxDrawRectangle(0, 0, 1366, 768, tocolor(255, 0, 0, 255), false, true)
+        dxSetBlendMode("modulate_add")
+        --TODO: ADD ELEMENTS HERE FOR Gridlist
+        for i, j in ipairs(elementReference.gridData.rows) do
+            if not j.animAlphaPercent then
+                j.animAlphaPercent = 0
                 j.hoverStatus = "backward"
                 j.hoverAnimTickCounter = getTickCount()
             end
+            local row_offsetX, row_offsetY = 0, 0
+            --[[
+            local isRowHovered = isAnimationDone and isMouseWithinRangeOf(panel_offsetX + cache.generalUI.wrapper.contentRenderer.startX + cache.generalUI.wrapper.tabPane.startX, panel_offsetY + cache.generalUI.wrapper.contentRenderer.startY + cache.generalUI.wrapper.tabPane.startY + cache.generalUI.wrapper.tabPane.tabs[selectedTab].columns.title.height, cache.generalUI.wrapper.tabPane.tabs[selectedTab].width, cache.generalUI.wrapper.tabPane.tabs[selectedTab].height, true) and isMouseWithinRangeOf(panel_offsetX + cache.generalUI.wrapper.contentRenderer.startX + cache.generalUI.wrapper.tabPane.startX, panel_offsetY + cache.generalUI.wrapper.contentRenderer.startY + cache.generalUI.wrapper.tabPane.startY + cache.generalUI.wrapper.tabPane.tabs[selectedTab].columns.title.height + column_offsetY, cache.generalUI.wrapper.tabPane.tabs[selectedTab].width, cache.generalUI.wrapper.tabPane.tabs[selectedTab].columns.data.height, true)
+            if isRowHovered or cache.generalUI.wrapper.tabPane.tabs[selectedTab].selectedRow == i then
+                if isMouseBtnClicked and cache.generalUI.wrapper.tabPane.tabs[selectedTab].selectedRow ~= i then
+                    cache.generalUI.wrapper.tabPane.tabs[selectedTab].selectedRow = i
+                    if cache.generalUI.wrapper.tabPane.tabs[selectedTab].tabType == "ranks" then
+                        resetClanRankModification()
+                        cache.generalUI.wrapper.tabPane.tabs[selectedTab].rankRights.editbox[1].text = gridData[(cache.generalUI.wrapper.tabPane.tabs[selectedTab].selectedRow)].name
+                    end
+                end
+                if j.hoverStatus ~= "forward" then
+                    j.hoverStatus = "forward"
+                    j.hoverAnimTickCounter = getTickCount()
+                end
+                if isRowHovered then
+                    prevRowHoverState = i
+                end
+            else
+                if j.hoverStatus ~= "backward" then
+                    j.hoverStatus = "backward"
+                    j.hoverAnimTickCounter = getTickCount()
+                end
+            end
+            if j.hoverStatus == "forward" then
+                j.animAlphaPercent = interpolateBetween(j.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(j.hoverAnimTickCounter, cache.generalUI.wrapper.tabPane.tabs[selectedTab].columns.data.hoverAnimDuration), "Linear")
+            else
+                j.animAlphaPercent = interpolateBetween(j.animAlphaPercent, 0, 0, 0, 0, 0, getInterpolationProgress(j.hoverAnimTickCounter, cache.generalUI.wrapper.tabPane.tabs[selectedTab].columns.data.hoverAnimDuration), "Linear")
+            end
+            ]]--
         end
-        if j.hoverStatus == "forward" then
-            j.animAlphaPercent = interpolateBetween(j.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(j.hoverAnimTickCounter, cache.generalUI.wrapper.tabPane.tabs[selectedTab].columns.data.hoverAnimDuration), "Linear")
-        else
-            j.animAlphaPercent = interpolateBetween(j.animAlphaPercent, 0, 0, 0, 0, 0, getInterpolationProgress(j.hoverAnimTickCounter, cache.generalUI.wrapper.tabPane.tabs[selectedTab].columns.data.hoverAnimDuration), "Linear")
-        end
-        ]]--
-
+        dxSetBlendMode("blend")
+        dxSetRenderTarget()
+        dxDrawImage(gridlist_renderTarget_startX, gridlist_renderTarget_startY, gridlist_renderTarget_width, gridlist_renderTarget_height, gridlist_renderTarget, 0, 0, 0, tocolor(255, 255, 255, 255), gridlist_postGUI)
     end
     --[[
-    local window_borderSize = availableElements["beautify_window"].__minimumSize/2
-    local gridlist_columnBar_padding, gridlist_columnBar_height = availableElements["beautify_window"].__columnBar.paddingX, availableElements["beautify_window"].__columnBar.height
-    local gridlist_startX, gridlist_startY = elementReference.gui.x, elementReference.gui.y
-    local gridlist_width, gridlist_height = elementReference.gui.width, elementReference.gui.height
-    local gridlist_color, gridlist_columnBar_color = tocolor(unpack(elementReference.gui.color)), tocolor(unpack(elementReference.gui.columnBar.color))
-    local window_titleBar_divider_size, window_titleBar_divider_color = elementReference.gui.columnBar.divider.size, tocolor(unpack(elementReference.gui.columnBar.divider.color))
-    local window_renderTarget_startX, window_renderTarget_startY = gridlist_startX + elementReference.gui.contentSection.startX, gridlist_startY + elementReference.gui.contentSection.startY
-    local window_renderTarget_width, window_renderTarget_height = elementReference.gui.contentSection.width, elementReference.gui.contentSection.height
-    local window_renderTarget = elementReference.gui.renderTarget
-    local gridlist_postGUI = elementReference.gui.postGUI
-
-    dxDrawImage(gridlist_startX, gridlist_startY + gridlist_height - window_borderSize, window_borderSize, window_borderSize, createdAssets["images"]["curved_square/bottom_left.png"], 0, 0, 0, gridlist_color, gridlist_postGUI)
-    dxDrawImage(gridlist_startX + gridlist_width - window_borderSize, gridlist_startY + gridlist_height - window_borderSize, window_borderSize, window_borderSize, createdAssets["images"]["curved_square/bottom_right.png"], 0, 0, 0, gridlist_color, gridlist_postGUI)
-    if gridlist_width > availableElements["beautify_window"].__minimumSize then
-        if window_borderSize > gridlist_columnBar_height then
-            dxDrawRectangle(gridlist_startX + window_borderSize, gridlist_startY + gridlist_columnBar_height, gridlist_width - availableElements["beautify_window"].__minimumSize, window_borderSize - gridlist_columnBar_height, gridlist_color, gridlist_postGUI, true)
-        end
-        dxDrawRectangle(gridlist_startX + window_borderSize, gridlist_startY + gridlist_height - window_borderSize, gridlist_width - availableElements["beautify_window"].__minimumSize, window_borderSize, gridlist_color, gridlist_postGUI, true)
-    end
     if gridlist_height > availableElements["beautify_window"].__minimumSize then
         dxDrawRectangle(gridlist_startX, gridlist_startY + gridlist_columnBar_height, window_borderSize, gridlist_height - window_borderSize - gridlist_columnBar_height, gridlist_color, gridlist_postGUI, true)
         dxDrawRectangle(gridlist_startX + gridlist_width - window_borderSize, gridlist_startY + gridlist_columnBar_height, window_borderSize, gridlist_height - window_borderSize - gridlist_columnBar_height, gridlist_color, gridlist_postGUI, true)
@@ -152,16 +144,6 @@ function renderGridlist(element)
     	dxDrawLine(window_close_button_startX, window_close_button_startY, window_close_button_startX, window_close_button_startY + gridlist_columnBar_height, window_titleBar_divider_color, window_titleBar_divider_size, gridlist_postGUI)
         dxDrawLine(gridlist_startX, gridlist_startY + gridlist_columnBar_height, gridlist_startX + gridlist_width, gridlist_startY + gridlist_columnBar_height, window_titleBar_divider_color, window_titleBar_divider_size, gridlist_postGUI)
         --TODO: ADD NIGHT/DAY MODE TOGGLER..
-    end
-    if window_renderTarget and isElement(window_renderTarget) then
-        dxSetRenderTarget(window_renderTarget, true)
-        dxSetBlendMode("modulate_add")
-        --TODO: ADD ELEMENTS HERE FOR WINDOW    
-        dxSetBlendMode("blend")
-        dxSetRenderTarget()
-        dxSetBlendMode("add")
-        dxDrawImage(window_renderTarget_startX, window_renderTarget_startY, window_renderTarget_width, window_renderTarget_height, window_renderTarget, 0, 0, 0, tocolor(255, 255, 255, 255), gridlist_postGUI)
-        dxSetBlendMode("blend")
     end
     ]]--
     return true

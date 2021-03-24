@@ -35,7 +35,7 @@ function createGridlist(...)
         rows = {}
     }
     elementReference.scroller = {}
-    elementReference.renderTarget = {}
+    elementReference.renderTarget = nil
     for i, j in ipairs(availableElements[elementType].__syntax.parameters) do
         if j.name == "x" or j.name == "y" then
             elementReference.gui[j.name] = math.max(0, parameters[i])
@@ -49,17 +49,15 @@ function createGridlist(...)
     for i, j in pairs(uiTemplate) do
         elementReference.gui[i] = table.copy(j, true)
     end
-    --[[
     elementReference.gui.contentSection = {
-        startX = availableElements["beautify_window"].__contentSection.padding,
-        startY = availableElements["beautify_window"].__titleBar.height + availableElements["beautify_window"].__contentSection.padding,
-        width = elementReference.gui.width - (availableElements["beautify_window"].__contentSection.padding*2),
-        height = elementReference.gui.height - availableElements["beautify_window"].__titleBar.height - (availableElements["beautify_window"].__contentSection.padding*2)
+        startX = 0,
+        startY = availableElements["beautify_gridlist"].__columnBar.height,
+        width = elementReference.gui.width,
+        height = elementReference.gui.height - availableElements["beautify_gridlist"].__titleBar.height
     }
     if elementReference.gui.contentSection.width > 0 and elementReference.gui.contentSection.height > 0 then
         elementReference.gui.renderTarget = DxRenderTarget(elementReference.gui.contentSection.width, elementReference.gui.contentSection.height, true)
     end
-    ]]--
     elementReference.isValid = true
     return createdElement
 

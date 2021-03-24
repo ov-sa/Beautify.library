@@ -29,6 +29,7 @@ function renderWindow(element)
     local window_renderTarget = elementReference.gui.renderTarget
     local window_postGUI = elementReference.gui.postGUI
 
+    dxSetRenderTarget()
     dxDrawImage(window_startX, window_startY + window_height - window_borderSize, window_borderSize, window_borderSize, createdAssets["images"]["curved_square/bottom_left.png"], 0, 0, 0, window_color, window_postGUI)
     dxDrawImage(window_startX + window_width - window_borderSize, window_startY + window_height - window_borderSize, window_borderSize, window_borderSize, createdAssets["images"]["curved_square/bottom_right.png"], 0, 0, 0, window_color, window_postGUI)
     if window_width > availableElements["beautify_window"].__minimumSize then
@@ -98,6 +99,7 @@ function renderWindow(element)
                 local child_elementType = i:getType()
                 if availableElements[child_elementType] and availableElements[child_elementType].__renderFunction and type(availableElements[child_elementType].__renderFunction) == "function" then
                     availableElements[child_elementType].__renderFunction(i)
+                    dxSetRenderTarget(window_renderTarget)
                 end
             end
         end
