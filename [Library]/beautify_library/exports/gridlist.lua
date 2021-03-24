@@ -35,7 +35,6 @@ function createGridlist(...)
         rows = {}
     }
     elementReference.scroller = {}
-    elementReference.renderTarget = nil
     for i, j in ipairs(availableElements[elementType].__syntax.parameters) do
         if j.name == "x" or j.name == "y" then
             elementReference.gui[j.name] = math.max(0, parameters[i])
