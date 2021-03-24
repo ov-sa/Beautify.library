@@ -34,7 +34,7 @@ availableTemplate = {
     },
 
     ["beautify_gridlist"] = {
-        color = {10, 10, 10, 250},
+        color = {10, 10, 10, 253},
         columnBar = {
             font = DxFont("files/assets/fonts/teko_medium.ttf", 18),
             fontColor = {0, 0, 0, 255},
