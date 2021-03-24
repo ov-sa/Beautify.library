@@ -13,7 +13,7 @@ addEventHandler("onClientResourceStart", resource, function()
     addGridlistColumn(createdGridlist, "S.No", 75)
     addGridlistColumn(createdGridlist, "Name", 250)
     addGridlistColumn(createdGridlist, "Country", 100)
-    addGridlistColumn(createdGridlist, "Rank", 100)
+    addGridlistColumn(createdGridlist, "Rank", 250)
     setUIVisible(createdWindow, true)
     showCursor(true)
 

@@ -45,7 +45,8 @@ availableTemplate = {
             }
         },
         rowBar = {
-            fontColor = {0, 0, 0, 255},
+            font = DxFont("files/assets/fonts/teko_medium.ttf", 15),
+            fontColor = {200, 200, 200, 255},
             color = {0, 0, 0, 255}
         }
     }

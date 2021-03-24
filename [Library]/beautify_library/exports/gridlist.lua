@@ -29,9 +29,9 @@ function createGridlist(...)
         columns = {},
         rows = {
             --TODO: TESTING REMOVE LATER :)
-            {},
-            {},
-            {}
+            {["S.No"] = 1, ["Name"] = "Tron", ["Country"] = "BH", ["Rank"] = "CEO"},
+            {["S.No"] = 2, ["Name"] = "Acen", ["Country"] = "BZ", ["Rank"] = "Member"},
+            {["S.No"] = 3, ["Name"] = "Aviril", ["Country"] = "US", ["Rank"] = "Developer"},
         }
     }
     elementReference.scroller = {}
