@@ -25,7 +25,7 @@ availableTemplate = {
     ["beautify_window"] = {
         color = {0, 0, 0, 250},
         titleBar = {
-            font = DxFont("files/assets/fonts/signika_semibold.ttf", 12),
+            font = DxFont("files/assets/fonts/mukta_semibold.ttf", 15),
             fontColor = {80, 80, 255, 255},
             color = {0, 0, 0, 255},
             divider = {
@@ -43,7 +43,7 @@ availableTemplate = {
     ["beautify_gridlist"] = {
         color = {10, 10, 10, 253},
         columnBar = {
-            font = DxFont("files/assets/fonts/teko_medium.ttf", 18),
+            font = DxFont("files/assets/fonts/teko_medium.ttf", 17),
             fontColor = {0, 0, 0, 255},
             color = {80, 80, 255, 255},
             divider = {
@@ -52,7 +52,7 @@ availableTemplate = {
             }
         },
         rowBar = {
-            font = DxFont("files/assets/fonts/teko_medium.ttf", 15),
+            font = DxFont("files/assets/fonts/signika_semibold.ttf", 10),
             fontColor = {80, 80, 255, 255},
             color = {0, 0, 0, 255},
             hoverFontColor = {0, 0, 0, 255},
