@@ -19,7 +19,7 @@ availableTemplate = {
         color = {0, 0, 0, 250},
         titleBar = {
             font = DxFont("files/assets/fonts/signika_semibold.ttf", 12),
-            fontColor = {50, 75, 200, 255},
+            fontColor = {80, 80, 255, 255},
             color = {0, 0, 0, 255},
             divider = {
                 size = 2,
@@ -34,19 +34,19 @@ availableTemplate = {
     },
 
     ["beautify_gridlist"] = {
-        color = {3, 3, 3, 250},
+        color = {10, 10, 10, 250},
         columnBar = {
             font = DxFont("files/assets/fonts/teko_medium.ttf", 18),
             fontColor = {0, 0, 0, 255},
             color = {80, 80, 255, 255},
             divider = {
-                size = 1,
-                color = {80, 80, 255, 255}
+                size = 2,
+                color = {10, 10, 10, 255}
             }
         },
         rowBar = {
             fontColor = {0, 0, 0, 255},
-            color = {80, 80, 255, 255}
+            color = {0, 0, 0, 255}
         }
     }
 

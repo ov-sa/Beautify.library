@@ -26,13 +26,9 @@ function createGridlist(...)
     local elementReference = (elementParent and createdParentElements[elementParent][createdElement]) or createdElements[createdElement]
     elementReference.gui = {}
     elementReference.gridData = {
-        columns = {
-            --TODO: TESTING... XD
-            {name = "S.No", width = 75},
-            {name = "Name", width = 250},
-            {name = "Rank", width = 100}
-        },
+        columns = {},
         rows = {
+            --TODO: TESTING REMOVE LATER :)
             {},
             {},
             {}
@@ -63,5 +59,25 @@ function createGridlist(...)
     end
     elementReference.isValid = true
     return createdElement
+
+end
+
+
+--------------------------------------------------
+--[[ Functions: Adds/Removes Grid List Column ]]--
+--------------------------------------------------
+
+function addGridlistColumn(...)
+
+    local parameters = {...}
+    local elementType = "beautify_gridlist"
+    if not isUIParametersValid(parameters, elementType, "addGridlistColumn") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementParent = getUIParent(element)
+    local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
+    table.insert(elementReference.gridData.columns, {name = parameters[2], width = parameters[3]})
+    return #elementReference.gridData.columns
 
 end

@@ -104,12 +104,20 @@ function isUIParametersValid(paremeters, elementType, apiName)
         if not paremeters[i] or (type(paremeters[i]) ~= (((j.type == "float") and "number") or j.type)) then
             areParametersValid = false
             break
+        else
+            if j.type == "userdata" then
+                local elementType = paremeters[i]:getType()
+                if elementType ~= j.userDataType then
+                    areParametersValid = false
+                    break
+                end
+            end
         end
     end
     if not areParametersValid then
         local syntaxMessage = functionName.."("
         for i, j in ipairs(functionParemers) do
-            syntaxMessage = syntaxMessage..j.name.." : "..j.type
+            syntaxMessage = syntaxMessage..j.name.." : "..(((j.type == "userdata") and "element") or j.type)
             if i ~= #functionParemers then
                 syntaxMessage = syntaxMessage..", "
             end

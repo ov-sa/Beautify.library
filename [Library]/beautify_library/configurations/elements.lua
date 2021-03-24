@@ -58,10 +58,11 @@ availableElements = {
         __renderFunction = renderGridlist,
         __allowedChildren = {},
         __apis = {
-            ["test"] = {
+            ["addGridlistColumn"] = {
                 parameters = {
-                    {name = "x", type = "float"},
-                    {name = "y", type = "float"}
+                    {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"},
+                    {name = "name", type = "string"},
+                    {name = "width", type = "float"}
                 }
             }
         },
