@@ -14,6 +14,8 @@ addEventHandler("onClientResourceStart", resource, function()
     addGridlistColumn(createdGridlist, "Name", 250)
     addGridlistColumn(createdGridlist, "Country", 100)
     addGridlistColumn(createdGridlist, "Rank", 250)
+
+    removeGridlistColumn(createdGridlist, 2)
     setUIVisible(createdWindow, true)
     showCursor(true)
 

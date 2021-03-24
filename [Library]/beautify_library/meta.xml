@@ -68,7 +68,10 @@
     <!-- Params: createGridlist(x, y, width, height, parent, postGUI) | Returns Element; Else false Boolean -->
     <export function="createGridlist" type="client"/>
 
-    <!-- Params: addGridlistColumn(gridlist, name, width) | Returns columnIndex; Else false Boolean -->
+    <!-- Params: addGridlistColumn(gridlist, name, width) | Returns column; Else false Boolean -->
     <export function="addGridlistColumn" type="client"/>
+
+    <!-- Params: removeGridlistColumn(gridlist, column) | Returns Boolean -->
+    <export function="removeGridlistColumn" type="client"/>
 
 </meta>

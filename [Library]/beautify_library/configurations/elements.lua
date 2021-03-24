@@ -64,6 +64,23 @@ availableElements = {
                     {name = "name", type = "string"},
                     {name = "width", type = "float"}
                 }
+            },
+            ["removeGridlistColumn"] = {
+                parameters = {
+                    {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"},
+                    {name = "column", type = "number"}
+                }
+            },
+            ["setGridlistSelection"] = {
+                parameters = {
+                    {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"},
+                    {name = "row", type = "number"}
+                }
+            },
+            ["getGridlistSelection"] = {
+                parameters = {
+                    {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"}
+                }
             }
         },
         __minimumSize = 25,

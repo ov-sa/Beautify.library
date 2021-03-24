@@ -82,3 +82,22 @@ function addGridlistColumn(...)
     return #elementReference.gridData.columns
 
 end
+
+function removeGridlistColumn(...)
+
+    local parameters = {...}
+    local elementType = "beautify_gridlist"
+    if not isUIParametersValid(parameters, elementType, "removeGridlistColumn") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementParent = getUIParent(element)
+    local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
+    if not elementReference.gridData.columns[(parameters[2])] then return false end
+    table.remove(elementReference.gridData.columns, parameters[2])
+    if #elementReference.gridData.columns <= 0 then
+        elementReference.gridData.selectedRow = false
+    end
+    return true
+
+end
