@@ -16,6 +16,8 @@ addEventHandler("onClientResourceStart", resource, function()
     addGridlistColumn(createdGridlist, "Rank", 250)
 
     removeGridlistColumn(createdGridlist, 2)
+    --TODO: WHEN COLUMN IS REMOVD THEN REMOVE ALL THE ROWS W/ ITS DATAS :)
+    addGridlistColumn(createdGridlist, "Name", 250)
     setUIVisible(createdWindow, true)
     showCursor(true)
 
