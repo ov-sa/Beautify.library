@@ -83,13 +83,27 @@ function dxDrawText(...)
 
 end
 
+
 --TODO: REMOVE LATER :)
-bindKey("1", "down", function()
+-----------------------------------------
+--[[ Event: On Client Resource Start ]]--
+-----------------------------------------
 
-    if currentOverlay then
-        currentOverlay = nil
-    else
-        currentOverlay = "night"
+addEventHandler("onClientResourceStart", resource, function()
+
+    local test = {}
+    local testMode = 0
+    for i, j in pairs(availableOverlays) do
+        table.insert(test, i)
     end
-
+    bindKey("1", "down", function()
+        if testMode >= #test then
+            testMode = 0
+            currentOverlay = nil
+        else
+            testMode = testMode + 1
+            currentOverlay = test[testMode]
+        end
+    end)
+    
 end)

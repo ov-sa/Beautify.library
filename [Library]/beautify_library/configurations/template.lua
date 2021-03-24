@@ -15,7 +15,8 @@
 
 availableOverlays = {
 
-    night = {175, 175, 175}
+    night = {175, 175, 175},
+    autumn = {255, 196, 133}
 
 }
 
