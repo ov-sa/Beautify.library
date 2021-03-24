@@ -53,15 +53,19 @@ function renderGridlist(element)
             local row_offsetX, row_offsetY = 0, (gridlist_rowBar_height + gridlist_rowBar_padding)*(i - 1) + gridlist_rowBar_padding
             local isRowHovered = false
             if not elementParent then
-                isRowHovered = isMouseOnPosition(gridlist_startX, gridlist_startY, gridlist_width, gridlist_height) and isMouseOnPosition(gridlist_renderTarget_startX, gridlist_renderTarget_startY, gridlist_renderTarget_width, gridlist_renderTarget_height) and isMouseOnPosition(gridlist_renderTarget_startX + row_offsetY, gridlist_renderTarget_startY + row_offsetY, gridlist_renderTarget_width, gridlist_rowBar_height)
+                isRowHovered = isMouseOnPosition(gridlist_startX, gridlist_startY, gridlist_width, gridlist_height) and isMouseOnPosition(gridlist_renderTarget_startX, gridlist_renderTarget_startY, gridlist_renderTarget_width, gridlist_renderTarget_height) and isMouseOnPosition(gridlist_renderTarget_startX + row_offsetX, gridlist_renderTarget_startY + row_offsetY, gridlist_renderTarget_width, gridlist_rowBar_height)
             else
-                isRowHovered = isMouseOnPosition(gridlist_startX, gridlist_startY, gridlist_width, gridlist_height) and isMouseOnPosition(gridlist_renderTarget_startX, gridlist_renderTarget_startY, gridlist_renderTarget_width, gridlist_renderTarget_height) and isMouseOnPosition(gridlist_renderTarget_startX + row_offsetY, gridlist_renderTarget_startY + row_offsetY, gridlist_renderTarget_width, gridlist_rowBar_height)
+                local isParentContentHovered = isMouseOnPosition(createdElements[elementParent].gui.x, createdElements[elementParent].gui.y, createdElements[elementParent].gui.width, createdElements[elementParent].gui.height) and isMouseOnPosition(createdElements[elementParent].gui.x + elementReference.gui.contentSection.startX, createdElements[elementParent].gui.y + elementReference.gui.contentSection.startY, elementReference.gui.contentSection.width, elementReference.gui.contentSection.height)
+                if isParentContentHovered then
+                    isRowHovered = isMouseOnPosition(createdElements[elementParent].gui.x + gridlist_startX, createdElements[elementParent].gui.y + gridlist_startY, gridlist_width, gridlist_height) and isMouseOnPosition(createdElements[elementParent].gui.x + gridlist_renderTarget_startX, createdElements[elementParent].gui.y + gridlist_renderTarget_startY, gridlist_renderTarget_width, gridlist_renderTarget_height) and isMouseOnPosition(createdElements[elementParent].gui.x + gridlist_renderTarget_startX + row_offsetX, createdElements[elementParent].gui.y + gridlist_renderTarget_startY + row_offsetY + gridlist_columnBar_height + gridlist_columnBar_padding, gridlist_renderTarget_width, gridlist_rowBar_height)
+                end
             end
-            --if isRowHovered or cache.generalUI.wrapper.tabPane.tabs[selectedTab].selectedRow == i then
-            if isRowHovered then
-                --if isMouseBtnClicked and cache.generalUI.wrapper.tabPane.tabs[selectedTab].selectedRow ~= i then
-                if isLMBClicked then
-                    --cache.generalUI.wrapper.tabPane.tabs[selectedTab].selectedRow = i
+            if isRowHovered or elementReference.gridData.selectedRow == i then
+                if isLMBClicked and elementReference.gridData.selectedRow ~= i then
+                    Timer(function(element, selectedRow)
+                        --TODO: UPDATE
+                        --elementReference.gridData.selectedRow = i
+                    end, 1, 1, element, selectedRow)
                 end
                 if j.hoverStatus ~= "forward" then
                     j.hoverStatus = "forward"

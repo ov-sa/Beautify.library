@@ -32,7 +32,8 @@ function createGridlist(...)
             {["S.No"] = 1, ["Name"] = "Tron", ["Country"] = "BH", ["Rank"] = "CEO"},
             {["S.No"] = 2, ["Name"] = "Acen", ["Country"] = "BZ", ["Rank"] = "Member"},
             {["S.No"] = 3, ["Name"] = "Aviril", ["Country"] = "US", ["Rank"] = "Developer"},
-        }
+        },
+        selectedRow = false
     }
     elementReference.scroller = {}
     for i, j in ipairs(availableElements[elementType].__syntax.parameters) do
