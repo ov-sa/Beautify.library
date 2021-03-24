@@ -73,7 +73,8 @@ availableElements = {
         },
         __rowBar = {
             padding = 5,
-            height = 23
+            height = 23,
+            hoverAnimDuration = 1000
         }
     }
 

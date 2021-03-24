@@ -35,7 +35,7 @@ availableTemplate = {
             close_button = {
                 fontColor = {80, 80, 255, 255},
                 hoverFontColor = {0, 0, 0, 255},
-                hoverColor = {50, 75, 200, 255}
+                hoverColor = {80, 80, 255, 255}
             }
         }
     },
@@ -54,7 +54,9 @@ availableTemplate = {
         rowBar = {
             font = DxFont("files/assets/fonts/teko_medium.ttf", 15),
             fontColor = {80, 80, 255, 255},
-            color = {0, 0, 0, 255}
+            color = {0, 0, 0, 255},
+            hoverFontColor = {0, 0, 0, 255},
+            hoverColor = {80, 80, 255, 255}
         }
     }
 

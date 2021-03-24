@@ -51,16 +51,13 @@ function renderGridlist(element)
                 j.hoverAnimTickCounter = getTickCount()
             end
             local row_offsetX, row_offsetY = 0, (gridlist_rowBar_height + gridlist_rowBar_padding)*(i - 1) + gridlist_rowBar_padding
-            dxDrawRectangle(false, row_offsetX, row_offsetY, gridlist_renderTarget_width, gridlist_rowBar_height, gridlist_rowBar_color, false, true)
-            --[[
-            local isRowHovered = isAnimationDone and isMouseWithinRangeOf(panel_offsetX + cache.generalUI.wrapper.contentRenderer.startX + cache.generalUI.wrapper.tabPane.startX, panel_offsetY + cache.generalUI.wrapper.contentRenderer.startY + cache.generalUI.wrapper.tabPane.startY + cache.generalUI.wrapper.tabPane.tabs[selectedTab].columns.title.height, cache.generalUI.wrapper.tabPane.tabs[selectedTab].width, cache.generalUI.wrapper.tabPane.tabs[selectedTab].height, true) and isMouseWithinRangeOf(panel_offsetX + cache.generalUI.wrapper.contentRenderer.startX + cache.generalUI.wrapper.tabPane.startX, panel_offsetY + cache.generalUI.wrapper.contentRenderer.startY + cache.generalUI.wrapper.tabPane.startY + cache.generalUI.wrapper.tabPane.tabs[selectedTab].columns.title.height + column_offsetY, cache.generalUI.wrapper.tabPane.tabs[selectedTab].width, cache.generalUI.wrapper.tabPane.tabs[selectedTab].columns.data.height, true)
-            if isRowHovered or cache.generalUI.wrapper.tabPane.tabs[selectedTab].selectedRow == i then
-                if isMouseBtnClicked and cache.generalUI.wrapper.tabPane.tabs[selectedTab].selectedRow ~= i then
-                    cache.generalUI.wrapper.tabPane.tabs[selectedTab].selectedRow = i
-                    if cache.generalUI.wrapper.tabPane.tabs[selectedTab].tabType == "ranks" then
-                        resetClanRankModification()
-                        cache.generalUI.wrapper.tabPane.tabs[selectedTab].rankRights.editbox[1].text = gridData[(cache.generalUI.wrapper.tabPane.tabs[selectedTab].selectedRow)].name
-                    end
+            --local isRowHovered = isAnimationDone and isMouseWithinRangeOf(panel_offsetX + cache.generalUI.wrapper.contentRenderer.startX + cache.generalUI.wrapper.tabPane.startX, panel_offsetY + cache.generalUI.wrapper.contentRenderer.startY + cache.generalUI.wrapper.tabPane.startY + cache.generalUI.wrapper.tabPane.tabs[selectedTab].columns.title.height, cache.generalUI.wrapper.tabPane.tabs[selectedTab].width, cache.generalUI.wrapper.tabPane.tabs[selectedTab].height, true) and isMouseWithinRangeOf(panel_offsetX + cache.generalUI.wrapper.contentRenderer.startX + cache.generalUI.wrapper.tabPane.startX, panel_offsetY + cache.generalUI.wrapper.contentRenderer.startY + cache.generalUI.wrapper.tabPane.startY + cache.generalUI.wrapper.tabPane.tabs[selectedTab].columns.title.height + column_offsetY, cache.generalUI.wrapper.tabPane.tabs[selectedTab].width, cache.generalUI.wrapper.tabPane.tabs[selectedTab].columns.data.height, true)
+            local isRowHovered = isMouseOnPosition(gridlist_startX + gridlist_renderTarget_startX, gridlist_startY + gridlist_renderTarget_startY, gridlist_renderTarget_width, gridlist_renderTarget_height)
+            --if isRowHovered or cache.generalUI.wrapper.tabPane.tabs[selectedTab].selectedRow == i then
+            if isRowHovered then
+                --if isMouseBtnClicked and cache.generalUI.wrapper.tabPane.tabs[selectedTab].selectedRow ~= i then
+                if isMouseBtnClicked then
+                    --cache.generalUI.wrapper.tabPane.tabs[selectedTab].selectedRow = i
                 end
                 if j.hoverStatus ~= "forward" then
                     j.hoverStatus = "forward"
@@ -76,13 +73,15 @@ function renderGridlist(element)
                 end
             end
             if j.hoverStatus == "forward" then
-                j.animAlphaPercent = interpolateBetween(j.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(j.hoverAnimTickCounter, cache.generalUI.wrapper.tabPane.tabs[selectedTab].columns.data.hoverAnimDuration), "Linear")
+                j.animAlphaPercent = interpolateBetween(j.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(j.hoverAnimTickCounter, availableElements["beautify_gridlist"].__rowBar.hoverAnimDuration), "Linear")
             else
-                j.animAlphaPercent = interpolateBetween(j.animAlphaPercent, 0, 0, 0, 0, 0, getInterpolationProgress(j.hoverAnimTickCounter, cache.generalUI.wrapper.tabPane.tabs[selectedTab].columns.data.hoverAnimDuration), "Linear")
+                j.animAlphaPercent = interpolateBetween(j.animAlphaPercent, 0, 0, 0, 0, 0, getInterpolationProgress(j.hoverAnimTickCounter, availableElements["beautify_gridlist"].__rowBar.hoverAnimDuration), "Linear")
             end
-            ]]--
+            dxDrawRectangle(false, row_offsetX, row_offsetY, gridlist_renderTarget_width, gridlist_rowBar_height, gridlist_rowBar_color, false, true)
+            dxDrawRectangle(true, row_offsetX, row_offsetY, gridlist_renderTarget_width, gridlist_rowBar_height, tocolor(elementReference.gui.rowBar.hoverColor[1], elementReference.gui.rowBar.hoverColor[2], elementReference.gui.rowBar.hoverColor[3], elementReference.gui.rowBar.hoverColor[4]*j.animAlphaPercent), false, true)
             for k, v in ipairs(elementReference.gridData.columns) do
                 dxDrawText(true, j[v.name] or "-", row_offsetX + column_offsets[k].startX + gridlist_columnBar_padding, row_offsetY, row_offsetX + column_offsets[k].endX - gridlist_columnBar_padding, row_offsetY + gridlist_rowBar_height, gridlist_rowBar_fontColor, 1, elementReference.gui.rowBar.font, "center", "center", true, false, false, false, true)
+                dxDrawText(false, j[v.name] or "-", row_offsetX + column_offsets[k].startX + gridlist_columnBar_padding, row_offsetY, row_offsetX + column_offsets[k].endX - gridlist_columnBar_padding, row_offsetY + gridlist_rowBar_height, tocolor(elementReference.gui.rowBar.hoverFontColor[1], elementReference.gui.rowBar.hoverFontColor[2], elementReference.gui.rowBar.hoverFontColor[3], elementReference.gui.rowBar.hoverFontColor[4]*j.animAlphaPercent), 1, elementReference.gui.rowBar.font, "center", "center", true, false, false, false, true)
             end
         end
         dxSetBlendMode("blend")
