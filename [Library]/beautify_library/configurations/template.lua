@@ -14,7 +14,9 @@
 ------------------------
 
 availableOverlays = {
-    night = {80, 80, 255, 255}
+
+    night = {175, 175, 175}
+
 }
 
 availableTemplate = {
@@ -50,7 +52,7 @@ availableTemplate = {
         },
         rowBar = {
             font = DxFont("files/assets/fonts/teko_medium.ttf", 15),
-            fontColor = {200, 200, 200, 255},
+            fontColor = {80, 80, 255, 255},
             color = {0, 0, 0, 255}
         }
     }

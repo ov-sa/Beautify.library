@@ -40,7 +40,7 @@ function renderGridlist(element)
             endX = _column_offsetX + j.width + gridlist_columnBar_divider_size
         }
     end
-    dxDrawRectangle(gridlist_startX, gridlist_startY, gridlist_width, gridlist_height, gridlist_color, gridlist_postGUI, true)
+    dxDrawRectangle(false, gridlist_startX, gridlist_startY, gridlist_width, gridlist_height, gridlist_color, gridlist_postGUI, true)
     if gridlist_renderTarget and isElement(gridlist_renderTarget) then
         dxSetRenderTarget(gridlist_renderTarget, true)
         dxSetBlendMode("modulate_add")
@@ -51,7 +51,7 @@ function renderGridlist(element)
                 j.hoverAnimTickCounter = getTickCount()
             end
             local row_offsetX, row_offsetY = 0, (gridlist_rowBar_height + gridlist_rowBar_padding)*(i - 1) + gridlist_rowBar_padding
-            dxDrawRectangle(row_offsetX, row_offsetY, gridlist_renderTarget_width, gridlist_rowBar_height, gridlist_rowBar_color, false, true)
+            dxDrawRectangle(false, row_offsetX, row_offsetY, gridlist_renderTarget_width, gridlist_rowBar_height, gridlist_rowBar_color, false, true)
             --[[
             local isRowHovered = isAnimationDone and isMouseWithinRangeOf(panel_offsetX + cache.generalUI.wrapper.contentRenderer.startX + cache.generalUI.wrapper.tabPane.startX, panel_offsetY + cache.generalUI.wrapper.contentRenderer.startY + cache.generalUI.wrapper.tabPane.startY + cache.generalUI.wrapper.tabPane.tabs[selectedTab].columns.title.height, cache.generalUI.wrapper.tabPane.tabs[selectedTab].width, cache.generalUI.wrapper.tabPane.tabs[selectedTab].height, true) and isMouseWithinRangeOf(panel_offsetX + cache.generalUI.wrapper.contentRenderer.startX + cache.generalUI.wrapper.tabPane.startX, panel_offsetY + cache.generalUI.wrapper.contentRenderer.startY + cache.generalUI.wrapper.tabPane.startY + cache.generalUI.wrapper.tabPane.tabs[selectedTab].columns.title.height + column_offsetY, cache.generalUI.wrapper.tabPane.tabs[selectedTab].width, cache.generalUI.wrapper.tabPane.tabs[selectedTab].columns.data.height, true)
             if isRowHovered or cache.generalUI.wrapper.tabPane.tabs[selectedTab].selectedRow == i then
@@ -82,7 +82,7 @@ function renderGridlist(element)
             end
             ]]--
             for k, v in ipairs(elementReference.gridData.columns) do
-                dxDrawText(j[v.name] or "-", row_offsetX + column_offsets[k].startX + gridlist_columnBar_padding, row_offsetY, row_offsetX + column_offsets[k].endX - gridlist_columnBar_padding, row_offsetY + gridlist_rowBar_height, gridlist_rowBar_fontColor, 1, elementReference.gui.rowBar.font, "center", "center", true, false, false, false, true)
+                dxDrawText(true, j[v.name] or "-", row_offsetX + column_offsets[k].startX + gridlist_columnBar_padding, row_offsetY, row_offsetX + column_offsets[k].endX - gridlist_columnBar_padding, row_offsetY + gridlist_rowBar_height, gridlist_rowBar_fontColor, 1, elementReference.gui.rowBar.font, "center", "center", true, false, false, false, true)
             end
         end
         dxSetBlendMode("blend")
@@ -91,14 +91,14 @@ function renderGridlist(element)
         else
             dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
         end
-        dxDrawImage(gridlist_renderTarget_startX, gridlist_renderTarget_startY, gridlist_renderTarget_width, gridlist_renderTarget_height, gridlist_renderTarget, 0, 0, 0, tocolor(255, 255, 255, 255), gridlist_postGUI)
+        dxDrawImage(false, gridlist_renderTarget_startX, gridlist_renderTarget_startY, gridlist_renderTarget_width, gridlist_renderTarget_height, gridlist_renderTarget, 0, 0, 0, tocolor(255, 255, 255, 255), gridlist_postGUI)
     end
-    dxDrawRectangle(gridlist_startX, gridlist_startY, gridlist_width, gridlist_columnBar_height, gridlist_columnBar_color, gridlist_postGUI, true)
+    dxDrawRectangle(true, gridlist_startX, gridlist_startY, gridlist_width, gridlist_columnBar_height, gridlist_columnBar_color, gridlist_postGUI, true)
     for i, j in ipairs(elementReference.gridData.columns) do
         if i ~= #elementReference.gridData.columns then
-            dxDrawRectangle(gridlist_startX + column_offsets[i].startX + j.width + gridlist_columnBar_divider_size, gridlist_startY + gridlist_columnBar_height + gridlist_columnBar_padding, gridlist_columnBar_divider_size, gridlist_height - gridlist_columnBar_height - (gridlist_columnBar_padding*2), gridlist_columnBar_divider_color, gridlist_postGUI, true)
+            dxDrawRectangle(false, gridlist_startX + column_offsets[i].startX + j.width + gridlist_columnBar_divider_size, gridlist_startY + gridlist_columnBar_height + gridlist_columnBar_padding, gridlist_columnBar_divider_size, gridlist_height - gridlist_columnBar_height - (gridlist_columnBar_padding*2), gridlist_columnBar_divider_color, gridlist_postGUI, true)
         end
-        dxDrawText(j.name, gridlist_startX + column_offsets[i].startX + gridlist_columnBar_padding, gridlist_startY + gridlist_columnBar_padding, gridlist_startX + column_offsets[i].endX - gridlist_columnBar_padding, gridlist_startY + gridlist_columnBar_height, gridlist_columnBar_fontColor, 1, elementReference.gui.columnBar.font, "center", "center", true, false, gridlist_postGUI, false, true)
+        dxDrawText(false, j.name, gridlist_startX + column_offsets[i].startX + gridlist_columnBar_padding, gridlist_startY + gridlist_columnBar_padding, gridlist_startX + column_offsets[i].endX - gridlist_columnBar_padding, gridlist_startY + gridlist_columnBar_height, gridlist_columnBar_fontColor, 1, elementReference.gui.columnBar.font, "center", "center", true, false, gridlist_postGUI, false, true)
     end
     return true
 
