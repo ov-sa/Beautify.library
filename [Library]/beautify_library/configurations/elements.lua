@@ -69,6 +69,10 @@ availableElements = {
         __columnBar = {
             padding = 5,
             height = 22,
+        },
+        __rowBar = {
+            padding = 5,
+            height = 23
         }
     }
 

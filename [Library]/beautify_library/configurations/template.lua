@@ -43,6 +43,10 @@ availableTemplate = {
                 size = 1,
                 color = {80, 80, 255, 255}
             }
+        },
+        rowBar = {
+            fontColor = {0, 0, 0, 255},
+            color = {80, 80, 255, 255}
         }
     }
 

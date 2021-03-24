@@ -32,7 +32,11 @@ function createGridlist(...)
             {name = "Name", width = 250},
             {name = "Rank", width = 100}
         },
-        rows = {}
+        rows = {
+            {},
+            {},
+            {}
+        }
     }
     elementReference.scroller = {}
     for i, j in ipairs(availableElements[elementType].__syntax.parameters) do
