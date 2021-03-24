@@ -24,8 +24,8 @@ function renderGridlist(element)
     local gridlist_color, gridlist_columnBar_color, gridlist_columnBar_fontColor = tocolor(unpack(elementReference.gui.color)), tocolor(unpack(elementReference.gui.columnBar.color)), tocolor(unpack(elementReference.gui.columnBar.fontColor))
     local gridlist_columnBar_padding, gridlist_columnBar_height = availableElements["beautify_gridlist"].__columnBar.padding, availableElements["beautify_gridlist"].__columnBar.height
     local gridlist_columnBar_divider_size, gridlist_columnBar_divider_color = elementReference.gui.columnBar.divider.size, tocolor(unpack(elementReference.gui.columnBar.divider.color))
-    local gridlist_renderTarget_startX, gridlist_renderTarget_startY = gridlist_startX, gridlist_startY + gridlist_columnBar_height
-    local gridlist_renderTarget_width, gridlist_renderTarget_height = gridlist_width, gridlist_height - gridlist_columnBar_height
+    local gridlist_renderTarget_startX, gridlist_renderTarget_startY = gridlist_startX + elementReference.gui.contentSection.startX, gridlist_startY + elementReference.gui.contentSection.startY
+    local gridlist_renderTarget_width, gridlist_renderTarget_height = elementReference.gui.contentSection.width, elementReference.gui.contentSection.height
     local gridlist_renderTarget = elementReference.gui.renderTarget
     local gridlist_postGUI = elementReference.gui.postGUI
 
@@ -46,7 +46,7 @@ function renderGridlist(element)
     end
     --TODO: DRAW GRIDLIST's ROWS into its RT :)
     if gridlist_renderTarget and isElement(gridlist_renderTarget) then
-        dxSetRenderTarget(gridlist_renderTarget, true)
+        --dxSetRenderTarget(gridlist_renderTarget, true)
         dxDrawRectangle(0, 0, 1366, 768, tocolor(255, 0, 0, 255), false, true)
         dxSetBlendMode("modulate_add")
         --TODO: ADD ELEMENTS HERE FOR Gridlist
@@ -88,7 +88,7 @@ function renderGridlist(element)
             ]]--
         end
         dxSetBlendMode("blend")
-        dxSetRenderTarget()
+        --dxSetRenderTarget()
         dxDrawImage(gridlist_renderTarget_startX, gridlist_renderTarget_startY, gridlist_renderTarget_width, gridlist_renderTarget_height, gridlist_renderTarget, 0, 0, 0, tocolor(255, 255, 255, 255), gridlist_postGUI)
     end
     --[[
