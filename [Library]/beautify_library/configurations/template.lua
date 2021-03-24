@@ -13,6 +13,10 @@
 --[[ Configurations ]]--
 ------------------------
 
+availableOverlays = {
+    night = {80, 80, 255, 255}
+}
+
 availableTemplate = {
 
     ["beautify_window"] = {
