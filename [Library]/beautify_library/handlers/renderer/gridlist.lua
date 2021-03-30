@@ -60,12 +60,11 @@ function renderGridlist(element)
                     isRowHovered = isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX + gridlist_startX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY + gridlist_startY, gridlist_width, gridlist_height) and isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX + gridlist_renderTarget_startX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY + gridlist_renderTarget_startY, gridlist_renderTarget_width, gridlist_renderTarget_height) and isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX + gridlist_renderTarget_startX + row_offsetX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY + gridlist_renderTarget_startY + row_offsetY, gridlist_renderTarget_width, gridlist_rowBar_height)
                 end
             end
-            if isRowHovered or elementReference.gridData.selectedRow == i then
-                if isLMBClicked and elementReference.gridData.selectedRow ~= i then
-                    Timer(function(element, selectedRow)
-                        --TODO: UPDATE
-                        --elementReference.gridData.selectedRow = i
-                    end, 1, 1, element, selectedRow)
+            if isRowHovered or elementReference.gridData.selection == i then
+                if isLMBClicked and elementReference.gridData.selection ~= i then
+                    Timer(function(gridlist, selection)
+                        setGridlistSelection(gridlist, selection)
+                    end, 1, 1, element, i)
                 end
                 if j.hoverStatus ~= "forward" then
                     j.hoverStatus = "forward"

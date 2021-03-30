@@ -28,7 +28,7 @@ function createGridlist(...)
     elementReference.gridData = {
         columns = {},
         rows = {},
-        selectedRow = false
+        selection = false
     }
     elementReference.scroller = {}
     for i, j in ipairs(availableElements[elementType].__syntax.parameters) do
@@ -94,7 +94,7 @@ function removeGridlistColumn(...)
         j[(parameters[2])] = nil
     end
     if #elementReference.gridData.columns <= 0 then
-        elementReference.gridData.selectedRow = false
+        elementReference.gridData.selection = false
     end
     return true
 
@@ -132,8 +132,8 @@ function removeGridlistRow(...)
     local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
     if not elementReference.gridData.rows[(parameters[2])] then return false end
     table.remove(elementReference.gridData.rows, parameters[2])
-    if elementReference.gridData.selectedRow and elementReference.gridData.selectedRow == parameters[2] then
-        elementReference.gridData.selectedRow = false
+    if elementReference.gridData.selection and elementReference.gridData.selection == parameters[2] then
+        elementReference.gridData.selection = false
     end
     return true
 
@@ -190,8 +190,8 @@ function setGridlistSelection(...)
 
     local elementParent = getUIParent(element)
     local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
-    if not elementReference.gridData.rows[(parameters[2])] or (elementReference.gridData.selectedRow and elementReference.gridData.selectedRow == parameters[2]) then return false end
-    elementReference.gridData.selectedRow = parameters[2]
+    if not elementReference.gridData.rows[(parameters[2])] or (elementReference.gridData.selection and elementReference.gridData.selection == parameters[2]) then return false end
+    elementReference.gridData.selection = parameters[2]
     return true
 
 end
@@ -206,7 +206,7 @@ function getGridlistSelection(...)
 
     local elementParent = getUIParent(element)
     local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
-    if not elementReference.gridData.selectedRow or not elementReference.gridData.rows[(elementReference.gridData.selectedRow)] then return false end
-    return elementReference.gridData.selectedRow
+    if not elementReference.gridData.selection or not elementReference.gridData.rows[(elementReference.gridData.selection)] then return false end
+    return elementReference.gridData.selection
 
 end
