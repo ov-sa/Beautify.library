@@ -83,4 +83,7 @@
     <!-- Params: setGridListRowData(gridlist, row, column, data) | Returns Boolean -->
     <export function="setGridListRowData" type="client"/>
 
+    <!-- Params: getGridListRowData(gridlist, row, column) | Returns Data; Else false Boolean -->
+    <export function="getGridListRowData" type="client"/>
+
 </meta>

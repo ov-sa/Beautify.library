@@ -29,9 +29,12 @@ addEventHandler("onClientResourceStart", resource, function()
     }
     for i, j in ipairs(testRows) do
         local rowIndex = addGridlistRow(createdGridlist)
+        local rowData = {}
         for k, v in pairs(j) do
             setGridListRowData(createdGridlist, rowIndex, k, v)
+            rowData[k] = getGridListRowData(createdGridlist, rowIndex, k)
         end
+        outputChatBox(toJSON(rowData))
     end
     showCursor(true)
 
