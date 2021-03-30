@@ -36,6 +36,9 @@ addEventHandler("onClientResourceStart", resource, function()
         end
         outputChatBox(toJSON(rowData))
     end
+    setGridlistSelection(createdGridlist, 2)
+    local gridlistSelection = getGridlistSelection(createdGridlist)
+    outputChatBox("Selection: "..gridlistSelection)
     showCursor(true)
 
 end)

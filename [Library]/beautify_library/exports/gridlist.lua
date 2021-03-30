@@ -180,6 +180,22 @@ end
 --[[ Functions: Sets/Gets Grid List's Selection ]]--
 ----------------------------------------------------
 
+function setGridlistSelection(...)
+
+    local parameters = {...}
+    local elementType = "beautify_gridlist"
+    if not isUIParametersValid(parameters, elementType, "setGridlistSelection") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementParent = getUIParent(element)
+    local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
+    if not elementReference.gridData.rows[(parameters[2])] or (elementReference.gridData.selectedRow and elementReference.gridData.selectedRow == parameters[2]) then return false end
+    elementReference.gridData.selectedRow = parameters[2]
+    return true
+
+end
+
 function getGridlistSelection(...)
 
     local parameters = {...}

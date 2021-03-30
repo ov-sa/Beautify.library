@@ -86,6 +86,9 @@
     <!-- Params: getGridlistRowData(gridlist, row, column) | Returns Data; Else false Boolean -->
     <export function="getGridlistRowData" type="client"/>
 
+    <!-- Params: setGridlistSelection(gridlist, row) | Returns Boolean -->
+    <export function="setGridlistSelection" type="client"/>
+
     <!-- Params: getGridlistSelection(gridlist) | Returns Row; Else false Boolean -->
     <export function="getGridlistSelection" type="client"/>
 
