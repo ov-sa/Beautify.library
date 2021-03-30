@@ -144,11 +144,11 @@ end
 --[[ Functions: Sets/Gets Grid List Row's Data ]]--
 ---------------------------------------------------
 
-function setGridListRowData(...)
+function setGridlistRowData(...)
 
     local parameters = {...}
     local elementType = "beautify_gridlist"
-    if not isUIParametersValid(parameters, elementType, "setGridListRowData") then return false end
+    if not isUIParametersValid(parameters, elementType, "setGridlistRowData") then return false end
     local element = parameters[1]
     if not isUIValid(element) then return false end
 
@@ -160,11 +160,11 @@ function setGridListRowData(...)
 
 end
 
-function getGridListRowData(...)
+function getGridlistRowData(...)
 
     local parameters = {...}
     local elementType = "beautify_gridlist"
-    if not isUIParametersValid(parameters, elementType, "getGridListRowData") then return false end
+    if not isUIParametersValid(parameters, elementType, "getGridlistRowData") then return false end
     local element = parameters[1]
     if not isUIValid(element) then return false end
 
@@ -172,5 +172,25 @@ function getGridListRowData(...)
     local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
     if not elementReference.gridData.rows[(parameters[2])] or not elementReference.gridData.columns[(parameters[3])] then return false end
     return elementReference.gridData.rows[(parameters[2])][(parameters[3])]
+
+end
+
+
+----------------------------------------------------
+--[[ Functions: Sets/Gets Grid List's Selection ]]--
+----------------------------------------------------
+
+function getGridlistSelection(...)
+
+    local parameters = {...}
+    local elementType = "beautify_gridlist"
+    if not isUIParametersValid(parameters, elementType, "getGridlistSelection") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementParent = getUIParent(element)
+    local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
+    if not elementReference.gridData.selectedRow or not elementReference.gridData.rows[(elementReference.gridData.selectedRow)] then return false end
+    return elementReference.gridData.selectedRow
 
 end

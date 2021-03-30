@@ -82,7 +82,7 @@ availableElements = {
                     {name = "row", type = "number"}
                 }
             },
-            ["setGridListRowData"] = {
+            ["setGridlistRowData"] = {
                 parameters = {
                     {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"},
                     {name = "row", type = "number"},
@@ -90,7 +90,7 @@ availableElements = {
                     {name = "data", type = "string"}
                 }
             },
-            ["getGridListRowData"] = {
+            ["getGridlistRowData"] = {
                 parameters = {
                     {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"},
                     {name = "row", type = "number"},
