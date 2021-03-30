@@ -82,6 +82,14 @@ availableElements = {
                     {name = "row", type = "number"}
                 }
             },
+            ["setGridListRowData"] = {
+                parameters = {
+                    {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"},
+                    {name = "row", type = "number"},
+                    {name = "column", type = "number"},
+                    {name = "data", type = "string"}
+                }
+            },
             --TODO: ADD THOSE APIS
             ["setGridlistSelection"] = {
                 parameters = {

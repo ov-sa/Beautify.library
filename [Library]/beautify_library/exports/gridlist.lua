@@ -27,14 +27,7 @@ function createGridlist(...)
     elementReference.gui = {}
     elementReference.gridData = {
         columns = {},
-        rows = {
-            --[[
-            --TODO: TESTING REMOVE LATER :)
-            {["S.No"] = 1, ["Name"] = "Tron", ["Country"] = "BH", ["Rank"] = "CEO"},
-            {["S.No"] = 2, ["Name"] = "Acen", ["Country"] = "BZ", ["Rank"] = "Member"},
-            {["S.No"] = 3, ["Name"] = "Aviril", ["Country"] = "US", ["Rank"] = "Developer"},
-            ]]--
-        },
+        rows = {},
         selectedRow = false
     }
     elementReference.scroller = {}
@@ -142,6 +135,27 @@ function removeGridlistRow(...)
     if elementReference.gridData.selectedRow and elementReference.gridData.selectedRow == parameters[2] then
         elementReference.gridData.selectedRow = false
     end
+    return true
+
+end
+
+
+---------------------------------------------------
+--[[ Functions: Sets/Gets Grid List Row's Data ]]--
+---------------------------------------------------
+
+function setGridListRowData(...)
+
+    local parameters = {...}
+    local elementType = "beautify_gridlist"
+    if not isUIParametersValid(parameters, elementType, "setGridListRowData") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementParent = getUIParent(element)
+    local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
+    if not elementReference.gridData.rows[(parameters[2])] or not elementReference.gridData.columns[(parameters[3])] then return false end
+    elementReference.gridData.rows[(parameters[2])][(parameters[3])] = parameters[4]
     return true
 
 end

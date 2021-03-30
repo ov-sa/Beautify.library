@@ -80,4 +80,7 @@
     <!-- Params: removeGridlistRow(gridlist, row) | Returns Boolean -->
     <export function="removeGridlistRow" type="client"/>
 
+    <!-- Params: setGridListRowData(gridlist, row, column, data) | Returns Boolean -->
+    <export function="setGridListRowData" type="client"/>
+
 </meta>

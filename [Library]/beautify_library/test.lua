@@ -16,11 +16,21 @@ addEventHandler("onClientResourceStart", resource, function()
     addGridlistColumn(createdGridlist, "Rank", 250)
     setUIVisible(createdWindow, true)
 
-    for i = 1, 4, 1 do
+    local testRows = {
+        {
+            [1] = "1", [2] = "Tron", [3] = "BH", [4] = "CEO"
+        },
+        {
+            [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
+        },
+        {
+            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
+        }
+    }
+    for i, j in ipairs(testRows) do
         local rowIndex = addGridlistRow(createdGridlist)
-        outputChatBox(rowIndex)
-        if i > 3 then
-            removeGridlistRow(createdGridlist, i)
+        for k, v in pairs(j) do
+            setGridListRowData(createdGridlist, rowIndex, k, v)
         end
     end
     showCursor(true)
