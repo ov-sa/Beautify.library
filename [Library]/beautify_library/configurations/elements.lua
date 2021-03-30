@@ -71,6 +71,18 @@ availableElements = {
                     {name = "column", type = "number"}
                 }
             },
+            ["addGridlistRow"] = {
+                parameters = {
+                    {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"}
+                }
+            },
+            ["removeGridlistRow"] = {
+                parameters = {
+                    {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"},
+                    {name = "row", type = "number"}
+                }
+            },
+            --TODO: ADD THOSE APIS
             ["setGridlistSelection"] = {
                 parameters = {
                     {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"},

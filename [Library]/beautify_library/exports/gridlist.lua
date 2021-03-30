@@ -28,10 +28,12 @@ function createGridlist(...)
     elementReference.gridData = {
         columns = {},
         rows = {
+            --[[
             --TODO: TESTING REMOVE LATER :)
             {["S.No"] = 1, ["Name"] = "Tron", ["Country"] = "BH", ["Rank"] = "CEO"},
             {["S.No"] = 2, ["Name"] = "Acen", ["Country"] = "BZ", ["Rank"] = "Member"},
             {["S.No"] = 3, ["Name"] = "Aviril", ["Country"] = "US", ["Rank"] = "Developer"},
+            ]]--
         },
         selectedRow = false
     }
@@ -95,7 +97,49 @@ function removeGridlistColumn(...)
     local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
     if not elementReference.gridData.columns[(parameters[2])] then return false end
     table.remove(elementReference.gridData.columns, parameters[2])
+    for i, j in ipairs(elementReference.gridData.rows) do
+        j[(parameters[2])] = nil
+    end
     if #elementReference.gridData.columns <= 0 then
+        elementReference.gridData.selectedRow = false
+    end
+    return true
+
+end
+
+
+-----------------------------------------------
+--[[ Functions: Adds/Removes Grid List Row ]]--
+-----------------------------------------------
+
+function addGridlistRow(...)
+
+    local parameters = {...}
+    local elementType = "beautify_gridlist"
+    if not isUIParametersValid(parameters, elementType, "addGridlistRow") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementParent = getUIParent(element)
+    local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
+    table.insert(elementReference.gridData.rows, {})
+    return #elementReference.gridData.rows
+
+end
+
+function removeGridlistRow(...)
+
+    local parameters = {...}
+    local elementType = "beautify_gridlist"
+    if not isUIParametersValid(parameters, elementType, "removeGridlistRow") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementParent = getUIParent(element)
+    local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
+    if not elementReference.gridData.rows[(parameters[2])] then return false end
+    table.remove(elementReference.gridData.rows, parameters[2])
+    if elementReference.gridData.selectedRow and elementReference.gridData.selectedRow == parameters[2] then
         elementReference.gridData.selectedRow = false
     end
     return true

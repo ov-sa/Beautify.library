@@ -14,11 +14,15 @@ addEventHandler("onClientResourceStart", resource, function()
     addGridlistColumn(createdGridlist, "Name", 250)
     addGridlistColumn(createdGridlist, "Country", 100)
     addGridlistColumn(createdGridlist, "Rank", 250)
-
-    removeGridlistColumn(createdGridlist, 2)
-    --TODO: WHEN COLUMN IS REMOVD THEN REMOVE ALL THE ROWS W/ ITS DATAS :)
-    addGridlistColumn(createdGridlist, "Name", 250)
     setUIVisible(createdWindow, true)
+
+    for i = 1, 4, 1 do
+        local rowIndex = addGridlistRow(createdGridlist)
+        outputChatBox(rowIndex)
+        if i > 3 then
+            removeGridlistRow(createdGridlist, i)
+        end
+    end
     showCursor(true)
 
 end)

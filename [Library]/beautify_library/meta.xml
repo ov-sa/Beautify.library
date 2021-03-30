@@ -74,4 +74,10 @@
     <!-- Params: removeGridlistColumn(gridlist, column) | Returns Boolean -->
     <export function="removeGridlistColumn" type="client"/>
 
+    <!-- Params: addGridlistRow(gridlist) | Returns row; Else false Boolean -->
+    <export function="addGridlistRow" type="client"/>
+
+    <!-- Params: removeGridlistRow(gridlist, row) | Returns Boolean -->
+    <export function="removeGridlistRow" type="client"/>
+
 </meta>
