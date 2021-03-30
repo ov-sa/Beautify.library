@@ -29,10 +29,11 @@ function dxDrawImage(...)
     if #parameters > 0 then
         table.remove(parameters, 1)
     end
-    _dxDrawImage(unpack(parameters))
 
-    if isOverlayEnabled and parameters[paramColorIndex] then
-        if currentOverlay and availableOverlays[currentOverlay] then
+    if not isOverlayEnabled or not currentOverlay or not availableOverlays[currentOverlay] or not parameters[paramColorIndex] then
+        _dxDrawImage(unpack(parameters))
+    else
+        if isOverlayEnabled then
             local prevColor = fromColor(parameters[paramColorIndex])
             parameters[paramColorIndex] = tocolor(availableOverlays[currentOverlay][1], availableOverlays[currentOverlay][2], availableOverlays[currentOverlay][3], prevColor[4])
             _dxDrawImage(unpack(parameters))
@@ -50,10 +51,11 @@ function dxDrawRectangle(...)
     if #parameters > 0 then
         table.remove(parameters, 1)
     end
-    _dxDrawRectangle(unpack(parameters))
 
-    if isOverlayEnabled and parameters[paramColorIndex] then
-        if currentOverlay and availableOverlays[currentOverlay] then
+    if not isOverlayEnabled or not currentOverlay or not availableOverlays[currentOverlay] or not parameters[paramColorIndex] then
+        _dxDrawRectangle(unpack(parameters))
+    else
+        if isOverlayEnabled then
             local prevColor = fromColor(parameters[paramColorIndex])
             parameters[paramColorIndex] = tocolor(availableOverlays[currentOverlay][1], availableOverlays[currentOverlay][2], availableOverlays[currentOverlay][3], prevColor[4])
             _dxDrawRectangle(unpack(parameters))
@@ -71,10 +73,11 @@ function dxDrawText(...)
     if #parameters > 0 then
         table.remove(parameters, 1)
     end
-    _dxDrawText(unpack(parameters))
 
-    if isOverlayEnabled and parameters[paramColorIndex] then
-        if currentOverlay and availableOverlays[currentOverlay] then
+    if not isOverlayEnabled or not currentOverlay or not availableOverlays[currentOverlay] or not parameters[paramColorIndex] then
+        _dxDrawText(unpack(parameters))
+    else
+        if isOverlayEnabled then
             local prevColor = fromColor(parameters[paramColorIndex])
             parameters[paramColorIndex] = tocolor(availableOverlays[currentOverlay][1], availableOverlays[currentOverlay][2], availableOverlays[currentOverlay][3], prevColor[4])
             _dxDrawText(unpack(parameters))
