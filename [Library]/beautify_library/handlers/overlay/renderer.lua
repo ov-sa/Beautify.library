@@ -13,7 +13,28 @@
 --[[ Variables ]]--
 -------------------
 
-local currentOverlay = false
+local currentOverlayMode = false
+
+
+------------------------------------------------
+--[[ Functions: Retrieves/Sets Overlay Mode ]]--
+------------------------------------------------
+
+function getOverlayMode()
+
+    return currentOverlayMode
+
+end
+
+function setOverlayMode(modeIndex)
+
+    modeIndex = tonumber(modeIndex)
+    if modeIndex == nil or (modeIndex ~= false and not availableOverlays[modeIndex]) or currentOverlayMode == modeIndex then return false end
+
+    currentOverlayMode = modeIndex
+    return true
+
+end
 
 
 -----------------------------------
@@ -30,12 +51,12 @@ function dxDrawImage(...)
         table.remove(parameters, 1)
     end
 
-    if not isOverlayEnabled or not currentOverlay or not availableOverlays[currentOverlay] or not parameters[paramColorIndex] then
+    if not isOverlayEnabled or not currentOverlayMode or not availableOverlays[currentOverlayMode] or not parameters[paramColorIndex] then
         _dxDrawImage(unpack(parameters))
     else
         if isOverlayEnabled then
             local prevColor = fromColor(parameters[paramColorIndex])
-            parameters[paramColorIndex] = tocolor(availableOverlays[currentOverlay][1], availableOverlays[currentOverlay][2], availableOverlays[currentOverlay][3], prevColor[4])
+            parameters[paramColorIndex] = tocolor(availableOverlays[currentOverlayMode][1], availableOverlays[currentOverlayMode][2], availableOverlays[currentOverlayMode][3], prevColor[4])
             _dxDrawImage(unpack(parameters))
         end
     end
@@ -52,12 +73,12 @@ function dxDrawRectangle(...)
         table.remove(parameters, 1)
     end
 
-    if not isOverlayEnabled or not currentOverlay or not availableOverlays[currentOverlay] or not parameters[paramColorIndex] then
+    if not isOverlayEnabled or not currentOverlayMode or not availableOverlays[currentOverlayMode] or not parameters[paramColorIndex] then
         _dxDrawRectangle(unpack(parameters))
     else
         if isOverlayEnabled then
             local prevColor = fromColor(parameters[paramColorIndex])
-            parameters[paramColorIndex] = tocolor(availableOverlays[currentOverlay][1], availableOverlays[currentOverlay][2], availableOverlays[currentOverlay][3], prevColor[4])
+            parameters[paramColorIndex] = tocolor(availableOverlays[currentOverlayMode][1], availableOverlays[currentOverlayMode][2], availableOverlays[currentOverlayMode][3], prevColor[4])
             _dxDrawRectangle(unpack(parameters))
         end
     end
@@ -74,12 +95,12 @@ function dxDrawText(...)
         table.remove(parameters, 1)
     end
 
-    if not isOverlayEnabled or not currentOverlay or not availableOverlays[currentOverlay] or not parameters[paramColorIndex] then
+    if not isOverlayEnabled or not currentOverlayMode or not availableOverlays[currentOverlayMode] or not parameters[paramColorIndex] then
         _dxDrawText(unpack(parameters))
     else
         if isOverlayEnabled then
             local prevColor = fromColor(parameters[paramColorIndex])
-            parameters[paramColorIndex] = tocolor(availableOverlays[currentOverlay][1], availableOverlays[currentOverlay][2], availableOverlays[currentOverlay][3], prevColor[4])
+            parameters[paramColorIndex] = tocolor(availableOverlays[currentOverlayMode][1], availableOverlays[currentOverlayMode][2], availableOverlays[currentOverlayMode][3], prevColor[4])
             _dxDrawText(unpack(parameters))
         end
     end
@@ -102,10 +123,10 @@ addEventHandler("onClientResourceStart", resource, function()
     bindKey("1", "down", function()
         if testMode >= #test then
             testMode = 0
-            currentOverlay = nil
+            setOverlayMode(false)
         else
             testMode = testMode + 1
-            currentOverlay = test[testMode]
+            setOverlayMode(test[testMode])
         end
     end)
     
