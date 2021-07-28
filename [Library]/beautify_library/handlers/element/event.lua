@@ -13,8 +13,8 @@
 --[[ Event: On Client UI Click ]]--
 -----------------------------------
 
-local prevScrollState = false
-local prevScrollStreak = {state = false, tickCounter = false, streak = 1}
+prevScrollState = false
+prevScrollStreak = {state = false, tickCounter = false, streak = 1}
 local customUIEvents = {
     "onClientUIClick",
     "onClientUIScroll"

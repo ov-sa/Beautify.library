@@ -49,9 +49,9 @@ function renderGridlist(element)
         dxSetBlendMode("modulate_add")
         local gridlist_scrolledY_offset = 0
         local gridlist_data_height = (gridlist_rowBar_height + gridlist_rowBar_padding)*(#elementReference.gridData.rows) + gridlist_rowBar_padding
-        local gridlist_exceeded_height =  gridlist_renderTarget_height - gridlist_data_height
-        if not elementReference.gui.scrollBar.percent then elementReference.gui.scrollBar.percent = 50 end
-        if gridlist_exceeded_height > 0 then gridlist_scrolledY_offset = gridlist_scrolledY_offset - (gridlist_exceeded_height*elementReference.gui.scrollBar.percent*0.01) end      
+        local gridlist_exceeded_height = gridlist_data_height - gridlist_renderTarget_height
+        if not elementReference.gui.scrollBar.percent then elementReference.gui.scrollBar.percent = 0 end
+        if gridlist_exceeded_height > 0 then gridlist_scrolledY_offset = gridlist_exceeded_height*elementReference.gui.scrollBar.percent*0.01 end      
         for i, j in ipairs(elementReference.gridData.rows) do
             if not j.animAlphaPercent then
                 j.animAlphaPercent = 0
@@ -102,7 +102,28 @@ function renderGridlist(element)
             local gridlist_scrollBarY_startX, gridlist_scrollBarY_startY = gridlist_renderTarget_width - gridlist_scrollBarY_width, 0
             local gridlist_scrollBar_overlay_color, gridlist_scrollBar_bar_color = tocolor(unpack(elementTemplate.scrollBar.overlay.color)), tocolor(unpack(elementTemplate.scrollBar.bar.color))
             dxDrawRectangle(gridlist_scrollBarY_startX, gridlist_scrollBarY_startY, gridlist_scrollBarY_width, gridlist_scrollBarY_height, gridlist_scrollBar_overlay_color, gridlist_postGUI)
-            dxDrawRectangle(gridlist_scrollBarY_startX, gridlist_scrollBarY_startY + ((gridlist_scrollBarY_height - gridlist_exceeded_height)*(elementReference.gui.scrollBar.percent*0.01)), gridlist_scrollBarY_width, gridlist_scrollBarY_bar_height, gridlist_scrollBar_bar_color, gridlist_postGUI)
+            dxDrawRectangle(gridlist_scrollBarY_startX, gridlist_scrollBarY_startY + ((gridlist_scrollBarY_height - gridlist_scrollBarY_bar_height)*(elementReference.gui.scrollBar.percent*0.01)), gridlist_scrollBarY_width, gridlist_scrollBarY_bar_height, gridlist_scrollBar_bar_color, gridlist_postGUI)
+            if prevScrollState --[[and (isMouseWithinRangeOf(contentrender_offsetX, contentrender_offsetY, contentrender_width, contentrender_height, true) and (isMouseWithinRangeOf(contentrender_offsetX + optionData.rulesBox.startX + scroller_overlay_startX, contentrender_offsetY + optionData.rulesBox.startY + scroller_overlay_startY, scroller_overlay_width, gridlist_scrollBarY_height, true) or isMouseWithinRangeOf(contentrender_offsetX + optionData.rulesBox.startX + optionData.rulesBox.rtPadding, contentrender_offsetY + optionData.rulesBox.startY + optionData.rulesBox.rtPadding, optionData.rulesBox.width - (optionData.rulesBox.rtPadding*2), optionData.rulesBox.height - (optionData.rulesBox.rtPadding*2), true))) and isViewAnimationDone]] then
+                if prevScrollState == "up" then
+                    if elementReference.gui.scrollBar.percent > 0 then
+                        if gridlist_exceeded_height < gridlist_scrollBarY_height then
+                            elementReference.gui.scrollBar.percent = elementReference.gui.scrollBar.percent - (10*prevScrollStreak.streak)
+                        else
+                            elementReference.gui.scrollBar.percent = elementReference.gui.scrollBar.percent - (1*prevScrollStreak.streak)
+                        end
+                    end
+                elseif prevScrollState == "down" then
+                    if elementReference.gui.scrollBar.percent < 100 then
+                        if gridlist_exceeded_height < gridlist_scrollBarY_height then
+                            elementReference.gui.scrollBar.percent = elementReference.gui.scrollBar.percent + (10*prevScrollStreak.streak)
+                        else
+                            elementReference.gui.scrollBar.percent = elementReference.gui.scrollBar.percent + (1*prevScrollStreak.streak)
+                        end
+                    end
+                end
+                elementReference.gui.scrollBar.percent = math.max(0, math.min(100, elementReference.gui.scrollBar.percent))
+                prevScrollState = false
+            end
         end
         dxSetBlendMode("blend")
         if not elementParent then
