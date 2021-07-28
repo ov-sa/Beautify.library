@@ -18,6 +18,7 @@
 availableTemplates["beautify_gridlist"] = {
     color = {5, 5, 5, 253},
     columnBar = {
+        isOutLine = true,
         font = DxFont("files/assets/fonts/teko_medium.ttf", 17),
         fontColor = {0, 0, 0, 255},
         color = {80, 80, 255, 255},
@@ -27,6 +28,7 @@ availableTemplates["beautify_gridlist"] = {
         }
     },
     rowBar = {
+        isOutLine = true,
         font = DxFont("files/assets/fonts/signika_semibold.ttf", 10),
         fontColor = {80, 80, 255, 255},
         color = {0, 0, 0, 255},
