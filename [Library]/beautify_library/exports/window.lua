@@ -25,7 +25,6 @@ function createWindow(...)
 
     local elementReference = createdElements[createdElement]
     elementReference.gui = cloneUIOutline(elementType)
-    elementReference.scroller = {}
     for i, j in ipairs(availableElements[elementType].syntax.parameters) do
         if j.name == "width" or j.name == "height" then
             elementReference.gui[j.name] = math.max(availableElements[elementType].minimumSize, parameters[i]) + (availableElements[elementType].contentSection.padding*2)
