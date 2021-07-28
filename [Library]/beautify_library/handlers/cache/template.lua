@@ -22,11 +22,11 @@ local customTemplate = {}
 
 function getUITemplate(elementType)
 
-    if not elementType or not availableElements[elementType] or not availableTemplate[elementType] then return false end
+    if not elementType or not availableElements[elementType] or not availableTemplates[elementType] then return false end
     
     if customTemplate[elementType] then
         return customTemplate[elementType]
     end
-    return availableTemplate[elementType]
+    return availableTemplates[elementType]
 
 end

@@ -23,8 +23,8 @@ function renderGridlist(element)
     local gridlist_width, gridlist_height = elementReference.gui.width, elementReference.gui.height
     local gridlist_color, gridlist_columnBar_color, gridlist_columnBar_fontColor = tocolor(unpack(elementReference.gui.color)), tocolor(unpack(elementReference.gui.columnBar.color)), tocolor(unpack(elementReference.gui.columnBar.fontColor))
     local gridlist_rowBar_color, gridlist_rowBar_fontColor = tocolor(unpack(elementReference.gui.rowBar.color)), tocolor(unpack(elementReference.gui.rowBar.fontColor))
-    local gridlist_columnBar_padding, gridlist_columnBar_height = availableElements["beautify_gridlist"].__columnBar.padding, availableElements["beautify_gridlist"].__columnBar.height
-    local gridlist_rowBar_padding, gridlist_rowBar_height = availableElements["beautify_gridlist"].__rowBar.padding, availableElements["beautify_gridlist"].__rowBar.height
+    local gridlist_columnBar_padding, gridlist_columnBar_height = availableElements["beautify_gridlist"].columnBar.padding, availableElements["beautify_gridlist"].columnBar.height
+    local gridlist_rowBar_padding, gridlist_rowBar_height = availableElements["beautify_gridlist"].rowBar.padding, availableElements["beautify_gridlist"].rowBar.height
     local gridlist_columnBar_divider_size, gridlist_columnBar_divider_color = elementReference.gui.columnBar.divider.size, tocolor(unpack(elementReference.gui.columnBar.divider.color))
     local gridlist_renderTarget_startX, gridlist_renderTarget_startY = gridlist_startX + elementReference.gui.contentSection.startX, gridlist_startY + elementReference.gui.contentSection.startY
     local gridlist_renderTarget_width, gridlist_renderTarget_height = elementReference.gui.contentSection.width, elementReference.gui.contentSection.height
@@ -40,7 +40,7 @@ function renderGridlist(element)
             endX = _column_offsetX + j.width + gridlist_columnBar_divider_size
         }
     end
-    dxDrawRectangle(false, gridlist_startX, gridlist_startY, gridlist_width, gridlist_height, gridlist_color, gridlist_postGUI, true)
+    dxDrawRectangle(gridlist_startX, gridlist_startY, gridlist_width, gridlist_height, gridlist_color, gridlist_postGUI, true)
     if gridlist_renderTarget and isElement(gridlist_renderTarget) then
         dxSetRenderTarget(gridlist_renderTarget, true)
         dxSetBlendMode("modulate_add")
@@ -80,15 +80,15 @@ function renderGridlist(element)
                 end
             end
             if j.hoverStatus == "forward" then
-                j.animAlphaPercent = interpolateBetween(j.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(j.hoverAnimTickCounter, availableElements["beautify_gridlist"].__rowBar.hoverAnimDuration), "Linear")
+                j.animAlphaPercent = interpolateBetween(j.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(j.hoverAnimTickCounter, availableElements["beautify_gridlist"].rowBar.hoverAnimDuration), "Linear")
             else
-                j.animAlphaPercent = interpolateBetween(j.animAlphaPercent, 0, 0, 0, 0, 0, getInterpolationProgress(j.hoverAnimTickCounter, availableElements["beautify_gridlist"].__rowBar.hoverAnimDuration), "Linear")
+                j.animAlphaPercent = interpolateBetween(j.animAlphaPercent, 0, 0, 0, 0, 0, getInterpolationProgress(j.hoverAnimTickCounter, availableElements["beautify_gridlist"].rowBar.hoverAnimDuration), "Linear")
             end
-            dxDrawRectangle(false, row_offsetX, row_offsetY, gridlist_renderTarget_width, gridlist_rowBar_height, gridlist_rowBar_color, false, true)
-            dxDrawRectangle(true, row_offsetX, row_offsetY, gridlist_renderTarget_width, gridlist_rowBar_height, tocolor(elementReference.gui.rowBar.hoverColor[1], elementReference.gui.rowBar.hoverColor[2], elementReference.gui.rowBar.hoverColor[3], elementReference.gui.rowBar.hoverColor[4]*j.animAlphaPercent), false, true)
+            dxDrawRectangle(row_offsetX, row_offsetY, gridlist_renderTarget_width, gridlist_rowBar_height, gridlist_rowBar_color, false, true)
+            dxDrawRectangle(row_offsetX, row_offsetY, gridlist_renderTarget_width, gridlist_rowBar_height, tocolor(elementReference.gui.rowBar.hoverColor[1], elementReference.gui.rowBar.hoverColor[2], elementReference.gui.rowBar.hoverColor[3], elementReference.gui.rowBar.hoverColor[4]*j.animAlphaPercent), false, true)
             for k, v in ipairs(elementReference.gridData.columns) do
-                dxDrawText(true, j[k] or "-", row_offsetX + column_offsets[k].startX + gridlist_columnBar_padding, row_offsetY, row_offsetX + column_offsets[k].endX - gridlist_columnBar_padding, row_offsetY + gridlist_rowBar_height, gridlist_rowBar_fontColor, 1, elementReference.gui.rowBar.font, "center", "center", true, false, false, false, true)
-                dxDrawText(false, j[k] or "-", row_offsetX + column_offsets[k].startX + gridlist_columnBar_padding, row_offsetY, row_offsetX + column_offsets[k].endX - gridlist_columnBar_padding, row_offsetY + gridlist_rowBar_height, tocolor(elementReference.gui.rowBar.hoverFontColor[1], elementReference.gui.rowBar.hoverFontColor[2], elementReference.gui.rowBar.hoverFontColor[3], elementReference.gui.rowBar.hoverFontColor[4]*j.animAlphaPercent), 1, elementReference.gui.rowBar.font, "center", "center", true, false, false, false, true)
+                dxDrawText(j[k] or "-", row_offsetX + column_offsets[k].startX + gridlist_columnBar_padding, row_offsetY, row_offsetX + column_offsets[k].endX - gridlist_columnBar_padding, row_offsetY + gridlist_rowBar_height, gridlist_rowBar_fontColor, 1, elementReference.gui.rowBar.font, "center", "center", true, false, false, false, true)
+                dxDrawText(j[k] or "-", row_offsetX + column_offsets[k].startX + gridlist_columnBar_padding, row_offsetY, row_offsetX + column_offsets[k].endX - gridlist_columnBar_padding, row_offsetY + gridlist_rowBar_height, tocolor(elementReference.gui.rowBar.hoverFontColor[1], elementReference.gui.rowBar.hoverFontColor[2], elementReference.gui.rowBar.hoverFontColor[3], elementReference.gui.rowBar.hoverFontColor[4]*j.animAlphaPercent), 1, elementReference.gui.rowBar.font, "center", "center", true, false, false, false, true)
             end
         end
         dxSetBlendMode("blend")
@@ -97,14 +97,14 @@ function renderGridlist(element)
         else
             dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
         end
-        dxDrawImage(false, gridlist_renderTarget_startX, gridlist_renderTarget_startY, gridlist_renderTarget_width, gridlist_renderTarget_height, gridlist_renderTarget, 0, 0, 0, tocolor(255, 255, 255, 255), gridlist_postGUI)
+        dxDrawImage(gridlist_renderTarget_startX, gridlist_renderTarget_startY, gridlist_renderTarget_width, gridlist_renderTarget_height, gridlist_renderTarget, 0, 0, 0, tocolor(255, 255, 255, 255), gridlist_postGUI)
     end
-    dxDrawRectangle(true, gridlist_startX, gridlist_startY, gridlist_width, gridlist_columnBar_height, gridlist_columnBar_color, gridlist_postGUI, true)
+    dxDrawRectangle(gridlist_startX, gridlist_startY, gridlist_width, gridlist_columnBar_height, gridlist_columnBar_color, gridlist_postGUI, true)
     for i, j in ipairs(elementReference.gridData.columns) do
         if i ~= #elementReference.gridData.columns then
-            dxDrawRectangle(false, gridlist_startX + column_offsets[i].startX + j.width + gridlist_columnBar_divider_size, gridlist_startY + gridlist_columnBar_height + gridlist_columnBar_padding, gridlist_columnBar_divider_size, gridlist_height - gridlist_columnBar_height - (gridlist_columnBar_padding*2), gridlist_columnBar_divider_color, gridlist_postGUI, true)
+            dxDrawRectangle(gridlist_startX + column_offsets[i].startX + j.width + gridlist_columnBar_divider_size, gridlist_startY + gridlist_columnBar_height + gridlist_columnBar_padding, gridlist_columnBar_divider_size, gridlist_height - gridlist_columnBar_height - (gridlist_columnBar_padding*2), gridlist_columnBar_divider_color, gridlist_postGUI, true)
         end
-        dxDrawText(false, j.name, gridlist_startX + column_offsets[i].startX + gridlist_columnBar_padding, gridlist_startY + gridlist_columnBar_padding, gridlist_startX + column_offsets[i].endX - gridlist_columnBar_padding, gridlist_startY + gridlist_columnBar_height, gridlist_columnBar_fontColor, 1, elementReference.gui.columnBar.font, "center", "center", true, false, gridlist_postGUI, false, true)
+        dxDrawText(j.name, gridlist_startX + column_offsets[i].startX + gridlist_columnBar_padding, gridlist_startY + gridlist_columnBar_padding, gridlist_startX + column_offsets[i].endX - gridlist_columnBar_padding, gridlist_startY + gridlist_columnBar_height, gridlist_columnBar_fontColor, 1, elementReference.gui.columnBar.font, "center", "center", true, false, gridlist_postGUI, false, true)
     end
     return true
 

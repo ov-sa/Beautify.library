@@ -15,16 +15,16 @@
 
 createdElements = {}
 createdParentElements = {}
-local ____createdChildElements = {}
+local createdChildElements = {}
 
 
 --------------------------------------------
 --[[ Function: Retrieves Child Elements ]]--
 --------------------------------------------
 
-function _____getChildElements()
+function ___getChildElements()
 
-    return ____createdChildElements
+    return createdChildElements
 
 end
 
@@ -33,10 +33,10 @@ end
 --[[ Function: Retrieves UI's Parent ]]--
 -----------------------------------------
 
-function _____getUIParent(element)
+function ___getUIParent(element)
 
     if element and isElement(element) and not createdElements[element] then
-        local elementParent = ____createdChildElements[element]
+        local elementParent = createdChildElements[element]
         if elementParent and isElement(elementParent) and createdParentElements[elementParent] and createdParentElements[elementParent][element] and createdElements[elementParent] then
             return elementParent
         end
@@ -61,26 +61,29 @@ function createElement(elementType, parentElement, sourceResource)
         local isChildElement = false
         if parentElement and isElement(parentElement) then
             local parentType = parentElement:getType()
-            if createdElements[parentElement] and createdParentElements[parentElement] and availableElements[parentType] and availableElements[parentType].__allowedChildren and availableElements[parentType].__allowedChildren[elementType] and createdElements[parentElement].sourceResource == sourceResource then
+            if createdElements[parentElement] and createdParentElements[parentElement] and availableElements[parentType] and availableElements[parentType].allowedChildren and availableElements[parentType].allowedChildren[elementType] and createdElements[parentElement].sourceResource == sourceResource then
                 isChildElement = true
             else
+                createdElement:destroy()
                 return false
             end
         end
         if isChildElement then
-            ____createdChildElements[createdElement] = parentElement
+            createdChildElements[createdElement] = parentElement
             createdParentElements[parentElement][createdElement] = {
                 isValid = false,
-                isVisible = true
+                isVisible = true,
+                isDraggable = false
             }
         else
-            if availableElements[elementType].__allowedChildren then
+            if availableElements[elementType].allowedChildren then
                 createdParentElements[createdElement] = {}
             end
             createdElements[createdElement] = {
                 sourceResource = sourceResource,
                 isValid = false,
-                isVisible = false
+                isVisible = false,
+                isDraggable = false
             }
         end
         return createdElement, parentElement
@@ -99,7 +102,7 @@ function destroyElement(element)
             if createdParentElements[element] then
                 for i, j in pairs(createdParentElements[element]) do
                     if i and isElement(i) then
-                        ____createdChildElements[i] = nil
+                        createdChildElements[i] = nil
                         i:destroy()
                     end
                 end
@@ -115,7 +118,7 @@ function destroyElement(element)
             createdElements[element] = nil
             return true
         else
-            local elementParent = ____createdChildElements[element]
+            local elementParent = createdChildElements[element]
             if elementParent and createdParentElements[elementParent] then
                 if createdParentElements[elementParent][element].gui then
                     for i, j in pairs(createdParentElements[elementParent][element].gui) do
@@ -125,11 +128,12 @@ function destroyElement(element)
                     end
                 end
                 createdParentElements[elementParent][element] = nil
-                ____createdChildElements[element] = nil
+                createdChildElements[element] = nil
                 return true
             end
         end
     end
+    collectgarbage()
     return false
 
 end

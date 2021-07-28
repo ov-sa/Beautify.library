@@ -20,14 +20,19 @@
     <script src="handlers/element/manager.lua" type="client" cache="false"/>
     <script src="handlers/element/attacher.lua" type="client" cache="false"/>
     <script src="handlers/element/renderer.lua" type="client" cache="false"/>
-    <script src="handlers/overlay/renderer.lua" type="client" cache="false"/>
+    <!--script src="handlers/overlay/renderer.lua" type="client" cache="false"/-->
     <script src="handlers/renderer/window.lua" type="client" cache="false"/>
     <script src="handlers/renderer/gridlist.lua" type="client" cache="false"/>
 
     <!-- Configurations -->
-    <script src="configurations/assets.lua" type="client" cache="false"/>
-    <script src="configurations/elements.lua" type="client" cache="false"/>
-    <script src="configurations/template.lua" type="client" cache="false"/>
+    <script src="configurations/assets/initial.lua" type="client" cache="false"/>
+    <script src="configurations/assets/images.lua" type="client" cache="false"/>
+    <script src="configurations/elements/initial.lua" type="client" cache="false"/>
+    <script src="configurations/elements/window.lua" type="client" cache="false"/>
+    <script src="configurations/elements/gridlist.lua" type="client" cache="false"/>
+    <script src="configurations/templates/initial.lua" type="client" cache="false"/>
+    <script src="configurations/templates/window.lua" type="client" cache="false"/>
+    <script src="configurations/templates/gridlist.lua" type="client" cache="false"/>
 
     <!-- Files: Assets: Fonts -->
     <file src="files/assets/fonts/teko_medium.ttf"/>
@@ -61,6 +66,12 @@
 
     <!-- Params: setUIVisible(element, state) | Returns Boolean -->
     <export function="setUIVisible" type="client"/>
+
+    <!-- Params: isUIDraggable(element) | Returns Boolean -->
+    <export function="isUIDraggable" type="client"/>
+
+    <!-- Params: setUIDraggable(element, state) | Returns Boolean -->
+    <export function="setUIDraggable" type="client"/>
 
     <!-- Params: createWindow(x, y, width, height, title, postGUI) | Returns Element; Else false Boolean -->
     <export function="createWindow" type="client"/>

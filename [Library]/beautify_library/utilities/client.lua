@@ -92,13 +92,13 @@ end
 --[[ Function: Verifies UI's Parameters ]]--
 --------------------------------------------
 
-function isUIParametersValid(paremeters, elementType, apiName)
+function areUIParametersValid(paremeters, elementType, apiName)
 
-    if not paremeters or type(paremeters) ~= "table" or not elementType or not availableElements[elementType] or (apiName and not availableElements[elementType].__apis[apiName]) then return false end
+    if not paremeters or type(paremeters) ~= "table" or not elementType or not availableElements[elementType] or (apiName and not availableElements[elementType].apis[apiName]) then return false end
 
     local areParametersValid = true
-    local functionReference = (not apiName and availableElements[elementType].__syntax) or availableElements[elementType].__apis[apiName]
-    local functionName = (not apiName and availableElements[elementType].__syntax.functionName) or apiName
+    local functionReference = (not apiName and availableElements[elementType].syntax) or availableElements[elementType].apis[apiName]
+    local functionName = (not apiName and availableElements[elementType].syntax.functionName) or apiName
     local functionParemers = functionReference.parameters
     for i, j in ipairs(functionParemers) do
         if not paremeters[i] or (type(paremeters[i]) ~= (((j.type == "float") and "number") or j.type)) then
@@ -135,6 +135,8 @@ end
 --[[ Function: Retrieves Colors From Int ]]--
 ---------------------------------------------
 
+--TODO: NO NEED :)
+--[[
 function fromColor(color)
 
     color = tonumber(color)
@@ -148,6 +150,7 @@ function fromColor(color)
     return false
 
 end
+]]--
 
 
 ----------------------------------------

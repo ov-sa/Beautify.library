@@ -15,6 +15,8 @@ addEventHandler("onClientResourceStart", resource, function()
     addGridlistColumn(createdGridlist, "Country", 100)
     addGridlistColumn(createdGridlist, "Rank", 250)
     setUIVisible(createdWindow, true)
+    setUIDraggable(createdWindow, true)
+    setUIVisible(createdGridlist, true)
 
     local testRows = {
         {
@@ -25,6 +27,9 @@ addEventHandler("onClientResourceStart", resource, function()
         },
         {
             [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
+        },
+        {
+            [1] = "3", [2] = "Mario", [3] = "BH", [4] = "CEO"
         }
     }
     for i, j in ipairs(testRows) do
@@ -36,7 +41,7 @@ addEventHandler("onClientResourceStart", resource, function()
         end
         outputChatBox(toJSON(rowData))
     end
-    setGridlistSelection(createdGridlist, 2)
+    setGridlistSelection(createdGridlist, 1)
     local gridlistSelection = getGridlistSelection(createdGridlist)
     outputChatBox("Selection: "..gridlistSelection)
     showCursor(true)

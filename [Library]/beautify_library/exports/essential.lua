@@ -15,7 +15,7 @@
 
 function getUIParent(element)
 
-    return _____getUIParent(element)
+    return ___getUIParent(element)
 
 end
 
@@ -41,9 +41,9 @@ function isUIValid(element)
 end
 
 
----------------------------------------------
---[[ Function: Retrieves UI's Visibility ]]--
----------------------------------------------
+---------------------------------------------------
+--[[ Functions: Retrieves/Sets UI's Visibility ]]--
+---------------------------------------------------
 
 function isUIVisible(element)
 
@@ -61,11 +61,6 @@ function isUIVisible(element)
 
 end
 
-
-----------------------------------------
---[[ Function: Sets UI's Visibility ]]--
-----------------------------------------
-
 function setUIVisible(element, state)
 
     if element and isElement(element) and isUIValid(element) and (state == true or state == false) then
@@ -81,6 +76,36 @@ function setUIVisible(element, state)
                     createdParentElements[elementParent][element].isVisible = state
                     return true
                 end
+            end
+        end
+    end
+    return false
+
+end
+
+
+-----------------------------------------------------
+--[[ Functions: Retrieves/Sets UI's Draggability ]]--
+-----------------------------------------------------
+
+function isUIDraggable(element)
+
+    if element and isElement(element) and isUIValid(element) then
+        if createdElements[element] then
+            return createdElements[element].isDraggable
+        end
+    end
+    return false
+
+end
+
+function setUIDraggable(element, state)
+
+    if element and isElement(element) and isUIValid(element) and (state == true or state == false) then
+        if createdElements[element] then
+            if createdElements[element].isDraggable ~= state then
+                createdElements[element].isDraggable = state
+                return true
             end
         end
     end
