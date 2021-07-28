@@ -1,7 +1,3 @@
---TODO: TESTING, REMOVE LATER
-
-
-
 local sX, sY = guiGetScreenSize()
 sX = sX/1366; sY = sY/768;
 
@@ -26,6 +22,30 @@ addEventHandler("onClientResourceStart", resource, function()
             [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
         },
         {
+            [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
+        },
+        {
+            [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
+        },
+        {
+            [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
+        },
+        {
+            [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
+        },
+        {
+            [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
+        },
+        {
+            [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
+        },
+        {
+            [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
+        },
+        {
+            [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
+        },
+        {
             [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
         },
         {
@@ -39,11 +59,10 @@ addEventHandler("onClientResourceStart", resource, function()
             setGridlistRowData(createdGridlist, rowIndex, k, v)
             rowData[k] = getGridlistRowData(createdGridlist, rowIndex, k)
         end
-        outputChatBox(toJSON(rowData))
     end
     setGridlistSelection(createdGridlist, 1)
-    local gridlistSelection = getGridlistSelection(createdGridlist)
-    outputChatBox("Selection: "..gridlistSelection)
+    --local gridlistSelection = getGridlistSelection(createdGridlist)
+    --outputChatBox("Selection: "..gridlistSelection)
     showCursor(true)
 
 end)

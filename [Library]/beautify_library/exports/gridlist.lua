@@ -20,11 +20,11 @@ function createGridlist(...)
     if not areUIParametersValid(parameters, elementType) then return false end
     local createdElement, elementParent = createElement(elementType, parameters[5], sourceResource)
     if not createdElement then return false end
-    local uiTemplate = getUITemplate(elementType)
+    local uiTemplate = __getUITemplate(elementType)
     if not uiTemplate then return false end
 
     local elementReference = (elementParent and createdParentElements[elementParent][createdElement]) or createdElements[createdElement]
-    elementReference.gui = {}
+    elementReference.gui = cloneUIOutline(elementType)
     elementReference.gridData = {
         columns = {},
         rows = {},
@@ -41,9 +41,6 @@ function createGridlist(...)
         end
     end
     elementReference.gui.postGUI = (not elementParent and (parameters[6] and true)) or false
-    for i, j in pairs(uiTemplate) do
-        elementReference.gui[i] = table.copy(j, true)
-    end
     elementReference.gui.contentSection = {
         startX = 0,
         startY = availableElements["beautify_gridlist"].columnBar.height,

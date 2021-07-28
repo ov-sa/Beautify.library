@@ -16,23 +16,39 @@
 sX, sY = GuiElement.getScreenSize()
 
 
--------------------------------------------
---[[ Function: Retrieves Copy Of Table ]]--
--------------------------------------------
+------------------------------------------------------
+--[[ Functions: Clones Table's/UI's Datas/Outline ]]--
+------------------------------------------------------
 
-function table.copy(recievedTable, recursive)
+function cloneTableDatas(recievedTable, isRecursiveMode)
 
     if not recievedTable or type(recievedTable) ~= "table" then return false end
 
-    local copiedTable = {}
-    for key, value in pairs(recievedTable) do
-        if type(value) == "table" and recursive then
-            copiedTable[key] = table.copy(value, true)
+    local clonedTable = {}
+    for i, j in pairs(recievedTable) do
+        if type(j) == "table" and isRecursiveMode then
+            clonedTable[i] = cloneTableDatas(j, true)
         else
-            copiedTable[key] = value
+            clonedTable[i] = j
         end
     end
-    return copiedTable
+    return clonedTable
+
+end
+
+function cloneUIOutline(elementType, nestedOutline)
+
+    if not elementType or not availableElements[elementType] or not availableTemplates[elementType] then return false end
+
+    local clonedOutline = {}
+    for i, j in pairs(nestedOutline or availableTemplates[elementType]) do
+        if type(j) == "table" then
+            if j.isOutLine then
+                clonedOutline[i] = cloneUIOutline(elementType, j)
+            end
+        end
+    end
+    return clonedOutline
 
 end
 
@@ -129,28 +145,6 @@ function areUIParametersValid(paremeters, elementType, apiName)
     return true
 
 end
-
-
----------------------------------------------
---[[ Function: Retrieves Colors From Int ]]--
----------------------------------------------
-
---TODO: NO NEED :)
---[[
-function fromColor(color)
-
-    color = tonumber(color)
-	if color then
-        local red = bitExtract(color, 16, 8)
-        local green = bitExtract(color, 8, 8)
-		local blue = bitExtract(color, 0, 8)
-		local alpha = bitExtract(color, 24, 8)
-		return {red, green, blue, alpha}
-	end
-    return false
-
-end
-]]--
 
 
 ----------------------------------------

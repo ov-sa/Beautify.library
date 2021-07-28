@@ -20,11 +20,11 @@ function createWindow(...)
     if not areUIParametersValid(parameters, elementType) then return false end
     local createdElement = createElement(elementType, nil, sourceResource)
     if not createdElement then return false end
-    local uiTemplate = getUITemplate(elementType)
+    local uiTemplate = __getUITemplate(elementType)
     if not uiTemplate then return false end
 
     local elementReference = createdElements[createdElement]
-    elementReference.gui = {}
+    elementReference.gui = cloneUIOutline(elementType)
     elementReference.scroller = {}
     for i, j in ipairs(availableElements[elementType].syntax.parameters) do
         if j.name == "width" or j.name == "height" then
@@ -40,9 +40,6 @@ function createWindow(...)
         end
     end
     elementReference.gui.postGUI = (parameters[6] and true) or false
-    for i, j in pairs(uiTemplate) do
-        elementReference.gui[i] = table.copy(j, true)
-    end
     elementReference.gui.contentSection = {
         startX = availableElements["beautify_window"].contentSection.padding,
         startY = (availableElements["beautify_window"].minimumSize/2) + availableElements["beautify_window"].contentSection.padding,

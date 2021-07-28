@@ -9,6 +9,23 @@
 ----------------------------------------------------------------
 
 
+-------------------------------------------------
+--[[ Functions: Retrieves/Sets UI's Template ]]--
+-------------------------------------------------
+
+function getUITemplate(...)
+
+    return __getUITemplate(unpack{...})
+
+end
+
+function setUITemplate(...)
+
+    return __setUITemplate(unpack{...})
+
+end
+
+
 -----------------------------------------
 --[[ Function: Retrieves UI's Parent ]]--
 -----------------------------------------

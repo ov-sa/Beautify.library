@@ -13,20 +13,30 @@
 --[[ Variables ]]--
 -------------------
 
-local customTemplate = {}
+local customTemplates = {}
 
 
--------------------------------------------
---[[ Function: Retrieves UI's Template ]]--
--------------------------------------------
+--------------------------------------------------
+--[[ Functions: Retrieves/Set's UI's Template ]]--
+--------------------------------------------------
 
-function getUITemplate(elementType)
+function __getUITemplate(elementType)
 
     if not elementType or not availableElements[elementType] or not availableTemplates[elementType] then return false end
     
-    if customTemplate[elementType] then
-        return customTemplate[elementType]
+    if customTemplates[elementType] and customTemplates[elementType][sourceResource or resource] then
+        return customTemplates[elementType][sourceResource or resource]
     end
     return availableTemplates[elementType]
+
+end
+
+function __setUITemplate(elementType, elementTemplate)
+
+    if not elementType or not elementTemplate or not availableElements[elementType] or not availableTemplates[elementType] then return false end
+
+    if not customTemplates[elementType] then customTemplates[elementType] = {} end
+    customTemplates[elementType][sourceResource or resource] = elementTemplate
+    return true
 
 end

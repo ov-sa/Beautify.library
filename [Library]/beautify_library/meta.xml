@@ -20,7 +20,6 @@
     <script src="handlers/element/manager.lua" type="client" cache="false"/>
     <script src="handlers/element/attacher.lua" type="client" cache="false"/>
     <script src="handlers/element/renderer.lua" type="client" cache="false"/>
-    <!--script src="handlers/overlay/renderer.lua" type="client" cache="false"/-->
     <script src="handlers/renderer/window.lua" type="client" cache="false"/>
     <script src="handlers/renderer/gridlist.lua" type="client" cache="false"/>
 
@@ -54,6 +53,12 @@
 
     <!-- TODO: REMOVE LATER -->
     <script src="test.lua" type="client" cache="false"/>
+
+    <!-- Params: getUITemplate(elementType) | Returns Data; Else false Boolean -->
+    <export function="getUITemplate" type="client"/>
+
+    <!-- Params: setUITemplate(elementType, elementTemplate) | Returns Boolean -->
+    <export function="setUITemplate" type="client"/>
 
     <!-- Params: getUIParent(element) | Returns Element; Else false Boolean -->
     <export function="getUIParent" type="client"/>

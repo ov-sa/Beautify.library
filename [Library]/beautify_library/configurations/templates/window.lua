@@ -16,6 +16,7 @@
 availableTemplates["beautify_window"] = {
     color = {0, 0, 0, 253},
     titleBar = {
+        isOutLine = true,
         font = DxFont("files/assets/fonts/mukta_semibold.ttf", 15),
         fontColor = {80, 80, 255, 255},
         color = {0, 0, 0, 255},
@@ -24,6 +25,7 @@ availableTemplates["beautify_window"] = {
             color = {80, 80, 255, 75}
         },
         close_button = {
+            isOutLine = true,
             fontColor = {80, 80, 255, 255},
             hoverFontColor = {0, 0, 0, 255},
             hoverColor = {80, 80, 255, 255}
