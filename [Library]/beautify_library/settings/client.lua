@@ -20,3 +20,7 @@ UI_PRIORITY_LEVEL = {
     RENDER = "low-999",
     INPUT = "low-1000"
 }
+
+UI_INPUT_FRAMES = {
+    SCROLL_DELAY = 250
+}

@@ -15,8 +15,7 @@
 
 INPUT_CACHE = {
     prevKeyClickStates = {},
-    prevScrollState = false,
-    prevScrollStreak = {scrollState = false, tickCounter = false, streak = 1}
+    prevScrollState = {scrollState = false, streakState = false, streakCounter = 1, tickCounter = getTickCount()}
 }
 local DEFAULT_INPUT_KEYS = {
     "mouse1", "mouse2"
@@ -29,24 +28,25 @@ local DEFAULT_INPUT_KEYS = {
 
 local function isInputValid()
 
-    if GuiElement.isMTAWindowActive() then return false end
-
-    resetKeyClickCache(nil, true)
-    resetScrollCache(true)
+    if GuiElement.isMTAWindowActive() then
+        resetKeyClickCache(nil, true)
+        resetScrollCache(true)
+        return false
+    end
     return true
 
 end
 
 
----------------------------------------------
---[[ Functions: Adds/Resets Input States ]]--
----------------------------------------------
+-------------------------------------------------------
+--[[ Functions: Adds/Resets/Retrieves Input States ]]--
+-------------------------------------------------------
 
 function addKeyClickCache(key)
 
     if not key or INPUT_CACHE.prevKeyClickStates[key] then return false end
 
-    INPUT_CACHE.prevKeyClickStates[key] = {holdState = false, tickCounter = false, clickState = false}
+    INPUT_CACHE.prevKeyClickStates[key] = {holdState = false, clickState = false, tickCounter = getTickCount()}
     return true
 
 end
@@ -68,15 +68,39 @@ function resetKeyClickCache(key, resetHold)
 
 end
 
+function isKeyClicked(key)
+   
+    if not key or not INPUT_CACHE.prevKeyClickStates[key] then return false end
+
+    return INPUT_CACHE.prevKeyClickStates[key].clickState
+
+end
+
+function isKeyOnHold(key)
+   
+    if not key or not INPUT_CACHE.prevKeyClickStates[key] then return false end
+
+    return INPUT_CACHE.prevKeyClickStates[key].holdState
+
+end
+
+function isMouseScrolled()
+   
+    if not INPUT_CACHE.prevScrollState.scrollState then return false end
+
+    return INPUT_CACHE.prevScrollState.scrollState, INPUT_CACHE.prevScrollState.streakCounter
+
+end
+
 function resetScrollCache(resetStreak)
 
-    if not INPUT_CACHE.prevScrollState then return false end
+    if not INPUT_CACHE.prevScrollState.scrollState then return false end
 
-    if resetStreak and INPUT_CACHE.prevScrollState then
-        INPUT_CACHE.prevScrollStreak.streak = 1
-        INPUT_CACHE.prevScrollStreak.tickCounter = getTickCount()
+    if resetStreak and INPUT_CACHE.prevScrollState.scrollState then
+        INPUT_CACHE.prevScrollState.streakCounter = 1
+        INPUT_CACHE.prevScrollState.tickCounter = getTickCount()
     end
-    INPUT_CACHE.prevScrollState = false
+    INPUT_CACHE.prevScrollState.scrollState = false
     return true
 
 end
@@ -95,10 +119,12 @@ addEventHandler("onClientRender", root, function()
             if getKeyState(i) then
                 j.clickState = true
                 j.holdState = true
+                j.tickCounter = getTickCount()
             end
         else
             if not getKeyState(i) then
                 j.holdState = false
+                j.tickCounter = getTickCount()
             end
         end
     end
@@ -112,29 +138,29 @@ end, false, UI_PRIORITY_LEVEL.INPUT)
 
 addEventHandler("onClientKey", root, function(button, state)
 
-    --if not isInputValid() then return false end
+    if not isInputValid() then return false end
 
-    local isMouseScrolled = false
+    local isScrolled = false
     if button == "mouse_wheel_up" then
-        isMouseScrolled = "up"
+        isScrolled = "up"
     elseif button == "mouse_wheel_down" then
-        isMouseScrolled = "down"
+        isScrolled = "down"
     end
 
-    if isMouseScrolled then
-        if not INPUT_CACHE.prevScrollStreak.scrollState or INPUT_CACHE.prevScrollStreak.scrollState ~= isMouseScrolled then
-            INPUT_CACHE.prevScrollStreak.scrollState = isMouseScrolled
-            INPUT_CACHE.prevScrollStreak.streak = 1
-            INPUT_CACHE.prevScrollStreak.tickCounter = getTickCount()
+    if isScrolled then
+        if not INPUT_CACHE.prevScrollState.streakCounterState or INPUT_CACHE.prevScrollState.streakCounterState ~= isScrolled then
+            INPUT_CACHE.prevScrollState.streakCounterState = isScrolled
+            INPUT_CACHE.prevScrollState.streakCounter = 1
+            INPUT_CACHE.prevScrollState.tickCounter = getTickCount()
         else
-            if (getTickCount() - INPUT_CACHE.prevScrollStreak.tickCounter) < 250 then
-                INPUT_CACHE.prevScrollStreak.streak = INPUT_CACHE.prevScrollStreak.streak + 0.5
+            if (getTickCount() - INPUT_CACHE.prevScrollState.tickCounter) < UI_INPUT_FRAMES.SCROLL_DELAY then
+                INPUT_CACHE.prevScrollState.streakCounter = INPUT_CACHE.prevScrollState.streakCounter + 0.5
             else
-                INPUT_CACHE.prevScrollStreak.streak = 1
+                INPUT_CACHE.prevScrollState.streakCounter = 1
             end
-            INPUT_CACHE.prevScrollStreak.tickCounter = getTickCount()
+            INPUT_CACHE.prevScrollState.tickCounter = getTickCount()
         end
-        INPUT_CACHE.prevScrollState = isMouseScrolled
+        INPUT_CACHE.prevScrollState.scrollState = isScrolled
     end
 
 end, false, UI_PRIORITY_LEVEL.INPUT)
