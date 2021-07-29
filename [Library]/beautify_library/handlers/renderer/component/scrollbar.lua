@@ -33,8 +33,12 @@ function renderScrollbar(elementParent, renderData, referenceData)
     local scrollbar_track_color, scrollbar_thumb_color, scrollbar_thumb_shadow_color = tocolor(unpack(componentTemplate.track.color)), tocolor(unpack(componentTemplate.thumb.color)), tocolor(unpack(componentTemplate.thumb.shadowColor))
     local scrollbar_postGUI = renderData.postGUI
 
+    if not referenceData.currentThumbHeight then referenceData.currentThumbHeight = 0 end
     if not referenceData.finalPercent then referenceData.finalPercent = 0 end
+    referenceData.finalThumbHeight = scrollbar_thumb_height
+    referenceData.currentThumbHeight = interpolateBetween(referenceData.currentThumbHeight, 0, 0, referenceData.finalThumbHeight, 0, 0, 0.08, "InQuad")
     referenceData.currentPercent = interpolateBetween(referenceData.currentPercent, 0, 0, referenceData.finalPercent, 0, 0, 0.08, "InQuad")
+    scrollbar_thumb_height = referenceData.currentThumbHeight
     local scrollbar_thumb_offsetY = (scrollbar_height - scrollbar_thumb_height)*(referenceData.currentPercent*0.01)
     dxDrawRectangle(scrollbar_startX, scrollbar_startY, scrollbar_width, scrollbar_height, scrollbar_track_color, scrollbar_postGUI)
     dxDrawRectangle(scrollbar_startX, scrollbar_startY + scrollbar_thumb_offsetY, scrollbar_width, scrollbar_thumb_height, scrollbar_thumb_color, scrollbar_postGUI)
