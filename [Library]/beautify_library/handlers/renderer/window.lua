@@ -19,7 +19,7 @@ function renderWindow(element)
     local elementType = element:getType()
     if elementType ~= "beautify_window" then return false end
 
-    local elementTemplate = __getUITemplate(elementType)
+    local elementTemplate = getUITemplate(elementType)
     local elementReference = createdElements[element]
     local window_borderSize = availableElements[elementType].minimumSize/2
     local window_startX, window_startY = elementReference.gui.x, elementReference.gui.y
@@ -81,9 +81,13 @@ function renderWindow(element)
     if window_width > availableElements[elementType].minimumSize and window_height > availableElements[elementType].minimumSize then
         dxDrawRectangle(window_startX + window_borderSize, window_startY + window_borderSize, window_width - availableElements[elementType].minimumSize, window_height - availableElements[elementType].minimumSize, window_color, window_postGUI)
     end
+    local window_title_padding = ""
+    while dxGetTextWidth(window_title_padding, 1, elementTemplate.titleBar.font) < window_borderSize do
+        window_title_padding = window_title_padding.." "
+    end
     dxDrawText("X", window_close_button_startX, window_close_button_startY, window_close_button_startX + window_borderSize, window_startY + window_borderSize, tocolor(unpack(elementTemplate.titleBar.close_button.fontColor)), 1, elementTemplate.titleBar.font, "center", "center", true, false, window_postGUI, false)
     dxDrawText("X", window_close_button_startX, window_close_button_startY, window_close_button_startX + window_borderSize, window_startY + window_borderSize, tocolor(elementTemplate.titleBar.close_button.hoverFontColor[1], elementTemplate.titleBar.close_button.hoverFontColor[2], elementTemplate.titleBar.close_button.hoverFontColor[3], elementTemplate.titleBar.close_button.hoverFontColor[4]*elementReference.gui.titleBar.close_button.animAlphaPercent), 1, elementTemplate.titleBar.font, "center", "center", true, false, window_postGUI, false)
-    dxDrawText(elementReference.gui.title, window_startX + window_titleBar_paddingX, window_startY, window_startX + window_width - window_borderSize - window_titleBar_paddingX, window_startY + window_borderSize, tocolor(unpack(elementTemplate.titleBar.fontColor)), 1, elementTemplate.titleBar.font, "center", "center", true, false, window_postGUI, false)
+    dxDrawText(window_title_padding..elementReference.gui.title, window_startX + window_titleBar_paddingX, window_startY, window_startX + window_width - window_borderSize - window_titleBar_paddingX, window_startY + window_borderSize, tocolor(unpack(elementTemplate.titleBar.fontColor)), 1, elementTemplate.titleBar.font, "center", "center", true, false, window_postGUI, false)
     dxDrawRectangle(window_close_button_startX, window_close_button_startY, window_titleBar_divider_size, window_borderSize, window_titleBar_divider_color, window_postGUI, true)
     dxDrawRectangle(window_startX, window_startY + window_borderSize, window_width, window_titleBar_divider_size, window_titleBar_divider_color, window_postGUI, true)
     if (window_width >= window_borderSize) and (window_height >= window_borderSize) and window_renderTarget and isElement(window_renderTarget) then

@@ -20,7 +20,7 @@ function createGridlist(...)
     if not areUIParametersValid(parameters, elementType) then return false end
     local createdElement, elementParent = createElement(elementType, parameters[5], sourceResource)
     if not createdElement then return false end
-    local uiTemplate = __getUITemplate(elementType)
+    local uiTemplate = getUITemplate(elementType)
     if not uiTemplate then return false end
 
     local elementReference = (elementParent and createdParentElements[elementParent][createdElement]) or createdElements[createdElement]

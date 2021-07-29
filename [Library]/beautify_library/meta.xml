@@ -54,6 +54,9 @@
     <!-- TODO: REMOVE LATER -->
     <script src="test.lua" type="client" cache="false"/>
 
+    <!-- Params: clearResourceUITemplates(sourceResource) | Returns Boolean -->
+    <export function="clearResourceUITemplates" type="client"/>
+
     <!-- Params: getUITemplate(elementType) | Returns Data; Else false Boolean -->
     <export function="getUITemplate" type="client"/>
 

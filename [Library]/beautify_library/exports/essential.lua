@@ -9,6 +9,17 @@
 ----------------------------------------------------------------
 
 
+--------------------------------------------------
+--[[ Function: Clears Resource's UI Templates ]]--
+--------------------------------------------------
+
+function clearResourceUITemplates(...)
+
+    return __clearResourceUITemplates(unpack{...})
+
+end
+
+
 -------------------------------------------------
 --[[ Functions: Retrieves/Sets UI's Template ]]--
 -------------------------------------------------
@@ -32,7 +43,7 @@ end
 
 function getUIParent(element)
 
-    return ___getUIParent(element)
+    return __getUIParent(element)
 
 end
 

@@ -33,7 +33,7 @@ end
 --[[ Function: Retrieves UI's Parent ]]--
 -----------------------------------------
 
-function ___getUIParent(element)
+function __getUIParent(element)
 
     if element and isElement(element) and not createdElements[element] then
         local elementParent = createdChildElements[element]

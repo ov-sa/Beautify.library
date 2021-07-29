@@ -19,7 +19,7 @@ function renderGridlist(element)
     local elementType = element:getType()
     if elementType ~= "beautify_gridlist" then return false end
 
-    local elementTemplate = __getUITemplate(elementType)
+    local elementTemplate = getUITemplate(elementType)
     local elementParent = getUIParent(element)
     local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
     local gridlist_startX, gridlist_startY = elementReference.gui.x, elementReference.gui.y

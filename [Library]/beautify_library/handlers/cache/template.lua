@@ -13,7 +13,26 @@
 --[[ Variables ]]--
 -------------------
 
-local customTemplates = {}
+local createdTemplates = {}
+
+
+--------------------------------------------------
+--[[ Function: Clears Resource's UI Templates ]]--
+--------------------------------------------------
+
+function __clearResourceUITemplates(sourceResource)
+
+    if not sourceResource then return false end
+
+    for i, j in pairs(createdTemplates) do
+        if j and j[sourceResource] then
+            j[sourceResource] = nil
+        end
+    end
+    collectgarbage()
+    return true
+
+end
 
 
 --------------------------------------------------
@@ -24,8 +43,8 @@ function __getUITemplate(elementType)
 
     if not elementType or not availableElements[elementType] or not availableTemplates[elementType] then return false end
     
-    if customTemplates[elementType] and customTemplates[elementType][sourceResource or resource] then
-        return customTemplates[elementType][sourceResource or resource]
+    if createdTemplates[elementType] and createdTemplates[elementType][sourceResource or resource] then
+        return createdTemplates[elementType][sourceResource or resource]
     end
     return availableTemplates[elementType]
 
@@ -35,8 +54,8 @@ function __setUITemplate(elementType, elementTemplate)
 
     if not elementType or not elementTemplate or not availableElements[elementType] or not availableTemplates[elementType] then return false end
 
-    if not customTemplates[elementType] then customTemplates[elementType] = {} end
-    customTemplates[elementType][sourceResource or resource] = elementTemplate
+    if not createdTemplates[elementType] then createdTemplates[elementType] = {} end
+    createdTemplates[elementType][sourceResource or resource] = elementTemplate
     return true
 
 end
