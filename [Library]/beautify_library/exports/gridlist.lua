@@ -24,7 +24,7 @@ function createGridlist(...)
 
     local parameters = {...}
     if not areUIParametersValid(parameters, elementType) then return false end
-    local createdElement, elementParent = createElement(elementType, parameters[5], sourceResource)
+    local createdElement, elementParent = createElement(elementType, parameters[(#availableElements[elementType].syntax.parameters + 1)], sourceResource)
     if not createdElement then return false end
     local uiTemplate = getUITemplate(elementType)
     if not uiTemplate then return false end
@@ -37,15 +37,15 @@ function createGridlist(...)
         selection = false
     }
     for i, j in ipairs(availableElements[elementType].syntax.parameters) do
-        if j.name == "x" or j.name == "y" then
+        if (j.name == "x") or (j.name == "y") then
             elementReference.gui[j.name] = math.max(0, parameters[i])
-        elseif j.name == "width" or j.name == "height" then
+        elseif (j.name == "width") or (j.name == "height") then
             elementReference.gui[j.name] = math.max(availableElements[elementType].minimumSize, parameters[i])
         else
             elementReference.gui[j.name] = parameters[i]
         end
     end
-    elementReference.gui.postGUI = (not elementParent and (parameters[6] and true)) or false
+    elementReference.gui.postGUI = (not elementParent and (parameters[(#availableElements[elementType].syntax.parameters + 2)] and true)) or false
     elementReference.gui.contentSection = {
         startX = 0,
         startY = availableElements["beautify_gridlist"].columnBar.height,

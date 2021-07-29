@@ -74,4 +74,8 @@ addEventHandler("onClientResourceStart", resource, function()
     --outputChatBox("Selection: "..gridlistSelection)
     showCursor(true)
 
+
+
+    createButton("test", 0, 0, "default", 0, 0)
+
 end)

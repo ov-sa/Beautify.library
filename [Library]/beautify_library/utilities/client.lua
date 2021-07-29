@@ -108,50 +108,75 @@ end
 --[[ Function: Verifies UI's Parameters ]]--
 --------------------------------------------
 
-function areUIParametersValid(paremeters, elementType, apiName)
+function areUIParametersValid(parameters, elementType, apiName)
 
-    if not paremeters or type(paremeters) ~= "table" or not elementType or not availableElements[elementType] or not availableTemplates[elementType or (apiName and not availableElements[elementType].apis[apiName]) then return false end
+    if not parameters or type(parameters) ~= "table" or not elementType or not availableElements[elementType] or (apiName and not availableElements[elementType].APIs[apiName]) then return false end
 
-    local areParametersValid = true
-    local functionReference = (not apiName and availableElements[elementType].syntax) or availableElements[elementType].apis[apiName]
+    local areParametersValid, templateReferenceIndex = true, false
+    local functionReference = (not apiName and availableElements[elementType].syntax) or availableElements[elementType].APIs[apiName]
     local functionName = (not apiName and availableElements[elementType].syntax.functionName) or apiName
-    local functionParemers = functionReference.parameters
-    local isSubTemplateOriented = false
-    for i, j in ipairs(functionParemers) do
-        if not paremeters[i] or (type(paremeters[i]) ~= (((j.type == "float") and "number") or j.type)) then
+    local functionParemeters, additionParameters = functionReference.parameters, false
+    for i, j in ipairs(functionParemeters) do
+        if not parameters[i] or (type(parameters[i]) ~= (((j.type == "float") and "number") or j.type)) then
             areParametersValid = false
             break
         else
-            if j.type == "userdata" then
-                local elementType = paremeters[i]:getType()
+            if j.type == "string" then
+                if j.isTemplateType then
+                    if not availableElements[elementType].syntax.parameters["TEMPLATE_PARAMETERS"][(parameters[i])] then
+                        areParametersValid = false
+                        break
+                    else
+                        templateReferenceIndex = i
+                        additionParameters = availableElements[elementType].syntax.parameters["TEMPLATE_PARAMETERS"][(parameters[i])]
+                    end
+                end
+            elseif j.type == "userdata" then
+                local elementType = parameters[i]:getType()
                 if elementType ~= j.userDataType then
                     areParametersValid = false
                     break
                 end
             end
         end
-        if j.isTemplateType then
-            isSubTemplateOriented = i
-            if not availableTemplates[elementType][(parameters[i])] then
-                areParametersValid = false
-                break
+    end
+    if additionParameters then
+        if areParametersValid then
+            for i, j in ipairs(additionParameters) do
+                local parameterIndex = #functionParemeters + i
+                if not parameters[parameterIndex] or (type(parameters[parameterIndex]) ~= (((j.type == "float") and "number") or j.type)) then
+                    areParametersValid = false
+                    break
+                end
             end
-            break
+        else
+            additionParameters = false
         end
     end
+    if availableElements[elementType].syntax.isSubTemplated and not templateReferenceIndex then areParametersValid = false end
+
     if not areParametersValid then
         local syntaxMessage = functionName.."("
-        for i, j in ipairs(functionParemers) do
-            syntaxMessage = syntaxMessage..j.name.." : "..(((j.type == "userdata") and "element") or j.type)
-            if i ~= #functionParemers then
+        for i = 1, (templateReferenceIndex or #functionParemeters), 1 do
+            local parameterData = functionParemeters[i]
+            syntaxMessage = syntaxMessage..parameterData.name.." : "..(((parameterData.type == "userdata") and "element") or parameterData.type)
+            if (i ~= #functionParemeters) or (additionParameters and (#additionParameters ~= 0)) then
                 syntaxMessage = syntaxMessage..", "
+            end
+        end
+        if additionParameters then
+            for i, j in ipairs(additionParameters) do
+                syntaxMessage = syntaxMessage..j.name.." : "..(((j.type == "userdata") and "element") or j.type)
+                if i ~= #additionParameters then
+                    syntaxMessage = syntaxMessage..", "
+                end
             end
         end
         syntaxMessage = syntaxMessage..")"
         outputUILog(syntaxMessage, "error")
         return false
     end
-    return true
+    return true, templateReferenceIndex
 
 end
 

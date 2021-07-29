@@ -15,7 +15,6 @@
 
 availableTemplates["beautify_button"] = {
     ["default"] = {
-        color = {80, 80, 255}
         color = {100, 100, 255, 255},
         fontColor = {0, 0, 0, 255}
     }

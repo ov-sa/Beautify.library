@@ -37,7 +37,7 @@ availableElements["beautify_gridlist"] = {
     }
 }
 
-availableElements["beautify_gridlist"]["apis"] = {
+availableElements["beautify_gridlist"]["APIs"] = {
     ["addGridlistColumn"] = {
         parameters = {
             {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"},

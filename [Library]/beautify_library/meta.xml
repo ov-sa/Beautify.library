@@ -7,6 +7,7 @@
     <script src="exports/essential.lua" type="client" cache="false"/>
     <script src="exports/window.lua" type="client" cache="false"/>
     <script src="exports/gridlist.lua" type="client" cache="false"/>
+    <script src="exports/button.lua" type="client" cache="false"/>
 
     <!-- Settings & Utilities -->
     <script src="utilities/client.lua" type="client" cache="false"/>
@@ -99,6 +100,9 @@
 
     <!-- Params: createGridlist(x, y, width, height, parent, postGUI) | Returns Element; Else false Boolean -->
     <export function="createGridlist" type="client"/>
+
+    <!-- Params: createButton(text, x, y, type, ..., parent, postGUI) | Returns Element; Else false Boolean -->
+    <export function="createButton" type="client"/>
 
     <!-- Params: addGridlistColumn(gridlist, name, width) | Returns Column; Else false Boolean -->
     <export function="addGridlistColumn" type="client"/>

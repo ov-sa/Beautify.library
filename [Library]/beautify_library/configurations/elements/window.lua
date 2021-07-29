@@ -26,7 +26,8 @@ availableElements["beautify_window"] = {
     },
     renderFunction = renderWindow,
     allowedChildren = {
-        ["beautify_gridlist"] = true
+        ["beautify_gridlist"] = true,
+        ["beautify_button"] = true
     },
     isDraggable = true,
     minimumSize = 55,
@@ -41,4 +42,4 @@ availableElements["beautify_window"] = {
     }
 }
 
-availableElements["beautify_window"]["apis"] = {}
+availableElements["beautify_window"]["APIs"] = {}

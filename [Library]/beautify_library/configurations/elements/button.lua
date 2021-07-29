@@ -15,22 +15,28 @@
 
 availableElements["beautify_button"] = {
     syntax = {
+        isSubTemplated = true,
         functionName = "createButton",
         parameters = {
             {name = "text", type = "string"},
             {name = "x", type = "float"},
             {name = "y", type = "float"},
             {name = "type", type = "string", isTemplateType = true},
-            {name = "width", type = "float"},
-            {name = "height", type = "float"}
+            ["TEMPLATE_PARAMETERS"] = {
+                ["default"] = {
+                    {name = "width", type = "float"},
+                    {name = "height", type = "float"}
+                }
+            }
         }
     },
     renderFunction = renderButton,
     allowedChildren = {},
-    --minimumSize = 55,
-    buttonBody = {
-        hoverAnimDuration = 1000
+    ["TEMPLATE_PROPERTIES"] = {
+        ["default"] = {
+            minimumSize = 55
+        }
     }
 }
 
-availableElements["beautify_button"]["apis"] = {}
+availableElements["beautify_button"]["APIs"] = {}
