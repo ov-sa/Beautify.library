@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
 --[[ Resource: Beautify Library
-     Script: configurations: elements: window.lua
+     Script: configurations: elements: button.lua
      Server: -
      Author: OvileAmriam
      Developer: -
@@ -13,32 +13,23 @@
 --[[ Configurations ]]--
 ------------------------
 
-availableElements["beautify_window"] = {
+availableElements["beautify_button"] = {
     syntax = {
-        functionName = "createWindow",
+        functionName = "createButton",
         parameters = {
             {name = "x", type = "float"},
             {name = "y", type = "float"},
             {name = "width", type = "float"},
             {name = "height", type = "float"},
-            {name = "title", type = "string"}
+            {name = "text", type = "string"}
         }
     },
-    renderFunction = renderWindow,
-    allowedChildren = {
-        ["beautify_gridlist"] = true
-    },
-    isDraggable = true,
-    minimumSize = 55,
-    titleBar = {
-        paddingX = 5,
-        close_button = {
-            hoverAnimDuration = 1000
-        }
-    },
-    contentSection = {
-        padding = 5
+    renderFunction = renderButton,
+    allowedChildren = {},
+    --minimumSize = 55,
+    buttonBody = {
+        hoverAnimDuration = 1000
     }
 }
 
-availableElements["beautify_window"]["apis"] = {}
+availableElements["beautify_button"]["apis"] = {}

@@ -21,7 +21,7 @@ availableElements["beautify_gridlist"] = {
             {name = "y", type = "float"},
             {name = "width", type = "float"},
             {name = "height", type = "float"}
-        },
+        }
     },
     renderFunction = renderGridlist,
     allowedChildren = {},

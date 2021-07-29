@@ -31,12 +31,14 @@
     <script src="configurations/elements/initial.lua" type="client" cache="false"/>
     <script src="configurations/elements/window.lua" type="client" cache="false"/>
     <script src="configurations/elements/gridlist.lua" type="client" cache="false"/>
+    <script src="configurations/elements/button.lua" type="client" cache="false"/>
     <script src="configurations/events/initial.lua" type="client" cache="false"/>
     <script src="configurations/events/generic.lua" type="client" cache="false"/>
     <script src="configurations/templates/initial.lua" type="client" cache="false"/>
     <script src="configurations/templates/scrollbar.lua" type="client" cache="false"/>
     <script src="configurations/templates/window.lua" type="client" cache="false"/>
     <script src="configurations/templates/gridlist.lua" type="client" cache="false"/>
+    <script src="configurations/templates/button.lua" type="client" cache="false"/>
 
     <!-- Files: Assets: Fonts -->
     <file src="files/assets/fonts/teko_medium.ttf"/>
