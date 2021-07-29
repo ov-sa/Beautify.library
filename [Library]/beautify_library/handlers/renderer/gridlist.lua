@@ -108,7 +108,7 @@ function renderGridlist(element)
                 startX = gridlist_renderTarget_width,
                 startY = 0,
                 height = gridlist_renderTarget_height,
-                overflowHeight = gridlist_exceeded_height,
+                overflownHeight = gridlist_exceeded_height,
                 postGUI = false
             }, elementReference.gui.scrollBar)
             if false and not elementReference.isDisabled then --TODO: LATER CHANGE :)
