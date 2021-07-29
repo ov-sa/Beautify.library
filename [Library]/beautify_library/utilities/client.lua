@@ -110,7 +110,7 @@ end
 
 function areUIParametersValid(paremeters, elementType, apiName)
 
-    if not paremeters or type(paremeters) ~= "table" or not elementType or not availableElements[elementType] or (apiName and not availableElements[elementType].apis[apiName]) then return false end
+    if not paremeters or type(paremeters) ~= "table" or not elementType or not availableElements[elementType] or not availableTemplates[elementType or (apiName and not availableElements[elementType].apis[apiName]) then return false end
 
     local areParametersValid = true
     local functionReference = (not apiName and availableElements[elementType].syntax) or availableElements[elementType].apis[apiName]
@@ -127,6 +127,12 @@ function areUIParametersValid(paremeters, elementType, apiName)
                     areParametersValid = false
                     break
                 end
+            end
+        end
+        if j.isTemplateType then
+            if not availableTemplates[elementType][(parameters[i])] then
+                areParametersValid = false
+                break
             end
         end
     end

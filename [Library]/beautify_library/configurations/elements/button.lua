@@ -19,6 +19,7 @@ availableElements["beautify_button"] = {
         parameters = {
             {name = "x", type = "float"},
             {name = "y", type = "float"},
+            {name = "type", type = "string", isTemplateType = true},
             {name = "width", type = "float"},
             {name = "height", type = "float"},
             {name = "text", type = "string"}
