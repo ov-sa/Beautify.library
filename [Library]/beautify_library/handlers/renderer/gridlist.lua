@@ -107,26 +107,26 @@ function renderGridlist(element)
             dxDrawRectangle(gridlist_scrollBarY_startX, gridlist_scrollBarY_startY + ((gridlist_scrollBarY_height - gridlist_scrollBarY_bar_height)*(elementReference.gui.scrollBar.percent*0.01)), gridlist_scrollBarY_width, gridlist_scrollBarY_bar_height, gridlist_scrollBar_bar_color, false)
             dxDrawRectangle(gridlist_scrollBarY_startX, gridlist_scrollBarY_startY + ((gridlist_scrollBarY_height - gridlist_scrollBarY_bar_height)*(elementReference.gui.scrollBar.percent*0.01)), gridlist_columnBar_divider_size*0.5, gridlist_scrollBarY_bar_height, gridlist_columnBar_divider_color, false)
             if not elementReference.isDisabled then
-                if prevScrollState --[[and (isMouseWithinRangeOf(contentrender_offsetX, contentrender_offsetY, contentrender_width, contentrender_height, true) and (isMouseWithinRangeOf(contentrender_offsetX + optionData.rulesBox.startX + scroller_overlay_startX, contentrender_offsetY + optionData.rulesBox.startY + scroller_overlay_startY, scroller_overlay_width, gridlist_scrollBarY_height, true) or isMouseWithinRangeOf(contentrender_offsetX + optionData.rulesBox.startX + optionData.rulesBox.rtPadding, contentrender_offsetY + optionData.rulesBox.startY + optionData.rulesBox.rtPadding, optionData.rulesBox.width - (optionData.rulesBox.rtPadding*2), optionData.rulesBox.height - (optionData.rulesBox.rtPadding*2), true))) and isViewAnimationDone]] then
-                    if prevScrollState == "up" then
+                if INPUT_CACHE.prevScrollState --[[and (isMouseWithinRangeOf(contentrender_offsetX, contentrender_offsetY, contentrender_width, contentrender_height, true) and (isMouseWithinRangeOf(contentrender_offsetX + optionData.rulesBox.startX + scroller_overlay_startX, contentrender_offsetY + optionData.rulesBox.startY + scroller_overlay_startY, scroller_overlay_width, gridlist_scrollBarY_height, true) or isMouseWithinRangeOf(contentrender_offsetX + optionData.rulesBox.startX + optionData.rulesBox.rtPadding, contentrender_offsetY + optionData.rulesBox.startY + optionData.rulesBox.rtPadding, optionData.rulesBox.width - (optionData.rulesBox.rtPadding*2), optionData.rulesBox.height - (optionData.rulesBox.rtPadding*2), true))) and isViewAnimationDone]] then
+                    if INPUT_CACHE.prevScrollState == "up" then
                         if elementReference.gui.scrollBar.percent > 0 then
                             if gridlist_exceeded_height < gridlist_scrollBarY_height then
-                                elementReference.gui.scrollBar.percent = elementReference.gui.scrollBar.percent - (10*prevScrollStreak.streak)
+                                elementReference.gui.scrollBar.percent = elementReference.gui.scrollBar.percent - (10*INPUT_CACHE.prevScrollStreak.streak)
                             else
-                                elementReference.gui.scrollBar.percent = elementReference.gui.scrollBar.percent - (1*prevScrollStreak.streak)
+                                elementReference.gui.scrollBar.percent = elementReference.gui.scrollBar.percent - (1*INPUT_CACHE.prevScrollStreak.streak)
                             end
                         end
-                    elseif prevScrollState == "down" then
+                    elseif INPUT_CACHE.prevScrollState == "down" then
                         if elementReference.gui.scrollBar.percent < 100 then
                             if gridlist_exceeded_height < gridlist_scrollBarY_height then
-                                elementReference.gui.scrollBar.percent = elementReference.gui.scrollBar.percent + (10*prevScrollStreak.streak)
+                                elementReference.gui.scrollBar.percent = elementReference.gui.scrollBar.percent + (10*INPUT_CACHE.prevScrollStreak.streak)
                             else
-                                elementReference.gui.scrollBar.percent = elementReference.gui.scrollBar.percent + (1*prevScrollStreak.streak)
+                                elementReference.gui.scrollBar.percent = elementReference.gui.scrollBar.percent + (1*INPUT_CACHE.prevScrollStreak.streak)
                             end
                         end
                     end
                     elementReference.gui.scrollBar.percent = math.max(0, math.min(100, elementReference.gui.scrollBar.percent))
-                    clearScrollCache()
+                    resetScrollCache()
                 end
             end
         end

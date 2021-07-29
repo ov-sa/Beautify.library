@@ -8,13 +8,6 @@
      Desc: Element's Renderer ]]--
 ----------------------------------------------------------------
 
--------------------
---[[ Variables ]]--
--------------------
-
-isLMBClicked = false
-local prevLMBClickState = false
-
 
 ----------------------------------------------
 --[[ Function: Renders Element's Children ]]--
@@ -52,22 +45,6 @@ end
 
 addEventHandler("onClientRender", root, function()
 
-    -->> Detects Key State <<--
-    if not GuiElement.isMTAWindowActive() then
-        if not prevLMBClickState then
-            if getKeyState("mouse1") then
-                isLMBClicked = true
-                prevLMBClickState = true
-            end
-        else
-            if not getKeyState("mouse1") then
-                prevLMBClickState = false
-            end
-        end
-    else
-        isLMBClicked = false
-    end
-
     -->> Attaches Element <<--
     local attachedElement = getAttachedElement()
     if attachedElement then
@@ -94,7 +71,7 @@ addEventHandler("onClientRender", root, function()
         end
     end
 
-    isLMBClicked = false
-    clearScrollCache()
+    resetKeyClickCache()
+    resetScrollCache(true)
 
 end, true, "low-999")
