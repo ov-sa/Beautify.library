@@ -126,7 +126,7 @@ function renderGridlist(element)
                         end
                     end
                     elementReference.gui.scrollBar.percent = math.max(0, math.min(100, elementReference.gui.scrollBar.percent))
-                    prevScrollState = false
+                    clearScrollCache()
                 end
             end
         end

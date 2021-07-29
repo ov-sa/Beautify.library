@@ -95,5 +95,6 @@ addEventHandler("onClientRender", root, function()
     end
 
     isLMBClicked = false
+    clearScrollCache()
 
 end, true, "low-999")

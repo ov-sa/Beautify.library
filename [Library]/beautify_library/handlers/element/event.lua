@@ -15,12 +15,19 @@
 
 prevScrollState = false
 prevScrollStreak = {state = false, tickCounter = false, streak = 1}
-local customUIEvents = {
-    "onClientUIClick",
-    "onClientUIScroll"
-}
-for i, j in ipairs(customUIEvents) do
-    addEvent(j, false)
+
+
+---------------------------------------
+--[[ Function: Clears Scroll State ]]--
+---------------------------------------
+
+function clearScrollCache()
+
+    if not prevScrollState then return false end
+
+    prevScrollState = false
+    return true
+
 end
 
 

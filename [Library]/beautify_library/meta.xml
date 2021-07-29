@@ -15,6 +15,7 @@
     <!-- Handlers -->
     <script src="handlers/logger/client.lua" type="client" cache="false"/>
     <script src="handlers/cache/asset.lua" type="client" cache="false"/>
+    <script src="handlers/cache/event.lua" type="client" cache="false"/>
     <script src="handlers/cache/template.lua" type="client" cache="false"/>
     <script src="handlers/element/event.lua" type="client" cache="false"/>
     <script src="handlers/element/manager.lua" type="client" cache="false"/>
@@ -29,6 +30,8 @@
     <script src="configurations/elements/initial.lua" type="client" cache="false"/>
     <script src="configurations/elements/window.lua" type="client" cache="false"/>
     <script src="configurations/elements/gridlist.lua" type="client" cache="false"/>
+    <script src="configurations/events/initial.lua" type="client" cache="false"/>
+    <script src="configurations/events/generic.lua" type="client" cache="false"/>
     <script src="configurations/templates/initial.lua" type="client" cache="false"/>
     <script src="configurations/templates/window.lua" type="client" cache="false"/>
     <script src="configurations/templates/gridlist.lua" type="client" cache="false"/>
