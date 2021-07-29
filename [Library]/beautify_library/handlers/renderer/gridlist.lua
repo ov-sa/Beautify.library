@@ -55,8 +55,8 @@ function renderGridlist(element)
         local gridlist_scrolledY_offset = 0
         local gridlist_data_height = (gridlist_rowBar_height + gridlist_rowBar_padding)*(#elementReference.gridData.rows) + gridlist_rowBar_padding
         local gridlist_exceeded_height = gridlist_data_height - gridlist_renderTarget_height
-        if not elementReference.gui.scrollBar.percent then elementReference.gui.scrollBar.percent = 0 end
-        if gridlist_exceeded_height > 0 then gridlist_scrolledY_offset = gridlist_exceeded_height*elementReference.gui.scrollBar.percent*0.01 end      
+        if not elementReference.gui.scrollBar.currentPercent then elementReference.gui.scrollBar.currentPercent = 0 end
+        if gridlist_exceeded_height > 0 then gridlist_scrolledY_offset = gridlist_exceeded_height*elementReference.gui.scrollBar.currentPercent*0.01 end      
         for i, j in ipairs(elementReference.gridData.rows) do
             if not j.animAlphaPercent then
                 j.animAlphaPercent = 0
