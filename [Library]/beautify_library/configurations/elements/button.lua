@@ -15,7 +15,6 @@
 
 availableElements["beautify_button"] = {
     syntax = {
-        isSubTemplated = true,
         functionName = "createButton",
         parameters = {
             {name = "text", type = "string"},
