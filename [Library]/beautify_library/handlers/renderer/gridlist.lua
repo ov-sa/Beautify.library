@@ -134,6 +134,7 @@ function renderGridlist(element)
         dxDrawImage(gridlist_renderTarget_startX, gridlist_renderTarget_startY, gridlist_renderTarget_width, gridlist_renderTarget_height, gridlist_renderTarget, 0, 0, 0, tocolor(255, 255, 255, 255), gridlist_postGUI)
     end
     dxDrawRectangle(gridlist_startX, gridlist_startY, gridlist_width, gridlist_columnBar_height, gridlist_columnBar_color, gridlist_postGUI)
+    dxDrawRectangle(gridlist_startX, gridlist_startY + gridlist_columnBar_height, gridlist_width, gridlist_columnBar_divider_size, gridlist_columnBar_divider_color, gridlist_postGUI)
     for i, j in ipairs(elementReference.gridData.columns) do
         if i ~= #elementReference.gridData.columns then
             dxDrawRectangle(gridlist_startX + column_offsets[i].startX + j.width + gridlist_columnBar_divider_size, gridlist_startY + gridlist_columnBar_height + gridlist_columnBar_padding, gridlist_columnBar_divider_size, gridlist_height - gridlist_columnBar_height - (gridlist_columnBar_padding*2), gridlist_columnBar_divider_color, gridlist_postGUI)
