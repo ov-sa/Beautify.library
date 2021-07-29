@@ -24,7 +24,7 @@ function renderScrollbar(elementParent, renderData, referenceData)
 
     if not isUIValid(elementParent) or not renderData or not referenceData then return false end
 
-    local componentTemplate = availableTemplates[componentType]
+    local componentTemplate = getUITemplate(componentType)
     local scrollbar_startX, scrollbar_startY = renderData.startX, renderData.startY
     local scrollbar_width, scrollbar_height, scrollbar_thumb_height = availableTemplates[componentType].width, renderData.height, availableTemplates[componentType].thumb.minHeight
     scrollbar_startX = scrollbar_startX - scrollbar_width
