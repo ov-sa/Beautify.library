@@ -9,6 +9,13 @@
 ----------------------------------------------------------------
 
 
+-------------------
+--[[ Variables ]]--
+-------------------
+
+local elementType = "beautify_gridlist"
+
+
 -------------------------------------
 --[[ Function: Creates Grid List ]]--
 -------------------------------------
@@ -16,7 +23,6 @@
 function createGridlist(...)
 
     local parameters = {...}
-    local elementType = "beautify_gridlist"
     if not areUIParametersValid(parameters, elementType) then return false end
     local createdElement, elementParent = createElement(elementType, parameters[5], sourceResource)
     if not createdElement then return false end
@@ -62,7 +68,6 @@ end
 function addGridlistColumn(...)
 
     local parameters = {...}
-    local elementType = "beautify_gridlist"
     if not areUIParametersValid(parameters, elementType, "addGridlistColumn") then return false end
     local element = parameters[1]
     if not isUIValid(element) then return false end
@@ -77,7 +82,6 @@ end
 function removeGridlistColumn(...)
 
     local parameters = {...}
-    local elementType = "beautify_gridlist"
     if not areUIParametersValid(parameters, elementType, "removeGridlistColumn") then return false end
     local element = parameters[1]
     if not isUIValid(element) then return false end
@@ -104,7 +108,6 @@ end
 function addGridlistRow(...)
 
     local parameters = {...}
-    local elementType = "beautify_gridlist"
     if not areUIParametersValid(parameters, elementType, "addGridlistRow") then return false end
     local element = parameters[1]
     if not isUIValid(element) then return false end
@@ -119,7 +122,6 @@ end
 function removeGridlistRow(...)
 
     local parameters = {...}
-    local elementType = "beautify_gridlist"
     if not areUIParametersValid(parameters, elementType, "removeGridlistRow") then return false end
     local element = parameters[1]
     if not isUIValid(element) then return false end
@@ -143,7 +145,6 @@ end
 function setGridlistRowData(...)
 
     local parameters = {...}
-    local elementType = "beautify_gridlist"
     if not areUIParametersValid(parameters, elementType, "setGridlistRowData") then return false end
     local element = parameters[1]
     if not isUIValid(element) then return false end
@@ -159,7 +160,6 @@ end
 function getGridlistRowData(...)
 
     local parameters = {...}
-    local elementType = "beautify_gridlist"
     if not areUIParametersValid(parameters, elementType, "getGridlistRowData") then return false end
     local element = parameters[1]
     if not isUIValid(element) then return false end
@@ -179,7 +179,6 @@ end
 function setGridlistSelection(...)
 
     local parameters = {...}
-    local elementType = "beautify_gridlist"
     if not areUIParametersValid(parameters, elementType, "setGridlistSelection") then return false end
     local element = parameters[1]
     if not isUIValid(element) then return false end
@@ -195,7 +194,6 @@ end
 function getGridlistSelection(...)
 
     local parameters = {...}
-    local elementType = "beautify_gridlist"
     if not areUIParametersValid(parameters, elementType, "getGridlistSelection") then return false end
     local element = parameters[1]
     if not isUIValid(element) then return false end

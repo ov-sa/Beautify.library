@@ -15,7 +15,7 @@
 
 function clearResourceUITemplates(...)
 
-    return __clearResourceUITemplates(unpack{...})
+    return __clearResourceUITemplates(...)
 
 end
 
@@ -26,13 +26,13 @@ end
 
 function getUITemplate(...)
 
-    return __getUITemplate(unpack{...})
+    return __getUITemplate(...)
 
 end
 
 function setUITemplate(...)
 
-    return __setUITemplate(unpack{...})
+    return __setUITemplate(...)
 
 end
 
@@ -41,9 +41,9 @@ end
 --[[ Function: Retrieves UI's Parent ]]--
 -----------------------------------------
 
-function getUIParent(element)
+function getUIParent(...)
 
-    return __getUIParent(element)
+    return __getUIParent(...)
 
 end
 

@@ -9,6 +9,13 @@
 ----------------------------------------------------------------
 
 
+-------------------
+--[[ Variables ]]--
+-------------------
+
+local elementType = "beautify_window"
+
+
 ----------------------------------
 --[[ Function: Creates Window ]]--
 ----------------------------------
@@ -16,7 +23,6 @@
 function createWindow(...)
 
     local parameters = {...}
-    local elementType = "beautify_window"
     if not areUIParametersValid(parameters, elementType) then return false end
     local createdElement = createElement(elementType, nil, sourceResource)
     if not createdElement then return false end
