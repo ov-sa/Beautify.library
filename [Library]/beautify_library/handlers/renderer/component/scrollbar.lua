@@ -39,7 +39,7 @@ function renderScrollbar(elementParent, renderData, referenceData)
     dxDrawRectangle(scrollbar_startX, scrollbar_startY + scrollbar_thumb_offsetY, scrollbar_thumb_shadowSize, scrollbar_thumb_height, scrollbar_thumb_shadow_color, scrollbar_postGUI)
     if not renderData.isDisabled then
         local currentScrollState = {isMouseScrolled()}
-        if currentScrollState[1] --[[and (isMouseWithinRangeOf(contentrender_offsetX, contentrender_offsetY, contentrender_width, contentrender_height, true) and (isMouseWithinRangeOf(contentrender_offsetX + optionData.rulesBox.startX + scroller_overlay_startX, contentrender_offsetY + optionData.rulesBox.startY + scroller_overlay_startY, scroller_overlay_width, scrollbar_height, true) or isMouseWithinRangeOf(contentrender_offsetX + optionData.rulesBox.startX + optionData.rulesBox.rtPadding, contentrender_offsetY + optionData.rulesBox.startY + optionData.rulesBox.rtPadding, optionData.rulesBox.width - (optionData.rulesBox.rtPadding*2), optionData.rulesBox.height - (optionData.rulesBox.rtPadding*2), true))) and isViewAnimationDone]] then
+        if currentScrollState[1] then
             if currentScrollState[1] == "up" then
                 if referenceData.percent > 0 then
                     if scrollbar_overflownHeight < scrollbar_height then
