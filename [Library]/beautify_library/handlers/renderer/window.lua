@@ -9,15 +9,20 @@
 ----------------------------------------------------------------
 
 
+-------------------
+--[[ Variables ]]--
+-------------------
+
+local elementType = "beautify_window"
+
+
 ----------------------------------
 --[[ Function: Renders Window ]]--
 ----------------------------------
 
 function renderWindow(element)
 
-    if not isUIValid(element) then return false end
-    local elementType = element:getType()
-    if elementType ~= "beautify_window" then return false end
+    if not isUIValid(element) or (element:getType() ~= elementType) then return false end
 
     local elementTemplate = getUITemplate(elementType)
     local elementReference = createdElements[element]

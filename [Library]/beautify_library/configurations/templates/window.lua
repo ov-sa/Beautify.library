@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
 --[[ Resource: Beautify Library
-     Script: configurations: elements: window.lua
+     Script: configurations: templates: window.lua
      Server: -
      Author: OvileAmriam
      Developer: -

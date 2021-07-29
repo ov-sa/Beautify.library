@@ -41,7 +41,7 @@ end
 
 function __getUITemplate(elementType)
 
-    if not elementType or not availableElements[elementType] or not availableTemplates[elementType] then return false end
+    if not elementType or not availableTemplates[elementType] then return false end
     
     if createdTemplates[elementType] and createdTemplates[elementType][sourceResource or resource] then
         return createdTemplates[elementType][sourceResource or resource]
@@ -52,7 +52,7 @@ end
 
 function __setUITemplate(elementType, elementTemplate)
 
-    if not elementType or not elementTemplate or not availableElements[elementType] or not availableTemplates[elementType] then return false end
+    if not elementType or not elementTemplate or not availableTemplates[elementType] then return false end
 
     if not createdTemplates[elementType] then createdTemplates[elementType] = {} end
     createdTemplates[elementType][sourceResource or resource] = elementTemplate

@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
 --[[ Resource: Beautify Library
-     Script: configurations: elements: window.lua
+     Script: configurations: templates: window.lua
      Server: -
      Author: OvileAmriam
      Developer: -
@@ -34,14 +34,6 @@ availableTemplates["beautify_gridlist"] = {
         hoverColor = {100, 100, 255, 255}
     },
     scrollBar = {
-        isOutLine = true,
-        overlay = {
-            width = 3,
-            color = {5, 5, 5, 253}
-        },
-        bar = {
-            height = 50,
-            color = {175, 175, 175, 255}
-        }
+        isOutLine = true
     }
 }

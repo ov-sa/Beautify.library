@@ -13,9 +13,9 @@
 --[[ Function: Clears Resource's UI Templates ]]--
 --------------------------------------------------
 
-function clearResourceUITemplates(...)
+function clearResourceUITemplates()
 
-    return __clearResourceUITemplates(...)
+    return __clearResourceUITemplates(sourceResource)
 
 end
 

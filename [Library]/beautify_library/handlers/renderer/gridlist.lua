@@ -9,15 +9,20 @@
 ----------------------------------------------------------------
 
 
+-------------------
+--[[ Variables ]]--
+-------------------
+
+local elementType = "beautify_gridlist"
+
+
 -------------------------------------
 --[[ Function: Renders Grid List ]]--
 -------------------------------------
 
 function renderGridlist(element)
 
-    if not isUIValid(element) then return false end
-    local elementType = element:getType()
-    if elementType ~= "beautify_gridlist" then return false end
+    if not isUIValid(element) or (element:getType() ~= elementType) then return false end
 
     local elementTemplate = getUITemplate(elementType)
     local elementParent = getUIParent(element)
@@ -99,13 +104,14 @@ function renderGridlist(element)
                 dxDrawText(j[k] or "-", row_offsetX + column_offsets[k].startX + gridlist_columnBar_padding, row_offsetY, row_offsetX + column_offsets[k].endX - gridlist_columnBar_padding, row_offsetY + gridlist_rowBar_height, gridlist_rowBar_fontColor, 1, elementTemplate.rowBar.font, "center", "center", true, false, false, false)
                 dxDrawText(j[k] or "-", row_offsetX + column_offsets[k].startX + gridlist_columnBar_padding, row_offsetY, row_offsetX + column_offsets[k].endX - gridlist_columnBar_padding, row_offsetY + gridlist_rowBar_height, tocolor(elementTemplate.rowBar.hoverFontColor[1], elementTemplate.rowBar.hoverFontColor[2], elementTemplate.rowBar.hoverFontColor[3], elementTemplate.rowBar.hoverFontColor[4]*j.animAlphaPercent), 1, elementTemplate.rowBar.font, "center", "center", true, false, false, false)
             end
-            local gridlist_scrollBarY_width, gridlist_scrollBarY_height, gridlist_scrollBarY_bar_height = elementTemplate.scrollBar.overlay.width, gridlist_renderTarget_height, elementTemplate.scrollBar.bar.height
-            local gridlist_scrollBarY_startX, gridlist_scrollBarY_startY = gridlist_renderTarget_width - gridlist_scrollBarY_width, 0
-            local gridlist_scrollBar_overlay_color, gridlist_scrollBar_bar_color = tocolor(unpack(elementTemplate.scrollBar.overlay.color)), tocolor(unpack(elementTemplate.scrollBar.bar.color))
-            dxDrawRectangle(gridlist_scrollBarY_startX, gridlist_scrollBarY_startY, gridlist_scrollBarY_width, gridlist_scrollBarY_height, gridlist_scrollBar_overlay_color, false)
-            dxDrawRectangle(gridlist_scrollBarY_startX, gridlist_scrollBarY_startY + ((gridlist_scrollBarY_height - gridlist_scrollBarY_bar_height)*(elementReference.gui.scrollBar.percent*0.01)), gridlist_scrollBarY_width, gridlist_scrollBarY_bar_height, gridlist_scrollBar_bar_color, false)
-            dxDrawRectangle(gridlist_scrollBarY_startX, gridlist_scrollBarY_startY + ((gridlist_scrollBarY_height - gridlist_scrollBarY_bar_height)*(elementReference.gui.scrollBar.percent*0.01)), gridlist_columnBar_divider_size*0.5, gridlist_scrollBarY_bar_height, gridlist_columnBar_divider_color, false)
-            if not elementReference.isDisabled then
+            renderScrollbar(elementParent, {
+                startX = gridlist_renderTarget_width,
+                startY = 0,
+                height = gridlist_renderTarget_height,
+                overflowHeight = gridlist_exceeded_height,
+                postGUI = false
+            }, elementReference.gui.scrollBar)
+            if false and not elementReference.isDisabled then --TODO: LATER CHANGE :)
                 local currentScrollState = {isMouseScrolled()}
                 if currentScrollState[1] --[[and (isMouseWithinRangeOf(contentrender_offsetX, contentrender_offsetY, contentrender_width, contentrender_height, true) and (isMouseWithinRangeOf(contentrender_offsetX + optionData.rulesBox.startX + scroller_overlay_startX, contentrender_offsetY + optionData.rulesBox.startY + scroller_overlay_startY, scroller_overlay_width, gridlist_scrollBarY_height, true) or isMouseWithinRangeOf(contentrender_offsetX + optionData.rulesBox.startX + optionData.rulesBox.rtPadding, contentrender_offsetY + optionData.rulesBox.startY + optionData.rulesBox.rtPadding, optionData.rulesBox.width - (optionData.rulesBox.rtPadding*2), optionData.rulesBox.height - (optionData.rulesBox.rtPadding*2), true))) and isViewAnimationDone]] then
                     if currentScrollState[1] == "up" then
