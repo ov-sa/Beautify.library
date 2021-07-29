@@ -71,7 +71,7 @@ function renderGridlist(element)
                 end
             end
             if isRowHovered or (elementReference.gridData.selection == i) then
-                if INPUT_CACHE.prevKeyClickStates["mouse1"].currState and (elementReference.gridData.selection ~= i) then
+                if INPUT_CACHE.prevKeyClickStates["mouse1"].clickState and (elementReference.gridData.selection ~= i) then
                     resetKeyClickCache("mouse1")
                     setGridlistSelection(element, i)
                 end

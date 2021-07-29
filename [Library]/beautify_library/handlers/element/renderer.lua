@@ -74,4 +74,4 @@ addEventHandler("onClientRender", root, function()
     resetKeyClickCache()
     resetScrollCache(true)
 
-end, true, "low-999")
+end, false, UI_PRIORITY_LEVEL.RENDER)

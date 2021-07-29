@@ -15,3 +15,8 @@
 ------------------
 
 resource = getResourceRootElement(getThisResource())
+
+UI_PRIORITY_LEVEL = {
+    RENDER = "low-999",
+    INPUT = "low-1000"
+}

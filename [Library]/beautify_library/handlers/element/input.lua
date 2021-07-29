@@ -16,7 +16,7 @@
 INPUT_CACHE = {
     prevKeyClickStates = {},
     prevScrollState = false,
-    prevScrollStreak = {state = false, tickCounter = false, streak = 1}
+    prevScrollStreak = {scrollState = false, tickCounter = false, streak = 1}
 }
 local DEFAULT_INPUT_KEYS = {
     "mouse1", "mouse2"
@@ -31,7 +31,7 @@ local function isInputValid()
 
     if GuiElement.isMTAWindowActive() then return false end
 
-    resetKeyClickCache()
+    resetKeyClickCache(nil, true)
     resetScrollCache(true)
     return true
 
@@ -46,21 +46,22 @@ function addKeyClickCache(key)
 
     if not key or INPUT_CACHE.prevKeyClickStates[key] then return false end
 
-    INPUT_CACHE.prevKeyClickStates[key] = {prevState = false, currState = false}
+    INPUT_CACHE.prevKeyClickStates[key] = {holdState = false, tickCounter = false, clickState = false}
     return true
 
 end
 
-function resetKeyClickCache(key)
+function resetKeyClickCache(key, resetHold)
 
     if key then
         if not INPUT_CACHE.prevKeyClickStates[key] then return false end
-        INPUT_CACHE.prevKeyClickStates[key].prevState = false
-        INPUT_CACHE.prevKeyClickStates[key].currState = false
+        INPUT_CACHE.prevKeyClickStates[key].clickState = false
     else
         for i, j in pairs(INPUT_CACHE.prevKeyClickStates) do
-            j.prevState = false
-            j.currState = false
+            j.clickState = false
+            if resetHold then
+                j.holdState = false
+            end
         end
     end
     return true
@@ -90,19 +91,19 @@ addEventHandler("onClientRender", root, function()
     if not isInputValid() then return false end
 
     for i, j in pairs(INPUT_CACHE.prevKeyClickStates) do
-        if not j.prevState then
-            if getKeyState("mouse1") then
-                j.currState = true
-                j.prevState = true
+        if not j.holdState then
+            if getKeyState(i) then
+                j.clickState = true
+                j.holdState = true
             end
         else
-            if not getKeyState("mouse1") then
-                j.prevState = false
+            if not getKeyState(i) then
+                j.holdState = false
             end
         end
     end
 
-end)
+end, false, UI_PRIORITY_LEVEL.INPUT)
 
 
 ------------------------------
@@ -111,7 +112,7 @@ end)
 
 addEventHandler("onClientKey", root, function(button, state)
 
-    if not isInputValid() then return false end
+    --if not isInputValid() then return false end
 
     local isMouseScrolled = false
     if button == "mouse_wheel_up" then
@@ -121,8 +122,8 @@ addEventHandler("onClientKey", root, function(button, state)
     end
 
     if isMouseScrolled then
-        if not INPUT_CACHE.prevScrollStreak.state or INPUT_CACHE.prevScrollStreak.state ~= isMouseScrolled then
-            INPUT_CACHE.prevScrollStreak.state = isMouseScrolled
+        if not INPUT_CACHE.prevScrollStreak.scrollState or INPUT_CACHE.prevScrollStreak.scrollState ~= isMouseScrolled then
+            INPUT_CACHE.prevScrollStreak.scrollState = isMouseScrolled
             INPUT_CACHE.prevScrollStreak.streak = 1
             INPUT_CACHE.prevScrollStreak.tickCounter = getTickCount()
         else
@@ -136,7 +137,7 @@ addEventHandler("onClientKey", root, function(button, state)
         INPUT_CACHE.prevScrollState = isMouseScrolled
     end
 
-end)
+end, false, UI_PRIORITY_LEVEL.INPUT)
 
 
 -----------------------------------------

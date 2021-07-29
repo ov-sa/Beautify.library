@@ -22,7 +22,7 @@ local createdChildElements = {}
 --[[ Function: Retrieves Child Elements ]]--
 --------------------------------------------
 
-function ___getChildElements()
+function __getChildElements()
 
     return createdChildElements
 
