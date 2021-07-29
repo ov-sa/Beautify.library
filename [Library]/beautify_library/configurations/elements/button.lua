@@ -17,12 +17,12 @@ availableElements["beautify_button"] = {
     syntax = {
         functionName = "createButton",
         parameters = {
+            {name = "text", type = "string"},
             {name = "x", type = "float"},
             {name = "y", type = "float"},
             {name = "type", type = "string", isTemplateType = true},
             {name = "width", type = "float"},
-            {name = "height", type = "float"},
-            {name = "text", type = "string"}
+            {name = "height", type = "float"}
         }
     },
     renderFunction = renderButton,

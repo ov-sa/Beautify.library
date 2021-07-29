@@ -116,6 +116,7 @@ function areUIParametersValid(paremeters, elementType, apiName)
     local functionReference = (not apiName and availableElements[elementType].syntax) or availableElements[elementType].apis[apiName]
     local functionName = (not apiName and availableElements[elementType].syntax.functionName) or apiName
     local functionParemers = functionReference.parameters
+    local isSubTemplateOriented = false
     for i, j in ipairs(functionParemers) do
         if not paremeters[i] or (type(paremeters[i]) ~= (((j.type == "float") and "number") or j.type)) then
             areParametersValid = false
@@ -130,10 +131,12 @@ function areUIParametersValid(paremeters, elementType, apiName)
             end
         end
         if j.isTemplateType then
+            isSubTemplateOriented = i
             if not availableTemplates[elementType][(parameters[i])] then
                 areParametersValid = false
                 break
             end
+            break
         end
     end
     if not areParametersValid then
