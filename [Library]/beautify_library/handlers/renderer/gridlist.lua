@@ -104,36 +104,15 @@ function renderGridlist(element)
                 dxDrawText(j[k] or "-", row_offsetX + column_offsets[k].startX + gridlist_columnBar_padding, row_offsetY, row_offsetX + column_offsets[k].endX - gridlist_columnBar_padding, row_offsetY + gridlist_rowBar_height, gridlist_rowBar_fontColor, 1, elementTemplate.rowBar.font, "center", "center", true, false, false, false)
                 dxDrawText(j[k] or "-", row_offsetX + column_offsets[k].startX + gridlist_columnBar_padding, row_offsetY, row_offsetX + column_offsets[k].endX - gridlist_columnBar_padding, row_offsetY + gridlist_rowBar_height, tocolor(elementTemplate.rowBar.hoverFontColor[1], elementTemplate.rowBar.hoverFontColor[2], elementTemplate.rowBar.hoverFontColor[3], elementTemplate.rowBar.hoverFontColor[4]*j.animAlphaPercent), 1, elementTemplate.rowBar.font, "center", "center", true, false, false, false)
             end
-            renderScrollbar(elementParent, {
-                startX = gridlist_renderTarget_width,
-                startY = 0,
-                height = gridlist_renderTarget_height,
-                overflownHeight = gridlist_exceeded_height,
-                postGUI = false
-            }, elementReference.gui.scrollBar)
-            if false and not elementReference.isDisabled then --TODO: LATER CHANGE :)
-                local currentScrollState = {isMouseScrolled()}
-                if currentScrollState[1] --[[and (isMouseWithinRangeOf(contentrender_offsetX, contentrender_offsetY, contentrender_width, contentrender_height, true) and (isMouseWithinRangeOf(contentrender_offsetX + optionData.rulesBox.startX + scroller_overlay_startX, contentrender_offsetY + optionData.rulesBox.startY + scroller_overlay_startY, scroller_overlay_width, gridlist_scrollBarY_height, true) or isMouseWithinRangeOf(contentrender_offsetX + optionData.rulesBox.startX + optionData.rulesBox.rtPadding, contentrender_offsetY + optionData.rulesBox.startY + optionData.rulesBox.rtPadding, optionData.rulesBox.width - (optionData.rulesBox.rtPadding*2), optionData.rulesBox.height - (optionData.rulesBox.rtPadding*2), true))) and isViewAnimationDone]] then
-                    if currentScrollState[1] == "up" then
-                        if elementReference.gui.scrollBar.percent > 0 then
-                            if gridlist_exceeded_height < gridlist_scrollBarY_height then
-                                elementReference.gui.scrollBar.percent = elementReference.gui.scrollBar.percent - (10*currentScrollState[2])
-                            else
-                                elementReference.gui.scrollBar.percent = elementReference.gui.scrollBar.percent - (1*currentScrollState[2])
-                            end
-                        end
-                    elseif currentScrollState[1] == "down" then
-                        if elementReference.gui.scrollBar.percent < 100 then
-                            if gridlist_exceeded_height < gridlist_scrollBarY_height then
-                                elementReference.gui.scrollBar.percent = elementReference.gui.scrollBar.percent + (10*currentScrollState[2])
-                            else
-                                elementReference.gui.scrollBar.percent = elementReference.gui.scrollBar.percent + (1*currentScrollState[2])
-                            end
-                        end
-                    end
-                    elementReference.gui.scrollBar.percent = math.max(0, math.min(100, elementReference.gui.scrollBar.percent))
-                    resetScrollCache()
-                end
+            if gridlist_exceeded_height > 0 then
+                renderScrollbar(elementParent, {
+                    isDisabled = elementReference.isDisabled,
+                    startX = gridlist_renderTarget_width,
+                    startY = 0,
+                    height = gridlist_renderTarget_height,
+                    overflownHeight = gridlist_exceeded_height,
+                    postGUI = false
+                }, elementReference.gui.scrollBar)
             end
         end
         dxSetBlendMode("blend")

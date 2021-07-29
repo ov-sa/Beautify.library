@@ -28,12 +28,7 @@ function renderScrollbar(elementParent, renderData, referenceData)
     local scrollbar_startX, scrollbar_startY = renderData.startX, renderData.startY
     local scrollbar_width, scrollbar_height, scrollbar_overflownHeight, scrollbar_thumb_height = availableTemplates[componentType].width, renderData.height, renderData.overflownHeight, 0
     scrollbar_startX = scrollbar_startX - scrollbar_width
-    if scrollbar_overflownHeight > scrollbar_height then
-        scrollbar_thumb_height = scrollbar_height/scrollbar_overflownHeight
-    else
-        scrollbar_thumb_height = scrollbar_overflownHeight/scrollbar_height
-    end
-    scrollbar_thumb_height = math.max(math.min(scrollbar_height/2, availableTemplates[componentType].thumb.minHeight), (1 - scrollbar_thumb_height)*scrollbar_height)
+    scrollbar_thumb_height = math.max(math.min(scrollbar_height/2, availableTemplates[componentType].thumb.minHeight), (scrollbar_height/(scrollbar_height + scrollbar_overflownHeight))*scrollbar_height)
     local scrollbar_thumb_shadowSize = availableTemplates[componentType].thumb.shadowSize
     local scrollbar_track_color, scrollbar_thumb_color, scrollbar_thumb_shadow_color = tocolor(unpack(componentTemplate.track.color)), tocolor(unpack(componentTemplate.thumb.color)), tocolor(unpack(componentTemplate.thumb.shadowColor))
     local scrollbar_postGUI = renderData.postGUI
@@ -42,7 +37,30 @@ function renderScrollbar(elementParent, renderData, referenceData)
     dxDrawRectangle(scrollbar_startX, scrollbar_startY, scrollbar_width, scrollbar_height, scrollbar_track_color, scrollbar_postGUI)
     dxDrawRectangle(scrollbar_startX, scrollbar_startY + scrollbar_thumb_offsetY, scrollbar_width, scrollbar_thumb_height, scrollbar_thumb_color, scrollbar_postGUI)
     dxDrawRectangle(scrollbar_startX, scrollbar_startY + scrollbar_thumb_offsetY, scrollbar_thumb_shadowSize, scrollbar_thumb_height, scrollbar_thumb_shadow_color, scrollbar_postGUI)
-    --TODO: CHECK IF ELEMENT IS SCROLLABLE OR NOT & ADD SCROLL HANDLER..
+    if not renderData.isDisabled then
+        local currentScrollState = {isMouseScrolled()}
+        if currentScrollState[1] --[[and (isMouseWithinRangeOf(contentrender_offsetX, contentrender_offsetY, contentrender_width, contentrender_height, true) and (isMouseWithinRangeOf(contentrender_offsetX + optionData.rulesBox.startX + scroller_overlay_startX, contentrender_offsetY + optionData.rulesBox.startY + scroller_overlay_startY, scroller_overlay_width, scrollbar_height, true) or isMouseWithinRangeOf(contentrender_offsetX + optionData.rulesBox.startX + optionData.rulesBox.rtPadding, contentrender_offsetY + optionData.rulesBox.startY + optionData.rulesBox.rtPadding, optionData.rulesBox.width - (optionData.rulesBox.rtPadding*2), optionData.rulesBox.height - (optionData.rulesBox.rtPadding*2), true))) and isViewAnimationDone]] then
+            if currentScrollState[1] == "up" then
+                if referenceData.percent > 0 then
+                    if scrollbar_overflownHeight < scrollbar_height then
+                        referenceData.percent = referenceData.percent - (10*currentScrollState[2])
+                    else
+                        referenceData.percent = referenceData.percent - (1*currentScrollState[2])
+                    end
+                end
+            elseif currentScrollState[1] == "down" then
+                if referenceData.percent < 100 then
+                    if scrollbar_overflownHeight < scrollbar_height then
+                        referenceData.percent = referenceData.percent + (10*currentScrollState[2])
+                    else
+                        referenceData.percent = referenceData.percent + (1*currentScrollState[2])
+                    end
+                end
+            end
+            referenceData.percent = math.max(0, math.min(100, referenceData.percent))
+            resetScrollCache()
+        end
+    end
     return true
 
 end

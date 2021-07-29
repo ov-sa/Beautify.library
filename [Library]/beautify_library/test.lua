@@ -33,89 +33,28 @@ addEventHandler("onClientResourceStart", resource, function()
         },
         {
             [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
-        },
-        {
+        },        {
+            [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
+        },        {
             [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
         },
         {
             [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
-        },
-        {
+        },        {
             [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
         },
         {
             [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
+        },        {
+            [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
+        },        {
+            [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
+        },        {
+            [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
+        },        {
+            [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
         },
         {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },
-        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
-            [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
-        },        {
             [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
         },
         {

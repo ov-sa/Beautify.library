@@ -19,7 +19,7 @@ availableTemplates["beautify_scrollbar"] = {
         color = {5, 5, 5, 253}
     },
     thumb = {
-        minHeight = 50,
+        minHeight = 75,
         shadowSize = 1,
         color = {175, 175, 175, 255},
         shadowColor = {5, 5, 5, 253}
