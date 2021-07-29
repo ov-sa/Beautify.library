@@ -75,7 +75,7 @@ end
 
 function isUIVisible(element)
 
-    if element and isElement(element) and isUIValid(element) then
+    if isUIValid(element) then
         if createdElements[element] then
             return createdElements[element].isVisible
         else
@@ -91,7 +91,7 @@ end
 
 function setUIVisible(element, state)
 
-    if element and isElement(element) and isUIValid(element) and (state == true or state == false) then
+    if isUIValid(element) and (state == true or state == false) then
         if createdElements[element] then
             if createdElements[element].isVisible ~= state then
                 createdElements[element].isVisible = state
@@ -118,7 +118,7 @@ end
 
 function isUIDraggable(element)
 
-    if element and isElement(element) and isUIValid(element) then
+    if isUIValid(element) then
         if createdElements[element] then
             return createdElements[element].isDraggable
         end
@@ -129,7 +129,7 @@ end
 
 function setUIDraggable(element, state)
 
-    if element and isElement(element) and isUIValid(element) and availableElements[element:getType()].isDraggable and (state == true or state == false) then
+    if isUIValid(element) and availableElements[element:getType()].isDraggable and (state == true or state == false) then
         if createdElements[element] then
             if createdElements[element].isDraggable ~= state then
                 createdElements[element].isDraggable = state
@@ -148,7 +148,7 @@ end
 
 function isUIDisabled(element)
 
-    if element and isElement(element) and isUIValid(element) then
+    if isUIValid(element) then
         if createdElements[element] then
             return createdElements[element].isDisabled
         else
@@ -164,7 +164,7 @@ end
 
 function setUIDisabled(element, state)
 
-    if element and isElement(element) and isUIValid(element) and (state == true or state == false) then
+    if isUIValid(element) and (state == true or state == false) then
         if createdElements[element] then
             if createdElements[element].isDisabled ~= state then
                 createdElements[element].isDisabled = state
