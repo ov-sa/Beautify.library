@@ -73,7 +73,8 @@ function createElement(elementType, parentElement, sourceResource)
             createdParentElements[parentElement][createdElement] = {
                 isValid = false,
                 isVisible = true,
-                isDraggable = false
+                isDraggable = false,
+                isDisabled = false
             }
         else
             if availableElements[elementType].allowedChildren then
@@ -83,7 +84,8 @@ function createElement(elementType, parentElement, sourceResource)
                 sourceResource = sourceResource,
                 isValid = false,
                 isVisible = false,
-                isDraggable = false
+                isDraggable = false,
+                isDisabled = false
             }
         end
         return createdElement, parentElement

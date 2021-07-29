@@ -81,6 +81,12 @@
     <!-- Params: setUIDraggable(element, state) | Returns Boolean -->
     <export function="setUIDraggable" type="client"/>
 
+    <!-- Params: isUIDisabled(element) | Returns Boolean -->
+    <export function="isUIDisabled" type="client"/>
+
+    <!-- Params: setUIDisabled(element, state) | Returns Boolean -->
+    <export function="setUIDisabled" type="client"/>
+
     <!-- Params: createWindow(x, y, width, height, title, postGUI) | Returns Element; Else false Boolean -->
     <export function="createWindow" type="client"/>
 

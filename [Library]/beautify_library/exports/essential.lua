@@ -129,11 +129,54 @@ end
 
 function setUIDraggable(element, state)
 
-    if element and isElement(element) and isUIValid(element) and (state == true or state == false) then
+    if element and isElement(element) and isUIValid(element) and availableElements[element:getType()].isDraggable and (state == true or state == false) then
         if createdElements[element] then
             if createdElements[element].isDraggable ~= state then
                 createdElements[element].isDraggable = state
                 return true
+            end
+        end
+    end
+    return false
+
+end
+
+
+-------------------------------------------------------
+--[[ Functions: Retrieves/Sets UI's Disabled State ]]--
+-------------------------------------------------------
+
+function isUIDisabled(element)
+
+    if element and isElement(element) and isUIValid(element) then
+        if createdElements[element] then
+            return createdElements[element].isDisabled
+        else
+            local elementParent = getUIParent(element)
+            if elementParent and createdParentElements[elementParent][element] then
+                return createdParentElements[elementParent][element].isDisabled
+            end
+        end
+    end
+    return false
+
+end
+
+function setUIDisabled(element, state)
+
+    if element and isElement(element) and isUIValid(element) and (state == true or state == false) then
+        if createdElements[element] then
+            if createdElements[element].isDisabled ~= state then
+                createdElements[element].isDisabled = state
+                return true
+            end
+        else
+            local elementParent = getUIParent(element)
+            if elementParent and createdParentElements[elementParent][element] then
+                if createdParentElements[elementParent][element].isDisabled ~= state then
+                    createdParentElements[elementParent][element].isDisabled = state
+                    return true
+                end
             end
         end
     end

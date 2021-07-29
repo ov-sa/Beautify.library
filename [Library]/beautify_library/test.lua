@@ -13,6 +13,7 @@ addEventHandler("onClientResourceStart", resource, function()
     setUIVisible(createdWindow, true)
     setUIDraggable(createdWindow, true)
     setUIVisible(createdGridlist, true)
+    --setUIDisabled(createdGridlist, true)
 
     local testRows = {
         {

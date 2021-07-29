@@ -60,12 +60,14 @@ function renderGridlist(element)
             end
             local row_offsetX, row_offsetY = 0, (gridlist_rowBar_height + gridlist_rowBar_padding)*(i - 1) + gridlist_rowBar_padding - gridlist_scrolledY_offset
             local isRowHovered = false
-            if not elementParent then
-                isRowHovered = isMouseOnPosition(gridlist_startX, gridlist_startY, gridlist_width, gridlist_height) and isMouseOnPosition(gridlist_renderTarget_startX, gridlist_renderTarget_startY, gridlist_renderTarget_width, gridlist_renderTarget_height) and isMouseOnPosition(gridlist_renderTarget_startX + row_offsetX, gridlist_renderTarget_startY + row_offsetY, gridlist_renderTarget_width, gridlist_rowBar_height)
-            else
-                local isParentContentHovered = isMouseOnPosition(createdElements[elementParent].gui.x, createdElements[elementParent].gui.y, createdElements[elementParent].gui.width, createdElements[elementParent].gui.height) and isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY, elementReference.gui.contentSection.width, elementReference.gui.contentSection.height)
-                if isParentContentHovered then
-                    isRowHovered = isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX + gridlist_startX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY + gridlist_startY, gridlist_width, gridlist_height) and isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX + gridlist_renderTarget_startX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY + gridlist_renderTarget_startY, gridlist_renderTarget_width, gridlist_renderTarget_height) and isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX + gridlist_renderTarget_startX + row_offsetX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY + gridlist_renderTarget_startY + row_offsetY, gridlist_renderTarget_width, gridlist_rowBar_height)
+            if not elementReference.isDisabled then
+                if not elementParent then
+                    isRowHovered = isMouseOnPosition(gridlist_startX, gridlist_startY, gridlist_width, gridlist_height) and isMouseOnPosition(gridlist_renderTarget_startX, gridlist_renderTarget_startY, gridlist_renderTarget_width, gridlist_renderTarget_height) and isMouseOnPosition(gridlist_renderTarget_startX + row_offsetX, gridlist_renderTarget_startY + row_offsetY, gridlist_renderTarget_width, gridlist_rowBar_height)
+                else
+                    local isParentContentHovered = isMouseOnPosition(createdElements[elementParent].gui.x, createdElements[elementParent].gui.y, createdElements[elementParent].gui.width, createdElements[elementParent].gui.height) and isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY, elementReference.gui.contentSection.width, elementReference.gui.contentSection.height)
+                    if isParentContentHovered then
+                        isRowHovered = isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX + gridlist_startX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY + gridlist_startY, gridlist_width, gridlist_height) and isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX + gridlist_renderTarget_startX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY + gridlist_renderTarget_startY, gridlist_renderTarget_width, gridlist_renderTarget_height) and isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX + gridlist_renderTarget_startX + row_offsetX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY + gridlist_renderTarget_startY + row_offsetY, gridlist_renderTarget_width, gridlist_rowBar_height)
+                    end
                 end
             end
             if isRowHovered or (elementReference.gridData.selection == i) then
@@ -101,28 +103,31 @@ function renderGridlist(element)
             local gridlist_scrollBarY_width, gridlist_scrollBarY_height, gridlist_scrollBarY_bar_height = elementTemplate.scrollBar.overlay.width, gridlist_renderTarget_height, elementTemplate.scrollBar.bar.height
             local gridlist_scrollBarY_startX, gridlist_scrollBarY_startY = gridlist_renderTarget_width - gridlist_scrollBarY_width, 0
             local gridlist_scrollBar_overlay_color, gridlist_scrollBar_bar_color = tocolor(unpack(elementTemplate.scrollBar.overlay.color)), tocolor(unpack(elementTemplate.scrollBar.bar.color))
-            dxDrawRectangle(gridlist_scrollBarY_startX, gridlist_scrollBarY_startY, gridlist_scrollBarY_width, gridlist_scrollBarY_height, gridlist_scrollBar_overlay_color, gridlist_postGUI)
-            dxDrawRectangle(gridlist_scrollBarY_startX, gridlist_scrollBarY_startY + ((gridlist_scrollBarY_height - gridlist_scrollBarY_bar_height)*(elementReference.gui.scrollBar.percent*0.01)), gridlist_scrollBarY_width, gridlist_scrollBarY_bar_height, gridlist_scrollBar_bar_color, gridlist_postGUI)
-            if prevScrollState --[[and (isMouseWithinRangeOf(contentrender_offsetX, contentrender_offsetY, contentrender_width, contentrender_height, true) and (isMouseWithinRangeOf(contentrender_offsetX + optionData.rulesBox.startX + scroller_overlay_startX, contentrender_offsetY + optionData.rulesBox.startY + scroller_overlay_startY, scroller_overlay_width, gridlist_scrollBarY_height, true) or isMouseWithinRangeOf(contentrender_offsetX + optionData.rulesBox.startX + optionData.rulesBox.rtPadding, contentrender_offsetY + optionData.rulesBox.startY + optionData.rulesBox.rtPadding, optionData.rulesBox.width - (optionData.rulesBox.rtPadding*2), optionData.rulesBox.height - (optionData.rulesBox.rtPadding*2), true))) and isViewAnimationDone]] then
-                if prevScrollState == "up" then
-                    if elementReference.gui.scrollBar.percent > 0 then
-                        if gridlist_exceeded_height < gridlist_scrollBarY_height then
-                            elementReference.gui.scrollBar.percent = elementReference.gui.scrollBar.percent - (10*prevScrollStreak.streak)
-                        else
-                            elementReference.gui.scrollBar.percent = elementReference.gui.scrollBar.percent - (1*prevScrollStreak.streak)
+            dxDrawRectangle(gridlist_scrollBarY_startX, gridlist_scrollBarY_startY, gridlist_scrollBarY_width, gridlist_scrollBarY_height, gridlist_scrollBar_overlay_color, false)
+            dxDrawRectangle(gridlist_scrollBarY_startX, gridlist_scrollBarY_startY + ((gridlist_scrollBarY_height - gridlist_scrollBarY_bar_height)*(elementReference.gui.scrollBar.percent*0.01)), gridlist_scrollBarY_width, gridlist_scrollBarY_bar_height, gridlist_scrollBar_bar_color, false)
+            dxDrawRectangle(gridlist_scrollBarY_startX, gridlist_scrollBarY_startY + ((gridlist_scrollBarY_height - gridlist_scrollBarY_bar_height)*(elementReference.gui.scrollBar.percent*0.01)), gridlist_columnBar_divider_size*0.5, gridlist_scrollBarY_bar_height, gridlist_columnBar_divider_color, false)
+            if not elementReference.isDisabled then
+                if prevScrollState --[[and (isMouseWithinRangeOf(contentrender_offsetX, contentrender_offsetY, contentrender_width, contentrender_height, true) and (isMouseWithinRangeOf(contentrender_offsetX + optionData.rulesBox.startX + scroller_overlay_startX, contentrender_offsetY + optionData.rulesBox.startY + scroller_overlay_startY, scroller_overlay_width, gridlist_scrollBarY_height, true) or isMouseWithinRangeOf(contentrender_offsetX + optionData.rulesBox.startX + optionData.rulesBox.rtPadding, contentrender_offsetY + optionData.rulesBox.startY + optionData.rulesBox.rtPadding, optionData.rulesBox.width - (optionData.rulesBox.rtPadding*2), optionData.rulesBox.height - (optionData.rulesBox.rtPadding*2), true))) and isViewAnimationDone]] then
+                    if prevScrollState == "up" then
+                        if elementReference.gui.scrollBar.percent > 0 then
+                            if gridlist_exceeded_height < gridlist_scrollBarY_height then
+                                elementReference.gui.scrollBar.percent = elementReference.gui.scrollBar.percent - (10*prevScrollStreak.streak)
+                            else
+                                elementReference.gui.scrollBar.percent = elementReference.gui.scrollBar.percent - (1*prevScrollStreak.streak)
+                            end
+                        end
+                    elseif prevScrollState == "down" then
+                        if elementReference.gui.scrollBar.percent < 100 then
+                            if gridlist_exceeded_height < gridlist_scrollBarY_height then
+                                elementReference.gui.scrollBar.percent = elementReference.gui.scrollBar.percent + (10*prevScrollStreak.streak)
+                            else
+                                elementReference.gui.scrollBar.percent = elementReference.gui.scrollBar.percent + (1*prevScrollStreak.streak)
+                            end
                         end
                     end
-                elseif prevScrollState == "down" then
-                    if elementReference.gui.scrollBar.percent < 100 then
-                        if gridlist_exceeded_height < gridlist_scrollBarY_height then
-                            elementReference.gui.scrollBar.percent = elementReference.gui.scrollBar.percent + (10*prevScrollStreak.streak)
-                        else
-                            elementReference.gui.scrollBar.percent = elementReference.gui.scrollBar.percent + (1*prevScrollStreak.streak)
-                        end
-                    end
+                    elementReference.gui.scrollBar.percent = math.max(0, math.min(100, elementReference.gui.scrollBar.percent))
+                    prevScrollState = false
                 end
-                elementReference.gui.scrollBar.percent = math.max(0, math.min(100, elementReference.gui.scrollBar.percent))
-                prevScrollState = false
             end
         end
         dxSetBlendMode("blend")

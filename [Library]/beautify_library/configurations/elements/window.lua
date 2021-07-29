@@ -28,7 +28,7 @@ availableElements["beautify_window"] = {
     allowedChildren = {
         ["beautify_gridlist"] = true
     },
-    apis = {},
+    isDraggable = true,
     minimumSize = 55,
     titleBar = {
         paddingX = 5,
@@ -40,3 +40,5 @@ availableElements["beautify_window"] = {
         padding = 5
     }
 }
+
+availableElements["beautify_window"]["apis"] = {}

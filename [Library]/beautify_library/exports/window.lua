@@ -29,19 +29,19 @@ function createWindow(...)
         if j.name == "width" or j.name == "height" then
             elementReference.gui[j.name] = math.max(availableElements[elementType].minimumSize, parameters[i]) + (availableElements[elementType].contentSection.padding*2)
             if j.name == "height" then
-                elementReference.gui[j.name] = elementReference.gui[j.name] + (availableElements["beautify_window"].minimumSize/2)
+                elementReference.gui[j.name] = elementReference.gui[j.name] + (availableElements["beautify_window"].minimumSize*0.5)
             end
         else
             elementReference.gui[j.name] = parameters[i]
             if j.name == "y" then
-                elementReference.gui[j.name] = parameters[i] + (availableElements["beautify_window"].minimumSize/2)
+                elementReference.gui[j.name] = parameters[i] + (availableElements["beautify_window"].minimumSize*0.5)
             end
         end
     end
     elementReference.gui.postGUI = (parameters[6] and true) or false
     elementReference.gui.contentSection = {
         startX = availableElements["beautify_window"].contentSection.padding,
-        startY = (availableElements["beautify_window"].minimumSize/2) + availableElements["beautify_window"].contentSection.padding,
+        startY = (availableElements["beautify_window"].minimumSize*0.5) + availableElements["beautify_window"].contentSection.padding,
         width = elementReference.gui.width - (availableElements["beautify_window"].contentSection.padding*2),
         height = elementReference.gui.height + availableElements["beautify_window"].minimumSize - (availableElements["beautify_window"].contentSection.padding*2)
     }

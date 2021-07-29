@@ -21,7 +21,7 @@ function renderWindow(element)
 
     local elementTemplate = getUITemplate(elementType)
     local elementReference = createdElements[element]
-    local window_borderSize = availableElements[elementType].minimumSize/2
+    local window_borderSize = availableElements[elementType].minimumSize*0.5
     local window_startX, window_startY = elementReference.gui.x, elementReference.gui.y
     local window_width, window_height = elementReference.gui.width, elementReference.gui.height
     local window_color, window_titleBar_color = tocolor(unpack(elementTemplate.color)), tocolor(unpack(elementTemplate.titleBar.color))
