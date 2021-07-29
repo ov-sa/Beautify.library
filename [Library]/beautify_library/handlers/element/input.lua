@@ -18,6 +18,9 @@ INPUT_CACHE = {
     prevScrollState = false,
     prevScrollStreak = {state = false, tickCounter = false, streak = 1}
 }
+local DEFAULT_INPUT_KEYS = {
+    "mouse1", "mouse2"
+}
 
 
 ---------------------------------------------
@@ -35,15 +38,30 @@ local function isInputValid()
 end
 
 
-----------------------------------------
---[[ Functions: Resets Input States ]]--
-----------------------------------------
+---------------------------------------------
+--[[ Functions: Adds/Resets Input States ]]--
+---------------------------------------------
 
-function resetKeyClickCache()
+function addKeyClickCache(key)
 
-    for i, j in pairs(INPUT_CACHE.prevKeyClickStates) do
-        j.prevState = false
-        j.currState = false
+    if not key or INPUT_CACHE.prevKeyClickStates[key] then return false end
+
+    INPUT_CACHE.prevKeyClickStates[key] = {prevState = false, currState = false}
+    return true
+
+end
+
+function resetKeyClickCache(key)
+
+    if key then
+        if not INPUT_CACHE.prevKeyClickStates[key] then return false end
+        INPUT_CACHE.prevKeyClickStates[key].prevState = false
+        INPUT_CACHE.prevKeyClickStates[key].currState = false
+    else
+        for i, j in pairs(INPUT_CACHE.prevKeyClickStates) do
+            j.prevState = false
+            j.currState = false
+        end
     end
     return true
 
@@ -71,14 +89,16 @@ addEventHandler("onClientRender", root, function()
 
     if not isInputValid() then return false end
 
-    if not prevLMBClickState then
-        if getKeyState("mouse1") then
-            isLMBClicked = true
-            prevLMBClickState = true
-        end
-    else
-        if not getKeyState("mouse1") then
-            prevLMBClickState = false
+    for i, j in pairs(INPUT_CACHE.prevKeyClickStates) do
+        if not j.prevState then
+            if getKeyState("mouse1") then
+                j.currState = true
+                j.prevState = true
+            end
+        else
+            if not getKeyState("mouse1") then
+                j.prevState = false
+            end
         end
     end
 
@@ -114,6 +134,19 @@ addEventHandler("onClientKey", root, function(button, state)
             INPUT_CACHE.prevScrollStreak.tickCounter = getTickCount()
         end
         INPUT_CACHE.prevScrollState = isMouseScrolled
+    end
+
+end)
+
+
+-----------------------------------------
+--[[ Event: On Client Resource Start ]]--
+-----------------------------------------
+
+addEventHandler("onClientResourceStart", resource, function()
+
+    for i, j in ipairs(DEFAULT_INPUT_KEYS) do
+        addKeyClickCache(j)
     end
 
 end)

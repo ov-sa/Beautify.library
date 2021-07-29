@@ -35,8 +35,9 @@ function renderWindow(element)
     dxSetRenderTarget()
     local isCloseButtonHovered = false
     local window_close_button_startX, window_close_button_startY = window_startX + window_width - window_borderSize, window_startY
-    local isTitleBarClicked = isMouseOnPosition(window_startX, window_startY, window_width - window_borderSize, window_borderSize) and isLMBClicked
+    local isTitleBarClicked = isMouseOnPosition(window_startX, window_startY, window_width - window_borderSize, window_borderSize) and INPUT_CACHE.prevKeyClickStates["mouse1"].currState
     if isTitleBarClicked then
+        resetKeyClickCache("mouse1")
         if not elementReference.isDisabled and elementReference.isDraggable then
             attachElement(element)
         end
@@ -46,7 +47,8 @@ function renderWindow(element)
         end
     end
     if isCloseButtonHovered then
-        if isLMBClicked then
+        if INPUT_CACHE.prevKeyClickStates["mouse1"].currState then
+            resetKeyClickCache("mouse1")
             setUIVisible(element, false)
         end
         if elementReference.gui.titleBar.close_button.hoverStatus ~= "forward" then

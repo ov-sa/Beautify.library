@@ -71,10 +71,9 @@ function renderGridlist(element)
                 end
             end
             if isRowHovered or (elementReference.gridData.selection == i) then
-                if isLMBClicked and (elementReference.gridData.selection ~= i) then
-                    Timer(function(gridlist, selection)
-                        setGridlistSelection(gridlist, selection)
-                    end, 1, 1, element, i)
+                if INPUT_CACHE.prevKeyClickStates["mouse1"].currState and (elementReference.gridData.selection ~= i) then
+                    resetKeyClickCache("mouse1")
+                    setGridlistSelection(element, i)
                 end
                 if j.hoverStatus ~= "forward" then
                     j.hoverStatus = "forward"
