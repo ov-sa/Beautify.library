@@ -37,7 +37,7 @@ function renderWindow(element)
     local window_close_button_startX, window_close_button_startY = window_startX + window_width - window_borderSize, window_startY
     local isTitleBarClicked = isMouseOnPosition(window_startX, window_startY, window_width - window_borderSize, window_borderSize) and isLMBClicked
     if isTitleBarClicked then
-        if elementReference.isDraggable then
+        if not elementReference.isDisabled and elementReference.isDraggable then
             attachElement(element)
         end
     else
