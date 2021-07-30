@@ -36,7 +36,10 @@ availableElements["beautify_button"] = {
             minimumSize = 23,
         }
     },
-    hoverAnimDuration = 1250
+    contentSection = {
+        paddingX = 5,
+        hoverAnimDuration = 1250
+    }
 }
 
 availableElements["beautify_button"]["APIs"] = {}

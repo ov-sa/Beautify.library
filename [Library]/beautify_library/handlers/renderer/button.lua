@@ -32,6 +32,7 @@ function renderButton(element)
     local button_borderSize = availableElements[elementType]["TEMPLATE_PROPERTIES"][button_type].minimumSize*0.5
     local button_startX, button_startY = elementReference.gui.x, elementReference.gui.y
     local button_width, button_height = false, false
+    local button_content_padding = availableElements[elementType].contentSection.paddingX
     local button_postGUI = elementReference.gui.postGUI
 
     if button_type == "default" then
@@ -71,9 +72,9 @@ function renderButton(element)
             end
         end
         if elementReference.gui.hoverStatus == "forward" then
-            elementReference.gui.animAlphaPercent = interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].hoverAnimDuration), "InQuad")
+            elementReference.gui.animAlphaPercent = interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
         else
-            elementReference.gui.animAlphaPercent = interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 0.25, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].hoverAnimDuration), "InQuad")
+            elementReference.gui.animAlphaPercent = interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 0.25, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
         end
         local button_color, button_fontColor = tocolor(elementTemplate.color[1], elementTemplate.color[2], elementTemplate.color[3], elementTemplate.color[4]*math.max(0.3, elementReference.gui.animAlphaPercent)), tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4]*elementReference.gui.animAlphaPercent)
         dxDrawImage(button_startX, button_startY, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/top_left.png"], 0, 0, 0, button_color, button_postGUI)
@@ -87,7 +88,7 @@ function renderButton(element)
                 dxDrawRectangle(button_startX + button_width - button_borderSize, button_startY + button_borderSize, button_borderSize, button_height - availableElements[elementType]["TEMPLATE_PROPERTIES"][button_type].minimumSize, button_color, button_postGUI)
             end
         end
-        dxDrawText(elementReference.gui.text, button_startX, button_startY + (elementTemplate.fontPaddingY or 0), button_startX + button_width, button_startY + button_height, button_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "center", "center", true, false, button_postGUI, false)
+        dxDrawText(elementReference.gui.text, button_startX + button_content_padding, button_startY + (elementTemplate.fontPaddingY or 0), button_startX + button_width - button_content_padding, button_startY + button_height, button_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "center", "center", true, false, button_postGUI, false)
     end
     return true
 
