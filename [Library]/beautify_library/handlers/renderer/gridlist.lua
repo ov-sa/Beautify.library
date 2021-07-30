@@ -101,8 +101,8 @@ function renderGridlist(element)
             dxDrawRectangle(row_offsetX, row_offsetY, gridlist_renderTarget_width, gridlist_rowBar_height, gridlist_rowBar_color, false)
             dxDrawRectangle(row_offsetX, row_offsetY, gridlist_renderTarget_width, gridlist_rowBar_height, tocolor(elementTemplate.rowBar.hoverColor[1], elementTemplate.rowBar.hoverColor[2], elementTemplate.rowBar.hoverColor[3], elementTemplate.rowBar.hoverColor[4]*j.animAlphaPercent), false)
             for k, v in ipairs(elementReference.gridData.columns) do
-                dxDrawText(j[k] or "-", row_offsetX + column_offsets[k].startX + gridlist_columnBar_padding, row_offsetY, row_offsetX + column_offsets[k].endX - gridlist_columnBar_padding, row_offsetY + gridlist_rowBar_height, gridlist_rowBar_fontColor, 1, elementTemplate.rowBar.font, "center", "center", true, false, false, false)
-                dxDrawText(j[k] or "-", row_offsetX + column_offsets[k].startX + gridlist_columnBar_padding, row_offsetY, row_offsetX + column_offsets[k].endX - gridlist_columnBar_padding, row_offsetY + gridlist_rowBar_height, tocolor(elementTemplate.rowBar.hoverFontColor[1], elementTemplate.rowBar.hoverFontColor[2], elementTemplate.rowBar.hoverFontColor[3], elementTemplate.rowBar.hoverFontColor[4]*j.animAlphaPercent), 1, elementTemplate.rowBar.font, "center", "center", true, false, false, false)
+                dxDrawText(j[k] or "-", row_offsetX + column_offsets[k].startX + gridlist_columnBar_padding, row_offsetY + (elementTemplate.rowBar.fontPaddingY or 0), row_offsetX + column_offsets[k].endX - gridlist_columnBar_padding, row_offsetY + gridlist_rowBar_height, gridlist_rowBar_fontColor, elementTemplate.rowBar.fontScale or 1, elementTemplate.rowBar.font, "center", "center", true, false, false, false)
+                dxDrawText(j[k] or "-", row_offsetX + column_offsets[k].startX + gridlist_columnBar_padding, row_offsetY + (elementTemplate.rowBar.fontPaddingY or 0), row_offsetX + column_offsets[k].endX - gridlist_columnBar_padding, row_offsetY + gridlist_rowBar_height, tocolor(elementTemplate.rowBar.hoverFontColor[1], elementTemplate.rowBar.hoverFontColor[2], elementTemplate.rowBar.hoverFontColor[3], elementTemplate.rowBar.hoverFontColor[4]*j.animAlphaPercent), elementTemplate.rowBar.fontScale or 1, elementTemplate.rowBar.font, "center", "center", true, false, false, false)
             end
             local isGridListHovered = false
             if not elementParent then
@@ -147,7 +147,7 @@ function renderGridlist(element)
         if i ~= #elementReference.gridData.columns then
             dxDrawRectangle(gridlist_startX + column_offsets[i].startX + j.width + gridlist_columnBar_divider_size, gridlist_startY + gridlist_columnBar_height, gridlist_columnBar_divider_size, gridlist_height - gridlist_columnBar_height, gridlist_columnBar_divider_color, gridlist_postGUI)
         end
-        dxDrawText(j.name, gridlist_startX + column_offsets[i].startX + gridlist_columnBar_padding, gridlist_startY + gridlist_columnBar_padding, gridlist_startX + column_offsets[i].endX - gridlist_columnBar_padding, gridlist_startY + gridlist_columnBar_height, gridlist_columnBar_fontColor, 1, elementTemplate.columnBar.font, "center", "center", true, false, gridlist_postGUI, false)
+        dxDrawText(j.name, gridlist_startX + column_offsets[i].startX + gridlist_columnBar_padding, gridlist_startY + gridlist_columnBar_padding + (elementTemplate.columnBar.fontPaddingY or 0), gridlist_startX + column_offsets[i].endX - gridlist_columnBar_padding, gridlist_startY + gridlist_columnBar_height, gridlist_columnBar_fontColor, elementTemplate.columnBar.fontScale or 1, elementTemplate.columnBar.font, "center", "center", true, false, gridlist_postGUI, false)
     end
     return true
 

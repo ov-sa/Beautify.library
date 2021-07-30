@@ -15,7 +15,10 @@
 
 availableTemplates["beautify_button"] = {
     ["default"] = {
-        color = {100, 100, 255, 255},
-        fontColor = {0, 0, 0, 255}
+        fontPaddingY = 3,
+        fontScale = 1,
+        font = DxFont("files/assets/fonts/teko_regular.ttf", 16),
+        color = {5, 5, 5, 253},
+        fontColor = {255, 255, 255, 255}
     }
 }

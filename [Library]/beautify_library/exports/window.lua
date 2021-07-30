@@ -49,7 +49,7 @@ function createWindow(...)
         startX = availableElements["beautify_window"].contentSection.padding,
         startY = (availableElements["beautify_window"].minimumSize*0.5) + availableElements["beautify_window"].contentSection.padding,
         width = elementReference.gui.width - (availableElements["beautify_window"].contentSection.padding*2),
-        height = elementReference.gui.height + availableElements["beautify_window"].minimumSize - (availableElements["beautify_window"].contentSection.padding*2)
+        height = elementReference.gui.height - (availableElements["beautify_window"].minimumSize*0.5) - (availableElements["beautify_window"].contentSection.padding*2)
     }
     if elementReference.gui.contentSection.width > 0 and elementReference.gui.contentSection.height > 0 then
         elementReference.gui.renderTarget = DxRenderTarget(elementReference.gui.contentSection.width, elementReference.gui.contentSection.height, true)

@@ -25,6 +25,7 @@
     <script src="handlers/renderer/component/scrollbar.lua" type="client" cache="false"/>
     <script src="handlers/renderer/window.lua" type="client" cache="false"/>
     <script src="handlers/renderer/gridlist.lua" type="client" cache="false"/>
+    <script src="handlers/renderer/button.lua" type="client" cache="false"/>
 
     <!-- Configurations -->
     <script src="configurations/assets/initial.lua" type="client" cache="false"/>
@@ -42,6 +43,7 @@
     <script src="configurations/templates/button.lua" type="client" cache="false"/>
 
     <!-- Files: Assets: Fonts -->
+    <file src="files/assets/fonts/teko_regular.ttf"/>
     <file src="files/assets/fonts/teko_medium.ttf"/>
     <file src="files/assets/fonts/signika_semibold.ttf"/>
     <file src="files/assets/fonts/mukta_semibold.ttf"/>

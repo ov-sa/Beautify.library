@@ -33,7 +33,7 @@ availableElements["beautify_button"] = {
     allowedChildren = {},
     ["TEMPLATE_PROPERTIES"] = {
         ["default"] = {
-            minimumSize = 55
+            minimumSize = 23
         }
     }
 }
