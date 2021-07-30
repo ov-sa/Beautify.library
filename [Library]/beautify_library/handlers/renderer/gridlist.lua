@@ -94,9 +94,9 @@ function renderGridlist(element)
                 end
             end
             if j.hoverStatus == "forward" then
-                j.animAlphaPercent = interpolateBetween(j.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(j.hoverAnimTickCounter, availableElements[elementType].rowBar.hoverAnimDuration), "Linear")
+                j.animAlphaPercent = interpolateBetween(j.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(j.hoverAnimTickCounter, availableElements[elementType].rowBar.hoverAnimDuration), "OutBounce")
             else
-                j.animAlphaPercent = interpolateBetween(j.animAlphaPercent, 0, 0, 0, 0, 0, getInterpolationProgress(j.hoverAnimTickCounter, availableElements[elementType].rowBar.hoverAnimDuration), "Linear")
+                j.animAlphaPercent = interpolateBetween(j.animAlphaPercent, 0, 0, 0, 0, 0, getInterpolationProgress(j.hoverAnimTickCounter, availableElements[elementType].rowBar.hoverAnimDuration), "OutBounce")
             end
             dxDrawRectangle(row_offsetX, row_offsetY, gridlist_renderTarget_width, gridlist_rowBar_height, gridlist_rowBar_color, false)
             dxDrawRectangle(row_offsetX, row_offsetY, gridlist_renderTarget_width, gridlist_rowBar_height, tocolor(elementTemplate.rowBar.hoverColor[1], elementTemplate.rowBar.hoverColor[2], elementTemplate.rowBar.hoverColor[3], elementTemplate.rowBar.hoverColor[4]*j.animAlphaPercent), false)
@@ -105,17 +105,19 @@ function renderGridlist(element)
                 dxDrawText(j[k] or "-", row_offsetX + column_offsets[k].startX + gridlist_columnBar_padding, row_offsetY + (elementTemplate.rowBar.fontPaddingY or 0), row_offsetX + column_offsets[k].endX - gridlist_columnBar_padding, row_offsetY + gridlist_rowBar_height, tocolor(elementTemplate.rowBar.hoverFontColor[1], elementTemplate.rowBar.hoverFontColor[2], elementTemplate.rowBar.hoverFontColor[3], elementTemplate.rowBar.hoverFontColor[4]*j.animAlphaPercent), elementTemplate.rowBar.fontScale or 1, elementTemplate.rowBar.font, "center", "center", true, false, false, false)
             end
             local isGridListHovered = false
-            if not elementParent then
-                if isMouseOnPosition(gridlist_startX, gridlist_startY, gridlist_width, gridlist_height) and isMouseOnPosition(gridlist_renderTarget_startX, gridlist_renderTarget_startY, gridlist_renderTarget_width, gridlist_renderTarget_height) then
-                    isGridListHovered = true
-                    isRowHovered = isMouseOnPosition(gridlist_renderTarget_startX + row_offsetX, gridlist_renderTarget_startY + row_offsetY, gridlist_renderTarget_width, gridlist_rowBar_height)
-                end
-            else
-                local isParentContentHovered = isMouseOnPosition(createdElements[elementParent].gui.x, createdElements[elementParent].gui.y, createdElements[elementParent].gui.width, createdElements[elementParent].gui.height) and isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY, createdElements[elementParent].gui.contentSection.width, createdElements[elementParent].gui.contentSection.height)
-                if isParentContentHovered then
-                    if isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX + gridlist_startX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY + gridlist_startY, gridlist_width, gridlist_height) and isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX + gridlist_renderTarget_startX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY + gridlist_renderTarget_startY, gridlist_renderTarget_width, gridlist_renderTarget_height) then
+            if not elementReference.isDisabled then
+                if not elementParent then
+                    if isMouseOnPosition(gridlist_startX, gridlist_startY, gridlist_width, gridlist_height) and isMouseOnPosition(gridlist_renderTarget_startX, gridlist_renderTarget_startY, gridlist_renderTarget_width, gridlist_renderTarget_height) then
                         isGridListHovered = true
-                        isRowHovered = isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX + gridlist_renderTarget_startX + row_offsetX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY + gridlist_renderTarget_startY + row_offsetY, gridlist_renderTarget_width, gridlist_rowBar_height)
+                        isRowHovered = isMouseOnPosition(gridlist_renderTarget_startX + row_offsetX, gridlist_renderTarget_startY + row_offsetY, gridlist_renderTarget_width, gridlist_rowBar_height)
+                    end
+                else
+                    local isParentContentHovered = isMouseOnPosition(createdElements[elementParent].gui.x, createdElements[elementParent].gui.y, createdElements[elementParent].gui.width, createdElements[elementParent].gui.height) and isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY, createdElements[elementParent].gui.contentSection.width, createdElements[elementParent].gui.contentSection.height)
+                    if isParentContentHovered then
+                        if isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX + gridlist_startX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY + gridlist_startY, gridlist_width, gridlist_height) and isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX + gridlist_renderTarget_startX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY + gridlist_renderTarget_startY, gridlist_renderTarget_width, gridlist_renderTarget_height) then
+                            isGridListHovered = true
+                            isRowHovered = isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX + gridlist_renderTarget_startX + row_offsetX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY + gridlist_renderTarget_startY + row_offsetY, gridlist_renderTarget_width, gridlist_rowBar_height)
+                        end
                     end
                 end
             end

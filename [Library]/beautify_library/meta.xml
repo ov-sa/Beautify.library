@@ -46,7 +46,7 @@
     <file src="files/assets/fonts/teko_regular.ttf"/>
     <file src="files/assets/fonts/teko_medium.ttf"/>
     <file src="files/assets/fonts/signika_semibold.ttf"/>
-    <file src="files/assets/fonts/mukta_semibold.ttf"/>
+    <file src="files/assets/fonts/poppins_medium.ttf"/>
 
     <!-- Files: Assets: Images -->
     <file src="files/assets/images/right_triangle/default.png"/>

@@ -33,7 +33,7 @@ availableElements["beautify_gridlist"] = {
     rowBar = {
         padding = 5,
         height = 23,
-        hoverAnimDuration = 2000
+        hoverAnimDuration = 3000
     }
 }
 

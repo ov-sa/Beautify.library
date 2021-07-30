@@ -33,9 +33,10 @@ availableElements["beautify_button"] = {
     allowedChildren = {},
     ["TEMPLATE_PROPERTIES"] = {
         ["default"] = {
-            minimumSize = 23
+            minimumSize = 23,
         }
-    }
+    },
+    hoverAnimDuration = 1250
 }
 
 availableElements["beautify_button"]["APIs"] = {}
