@@ -27,54 +27,24 @@ addEventHandler("onClientResourceStart", resource, function()
             [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
         },
         {
-            [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
-        },
-        {
-            [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
-        },
-        {
-            [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
-        },
-        {
-            [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
-        },        {
-            [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
-        },        {
-            [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
-        },
-        {
-            [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
-        },        {
-            [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
-        },
-        {
-            [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
-        },        {
-            [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
-        },        {
-            [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
-        },        {
-            [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
-        },        {
-            [1] = "2", [2] = "Acen", [3] = "BZ", [4] = "Member"
-        },
-        {
             [1] = "3", [2] = "Aviril", [3] = "US", [4] = "Developer"
         },
         {
             [1] = "3", [2] = "Mario", [3] = "BH", [4] = "CEO"
         }
     }
-    for i, j in ipairs(testRows) do
-        local rowIndex = addGridlistRow(createdGridlist)
-        local rowData = {}
-        for k, v in pairs(j) do
-            if k == 1 then
-                setGridlistRowData(createdGridlist, rowIndex, k, tostring(i))
-            else
-                setGridlistRowData(createdGridlist, rowIndex, k, v)
+    for x = 1, 2500, 1 do
+        for i, j in ipairs(testRows) do
+            local rowIndex = addGridlistRow(createdGridlist)
+            local rowData = {}
+            for k, v in pairs(j) do
+                if k == 1 then
+                    setGridlistRowData(createdGridlist, rowIndex, k, tostring(x))
+                else
+                    setGridlistRowData(createdGridlist, rowIndex, k, v)
+                end
+                rowData[k] = getGridlistRowData(createdGridlist, rowIndex, k)
             end
-            rowData[k] = getGridlistRowData(createdGridlist, rowIndex, k)
         end
     end
     setGridlistSelection(createdGridlist, 1)
@@ -83,5 +53,3 @@ addEventHandler("onClientResourceStart", resource, function()
     showCursor(true)
 
 end)
-
---TODO: CACHE GRIDLIST AND RENDER ONLY THE ONES WITHIN VIEW TO AVOID LAGGY EXPERIENCE
