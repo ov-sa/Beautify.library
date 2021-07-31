@@ -38,7 +38,7 @@ availableElements["beautify_gridlist"] = {
 }
 
 availableElements["beautify_gridlist"]["APIs"] = {
-    ["countGridlistColumn"] = {
+    ["countGridlistColumns"] = {
         parameters = {
             {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"}
         }
@@ -56,7 +56,7 @@ availableElements["beautify_gridlist"]["APIs"] = {
             {name = "column", type = "number"}
         }
     },
-    ["countGridlistRow"] = {
+    ["countGridlistRows"] = {
         parameters = {
             {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"}
         }

@@ -65,14 +65,14 @@ function createGridlist(...)
 end
 
 
----------------------------------------------------------
---[[ Functions: Counts/Adds/Removes Grid List Column ]]--
----------------------------------------------------------
+----------------------------------------------------------
+--[[ Functions: Counts/Adds/Removes Grid List Columns ]]--
+----------------------------------------------------------
 
-function countGridlistColumn(...)
+function countGridlistColumns(...)
 
     local parameters = {...}
-    if not areUIParametersValid(parameters, elementType, "countGridlistColumn") then return false end
+    if not areUIParametersValid(parameters, elementType, "countGridlistColumns") then return false end
     local element = parameters[1]
     if not isUIValid(element) then return false end
 
@@ -120,14 +120,14 @@ function removeGridlistColumn(...)
 end
 
 
-------------------------------------------------------
---[[ Functions: Counts/Adds/Removes Grid List Row ]]--
-------------------------------------------------------
+-------------------------------------------------------
+--[[ Functions: Counts/Adds/Removes Grid List Rows ]]--
+-------------------------------------------------------
 
-function countGridlistRow(...)
+function countGridlistRows(...)
 
     local parameters = {...}
-    if not areUIParametersValid(parameters, elementType, "countGridlistRow") then return false end
+    if not areUIParametersValid(parameters, elementType, "countGridlistRows") then return false end
     local element = parameters[1]
     if not isUIValid(element) then return false end
 

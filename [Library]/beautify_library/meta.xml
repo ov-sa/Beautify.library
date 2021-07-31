@@ -111,11 +111,17 @@
     <!-- Params: createButton(text, x, y, type, ..., parent, postGUI) | Returns Element; Else false Boolean -->
     <export function="createButton" type="client"/>
 
+    <!-- Params: countGridlistColumns(gridlist) | Returns Data; Else false Boolean -->
+    <export function="countGridlistColumns" type="client"/>
+
     <!-- Params: addGridlistColumn(gridlist, name, width) | Returns Column; Else false Boolean -->
     <export function="addGridlistColumn" type="client"/>
 
     <!-- Params: removeGridlistColumn(gridlist, column) | Returns Boolean -->
     <export function="removeGridlistColumn" type="client"/>
+
+    <!-- Params: countGridlistRows(gridlist) | Returns Data; Else false Boolean -->
+    <export function="countGridlistRows" type="client"/>
 
     <!-- Params: addGridlistRow(gridlist) | Returns Row; Else false Boolean -->
     <export function="addGridlistRow" type="client"/>

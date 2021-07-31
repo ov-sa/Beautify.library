@@ -3,7 +3,13 @@ sX = sX/1366; sY = sY/768;
 
 addEventHandler("onClientResourceStart", resource, function()
 
+
     local window_width, window_height = 700, 350
+
+    local createdWindow2 = createWindow((sX*1366 - window_width/2)/2, (sY*768 - window_height/2)/2, window_width/2, window_height/2, "Development UI 2", false)
+    setUIVisible(createdWindow2, true)
+    setUIDraggable(createdWindow2, true)
+
     local createdWindow = createWindow((sX*1366 - window_width)/2, (sY*768 - window_height)/2, window_width, window_height, "Development UI", false)
     local createdGridlist = createGridlist(0, 0, window_width, window_height - 30, createdWindow, false)
     local createdButton = createButton("Button #1", 0, window_height - 30 + 5, "default", 175, 24, createdWindow, false)
@@ -39,7 +45,7 @@ addEventHandler("onClientResourceStart", resource, function()
             local rowData = {}
             for k, v in pairs(j) do
                 if k == 1 then
-                    setGridlistRowData(createdGridlist, rowIndex, k, tostring(countGridlistRow(createdGridlist)))
+                    setGridlistRowData(createdGridlist, rowIndex, k, tostring(countGridlistRows(createdGridlist)))
                 else
                     setGridlistRowData(createdGridlist, rowIndex, k, v)
                 end
