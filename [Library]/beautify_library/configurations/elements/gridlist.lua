@@ -38,6 +38,11 @@ availableElements["beautify_gridlist"] = {
 }
 
 availableElements["beautify_gridlist"]["APIs"] = {
+    ["countGridlistColumn"] = {
+        parameters = {
+            {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"}
+        }
+    },
     ["addGridlistColumn"] = {
         parameters = {
             {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"},
@@ -49,6 +54,11 @@ availableElements["beautify_gridlist"]["APIs"] = {
         parameters = {
             {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"},
             {name = "column", type = "number"}
+        }
+    },
+    ["countGridlistRow"] = {
+        parameters = {
+            {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"}
         }
     },
     ["addGridlistRow"] = {

@@ -65,9 +65,22 @@ function createGridlist(...)
 end
 
 
---------------------------------------------------
---[[ Functions: Adds/Removes Grid List Column ]]--
---------------------------------------------------
+---------------------------------------------------------
+--[[ Functions: Counts/Adds/Removes Grid List Column ]]--
+---------------------------------------------------------
+
+function countGridlistColumn(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "countGridlistColumn") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementParent = getUIParent(element)
+    local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
+    return #elementReference.gridData.columns
+
+end
 
 function addGridlistColumn(...)
 
@@ -107,9 +120,22 @@ function removeGridlistColumn(...)
 end
 
 
------------------------------------------------
---[[ Functions: Adds/Removes Grid List Row ]]--
------------------------------------------------
+------------------------------------------------------
+--[[ Functions: Counts/Adds/Removes Grid List Row ]]--
+------------------------------------------------------
+
+function countGridlistRow(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "countGridlistRow") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementParent = getUIParent(element)
+    local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
+    return #elementReference.gridData.rows
+
+end
 
 function addGridlistRow(...)
 

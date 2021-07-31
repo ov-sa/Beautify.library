@@ -33,13 +33,13 @@ addEventHandler("onClientResourceStart", resource, function()
             [1] = "3", [2] = "Mario", [3] = "BH", [4] = "CEO"
         }
     }
-    for x = 1, 2500, 1 do
+    for x = 1, 500, 1 do
         for i, j in ipairs(testRows) do
             local rowIndex = addGridlistRow(createdGridlist)
             local rowData = {}
             for k, v in pairs(j) do
                 if k == 1 then
-                    setGridlistRowData(createdGridlist, rowIndex, k, tostring(x))
+                    setGridlistRowData(createdGridlist, rowIndex, k, tostring(countGridlistRow(createdGridlist)))
                 else
                     setGridlistRowData(createdGridlist, rowIndex, k, v)
                 end
