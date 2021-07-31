@@ -16,6 +16,18 @@
 sX, sY = GuiElement.getScreenSize()
 
 
+-----------------------------------
+--[[ Function: Rounds A Number ]]--
+-----------------------------------
+
+function math.round(number, decimals)
+    
+    decimals = decimals or 0
+    return tonumber(("%."..decimals.."f"):format(number))
+
+end
+
+
 ------------------------------------------------------
 --[[ Functions: Clones Table's/UI's Datas/Outline ]]--
 ------------------------------------------------------

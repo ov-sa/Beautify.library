@@ -75,6 +75,6 @@ addEventHandler("onClientRender", root, function()
         CLIENT_MTA_RESTORED = false
     end
     resetKeyClickCache()
-    resetScrollCache(true)
+    resetScrollCache()
 
 end, false, UI_PRIORITY_LEVEL.RENDER)

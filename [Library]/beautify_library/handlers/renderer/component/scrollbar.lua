@@ -36,31 +36,26 @@ function renderScrollbar(elementParent, renderData, referenceData)
     if not referenceData.currentThumbHeight then referenceData.currentThumbHeight = 0 end
     if not referenceData.finalPercent then referenceData.finalPercent = 0 end
     referenceData.finalThumbHeight = scrollbar_thumb_height
-    referenceData.currentThumbHeight = interpolateBetween(referenceData.currentThumbHeight, 0, 0, referenceData.finalThumbHeight, 0, 0, 0.08, "InQuad")
-    referenceData.currentPercent = interpolateBetween(referenceData.currentPercent, 0, 0, referenceData.finalPercent, 0, 0, 0.08, "InQuad")
+    referenceData.currentThumbHeight = interpolateBetween(referenceData.currentThumbHeight, 0, 0, referenceData.finalThumbHeight, 0, 0, 0.25, "InQuad")
+    referenceData.currentPercent = interpolateBetween(referenceData.currentPercent, 0, 0, referenceData.finalPercent, 0, 0, 0.25, "InQuad")
     scrollbar_thumb_height = referenceData.currentThumbHeight
     local scrollbar_thumb_offsetY = (scrollbar_height - scrollbar_thumb_height)*(referenceData.currentPercent*0.01)
     dxDrawRectangle(scrollbar_startX, scrollbar_startY, scrollbar_width, scrollbar_height, scrollbar_track_color, scrollbar_postGUI)
     dxDrawRectangle(scrollbar_startX, scrollbar_startY + scrollbar_thumb_offsetY, scrollbar_width, scrollbar_thumb_height, scrollbar_thumb_color, scrollbar_postGUI)
     dxDrawRectangle(scrollbar_startX, scrollbar_startY + scrollbar_thumb_offsetY, scrollbar_thumb_shadowSize, scrollbar_thumb_height, scrollbar_thumb_shadow_color, scrollbar_postGUI)
     if not renderData.isDisabled then
+        local scrollbar_scrollSpeed = (renderData.multiplier/scrollbar_overflownHeight)*100
         local currentScrollState = {isMouseScrolled()}
         if currentScrollState[1] then
             if currentScrollState[1] == "up" then
                 if referenceData.finalPercent > 0 then
-                    if scrollbar_overflownHeight < scrollbar_height then
-                        referenceData.finalPercent = referenceData.finalPercent - (10*currentScrollState[2])
-                    else
-                        referenceData.finalPercent = referenceData.finalPercent - (1*currentScrollState[2])
-                    end
+                    if scrollbar_overflownHeight < scrollbar_height then scrollbar_scrollSpeed = scrollbar_scrollSpeed*25 end
+                    referenceData.finalPercent = referenceData.finalPercent - (scrollbar_scrollSpeed*currentScrollState[2])
                 end
             elseif currentScrollState[1] == "down" then
                 if referenceData.finalPercent < 100 then
-                    if scrollbar_overflownHeight < scrollbar_height then
-                        referenceData.finalPercent = referenceData.finalPercent + (10*currentScrollState[2])
-                    else
-                        referenceData.finalPercent = referenceData.finalPercent + (1*currentScrollState[2])
-                    end
+                    if scrollbar_overflownHeight < scrollbar_height then scrollbar_scrollSpeed = scrollbar_scrollSpeed*25 end
+                    referenceData.finalPercent = referenceData.finalPercent + (scrollbar_scrollSpeed*currentScrollState[2])
                 end
             end
             referenceData.finalPercent = math.max(0, math.min(100, referenceData.finalPercent))

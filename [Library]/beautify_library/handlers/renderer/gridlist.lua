@@ -67,7 +67,7 @@ function renderGridlist(element)
             if gridlist_exceeded_height > 0 then gridlist_scrolled_offsetY = gridlist_exceeded_height*elementReference.gui.scrollBar.currentPercent*0.01 end      
             local gridlist_row_startIndex = math.floor(gridlist_scrolled_offsetY/gridlist_row_occupiedSpace) + 1
             local gridlist_row_endIndex = math.min(#elementReference.gridData.rows, gridlist_row_startIndex + gridlist_row_maxRenderered)
-            local isGridViewAnimating = math.ceil(elementReference.gui.scrollBar.currentPercent) ~= math.ceil(elementReference.gui.scrollBar.finalPercent or 0)
+            local isGridViewAnimating = math.round(elementReference.gui.scrollBar.currentPercent, 0) ~= math.round(elementReference.gui.scrollBar.finalPercent or 0, 0)
             local isGridListHovered = false
             if not elementReference.isDisabled and not isGridViewAnimating then
                 if not elementParent then
@@ -136,6 +136,7 @@ function renderGridlist(element)
                     startY = 0,
                     height = gridlist_renderTarget_height,
                     overflownHeight = gridlist_exceeded_height,
+                    multiplier = gridlist_row_occupiedSpace,
                     contentSection = {
                         width 
                     },
