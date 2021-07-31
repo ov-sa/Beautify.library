@@ -40,7 +40,9 @@ function cloneUIOutline(elementType, nestedOutline)
 
     if not elementType or not availableElements[elementType] or not availableTemplates[elementType] then return false end
 
-    local clonedOutline = {}
+    local clonedOutline = {
+        ["GUI_CACHE"] = {}
+    }
     for i, j in pairs(nestedOutline or availableTemplates[elementType]) do
         if type(j) == "table" then
             if j.isOutLine then
@@ -49,6 +51,20 @@ function cloneUIOutline(elementType, nestedOutline)
         end
     end
     return clonedOutline
+
+end
+
+
+---------------------------------
+--[[ Function: Unpacks Color ]]--
+---------------------------------
+
+function unpackColor(color)
+
+    if color and color[1] and color[2] and color[3] then
+        return color[1], color[2], color[3]
+    end
+    return false
 
 end
 

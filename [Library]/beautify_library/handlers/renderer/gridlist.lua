@@ -29,11 +29,11 @@ function renderGridlist(element)
     local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
     local gridlist_startX, gridlist_startY = elementReference.gui.x, elementReference.gui.y
     local gridlist_width, gridlist_height = elementReference.gui.width, elementReference.gui.height
-    local gridlist_color, gridlist_columnBar_color, gridlist_columnBar_fontColor = tocolor(unpack(elementTemplate.color)), tocolor(unpack(elementTemplate.columnBar.color)), tocolor(unpack(elementTemplate.columnBar.fontColor))
-    local gridlist_rowBar_color, gridlist_rowBar_fontColor = tocolor(unpack(elementTemplate.rowBar.color)), tocolor(unpack(elementTemplate.rowBar.fontColor))
+    local gridlist_color, gridlist_columnBar_color, gridlist_columnBar_fontColor = tocolor(unpackColor(elementTemplate.color)), tocolor(unpackColor(elementTemplate.columnBar.color)), tocolor(unpackColor(elementTemplate.columnBar.fontColor))
+    local gridlist_rowBar_color, gridlist_rowBar_fontColor = tocolor(unpackColor(elementTemplate.rowBar.color)), tocolor(unpackColor(elementTemplate.rowBar.fontColor))
     local gridlist_columnBar_padding, gridlist_columnBar_height = availableElements[elementType].columnBar.padding, availableElements[elementType].columnBar.height
     local gridlist_rowBar_padding, gridlist_rowBar_height = availableElements[elementType].rowBar.padding, availableElements[elementType].rowBar.height
-    local gridlist_columnBar_divider_size, gridlist_columnBar_divider_color = elementTemplate.columnBar.divider.size, tocolor(unpack(elementTemplate.columnBar.divider.color))
+    local gridlist_columnBar_divider_size, gridlist_columnBar_divider_color = elementTemplate.columnBar.divider.size, tocolor(unpackColor(elementTemplate.columnBar.divider.color))
     local gridlist_renderTarget_startX, gridlist_renderTarget_startY = gridlist_startX + elementReference.gui.contentSection.startX, gridlist_startY + elementReference.gui.contentSection.startY
     local gridlist_renderTarget_width, gridlist_renderTarget_height = elementReference.gui.contentSection.width, elementReference.gui.contentSection.height
     local gridlist_renderTarget = elementReference.gui.renderTarget

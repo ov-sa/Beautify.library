@@ -13,6 +13,7 @@
 --[[ Variables ]]--
 -------------------
 
+CLIENT_MTA_RESTORED = false
 INPUT_CACHE = {
     prevKeyClickStates = {},
     prevScrollState = {scrollState = false, streakState = false, streakCounter = 1, tickCounter = getTickCount()}
@@ -161,6 +162,19 @@ addEventHandler("onClientKey", root, function(button, state)
             INPUT_CACHE.prevScrollState.tickCounter = getTickCount()
         end
         INPUT_CACHE.prevScrollState.scrollState = isScrolled
+    end
+
+end, false, UI_PRIORITY_LEVEL.INPUT)
+
+
+----------------------------------
+--[[ Event: On Client Restore ]]--
+----------------------------------
+
+addEventHandler("onClientRestore", root, function(clearedRTs)
+
+    if clearedRTs then
+        CLIENT_MTA_RESTORED = true
     end
 
 end, false, UI_PRIORITY_LEVEL.INPUT)

@@ -71,6 +71,9 @@ addEventHandler("onClientRender", root, function()
         end
     end
 
+    if CLIENT_MTA_RESTORED then
+        CLIENT_MTA_RESTORED = false
+    end
     resetKeyClickCache()
     resetScrollCache(true)
 

@@ -34,7 +34,7 @@ function outputUILog(logMessage, logType)
 
     if not logMessage or not logType or not logTypes[logType] then return false end
 
-    outputDebugString("[Beautify Library] | "..logMessage, 4, unpack(logTypes[logType].color))
+    outputDebugString("[Beautify Library] | "..logMessage, 4, unpackColor(logTypes[logType].color))
     return true
     
 end
