@@ -41,7 +41,7 @@ function cloneUIOutline(elementType, nestedOutline)
     if not elementType or not availableElements[elementType] or not availableTemplates[elementType] then return false end
 
     local clonedOutline = {
-        ["GUI_CACHE"] = {}
+        ["__UI_CACHE__"] = {}
     }
     for i, j in pairs(nestedOutline or availableTemplates[elementType]) do
         if type(j) == "table" then

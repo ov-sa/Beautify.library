@@ -36,6 +36,10 @@ function createGridlist(...)
         rows = {},
         selection = false
     }
+    elementReference.gui["__UI_CACHE__"]["Column"] = {
+        areColumnsModified = false,
+        offsets = {}
+    }
     for i, j in ipairs(availableElements[elementType].syntax.parameters) do
         if (j.name == "x") or (j.name == "y") then
             elementReference.gui[j.name] = math.max(0, parameters[i])
@@ -75,6 +79,7 @@ function addGridlistColumn(...)
     local elementParent = getUIParent(element)
     local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
     table.insert(elementReference.gridData.columns, {name = parameters[2], width = parameters[3]})
+    elementReference.gui["__UI_CACHE__"]["Column"].areColumnsModified = true
     return #elementReference.gridData.columns
 
 end
@@ -96,6 +101,7 @@ function removeGridlistColumn(...)
     if #elementReference.gridData.columns <= 0 then
         elementReference.gridData.selection = false
     end
+    elementReference.gui["__UI_CACHE__"]["Column"].areColumnsModified = true
     return true
 
 end

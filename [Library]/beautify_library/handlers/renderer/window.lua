@@ -39,12 +39,13 @@ function renderWindow(element)
     local window_postGUI = elementReference.gui.postGUI
 
     dxSetRenderTarget()
-    if not elementReference.gui["GUI_CACHE"]["WRAPPER"] or CLIENT_MTA_RESTORED then
-        if not elementReference.gui["GUI_CACHE"]["WRAPPER"] then
-            elementReference.gui["GUI_CACHE"]["WRAPPER"] = {}
-            elementReference.gui["GUI_CACHE"]["WRAPPER"].renderTarget = DxRenderTarget(window_width, window_height, true)
+    if not elementReference.gui["__UI_CACHE__"]["Content Section"] or CLIENT_MTA_RESTORED then
+        if not elementReference.gui["__UI_CACHE__"]["Content Section"] then
+            elementReference.gui["__UI_CACHE__"]["Content Section"] = {
+                renderTarget = DxRenderTarget(window_width, window_height, true)
+            }
         end
-        dxSetRenderTarget(elementReference.gui["GUI_CACHE"]["WRAPPER"].renderTarget, true)
+        dxSetRenderTarget(elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget, true)
         dxSetBlendMode("modulate_add")
         dxDrawImage(0, 0, window_borderSize, window_borderSize, createdAssets["images"]["curved_square/top_left.png"], 0, 0, 0, window_titleBar_color, false)
         dxDrawImage(window_width - window_borderSize, 0, window_borderSize, window_borderSize, createdAssets["images"]["curved_square/top_right.png"], 0, 0, 0, window_titleBar_color, false)
@@ -61,19 +62,19 @@ function renderWindow(element)
         if window_width > availableElements[elementType].minimumSize and window_height > availableElements[elementType].minimumSize then
             dxDrawRectangle(window_borderSize, window_borderSize, window_width - availableElements[elementType].minimumSize, window_height - availableElements[elementType].minimumSize, window_color, false)
         end
-        if not elementReference.gui["GUI_CACHE"]["titleBar"] or (elementReference.gui["GUI_CACHE"]["titleBar"].font ~= elementTemplate.titleBar.font) then
-            if not elementReference.gui["GUI_CACHE"]["titleBar"] then
-                elementReference.gui["GUI_CACHE"]["titleBar"] = {
+        if not elementReference.gui["__UI_CACHE__"]["Title Bar"] or (elementReference.gui["__UI_CACHE__"]["Title Bar"].font ~= elementTemplate.titleBar.font) then
+            if not elementReference.gui["__UI_CACHE__"]["Title Bar"] then
+                elementReference.gui["__UI_CACHE__"]["Title Bar"] = {
                     padding = "",
                     font = false
                 }
             end
-            elementReference.gui["GUI_CACHE"]["titleBar"].font = elementTemplate.titleBar.font
-            while dxGetTextWidth(elementReference.gui["GUI_CACHE"]["titleBar"].padding, 1, elementReference.gui["GUI_CACHE"]["titleBar"].font) < window_borderSize do
-                elementReference.gui["GUI_CACHE"]["titleBar"].padding = elementReference.gui["GUI_CACHE"]["titleBar"].padding.." "
+            elementReference.gui["__UI_CACHE__"]["Title Bar"].font = elementTemplate.titleBar.font
+            while dxGetTextWidth(elementReference.gui["__UI_CACHE__"]["Title Bar"].padding, 1, elementReference.gui["__UI_CACHE__"]["Title Bar"].font) < window_borderSize do
+                elementReference.gui["__UI_CACHE__"]["Title Bar"].padding = elementReference.gui["__UI_CACHE__"]["Title Bar"].padding.." "
             end
         end
-        dxDrawText(elementReference.gui["GUI_CACHE"]["titleBar"].padding..elementReference.gui.title, window_titleBar_paddingX, (elementTemplate.titleBar.fontPaddingY or 0), window_width - window_borderSize - window_titleBar_paddingX, window_borderSize, tocolor(unpackColor(elementTemplate.titleBar.fontColor)), elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "center", "center", true, false, false, false)
+        dxDrawText(elementReference.gui["__UI_CACHE__"]["Title Bar"].padding..elementReference.gui.title, window_titleBar_paddingX, (elementTemplate.titleBar.fontPaddingY or 0), window_width - window_borderSize - window_titleBar_paddingX, window_borderSize, tocolor(unpackColor(elementTemplate.titleBar.fontColor)), elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "center", "center", true, false, false, false)
         dxDrawText("X", window_close_button_startX - window_startX, window_close_button_startY - window_startY + (elementTemplate.titleBar.fontPaddingY or 0), window_close_button_startX - window_startX + window_borderSize, window_close_button_startY - window_startY + window_borderSize, tocolor(unpackColor(elementTemplate.titleBar.close_button.fontColor)), elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "center", "center", true, false, false, false)
         dxDrawRectangle(0, window_borderSize, window_width, window_titleBar_divider_size, window_titleBar_divider_color, false)    
         dxSetBlendMode("blend")
@@ -113,7 +114,7 @@ function renderWindow(element)
     else
         elementReference.gui.titleBar.close_button.animAlphaPercent = interpolateBetween(elementReference.gui.titleBar.close_button.animAlphaPercent, 0, 0, 0, 0, 0, getInterpolationProgress(elementReference.gui.titleBar.close_button.hoverAnimTickCounter, availableElements[elementType].titleBar.close_button.hoverAnimDuration), "InQuad")
     end
-    dxDrawImage(window_startX, window_startY, window_width, window_height, elementReference.gui["GUI_CACHE"]["WRAPPER"].renderTarget, 0, 0, 0, tocolor(255, 255, 255, 255), window_postGUI)
+    dxDrawImage(window_startX, window_startY, window_width, window_height, elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget, 0, 0, 0, tocolor(255, 255, 255, 255), window_postGUI)
     if elementReference.gui.titleBar.close_button.animAlphaPercent > 0 then    
         dxDrawImage(window_close_button_startX, window_close_button_startY, window_borderSize, window_borderSize, createdAssets["images"]["curved_square/top_right.png"], 0, 0, 0, tocolor(elementTemplate.titleBar.close_button.hoverColor[1], elementTemplate.titleBar.close_button.hoverColor[2], elementTemplate.titleBar.close_button.hoverColor[3], elementTemplate.titleBar.close_button.hoverColor[4]*elementReference.gui.titleBar.close_button.animAlphaPercent), window_postGUI)
         dxDrawText("X", window_close_button_startX, window_close_button_startY + (elementTemplate.titleBar.fontPaddingY or 0), window_close_button_startX + window_borderSize, window_close_button_startY + window_borderSize, tocolor(elementTemplate.titleBar.close_button.hoverFontColor[1], elementTemplate.titleBar.close_button.hoverFontColor[2], elementTemplate.titleBar.close_button.hoverFontColor[3], elementTemplate.titleBar.close_button.hoverFontColor[4]*elementReference.gui.titleBar.close_button.animAlphaPercent), elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "center", "center", true, false, window_postGUI, false)
