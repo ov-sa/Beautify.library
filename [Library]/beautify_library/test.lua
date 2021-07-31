@@ -69,7 +69,11 @@ addEventHandler("onClientResourceStart", resource, function()
         local rowIndex = addGridlistRow(createdGridlist)
         local rowData = {}
         for k, v in pairs(j) do
-            setGridlistRowData(createdGridlist, rowIndex, k, v)
+            if k == 1 then
+                setGridlistRowData(createdGridlist, rowIndex, k, tostring(i))
+            else
+                setGridlistRowData(createdGridlist, rowIndex, k, v)
+            end
             rowData[k] = getGridlistRowData(createdGridlist, rowIndex, k)
         end
     end
