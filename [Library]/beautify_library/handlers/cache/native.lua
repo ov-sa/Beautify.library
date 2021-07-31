@@ -23,6 +23,8 @@ local availableDXNatives = {
     "math.ceil",
     "math.floor",
     "getTickCount",
+    "isElement",
+    "getElementType",
     "isCursorShowing",
     "getAbsoluteCursorPosition",
     "tocolor",
