@@ -22,7 +22,7 @@ availableTemplates["beautify_window"] = {
         color = {0, 0, 0, 255},
         divider = {
             size = 1,
-            color = {125, 125, 255, 75}
+            color = {125, 125, 255, 150}
         },
         close_button = {
             isOutLine = true,

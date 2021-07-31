@@ -61,8 +61,8 @@ end
 
 function unpackColor(color)
 
-    if color and color[1] and color[2] and color[3] then
-        return color[1], color[2], color[3]
+    if color and color[1] and color[2] and color[3] and color[4] then
+        return color[1], color[2], color[3], color[4]
     end
     return false
 
