@@ -61,6 +61,10 @@
     <file src="files/assets/images/curved_square/bottom_left.png"/>
     <file src="files/assets/images/curved_square/bottom_right.png"/>
     <file src="files/assets/images/curved_square/square.png"/>
+    <file src="files/assets/images/curved_square/button/top_left.png"/>
+    <file src="files/assets/images/curved_square/button/top_right.png"/>
+    <file src="files/assets/images/curved_square/button/bottom_left.png"/>
+    <file src="files/assets/images/curved_square/button/bottom_right.png"/>
 
     <!-- TODO: REMOVE LATER -->
     <script src="test.lua" type="client" cache="false"/>

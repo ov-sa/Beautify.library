@@ -30,7 +30,7 @@ availableElements["beautify_window"] = {
         ["beautify_button"] = true
     },
     isDraggable = true,
-    minimumSize = 55,
+    minimumSize = 56,
     titleBar = {
         paddingX = 5,
         close_button = {

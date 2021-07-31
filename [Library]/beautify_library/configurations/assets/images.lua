@@ -24,5 +24,9 @@ availableAssets["images"] = {
     "curved_square/top_right.png",
     "curved_square/bottom_left.png",
     "curved_square/bottom_right.png",
-    "curved_square/square.png"
+    "curved_square/square.png",
+    "curved_square/button/top_left.png",
+    "curved_square/button/top_right.png",
+    "curved_square/button/bottom_left.png",
+    "curved_square/button/bottom_right.png"
 }
