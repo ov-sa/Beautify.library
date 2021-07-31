@@ -14,6 +14,15 @@
 -------------------
 
 local availableDXNatives = {
+    "collectgarbage",
+    "type",
+    "tonumber",
+    "tostring",
+    "math.max",
+    "math.min",
+    "math.ceil",
+    "math.floor",
+    "getTickCount",
     "isCursorShowing",
     "getAbsoluteCursorPosition",
     "tocolor",
