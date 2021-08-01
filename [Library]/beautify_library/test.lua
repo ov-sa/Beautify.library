@@ -3,7 +3,6 @@ sX = sX/1366; sY = sY/768;
 
 addEventHandler("onClientResourceStart", resource, function()
 
-
     local window_width, window_height = 700, 350
 
     local createdWindow2 = createWindow((sX*1366 - window_width/2)/2, (sY*768 - window_height/2)/2, window_width/2, window_height/2, "Development UI 2", false)
@@ -58,9 +57,13 @@ addEventHandler("onClientResourceStart", resource, function()
     --outputChatBox("Selection: "..gridlistSelection)
     showCursor(true)
 
-
+    --[[
     addEventHandler("onClientUIScroll", createdGridlist, function(state)
         outputChatBox("Scrolled: "..state)
     end)
+    addEventHandler("onClientUIAltered", createdGridlist, function()
+        outputChatBox("Altered")
+    end)
+    ]]--
 
 end)

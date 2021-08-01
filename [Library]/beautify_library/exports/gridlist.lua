@@ -93,6 +93,7 @@ function addGridlistColumn(...)
     local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
     table.insert(elementReference.gridData.columns, {name = parameters[2], width = parameters[3]})
     elementReference.gui["__UI_CACHE__"]["Column"].areColumnsModified = true
+    triggerEvent("onClientUIAltered", element)
     return #elementReference.gridData.columns
 
 end
@@ -115,6 +116,7 @@ function removeGridlistColumn(...)
         elementReference.gridData.selection = false
     end
     elementReference.gui["__UI_CACHE__"]["Column"].areColumnsModified = true
+    triggerEvent("onClientUIAltered", element)
     return true
 
 end
@@ -147,6 +149,7 @@ function addGridlistRow(...)
     local elementParent = getUIParent(element)
     local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
     table.insert(elementReference.gridData.rows, {})
+    triggerEvent("onClientUIAltered", element)
     return #elementReference.gridData.rows
 
 end
@@ -165,6 +168,7 @@ function removeGridlistRow(...)
     if elementReference.gridData.selection and elementReference.gridData.selection == parameters[2] then
         elementReference.gridData.selection = false
     end
+    triggerEvent("onClientUIAltered", element)
     return true
 
 end

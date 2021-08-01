@@ -15,5 +15,6 @@
 
 availableEvents["generic"] = {
     "onClientUIClick",
-    "onClientUIScroll"
+    "onClientUIScroll",
+    "onClientUIAltered"
 }
