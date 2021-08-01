@@ -147,9 +147,6 @@ function renderGridlist(element, isFetchingInput)
                     height = gridlist_renderTarget_height,
                     overflownSize = gridlist_exceeded_height,
                     multiplier = gridlist_row_occupiedSpace,
-                    contentSection = {
-                        width 
-                    },
                     postGUI = false
                 }, elementReference.gui.scrollBar_Vertical)
             end

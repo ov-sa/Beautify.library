@@ -103,9 +103,6 @@ function renderButton(element, isFetchingInput)
                 end
             end
             if isButtonHovered then
-                if isKeyClicked("mouse1") then
-                    resetKeyClickCache("mouse1")
-                end
                 if elementReference.gui.hoverStatus ~= "forward" then
                     elementReference.gui.hoverStatus = "forward"
                     elementReference.gui.hoverAnimTickCounter = getTickCount()

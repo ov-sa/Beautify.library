@@ -30,7 +30,7 @@ availableElements["beautify_button"] = {
         }
     },
     renderFunction = renderButton,
-    allowedChildren = {},
+    allowedChildren = false,
     ["TEMPLATE_PROPERTIES"] = {
         ["default"] = {
             minimumSize = 24,

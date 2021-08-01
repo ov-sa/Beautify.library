@@ -14,6 +14,7 @@
 -------------------
 
 CLIENT_MTA_RESTORED = false
+CLIENT_HOVERED_ELEMENT = false
 INPUT_CACHE = {
     prevKeyClickStates = {},
     prevScrollState = {scrollState = false, streakState = false, streakCounter = 1, tickCounter = getTickCount()}

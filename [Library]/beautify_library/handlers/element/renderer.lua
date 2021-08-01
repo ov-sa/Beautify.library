@@ -9,9 +9,47 @@
 ----------------------------------------------------------------
 
 
-----------------------------------------------
---[[ Function: Renders Element's Children ]]--
-----------------------------------------------
+-------------------
+--[[ Variables ]]--
+-------------------
+
+local clickedMouseKey = false
+
+
+--------------------------------------------------------
+--[[ Functions: Renders Elements/Element's Children ]]--
+--------------------------------------------------------
+
+local function renderElements()
+
+    local renderingPriorityCount = #createdRenderingPriority
+    if renderingPriorityCount <= 0 then return false end
+
+    local validatedRenderingPriority = {}
+    for i = 1, renderingPriorityCount, 1 do
+        local element = createdRenderingPriority[i].element
+        if isUIValid(element) and isUIVisible(element) then
+            local elementType = element:getType()
+            if availableElements[elementType] and availableElements[elementType].renderFunction and type(availableElements[elementType].renderFunction) == "function" then
+                table.insert(validatedRenderingPriority, {index = i, element = element, type = elementType})
+                availableElements[elementType].renderFunction(element)
+            end
+        end
+    end
+    for i = #validatedRenderingPriority, 1, -1 do
+        local element = validatedRenderingPriority[i].element
+        local elementType = validatedRenderingPriority[i].type
+        availableElements[elementType].renderFunction(element, true)
+        if not CLIENT_HOVERED_ELEMENT and not isUIDisabled(element) then
+            local elementReference = createdElements[element]
+            if isMouseOnPosition(elementReference.gui.x, elementReference.gui.y, elementReference.gui.width, elementReference.gui.height) then
+                CLIENT_HOVERED_ELEMENT = element
+            end
+        end
+    end
+    return true
+
+end
 
 function renderElementChildren(element)
 
@@ -22,32 +60,33 @@ function renderElementChildren(element)
 
     dxSetRenderTarget(element_renderTarget, true)
     dxSetBlendMode("modulate_add")
-    local clickedMouseKey = isMouseClicked()
     local validatedRenderingPriority = {}
-    for i = 1, #createdRenderingPriority[(createdElements[element].renderIndex)].children, 1 do
-        local j = createdRenderingPriority[(createdElements[element].renderIndex)].children[i].element
-        if isUIValid(j) and isUIVisible(j) then
-            local elementType = j:getType()
-            if availableElements[elementType] and availableElements[elementType].renderFunction and type(availableElements[elementType].renderFunction) == "function" then
-                table.insert(validatedRenderingPriority, {index = i, element = j, type = elementType})
-                availableElements[elementType].renderFunction(j)
+    for i = 1, #createdRenderingPriority[(elementReference.renderIndex)].children, 1 do
+        local child = createdRenderingPriority[(elementReference.renderIndex)].children[i].element
+        if isUIValid(child) and isUIVisible(child) then
+            local childType = child:getType()
+            if availableElements[childType] and availableElements[childType].renderFunction and type(availableElements[childType].renderFunction) == "function" then
+                table.insert(validatedRenderingPriority, {index = i, element = child, type = childType})
+                availableElements[childType].renderFunction(child)
                 dxSetRenderTarget(element_renderTarget)
                 dxSetBlendMode("modulate_add")
             end
         end
     end
     for i = #validatedRenderingPriority, 1, -1 do
-        local j = validatedRenderingPriority[i].element
-        local elementType = validatedRenderingPriority[i].type
-        availableElements[elementType].renderFunction(j, true)
-        if clickedMouseKey and not isUIDisabled(j) then
-            if isMouseOnPosition(createdElements[j].gui.x, createdElements[j].gui.y, createdElements[j].gui.width, createdElements[j].gui.height) then
-                triggerEvent("onClientUIClick", j, (clickedMouseKey == "mouse1" and "left") or "right")
-                clickedMouseKey = false
+        local child = validatedRenderingPriority[i].element
+        local childType = validatedRenderingPriority[i].type
+        availableElements[childType].renderFunction(child, true)
+        if not isUIDisabled(child) then
+            local childReference = createdParentElements[element][child]
+            local isParentContentHovered = isMouseOnPosition(elementReference.gui.x, elementReference.gui.y, elementReference.gui.width, elementReference.gui.height) and isMouseOnPosition(elementReference.gui.x + elementReference.gui.contentSection.startX, elementReference.gui.y + elementReference.gui.contentSection.startY, elementReference.gui.contentSection.width, elementReference.gui.contentSection.height)
+            if isParentContentHovered then
+                if isMouseOnPosition(elementReference.gui.x + elementReference.gui.contentSection.startX + childReference.gui.x, elementReference.gui.y + elementReference.gui.contentSection.startY + childReference.gui.y, childReference.gui.width, childReference.gui.height) then
+                    CLIENT_HOVERED_ELEMENT = child
+                end
             end
         end
     end
-
     dxSetBlendMode("blend")
     dxSetRenderTarget()
     return true
@@ -78,33 +117,15 @@ addEventHandler("onClientRender", root, function()
     end
 
     -->> Renders Element <<--
-    local clickedMouseKey = isMouseClicked()
-    local validatedRenderingPriority = {}
-    for i = 1, #createdRenderingPriority, 1 do
-        local j = createdRenderingPriority[i].element
-        if isUIValid(j) and isUIVisible(j) then
-            local elementType = j:getType()
-            if availableElements[elementType] and availableElements[elementType].renderFunction and type(availableElements[elementType].renderFunction) == "function" then
-                table.insert(validatedRenderingPriority, {index = i, element = j, type = elementType})
-                availableElements[elementType].renderFunction(j)
-            end
-        end
-    end
-    for i = #validatedRenderingPriority, 1, -1 do
-        local j = validatedRenderingPriority[i].element
-        local elementType = validatedRenderingPriority[i].type
-        availableElements[elementType].renderFunction(j, true)
-        if clickedMouseKey and not isUIDisabled(j) then
-            if isMouseOnPosition(createdElements[j].gui.x, createdElements[j].gui.y, createdElements[j].gui.width, createdElements[j].gui.height) then
-                triggerEvent("onClientUIClick", j, (clickedMouseKey == "mouse1" and "left") or "right")
-                clickedMouseKey = false
-            end
-        end
+    clickedMouseKey = isMouseClicked()
+    renderElements()
+    if clickedMouseKey and CLIENT_HOVERED_ELEMENT then
+        triggerEvent("onClientUIClick", CLIENT_HOVERED_ELEMENT, (clickedMouseKey == "mouse1" and "left") or "right")
+        clickedMouseKey = false
     end
 
-    if CLIENT_MTA_RESTORED then
-        CLIENT_MTA_RESTORED = false
-    end
+    CLIENT_MTA_RESTORED = false
+    CLIENT_HOVERED_ELEMENT = false
     resetKeyClickCache()
     resetScrollCache()
 
