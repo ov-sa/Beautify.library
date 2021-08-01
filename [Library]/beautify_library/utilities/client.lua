@@ -55,6 +55,7 @@ function cloneUIOutline(elementType, nestedOutline)
     local clonedOutline = {}
     if not nestedOutline then
         clonedOutline["__UI_CACHE__"] = {}
+        clonedOutline["__UI_INPUT_FETCH_CACHE__"] = {}
     end
     for i, j in pairs(nestedOutline or availableTemplates[elementType]) do
         if type(j) == "table" then

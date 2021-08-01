@@ -63,18 +63,25 @@ addEventHandler("onClientRender", root, function()
 
     -->> Renders Element <<--
     local clickedMouseKey = isMouseClicked()
+    local validatedRenderingPriority = {}
     for i = 1, #createdRenderingPriority, 1 do
         local j = createdRenderingPriority[i].element
         if isUIValid(j) and isUIVisible(j) then
             local elementType = j:getType()
             if availableElements[elementType] and availableElements[elementType].renderFunction and type(availableElements[elementType].renderFunction) == "function" then
+                table.insert(validatedRenderingPriority, {index = i, type = elementType})
                 availableElements[elementType].renderFunction(j)
             end
-            if clickedMouseKey and not isUIDisabled(j) then
-                if isMouseOnPosition(createdElements[j].gui.x, createdElements[j].gui.y, createdElements[j].gui.width, createdElements[j].gui.height) then
-                    triggerEvent("onClientUIClick", j, (clickedMouseKey == "mouse1" and "left") or "right")
-                    clickedMouseKey = false
-                end
+        end
+    end
+    for i = #validatedRenderingPriority, 1, -1 do
+        local j = createdRenderingPriority[(validatedRenderingPriority[i].index)].element
+        local elementType = validatedRenderingPriority[i].type
+        availableElements[elementType].renderFunction(j, true)
+        if clickedMouseKey and not isUIDisabled(j) then
+            if isMouseOnPosition(createdElements[j].gui.x, createdElements[j].gui.y, createdElements[j].gui.width, createdElements[j].gui.height) then
+                triggerEvent("onClientUIClick", j, (clickedMouseKey == "mouse1" and "left") or "right")
+                clickedMouseKey = false
             end
         end
     end

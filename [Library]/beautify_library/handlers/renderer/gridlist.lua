@@ -8,6 +8,7 @@
      Desc: Grid List's Renderer ]]--
 ----------------------------------------------------------------
 
+--TODO: UPDATE WITH FETCH INPUT PHASE
 
 -------------------
 --[[ Variables ]]--
@@ -20,9 +21,9 @@ local elementType = "beautify_gridlist"
 --[[ Function: Renders Grid List ]]--
 -------------------------------------
 
-function renderGridlist(element)
+function renderGridlist(element, isFetchingInput)
 
-    if not isUIValid(element) or (element:getType() ~= elementType) then return false end
+    if not isFetchingInput and not isUIValid(element) or (element:getType() ~= elementType) then return false end
 
     local elementTemplate = getUITemplate(elementType)
     local elementParent = getUIParent(element)
@@ -39,35 +40,40 @@ function renderGridlist(element)
     local gridlist_renderTarget = elementReference.gui.renderTarget
     local gridlist_postGUI = elementReference.gui.postGUI
 
-    if not elementParent then
-        dxSetRenderTarget()
-    end
-    if elementReference.gui["__UI_CACHE__"]["Column"].areColumnsModified then
-        elementReference.gui["__UI_CACHE__"]["Column"].offsets = {}
-        for i, j in ipairs(elementReference.gridData.columns) do
-            local gridlist_column_offsetX = (tonumber(elementReference.gui["__UI_CACHE__"]["Column"].offsets[i - 1] and elementReference.gui["__UI_CACHE__"]["Column"].offsets[i - 1].endX) or 0) + gridlist_columnBar_divider_size
-            elementReference.gui["__UI_CACHE__"]["Column"].offsets[i] = {
-                startX = gridlist_column_offsetX,
-                endX = gridlist_column_offsetX + j.width + gridlist_columnBar_divider_size
-            }
+    if not isFetchingInput then
+        if not elementParent then
+            dxSetRenderTarget()
         end
-        elementReference.gui["__UI_CACHE__"]["Column"].areColumnsModified = false
+        if elementReference.gui["__UI_CACHE__"]["Column"].areColumnsModified then
+            elementReference.gui["__UI_CACHE__"]["Column"].offsets = {}
+            for i, j in ipairs(elementReference.gridData.columns) do
+                local gridlist_column_offsetX = (tonumber(elementReference.gui["__UI_CACHE__"]["Column"].offsets[i - 1] and elementReference.gui["__UI_CACHE__"]["Column"].offsets[i - 1].endX) or 0) + gridlist_columnBar_divider_size
+                elementReference.gui["__UI_CACHE__"]["Column"].offsets[i] = {
+                    startX = gridlist_column_offsetX,
+                    endX = gridlist_column_offsetX + j.width + gridlist_columnBar_divider_size
+                }
+            end
+            elementReference.gui["__UI_CACHE__"]["Column"].areColumnsModified = false
+        end
+        dxDrawRectangle(gridlist_startX, gridlist_startY, gridlist_width, gridlist_height, gridlist_color, gridlist_postGUI)
     end
-    dxDrawRectangle(gridlist_startX, gridlist_startY, gridlist_width, gridlist_height, gridlist_color, gridlist_postGUI)
-    if gridlist_renderTarget and isElement(gridlist_renderTarget) then
-        if #elementReference.gridData.rows > 0 then
+
+    if gridlist_renderTarget and isElement(gridlist_renderTarget) and (#elementReference.gridData.rows > 0) then
+        if not isFetchingInput then
             dxSetRenderTarget(gridlist_renderTarget, true)
             dxSetBlendMode("modulate_add")
-            local gridlist_scrolled_offsetY = 0
-            local gridlist_row_occupiedSpace = gridlist_rowBar_height + gridlist_rowBar_padding
-            local gridlist_row_maxRenderered = math.ceil(gridlist_renderTarget_height/gridlist_row_occupiedSpace)
-            local gridlist_data_height = (gridlist_row_occupiedSpace)*(#elementReference.gridData.rows) + gridlist_rowBar_padding
-            local gridlist_exceeded_height = gridlist_data_height - gridlist_renderTarget_height
-            if gridlist_exceeded_height > 0 then gridlist_scrolled_offsetY = gridlist_exceeded_height*elementReference.gui.scrollBar_Vertical.currentPercent*0.01 end      
-            local gridlist_row_startIndex = math.floor(gridlist_scrolled_offsetY/gridlist_row_occupiedSpace) + 1
-            local gridlist_row_endIndex = math.min(#elementReference.gridData.rows, gridlist_row_startIndex + gridlist_row_maxRenderered)
-            local isGridViewAnimating = math.round(elementReference.gui.scrollBar_Vertical.currentPercent, 0) ~= math.round(elementReference.gui.scrollBar_Vertical.finalPercent or 0, 0)
-            local isGridListHovered = false
+        end
+        local gridlist_scrolled_offsetY = 0
+        local gridlist_row_occupiedSpace = gridlist_rowBar_height + gridlist_rowBar_padding
+        local gridlist_row_maxRenderered = math.ceil(gridlist_renderTarget_height/gridlist_row_occupiedSpace)
+        local gridlist_data_height = (gridlist_row_occupiedSpace)*(#elementReference.gridData.rows) + gridlist_rowBar_padding
+        local gridlist_exceeded_height = gridlist_data_height - gridlist_renderTarget_height
+        if gridlist_exceeded_height > 0 then gridlist_scrolled_offsetY = gridlist_exceeded_height*elementReference.gui.scrollBar_Vertical.currentPercent*0.01 end      
+        local gridlist_row_startIndex = math.floor(gridlist_scrolled_offsetY/gridlist_row_occupiedSpace) + 1
+        local gridlist_row_endIndex = math.min(#elementReference.gridData.rows, gridlist_row_startIndex + gridlist_row_maxRenderered)
+        local isGridViewAnimating = math.round(elementReference.gui.scrollBar_Vertical.currentPercent, 0) ~= math.round(elementReference.gui.scrollBar_Vertical.finalPercent or 0, 0)
+        local isGridListHovered = false
+        if isFetchingInput then
             if not elementReference.isDisabled and not isGridViewAnimating then
                 if not elementParent then
                     isGridListHovered = isMouseOnPosition(gridlist_startX, gridlist_startY, gridlist_width, gridlist_height) and isMouseOnPosition(gridlist_renderTarget_startX, gridlist_renderTarget_startY, gridlist_renderTarget_width, gridlist_renderTarget_height)
@@ -78,15 +84,12 @@ function renderGridlist(element)
                     end
                 end
             end
-            for i = gridlist_row_startIndex, gridlist_row_endIndex, 1 do
-                local j = elementReference.gridData.rows[i]
-                if not j.animAlphaPercent then
-                    j.animAlphaPercent = 0
-                    j.hoverStatus = "backward"
-                    j.hoverAnimTickCounter = getTickCount()
-                end
-                local row_offsetX, row_offsetY = 0, gridlist_row_occupiedSpace*(i - 1) + gridlist_rowBar_padding - gridlist_scrolled_offsetY
-                local isRowHovered = false, false
+        end
+        for i = gridlist_row_startIndex, gridlist_row_endIndex, 1 do
+            local j = elementReference.gridData.rows[i]
+            local row_offsetX, row_offsetY = 0, gridlist_row_occupiedSpace*(i - 1) + gridlist_rowBar_padding - gridlist_scrolled_offsetY
+            if isFetchingInput then
+                local isRowHovered = false
                 if isGridListHovered then
                     if not elementParent then
                         isRowHovered = isMouseOnPosition(gridlist_renderTarget_startX + row_offsetX, gridlist_renderTarget_startY + row_offsetY, gridlist_renderTarget_width, gridlist_rowBar_height)
@@ -112,6 +115,12 @@ function renderGridlist(element)
                         j.hoverAnimTickCounter = getTickCount()
                     end
                 end
+            else
+                if not j.animAlphaPercent then
+                    j.animAlphaPercent = 0
+                    j.hoverStatus = "backward"
+                    j.hoverAnimTickCounter = getTickCount()
+                end
                 if j.hoverStatus == "forward" then
                     j.animAlphaPercent = interpolateBetween(j.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(j.hoverAnimTickCounter, availableElements[elementType].rowBar.hoverAnimDuration), "OutBounce")
                 else
@@ -128,6 +137,8 @@ function renderGridlist(element)
                     end
                 end
             end
+        end
+        if not isFetchingInput then
             if gridlist_exceeded_height > 0 then
                 renderScrollbar(element, {
                     isDisabled = elementReference.isDisabled or not isGridListHovered,
@@ -152,13 +163,15 @@ function renderGridlist(element)
         end
     end
 
-    dxDrawRectangle(gridlist_startX, gridlist_startY, gridlist_width, gridlist_columnBar_height, gridlist_columnBar_color, gridlist_postGUI)
-    dxDrawRectangle(gridlist_startX, gridlist_startY + gridlist_columnBar_height, gridlist_width, gridlist_columnBar_divider_size, gridlist_columnBar_divider_color, gridlist_postGUI)
-    for i, j in ipairs(elementReference.gridData.columns) do
-        if i ~= #elementReference.gridData.columns then
-            dxDrawRectangle(gridlist_startX + elementReference.gui["__UI_CACHE__"]["Column"].offsets[i].startX + j.width + gridlist_columnBar_divider_size, gridlist_startY + gridlist_columnBar_height, gridlist_columnBar_divider_size, gridlist_height - gridlist_columnBar_height, gridlist_columnBar_divider_color, gridlist_postGUI)
+    if not isFetchingInput then
+        dxDrawRectangle(gridlist_startX, gridlist_startY, gridlist_width, gridlist_columnBar_height, gridlist_columnBar_color, gridlist_postGUI)
+        dxDrawRectangle(gridlist_startX, gridlist_startY + gridlist_columnBar_height, gridlist_width, gridlist_columnBar_divider_size, gridlist_columnBar_divider_color, gridlist_postGUI)
+        for i, j in ipairs(elementReference.gridData.columns) do
+            if i ~= #elementReference.gridData.columns then
+                dxDrawRectangle(gridlist_startX + elementReference.gui["__UI_CACHE__"]["Column"].offsets[i].startX + j.width + gridlist_columnBar_divider_size, gridlist_startY + gridlist_columnBar_height, gridlist_columnBar_divider_size, gridlist_height - gridlist_columnBar_height, gridlist_columnBar_divider_color, gridlist_postGUI)
+            end
+            dxDrawText(j.name, gridlist_startX + elementReference.gui["__UI_CACHE__"]["Column"].offsets[i].startX + gridlist_columnBar_padding, gridlist_startY + gridlist_columnBar_padding + (elementTemplate.columnBar.fontPaddingY or 0), gridlist_startX + elementReference.gui["__UI_CACHE__"]["Column"].offsets[i].endX - gridlist_columnBar_padding, gridlist_startY + gridlist_columnBar_height, gridlist_columnBar_fontColor, elementTemplate.columnBar.fontScale or 1, elementTemplate.columnBar.font, "center", "center", true, false, gridlist_postGUI, false)
         end
-        dxDrawText(j.name, gridlist_startX + elementReference.gui["__UI_CACHE__"]["Column"].offsets[i].startX + gridlist_columnBar_padding, gridlist_startY + gridlist_columnBar_padding + (elementTemplate.columnBar.fontPaddingY or 0), gridlist_startX + elementReference.gui["__UI_CACHE__"]["Column"].offsets[i].endX - gridlist_columnBar_padding, gridlist_startY + gridlist_columnBar_height, gridlist_columnBar_fontColor, elementTemplate.columnBar.fontScale or 1, elementTemplate.columnBar.font, "center", "center", true, false, gridlist_postGUI, false)
     end
     return true
 
