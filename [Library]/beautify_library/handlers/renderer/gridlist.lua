@@ -134,7 +134,7 @@ function renderGridlist(element)
                     startX = gridlist_renderTarget_width,
                     startY = 0,
                     height = gridlist_renderTarget_height,
-                    overflownHeight = gridlist_exceeded_height,
+                    overflownSize = gridlist_exceeded_height,
                     multiplier = gridlist_row_occupiedSpace,
                     contentSection = {
                         width 
