@@ -52,13 +52,22 @@ function cloneUIOutline(elementType, nestedOutline)
 
     if not elementType or not availableElements[elementType] or not availableTemplates[elementType] then return false end
 
-    local clonedOutline = {
-        ["__UI_CACHE__"] = {}
-    }
+    local clonedOutline = {}
+    if not nestedOutline then
+        clonedOutline["__UI_CACHE__"] = {}
+    end
     for i, j in pairs(nestedOutline or availableTemplates[elementType]) do
         if type(j) == "table" then
             if j.isOutLine then
                 clonedOutline[i] = cloneUIOutline(elementType, j)
+                if (i == "scrollBar_Horizontal") or (i == "scrollBar_Vertical") then
+                    if i == "scrollBar_Horizontal" then
+                        clonedOutline[i].isHorizontal = true
+                    end
+                    clonedOutline[i].currentPercent = 0
+                    clonedOutline[i].finalPercent = 0
+                    clonedOutline[i].currentThumbSize = 0
+                end
             end
         end
     end

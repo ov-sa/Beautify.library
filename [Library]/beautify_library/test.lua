@@ -58,4 +58,9 @@ addEventHandler("onClientResourceStart", resource, function()
     --outputChatBox("Selection: "..gridlistSelection)
     showCursor(true)
 
+
+    addEventHandler("onClientUIScroll", createdGridlist, function(state)
+        outputChatBox("Scrolled: "..state)
+    end)
+
 end)

@@ -31,14 +31,13 @@ function renderScrollbar(elementParent, renderData, referenceData)
     scrollbar_thumb_height = math.max(math.min(scrollbar_height/2, availableTemplates[componentType].thumb.minHeight), (scrollbar_height/(scrollbar_height + scrollbar_overflownHeight))*scrollbar_height)
     local scrollbar_thumb_shadowSize = availableTemplates[componentType].thumb.shadowSize
     local scrollbar_track_color, scrollbar_thumb_color, scrollbar_thumb_shadow_color = tocolor(unpackColor(componentTemplate.track.color)), tocolor(unpackColor(componentTemplate.thumb.color)), tocolor(unpackColor(componentTemplate.thumb.shadowColor))
+    local scrollbar_isHorizontal = referenceData.isHorizontal
     local scrollbar_postGUI = renderData.postGUI
 
-    if not referenceData.currentThumbHeight then referenceData.currentThumbHeight = 0 end
-    if not referenceData.finalPercent then referenceData.finalPercent = 0 end
     referenceData.finalThumbHeight = scrollbar_thumb_height
-    referenceData.currentThumbHeight = interpolateBetween(referenceData.currentThumbHeight, 0, 0, referenceData.finalThumbHeight, 0, 0, 0.25, "InQuad")
+    referenceData.currentThumbSize = interpolateBetween(referenceData.currentThumbSize, 0, 0, referenceData.finalThumbHeight, 0, 0, 0.25, "InQuad")
     referenceData.currentPercent = interpolateBetween(referenceData.currentPercent, 0, 0, referenceData.finalPercent, 0, 0, 0.25, "InQuad")
-    scrollbar_thumb_height = referenceData.currentThumbHeight
+    scrollbar_thumb_height = referenceData.currentThumbSize
     local scrollbar_thumb_offsetY = (scrollbar_height - scrollbar_thumb_height)*(referenceData.currentPercent*0.01)
     dxDrawRectangle(scrollbar_startX, scrollbar_startY, scrollbar_width, scrollbar_height, scrollbar_track_color, scrollbar_postGUI)
     dxDrawRectangle(scrollbar_startX, scrollbar_startY + scrollbar_thumb_offsetY, scrollbar_width, scrollbar_thumb_height, scrollbar_thumb_color, scrollbar_postGUI)
@@ -60,6 +59,7 @@ function renderScrollbar(elementParent, renderData, referenceData)
             end
             referenceData.finalPercent = math.max(0, math.min(100, referenceData.finalPercent))
             resetScrollCache()
+            triggerEvent("onClientUIScroll", elementParent, (scrollbar_isHorizontal and ((currentScrollState[1] == "up" and "left") or "right")) or currentScrollState[1])
         end
     end
     return true

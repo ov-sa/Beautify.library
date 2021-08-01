@@ -33,7 +33,10 @@ availableTemplates["beautify_gridlist"] = {
         hoverFontColor = {0, 0, 0, 255},
         hoverColor = {100, 100, 255, 255}
     },
-    scrollBar = {
+    scrollBar_Horizontal = {
+        isOutLine = true
+    },
+    scrollBar_Vertical = {
         isOutLine = true
     }
 }

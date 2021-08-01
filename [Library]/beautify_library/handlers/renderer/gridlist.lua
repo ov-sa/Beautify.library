@@ -63,11 +63,10 @@ function renderGridlist(element)
             local gridlist_row_maxRenderered = math.ceil(gridlist_renderTarget_height/gridlist_row_occupiedSpace)
             local gridlist_data_height = (gridlist_row_occupiedSpace)*(#elementReference.gridData.rows) + gridlist_rowBar_padding
             local gridlist_exceeded_height = gridlist_data_height - gridlist_renderTarget_height
-            if not elementReference.gui.scrollBar.currentPercent then elementReference.gui.scrollBar.currentPercent = 0 end
-            if gridlist_exceeded_height > 0 then gridlist_scrolled_offsetY = gridlist_exceeded_height*elementReference.gui.scrollBar.currentPercent*0.01 end      
+            if gridlist_exceeded_height > 0 then gridlist_scrolled_offsetY = gridlist_exceeded_height*elementReference.gui.scrollBar_Vertical.currentPercent*0.01 end      
             local gridlist_row_startIndex = math.floor(gridlist_scrolled_offsetY/gridlist_row_occupiedSpace) + 1
             local gridlist_row_endIndex = math.min(#elementReference.gridData.rows, gridlist_row_startIndex + gridlist_row_maxRenderered)
-            local isGridViewAnimating = math.round(elementReference.gui.scrollBar.currentPercent, 0) ~= math.round(elementReference.gui.scrollBar.finalPercent or 0, 0)
+            local isGridViewAnimating = math.round(elementReference.gui.scrollBar_Vertical.currentPercent, 0) ~= math.round(elementReference.gui.scrollBar_Vertical.finalPercent or 0, 0)
             local isGridListHovered = false
             if not elementReference.isDisabled and not isGridViewAnimating then
                 if not elementParent then
@@ -130,7 +129,7 @@ function renderGridlist(element)
                 end
             end
             if gridlist_exceeded_height > 0 then
-                renderScrollbar(elementParent, {
+                renderScrollbar(element, {
                     isDisabled = elementReference.isDisabled or not isGridListHovered,
                     startX = gridlist_renderTarget_width,
                     startY = 0,
@@ -141,7 +140,7 @@ function renderGridlist(element)
                         width 
                     },
                     postGUI = false
-                }, elementReference.gui.scrollBar)
+                }, elementReference.gui.scrollBar_Vertical)
             end
             dxSetBlendMode("blend")
             if not elementParent then
