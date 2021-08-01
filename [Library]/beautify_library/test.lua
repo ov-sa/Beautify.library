@@ -6,8 +6,8 @@ addEventHandler("onClientResourceStart", resource, function()
     local window_width, window_height = 700, 350
     local createdWindow = createWindow((sX*1366 - window_width)/2, (sY*768 - window_height)/2, window_width, window_height, "Development UI", false)
     --local createdGridlist = createGridlist(0, 0, window_width, window_height - 30, createdWindow, false)
-    --local createdButton = createButton("Button #1", 0, window_height - 30 + 5, "default", 175, 24, createdWindow, false)
-    --local createdButton2 = createButton("Button #2", 180, window_height - 30 + 5, "default", 175, 23, createdWindow, false)
+    local createdButton = createButton("Button #1", 0, window_height - 30 + 5, "default", 175, 24, createdWindow, false)
+    local createdButton2 = createButton("Button #2", 180, window_height - 30 + 5, "default", 175, 23, createdWindow, false)
     --[[
     addGridlistColumn(createdGridlist, "S.No", 75)
     addGridlistColumn(createdGridlist, "Name", 250)
@@ -16,12 +16,10 @@ addEventHandler("onClientResourceStart", resource, function()
     ]]--
     setUIVisible(createdWindow, true)
     setUIDraggable(createdWindow, true)
-    --[[
     setUIVisible(createdGridlist, true)
     setUIVisible(createdButton, true)
     setUIVisible(createdButton2, true)
     --setUIDisabled(createdGridlist, true)
-    ]]--
 
     --local createdWindow2 = createWindow((sX*1366 - window_width)/2, (sY*768 - window_height)/2, window_width, window_height, "Development UI 2", false)
     --setUIVisible(createdWindow2, true)

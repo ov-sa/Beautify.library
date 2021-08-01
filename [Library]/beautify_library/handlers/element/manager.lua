@@ -72,11 +72,15 @@ function createElement(elementType, parentElement, sourceResource)
         if isChildElement then
             createdChildElements[createdElement] = parentElement
             createdParentElements[parentElement][createdElement] = {
+                renderIndex = #createdRenderingPriority[(createdElements[parentElement].renderIndex)].children + 1,
                 isValid = false,
                 isVisible = true,
                 isDraggable = false,
                 isDisabled = false
             }
+            table.insert(createdRenderingPriority[(createdElements[parentElement].renderIndex)].children, {
+                element = createdElement
+            })
         else
             if availableElements[elementType].allowedChildren then
                 createdParentElements[createdElement] = {}

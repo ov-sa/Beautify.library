@@ -24,9 +24,9 @@ function renderElementChildren(element)
     dxSetBlendMode("modulate_add")
     for i, j in pairs(createdParentElements[element]) do
         if isUIValid(i) and isUIVisible(i) then
-            local child_elementType = i:getType()
-            if availableElements[child_elementType] and availableElements[child_elementType].renderFunction and type(availableElements[child_elementType].renderFunction) == "function" then
-                availableElements[child_elementType].renderFunction(i)
+            local elementType = i:getType()
+            if availableElements[elementType] and availableElements[elementType].renderFunction and type(availableElements[elementType].renderFunction) == "function" then
+                availableElements[elementType].renderFunction(i)
                 dxSetRenderTarget(element_renderTarget)
                 dxSetBlendMode("modulate_add")
             end
