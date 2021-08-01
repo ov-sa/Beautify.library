@@ -14,12 +14,12 @@
 ------------------------
 
 availableTemplates["beautify_scrollbar"] = {
-    width = 3,
+    size = 3,
     track = {
         color = {5, 5, 5, 253}
     },
     thumb = {
-        minHeight = 75,
+        minSize = 75,
         shadowSize = 1,
         color = {175, 175, 175, 255},
         shadowColor = {5, 5, 5, 253}

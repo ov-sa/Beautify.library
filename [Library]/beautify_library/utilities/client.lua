@@ -67,6 +67,7 @@ function cloneUIOutline(elementType, nestedOutline)
                     clonedOutline[i].currentPercent = 0
                     clonedOutline[i].finalPercent = 0
                     clonedOutline[i].currentThumbSize = 0
+                    clonedOutline[i].finalThumbSize = 0
                 end
             end
         end

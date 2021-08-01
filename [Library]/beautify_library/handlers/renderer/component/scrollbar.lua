@@ -26,16 +26,16 @@ function renderScrollbar(elementParent, renderData, referenceData)
 
     local componentTemplate = getUITemplate(componentType)
     local scrollbar_startX, scrollbar_startY = renderData.startX, renderData.startY
-    local scrollbar_width, scrollbar_height, scrollbar_overflownHeight, scrollbar_thumb_height = availableTemplates[componentType].width, renderData.height, renderData.overflownHeight, 0
+    local scrollbar_width, scrollbar_height, scrollbar_overflownHeight, scrollbar_thumb_height = availableTemplates[componentType].size, renderData.height, renderData.overflownHeight, 0
     scrollbar_startX = scrollbar_startX - scrollbar_width
-    scrollbar_thumb_height = math.max(math.min(scrollbar_height/2, availableTemplates[componentType].thumb.minHeight), (scrollbar_height/(scrollbar_height + scrollbar_overflownHeight))*scrollbar_height)
+    scrollbar_thumb_height = math.max(math.min(scrollbar_height/2, availableTemplates[componentType].thumb.minSize), (scrollbar_height/(scrollbar_height + scrollbar_overflownHeight))*scrollbar_height)
     local scrollbar_thumb_shadowSize = availableTemplates[componentType].thumb.shadowSize
     local scrollbar_track_color, scrollbar_thumb_color, scrollbar_thumb_shadow_color = tocolor(unpackColor(componentTemplate.track.color)), tocolor(unpackColor(componentTemplate.thumb.color)), tocolor(unpackColor(componentTemplate.thumb.shadowColor))
     local scrollbar_isHorizontal = referenceData.isHorizontal
     local scrollbar_postGUI = renderData.postGUI
 
-    referenceData.finalThumbHeight = scrollbar_thumb_height
-    referenceData.currentThumbSize = interpolateBetween(referenceData.currentThumbSize, 0, 0, referenceData.finalThumbHeight, 0, 0, 0.25, "InQuad")
+    referenceData.finalThumbSize = scrollbar_thumb_height
+    referenceData.currentThumbSize = interpolateBetween(referenceData.currentThumbSize, 0, 0, referenceData.finalThumbSize, 0, 0, 0.25, "InQuad")
     referenceData.currentPercent = interpolateBetween(referenceData.currentPercent, 0, 0, referenceData.finalPercent, 0, 0, 0.25, "InQuad")
     scrollbar_thumb_height = referenceData.currentThumbSize
     local scrollbar_thumb_offsetY = (scrollbar_height - scrollbar_thumb_height)*(referenceData.currentPercent*0.01)
