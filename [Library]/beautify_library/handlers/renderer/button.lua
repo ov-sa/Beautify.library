@@ -90,8 +90,8 @@ function renderButton(element, isFetchingInput)
             dxDrawText(elementReference.gui.text, button_startX + button_content_padding, button_startY + (elementTemplate.fontPaddingY or 0), button_startX + button_width - button_content_padding, button_startY + button_height, button_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "center", "center", true, false, button_postGUI, false)
         end
     else
-        local isElementHovered = CLIENT_HOVERED_ELEMENT == element
         if elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width and elementReference.gui["__UI_INPUT_FETCH_CACHE__"].height then
+            local isElementHovered = CLIENT_HOVERED_ELEMENT == element
             local isButtonHovered = false
             if isElementHovered then
                 if not elementReference.isDisabled then
