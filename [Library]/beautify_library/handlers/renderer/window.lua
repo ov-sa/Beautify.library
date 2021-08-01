@@ -82,7 +82,7 @@ function renderWindow(element)
     end
 
     local isCloseButtonHovered = false
-    local isTitleBarClicked = isMouseOnPosition(window_startX, window_startY, window_width - window_borderSize, window_borderSize) and isKeyClicked("mouse1")
+    local isTitleBarClicked = isKeyClicked("mouse1") and isMouseOnPosition(window_startX, window_startY, window_width - window_borderSize, window_borderSize)
     if isTitleBarClicked then
         resetKeyClickCache("mouse1")
         if not elementReference.isDisabled and elementReference.isDraggable then

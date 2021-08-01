@@ -62,11 +62,18 @@ addEventHandler("onClientRender", root, function()
     end
 
     -->> Renders Element <<--
+    local clickedMouseKey = isMouseClicked()
     for i, j in pairs(createdParentElements) do
         if isUIValid(i) and isUIVisible(i) then
             local elementType = i:getType()
             if availableElements[elementType] and availableElements[elementType].renderFunction and type(availableElements[elementType].renderFunction) == "function" then
                 availableElements[elementType].renderFunction(i)
+            end
+            if clickedMouseKey and not isUIDisabled(i) then
+                if isMouseOnPosition(createdElements[i].gui.x, createdElements[i].gui.y, createdElements[i].gui.width, createdElements[i].gui.height) then
+                    triggerEvent("onClientUIClick", i, (clickedMouseKey and "left") or "right")
+                    clickedMouseKey = false
+                end
             end
         end
     end
