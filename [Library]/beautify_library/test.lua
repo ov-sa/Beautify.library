@@ -19,6 +19,10 @@ addEventHandler("onClientResourceStart", resource, function()
     setUIVisible(createdButton2, true)
     --setUIDisabled(createdGridlist, true)
 
+    --local createdWindow2 = createWindow((sX*1366 - window_width)/2, (sY*768 - window_height)/2, window_width, window_height, "Development UI 2", false)
+    --setUIVisible(createdWindow2, true)
+    --setUIDraggable(createdWindow2, true)
+
     local testRows = {
         {
             [1] = "1", [2] = "Tron", [3] = "BH", [4] = "CEO"

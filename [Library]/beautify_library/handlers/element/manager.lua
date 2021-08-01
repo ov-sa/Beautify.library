@@ -13,6 +13,7 @@
 --[[ Variables ]]--
 -------------------
 
+createdRenderingPriority = {}
 createdElements = {}
 createdParentElements = {}
 local createdChildElements = {}
@@ -82,11 +83,16 @@ function createElement(elementType, parentElement, sourceResource)
             end
             createdElements[createdElement] = {
                 sourceResource = sourceResource,
+                renderIndex = #createdRenderingPriority + 1,
                 isValid = false,
                 isVisible = false,
                 isDraggable = false,
                 isDisabled = false
             }
+            table.insert(createdRenderingPriority, {
+                element = createdElement,
+                children = {}
+            })
         end
         return createdElement, parentElement
     end
@@ -117,6 +123,7 @@ function destroyElement(element)
                     end
                 end
             end
+            table.remove(createdRenderingPriority, createdElements[element].renderIndex)
             createdElements[element] = nil
             return true
         else
