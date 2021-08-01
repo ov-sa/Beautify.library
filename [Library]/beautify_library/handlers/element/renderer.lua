@@ -71,7 +71,7 @@ addEventHandler("onClientRender", root, function()
             end
             if clickedMouseKey and not isUIDisabled(i) then
                 if isMouseOnPosition(createdElements[i].gui.x, createdElements[i].gui.y, createdElements[i].gui.width, createdElements[i].gui.height) then
-                    triggerEvent("onClientUIClick", i, (clickedMouseKey and "left") or "right")
+                    triggerEvent("onClientUIClick", i, (clickedMouseKey == "mouse1" and "left") or "right")
                     clickedMouseKey = false
                 end
             end
