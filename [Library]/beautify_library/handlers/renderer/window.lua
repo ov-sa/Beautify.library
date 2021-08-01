@@ -114,21 +114,22 @@ function renderWindow(element, isFetchingInput)
             dxDrawImage(window_renderTarget_startX, window_renderTarget_startY, window_renderTarget_width, window_renderTarget_height, window_renderTarget, 0, 0, 0, tocolor(255, 255, 255, 255), window_postGUI)
         end
     else
+        local isElementHovered = CLIENT_HOVERED_ELEMENT == element
         local isCloseButtonHovered = false
-        local isTitleBarClicked = isKeyClicked("mouse1") and isMouseOnPosition(elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width - elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize)
-        if isTitleBarClicked then
-            resetKeyClickCache("mouse1")
-            if not elementReference.isDisabled and elementReference.isDraggable then
-                attachElement(element)
-            end
-        else
-            if not getAttachedElement() then
-                isCloseButtonHovered = isMouseOnPosition(elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].startX, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize)
+        if isElementHovered then
+            local isTitleBarClicked = isKeyClicked("mouse1") and isMouseOnPosition(elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width - elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize)
+            if isTitleBarClicked then
+                if not elementReference.isDisabled and elementReference.isDraggable then
+                    attachElement(element)
+                end
+            else
+                if not getAttachedElement() then
+                    isCloseButtonHovered = isMouseOnPosition(elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].startX, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize)
+                end
             end
         end
         if isCloseButtonHovered then
             if isKeyClicked("mouse1") then
-                resetKeyClickCache("mouse1")
                 setUIVisible(element, false)
             end
             if elementReference.gui.titleBar.close_button.hoverStatus ~= "forward" then
@@ -141,6 +142,7 @@ function renderWindow(element, isFetchingInput)
                 elementReference.gui.titleBar.close_button.hoverAnimTickCounter = getTickCount()
             end
         end
+        renderElementChildren(element, true)
     end
     return true
 
