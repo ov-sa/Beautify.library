@@ -98,10 +98,7 @@ function renderButton(element, isFetchingInput)
                     if not elementParent then
                         isButtonHovered = isMouseOnPosition(elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].height)
                     else
-                        local isParentContentHovered = isMouseOnPosition(createdElements[elementParent].gui.x, createdElements[elementParent].gui.y, createdElements[elementParent].gui.width, createdElements[elementParent].gui.height) and isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY, createdElements[elementParent].gui.contentSection.width, createdElements[elementParent].gui.contentSection.height)
-                        if isParentContentHovered then
-                            isButtonHovered = isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX + elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY + elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].height)
-                        end
+                        isButtonHovered = isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX + elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY + elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].height)
                     end
                 end
             end

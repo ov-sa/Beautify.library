@@ -58,13 +58,11 @@ addEventHandler("onClientResourceStart", resource, function()
     addEventHandler("onClientUIClick", root, function(key)
         outputChatBox("Clicked: "..source:getType())
     end)
-    --[[
     addEventHandler("onClientUIScroll", createdGridlist, function(state)
         outputChatBox("Scrolled: "..state)
     end)
     addEventHandler("onClientUIAltered", createdGridlist, function()
         outputChatBox("Altered")
     end)
-    ]]--
 
 end)

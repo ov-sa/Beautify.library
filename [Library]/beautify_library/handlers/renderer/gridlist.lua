@@ -8,7 +8,6 @@
      Desc: Grid List's Renderer ]]--
 ----------------------------------------------------------------
 
---TODO: UPDATE WITH FETCH INPUT PHASE
 
 -------------------
 --[[ Variables ]]--
@@ -41,6 +40,17 @@ function renderGridlist(element, isFetchingInput)
         local gridlist_renderTarget = elementReference.gui.renderTarget
         local gridlist_postGUI = elementReference.gui.postGUI
 
+        if not elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Content Section"] then
+            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Content Section"] = {}
+        end
+        if not elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Row"] then
+            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Row"] = {}
+        end
+        elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Content Section"].width = gridlist_renderTarget_width
+        elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Row"].height = gridlist_rowBar_height
+        elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Rows"] = {}
+        elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bar"] = {}
+
         if not elementParent then dxSetRenderTarget() end
         if elementReference.gui["__UI_CACHE__"]["Column"].areColumnsModified then
             elementReference.gui["__UI_CACHE__"]["Column"].offsets = {}
@@ -66,10 +76,14 @@ function renderGridlist(element, isFetchingInput)
             if gridlist_exceeded_height > 0 then gridlist_scrolled_offsetY = gridlist_exceeded_height*elementReference.gui.scrollBar_Vertical.currentPercent*0.01 end      
             local gridlist_row_startIndex = math.floor(gridlist_scrolled_offsetY/gridlist_row_occupiedSpace) + 1
             local gridlist_row_endIndex = math.min(#elementReference.gridData.rows, gridlist_row_startIndex + gridlist_row_maxRenderered)
-            
+            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Row"]["Start Index"] = gridlist_row_startIndex
+            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Row"]["End Index"] = gridlist_row_endIndex
             for i = gridlist_row_startIndex, gridlist_row_endIndex, 1 do
                 local j = elementReference.gridData.rows[i]
                 local row_offsetX, row_offsetY = 0, gridlist_row_occupiedSpace*(i - 1) + gridlist_rowBar_padding - gridlist_scrolled_offsetY
+                elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Rows"][i] = {}
+                elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Rows"][i].startX = gridlist_renderTarget_startX + row_offsetX
+                elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Rows"][i].startY = gridlist_renderTarget_startY + row_offsetY
                 if not j.animAlphaPercent then
                     j.animAlphaPercent = 0
                     j.hoverStatus = "backward"
@@ -84,7 +98,8 @@ function renderGridlist(element, isFetchingInput)
                 if j.animAlphaPercent > 0  then
                     dxDrawRectangle(row_offsetX, row_offsetY, gridlist_renderTarget_width, gridlist_rowBar_height, tocolor(elementTemplate.rowBar.hoverColor[1], elementTemplate.rowBar.hoverColor[2], elementTemplate.rowBar.hoverColor[3], elementTemplate.rowBar.hoverColor[4]*j.animAlphaPercent), false)
                 end
-                for k, v in ipairs(elementReference.gridData.columns) do
+                for k = 1, #elementReference.gridData.columns, 1 do
+                    local v = elementReference.gridData.columns[k]
                     dxDrawText(j[k] or "-", row_offsetX + elementReference.gui["__UI_CACHE__"]["Column"].offsets[k].startX + gridlist_columnBar_padding, row_offsetY + (elementTemplate.rowBar.fontPaddingY or 0), row_offsetX + elementReference.gui["__UI_CACHE__"]["Column"].offsets[k].endX - gridlist_columnBar_padding, row_offsetY + gridlist_rowBar_height, gridlist_rowBar_fontColor, elementTemplate.rowBar.fontScale or 1, elementTemplate.rowBar.font, "center", "center", true, false, false, false)
                     if j.animAlphaPercent > 0 then
                         dxDrawText(j[k] or "-", row_offsetX + elementReference.gui["__UI_CACHE__"]["Column"].offsets[k].startX + gridlist_columnBar_padding, row_offsetY + (elementTemplate.rowBar.fontPaddingY or 0), row_offsetX + elementReference.gui["__UI_CACHE__"]["Column"].offsets[k].endX - gridlist_columnBar_padding, row_offsetY + gridlist_rowBar_height, tocolor(elementTemplate.rowBar.hoverFontColor[1], elementTemplate.rowBar.hoverFontColor[2], elementTemplate.rowBar.hoverFontColor[3], elementTemplate.rowBar.hoverFontColor[4]*j.animAlphaPercent), elementTemplate.rowBar.fontScale or 1, elementTemplate.rowBar.font, "center", "center", true, false, false, false)
@@ -92,15 +107,20 @@ function renderGridlist(element, isFetchingInput)
                 end
             end
             if gridlist_exceeded_height > 0 then
-                renderScrollbar(element, {
-                    isDisabled = elementReference.isDisabled or not isGridListHovered,
-                    startX = gridlist_renderTarget_width,
-                    startY = 0,
-                    height = gridlist_renderTarget_height,
-                    overflownSize = gridlist_exceeded_height,
-                    multiplier = gridlist_row_occupiedSpace,
-                    postGUI = false
-                }, elementReference.gui.scrollBar_Vertical)
+                elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bar"]["Vertical"] = {
+                    {
+                        isDisabled = elementReference.isDisabled,
+                        elementReference = elementReference,
+                        startX = gridlist_renderTarget_width,
+                        startY = 0,
+                        height = gridlist_renderTarget_height,
+                        overflownSize = gridlist_exceeded_height,
+                        multiplier = gridlist_row_occupiedSpace,
+                        postGUI = false
+                    },
+                    elementReference.gui.scrollBar_Vertical
+                }
+                renderScrollbar(element, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bar"]["Vertical"][1], elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bar"]["Vertical"][2])
             end
             dxSetBlendMode("blend")
             if not elementParent then
@@ -112,58 +132,55 @@ function renderGridlist(element, isFetchingInput)
         end
         dxDrawRectangle(gridlist_startX, gridlist_startY, gridlist_width, gridlist_columnBar_height, gridlist_columnBar_color, gridlist_postGUI)
         dxDrawRectangle(gridlist_startX, gridlist_startY + gridlist_columnBar_height, gridlist_width, gridlist_columnBar_divider_size, gridlist_columnBar_divider_color, gridlist_postGUI)
-        for i, j in ipairs(elementReference.gridData.columns) do
+        for i = 1, #elementReference.gridData.columns, 1 do
+            local j = elementReference.gridData.columns[i]
             if i ~= #elementReference.gridData.columns then
                 dxDrawRectangle(gridlist_startX + elementReference.gui["__UI_CACHE__"]["Column"].offsets[i].startX + j.width + gridlist_columnBar_divider_size, gridlist_startY + gridlist_columnBar_height, gridlist_columnBar_divider_size, gridlist_height - gridlist_columnBar_height, gridlist_columnBar_divider_color, gridlist_postGUI)
             end
             dxDrawText(j.name, gridlist_startX + elementReference.gui["__UI_CACHE__"]["Column"].offsets[i].startX + gridlist_columnBar_padding, gridlist_startY + gridlist_columnBar_padding + (elementTemplate.columnBar.fontPaddingY or 0), gridlist_startX + elementReference.gui["__UI_CACHE__"]["Column"].offsets[i].endX - gridlist_columnBar_padding, gridlist_startY + gridlist_columnBar_height, gridlist_columnBar_fontColor, elementTemplate.columnBar.fontScale or 1, elementTemplate.columnBar.font, "center", "center", true, false, gridlist_postGUI, false)
         end
     else
-        if gridlist_renderTarget and isElement(gridlist_renderTarget) and (#elementReference.gridData.rows > 0) then
+        if #elementReference.gridData.rows > 0 then
             local isElementHovered = CLIENT_HOVERED_ELEMENT == element
             local isGridListHovered = false
             if isElementHovered then
                 local isGridViewAnimating = math.round(elementReference.gui.scrollBar_Vertical.currentPercent, 0) ~= math.round(elementReference.gui.scrollBar_Vertical.finalPercent or 0, 0)
                 if not elementReference.isDisabled and not isGridViewAnimating then
+                    isGridListHovered = true
+                end
+            end
+            for i = elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Row"]["Start Index"], elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Row"]["End Index"], 1 do
+                local j = elementReference.gridData.rows[i]
+                local isRowHovered = false
+                if isGridListHovered then
                     if not elementParent then
-                        isGridListHovered = isMouseOnPosition(gridlist_startX, gridlist_startY, gridlist_width, gridlist_height) and isMouseOnPosition(gridlist_renderTarget_startX, gridlist_renderTarget_startY, gridlist_renderTarget_width, gridlist_renderTarget_height)
+                        isRowHovered = isMouseOnPosition(elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Rows"][i].startX, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Rows"][i].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Content Section"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Row"].height)
                     else
-                        local isParentContentHovered = isMouseOnPosition(createdElements[elementParent].gui.x, createdElements[elementParent].gui.y, createdElements[elementParent].gui.width, createdElements[elementParent].gui.height) and isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY, createdElements[elementParent].gui.contentSection.width, createdElements[elementParent].gui.contentSection.height)
-                        if isParentContentHovered then
-                            isGridListHovered = isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX + gridlist_startX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY + gridlist_startY, gridlist_width, gridlist_height) and isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX + gridlist_renderTarget_startX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY + gridlist_renderTarget_startY, gridlist_renderTarget_width, gridlist_renderTarget_height)
-                        end
+                        isRowHovered = isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Rows"][i].startX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Rows"][i].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Content Section"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Row"].height)
+                    end
+                end
+                if isRowHovered or (elementReference.gridData.selection == i) then
+                    if isKeyClicked("mouse1") and (elementReference.gridData.selection ~= i) then
+                        setGridlistSelection(element, i)
+                    end
+                    if j.hoverStatus ~= "forward" then
+                        j.hoverStatus = "forward"
+                        j.hoverAnimTickCounter = getTickCount()
+                    end
+                    if isRowHovered then
+                        prevRowHoverState = i
+                    end
+                else
+                    if j.hoverStatus ~= "backward" then
+                        j.hoverStatus = "backward"
+                        j.hoverAnimTickCounter = getTickCount()
                     end
                 end
             end
-            --[[
-            for i = gridlist_row_startIndex, gridlist_row_endIndex, 1 do
-                    local isRowHovered = false
-                    if isGridListHovered then
-                        if not elementParent then
-                            isRowHovered = isMouseOnPosition(gridlist_renderTarget_startX + row_offsetX, gridlist_renderTarget_startY + row_offsetY, gridlist_renderTarget_width, gridlist_rowBar_height)
-                        else
-                            isRowHovered = isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX + gridlist_renderTarget_startX + row_offsetX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY + gridlist_renderTarget_startY + row_offsetY, gridlist_renderTarget_width, gridlist_rowBar_height)
-                        end
-                    end
-                    if isRowHovered or (elementReference.gridData.selection == i) then
-                        if isKeyClicked("mouse1") and (elementReference.gridData.selection ~= i) then
-                            setGridlistSelection(element, i)
-                        end
-                        if j.hoverStatus ~= "forward" then
-                            j.hoverStatus = "forward"
-                            j.hoverAnimTickCounter = getTickCount()
-                        end
-                        if isRowHovered then
-                            prevRowHoverState = i
-                        end
-                    else
-                        if j.hoverStatus ~= "backward" then
-                            j.hoverStatus = "backward"
-                            j.hoverAnimTickCounter = getTickCount()
-                        end
-                    end
+            if elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bar"]["Vertical"] then
+                elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bar"]["Vertical"][1].isDisabled = elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bar"]["Vertical"][1].isDisabled or not isGridListHovered
+                renderScrollbar(element, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bar"]["Vertical"][1], elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bar"]["Vertical"][2], true)
             end
-            ]]--
         end
     end
     return true
