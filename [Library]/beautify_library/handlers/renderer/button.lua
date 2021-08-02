@@ -47,7 +47,7 @@ function renderButton(element, isFetchingInput)
     
         if not elementParent then dxSetRenderTarget() end
         if button_width and button_height then
-            if not elementReference.gui["__UI_CACHE__"]["Content Section"] or not elementReference.gui["__UI_CACHE__"]["Content Section"].bgTexture or elementReference.gui["__UI_CACHE__"]["Content Section"].updateTexture then
+            if not elementReference.gui["__UI_CACHE__"]["Content Section"] or not elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture or elementReference.gui["__UI_CACHE__"]["Content Section"].updateTexture then
                 if not elementReference.gui["__UI_CACHE__"]["Content Section"] then
                     elementReference.gui["__UI_CACHE__"]["Content Section"] = {}
                 end
@@ -55,9 +55,9 @@ function renderButton(element, isFetchingInput)
                     elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget = DxRenderTarget(button_width, button_height, true)
                 end
                 if elementReference.gui["__UI_CACHE__"]["Content Section"].updateTexture then
-                    if elementReference.gui["__UI_CACHE__"]["Content Section"].bgTexture and isElement(elementReference.gui["__UI_CACHE__"]["Content Section"].bgTexture) then
-                        elementReference.gui["__UI_CACHE__"]["Content Section"].bgTexture:destroy()
-                        elementReference.gui["__UI_CACHE__"]["Content Section"].bgTexture = nil
+                    if elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture and isElement(elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture) then
+                        elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture:destroy()
+                        elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture = nil
                     end
                 end
                 dxSetRenderTarget(elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget, true)
@@ -80,9 +80,9 @@ function renderButton(element, isFetchingInput)
                 else
                     dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
                 end
-                local buttonPixels = dxGetTexturePixels(elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget)
-                if buttonPixels then
-                    elementReference.gui["__UI_CACHE__"]["Content Section"].bgTexture = DxTexture(buttonPixels, "argb", true, "clamp")
+                local renderPixels = dxGetTexturePixels(elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget)
+                if renderPixels then
+                    elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture = DxTexture(renderPixels, "argb", true, "clamp")
                     elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget:destroy()
                     elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget = nil
                     elementReference.gui["__UI_CACHE__"]["Content Section"].updateTexture = nil
@@ -100,8 +100,8 @@ function renderButton(element, isFetchingInput)
                 elementReference.gui.animAlphaPercent = interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 0.25, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
             end
             local button_fontColor = tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4]*elementReference.gui.animAlphaPercent)
-            if elementReference.gui["__UI_CACHE__"]["Content Section"].bgTexture then
-                dxDrawImage(button_startX, button_startY, button_width, button_height, elementReference.gui["__UI_CACHE__"]["Content Section"].bgTexture, 0, 0, 0, tocolor(255, 255, 255, 255*math.max(0.3, elementReference.gui.animAlphaPercent)), button_postGUI)
+            if elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture then
+                dxDrawImage(button_startX, button_startY, button_width, button_height, elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture, 0, 0, 0, tocolor(255, 255, 255, 255*math.max(0.3, elementReference.gui.animAlphaPercent)), button_postGUI)
             end
             dxDrawText(elementReference.gui.text, button_startX + button_content_padding, button_startY + (elementTemplate.fontPaddingY or 0), button_startX + button_width - button_content_padding, button_startY + button_height, button_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "center", "center", true, false, button_postGUI, false)
         end

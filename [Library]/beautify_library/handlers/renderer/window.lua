@@ -51,11 +51,18 @@ function renderWindow(element, isFetchingInput)
         elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].startY = window_close_button_startY
 
         dxSetRenderTarget()
-        if not elementReference.gui["__UI_CACHE__"]["Content Section"] or CLIENT_MTA_RESTORED then
+        if not elementReference.gui["__UI_CACHE__"]["Content Section"] or not elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture or elementReference.gui["__UI_CACHE__"]["Content Section"].updateTexture then
             if not elementReference.gui["__UI_CACHE__"]["Content Section"] then
-                elementReference.gui["__UI_CACHE__"]["Content Section"] = {
-                    renderTarget = DxRenderTarget(window_width, window_height, true)
-                }
+                elementReference.gui["__UI_CACHE__"]["Content Section"] = {}
+            end
+            if not elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget then
+                elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget = DxRenderTarget(window_width, window_height, true)
+            end
+            if elementReference.gui["__UI_CACHE__"]["Content Section"].updateTexture then
+                if elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture and isElement(elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture) then
+                    elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture:destroy()
+                    elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture = nil
+                end
             end
             dxSetRenderTarget(elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget, true)
             dxSetBlendMode("modulate_add")
@@ -91,6 +98,13 @@ function renderWindow(element, isFetchingInput)
             dxDrawRectangle(0, window_borderSize, window_width, window_titleBar_divider_size, window_titleBar_divider_color, false)    
             dxSetBlendMode("blend")
             dxSetRenderTarget()
+            local renderPixels = dxGetTexturePixels(elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget)
+            if renderPixels then
+                elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture = DxTexture(renderPixels, "argb", true, "clamp")
+                elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget:destroy()
+                elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget = nil
+                elementReference.gui["__UI_CACHE__"]["Content Section"].updateTexture = nil
+            end
         end
 
         if not elementReference.gui.titleBar.close_button.animAlphaPercent then
@@ -103,7 +117,9 @@ function renderWindow(element, isFetchingInput)
         else
             elementReference.gui.titleBar.close_button.animAlphaPercent = interpolateBetween(elementReference.gui.titleBar.close_button.animAlphaPercent, 0, 0, 0, 0, 0, getInterpolationProgress(elementReference.gui.titleBar.close_button.hoverAnimTickCounter, availableElements[elementType].titleBar.close_button.hoverAnimDuration), "InQuad")
         end
-        dxDrawImage(window_startX, window_startY, window_width, window_height, elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget, 0, 0, 0, tocolor(255, 255, 255, 255), window_postGUI)
+        if elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture then
+            dxDrawImage(window_startX, window_startY, window_width, window_height, elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture, 0, 0, 0, tocolor(255, 255, 255, 255), window_postGUI)
+        end
         if elementReference.gui.titleBar.close_button.animAlphaPercent > 0 then    
             dxDrawImage(window_close_button_startX, window_close_button_startY, window_borderSize, window_borderSize, createdAssets["images"]["curved_square/top_right.png"], 0, 0, 0, tocolor(elementTemplate.titleBar.close_button.hoverColor[1], elementTemplate.titleBar.close_button.hoverColor[2], elementTemplate.titleBar.close_button.hoverColor[3], elementTemplate.titleBar.close_button.hoverColor[4]*elementReference.gui.titleBar.close_button.animAlphaPercent), window_postGUI)
             dxDrawText("X", window_close_button_startX, window_close_button_startY + (elementTemplate.titleBar.fontPaddingY or 0), window_close_button_startX + window_borderSize, window_close_button_startY + window_borderSize, tocolor(elementTemplate.titleBar.close_button.hoverFontColor[1], elementTemplate.titleBar.close_button.hoverFontColor[2], elementTemplate.titleBar.close_button.hoverFontColor[3], elementTemplate.titleBar.close_button.hoverFontColor[4]*elementReference.gui.titleBar.close_button.animAlphaPercent), elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "center", "center", true, false, window_postGUI, false)
