@@ -47,12 +47,18 @@ function renderButton(element, isFetchingInput)
     
         if not elementParent then dxSetRenderTarget() end
         if button_width and button_height then
-            if not elementReference.gui["__UI_CACHE__"]["Content Section"] or not elementReference.gui["__UI_CACHE__"]["Content Section"].bgTexture then
+            if not elementReference.gui["__UI_CACHE__"]["Content Section"] or not elementReference.gui["__UI_CACHE__"]["Content Section"].bgTexture or elementReference.gui["__UI_CACHE__"]["Content Section"].updateTexture then
                 if not elementReference.gui["__UI_CACHE__"]["Content Section"] then
                     elementReference.gui["__UI_CACHE__"]["Content Section"] = {}
                 end
                 if not elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget then
                     elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget = DxRenderTarget(button_width, button_height, true)
+                end
+                if elementReference.gui["__UI_CACHE__"]["Content Section"].updateTexture then
+                    if elementReference.gui["__UI_CACHE__"]["Content Section"].bgTexture and isElement(elementReference.gui["__UI_CACHE__"]["Content Section"].bgTexture) then
+                        elementReference.gui["__UI_CACHE__"]["Content Section"].bgTexture:destroy()
+                        elementReference.gui["__UI_CACHE__"]["Content Section"].bgTexture = nil
+                    end
                 end
                 dxSetRenderTarget(elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget, true)
                 dxSetBlendMode("modulate_add")
@@ -78,6 +84,8 @@ function renderButton(element, isFetchingInput)
                 if buttonPixels then
                     elementReference.gui["__UI_CACHE__"]["Content Section"].bgTexture = DxTexture(buttonPixels, "argb", true, "clamp")
                     elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget:destroy()
+                    elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget = nil
+                    elementReference.gui["__UI_CACHE__"]["Content Section"].updateTexture = nil
                 end
             end
 
