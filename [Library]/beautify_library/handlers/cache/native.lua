@@ -28,6 +28,7 @@ local availableDXNatives = {
     "isCursorShowing",
     "getAbsoluteCursorPosition",
     "tocolor",
+    "dxGetTexturePixels",
     "dxSetRenderTarget",
     "dxSetBlendMode",
     "dxDrawText",
