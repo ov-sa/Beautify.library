@@ -47,14 +47,15 @@ function createButton(...)
             local isConditionMatched = false
             for k, v in ipairs(conditionalChecks) do
                 if availableElements[elementType]["TEMPLATE_PROPERTIES"][templateReferenceName][v] then
-                    elementReference.gui[j.name] = math.max(0, math.max(availableElements[elementType]["TEMPLATE_PROPERTIES"][templateReferenceName][v], parameters[parameterIndex]))
+                    elementReference.gui[j.name] = math.max(availableElements[elementType]["TEMPLATE_PROPERTIES"][templateReferenceName][v], parameters[parameterIndex])
                     isConditionMatched = true
                     break
                 end
             end
             if not isConditionMatched then
-                elementReference.gui[j.name] = math.max(0, parameters[parameterIndex])
+                elementReference.gui[j.name] = parameters[parameterIndex]
             end
+            elementReference.gui[j.name] = math.max(0, elementReference.gui[j.name])
         else
             elementReference.gui[j.name] = parameters[parameterIndex]
         end
