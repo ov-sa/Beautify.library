@@ -35,6 +35,7 @@
     <script src="configurations/elements/window.lua" type="client" cache="false"/>
     <script src="configurations/elements/gridlist.lua" type="client" cache="false"/>
     <script src="configurations/elements/button.lua" type="client" cache="false"/>
+    <script src="configurations/elements/label.lua" type="client" cache="false"/>
     <script src="configurations/events/initial.lua" type="client" cache="false"/>
     <script src="configurations/events/generic.lua" type="client" cache="false"/>
     <script src="configurations/templates/initial.lua" type="client" cache="false"/>
@@ -152,5 +153,11 @@
 
     <!-- Params: getButtonText(button) | Returns Data; Else false Boolean -->
     <export function="getButtonText" type="client"/>
+
+    <!-- Params: setLabelText(label, text) | Returns Boolean -->
+    <export function="setLabelText" type="client"/>
+
+    <!-- Params: getLabelText(label) | Returns Data; Else false Boolean -->
+    <export function="getLabelText" type="client"/>
 
 </meta>

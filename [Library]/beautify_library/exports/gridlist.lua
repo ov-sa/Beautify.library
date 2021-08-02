@@ -41,10 +41,8 @@ function createGridlist(...)
         offsets = {}
     }
     for i, j in ipairs(availableElements[elementType].syntax.parameters) do
-        if (j.name == "x") or (j.name == "y") then
-            elementReference.gui[j.name] = math.max(0, parameters[i])
-        elseif (j.name == "width") or (j.name == "height") then
-            elementReference.gui[j.name] = math.max(availableElements[elementType].minimumSize, parameters[i])
+        if (j.name == "width") or (j.name == "height") then
+            elementReference.gui[j.name] = math.max(0, math.max(availableElements[elementType].minimumSize, parameters[i]))
         else
             elementReference.gui[j.name] = parameters[i]
         end

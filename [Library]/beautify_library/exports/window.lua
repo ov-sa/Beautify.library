@@ -33,7 +33,7 @@ function createWindow(...)
     elementReference.gui = cloneUIOutline(elementType)
     for i, j in ipairs(availableElements[elementType].syntax.parameters) do
         if (j.name == "width") or (j.name == "height") then
-            elementReference.gui[j.name] = math.max(availableElements[elementType].minimumSize, parameters[i]) + (availableElements[elementType].contentSection.padding*2)
+            elementReference.gui[j.name] = math.max(0, math.max(availableElements[elementType].minimumSize, parameters[i]) + (availableElements[elementType].contentSection.padding*2))
             if j.name == "height" then
                 elementReference.gui[j.name] = elementReference.gui[j.name] + (availableElements["beautify_window"].minimumSize*0.5)
             end
