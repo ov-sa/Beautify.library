@@ -19,9 +19,10 @@ addEventHandler("onClientResourceStart", resource, function()
     setUIVisible(createdButton2, true)
     --setUIDisabled(createdGridlist, true)
 
-    local createdWindow2 = createWindow(0, 0, window_width, window_height, "Development UI 2", false)
+    local createdWindow2 = createWindow(0, 0, 300, 300, "Development UI 2", false)
     setUIVisible(createdWindow2, true)
     setUIDraggable(createdWindow2, true)
+
     local testRows = {
         {
             [1] = "1", [2] = "Tron", [3] = "BH", [4] = "CEO"
@@ -51,8 +52,6 @@ addEventHandler("onClientResourceStart", resource, function()
         end
     end
     setGridlistSelection(createdGridlist, 1)
-    --local gridlistSelection = getGridlistSelection(createdGridlist)
-    --outputChatBox("Selection: "..gridlistSelection)
     showCursor(true)
 
     addEventHandler("onClientUIClick", root, function(key)

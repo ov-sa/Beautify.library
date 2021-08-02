@@ -122,6 +122,40 @@ function removeGridlistColumn(...)
 end
 
 
+------------------------------------------------------
+--[[ Functions: Sets/Gets Grid List Column's Name ]]--
+------------------------------------------------------
+
+function setGridlistColumnName(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "setGridlistColumnName") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementParent = getUIParent(element)
+    local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
+    if not elementReference.gridData.columns[(parameters[2])] then return false end
+    elementReference.gridData.columns[(parameters[2])].name = parameters[3]
+    return true
+
+end
+
+function getGridlistColumnName(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "getGridlistColumnName") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementParent = getUIParent(element)
+    local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
+    if not elementReference.gridData.columns[(parameters[2])] then return false end
+    return elementReference.gridData.columns[(parameters[2])].name
+
+end
+
+
 -------------------------------------------------------
 --[[ Functions: Counts/Adds/Removes Grid List Rows ]]--
 -------------------------------------------------------

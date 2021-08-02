@@ -120,6 +120,12 @@
     <!-- Params: removeGridlistColumn(gridlist, column) | Returns Boolean -->
     <export function="removeGridlistColumn" type="client"/>
 
+    <!-- Params: setGridlistColumnName(gridlist, column, name) | Returns Boolean -->
+    <export function="setGridlistColumnName" type="client"/>
+
+    <!-- Params: getGridlistColumnName(gridlist, column) | Returns Data; Else false Boolean -->
+    <export function="getGridlistColumnName" type="client"/>
+
     <!-- Params: countGridlistRows(gridlist) | Returns Data; Else false Boolean -->
     <export function="countGridlistRows" type="client"/>
 

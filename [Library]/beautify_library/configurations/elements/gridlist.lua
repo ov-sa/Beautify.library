@@ -56,6 +56,19 @@ availableElements["beautify_gridlist"]["APIs"] = {
             {name = "column", type = "number"}
         }
     },
+    ["setGridlistColumnName"] = {
+        parameters = {
+            {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"},
+            {name = "column", type = "number"},
+            {name = "name", type = "string"}
+        }
+    },
+    ["getGridlistColumnName"] = {
+        parameters = {
+            {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"},
+            {name = "column", type = "number"}
+        }
+    },
     ["countGridlistRows"] = {
         parameters = {
             {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"}
