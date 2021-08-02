@@ -147,4 +147,10 @@
     <!-- Params: getGridlistSelection(gridlist) | Returns Row; Else false Boolean -->
     <export function="getGridlistSelection" type="client"/>
 
+    <!-- Params: setButtonText(button, text) | Returns Boolean -->
+    <export function="setButtonText" type="client"/>
+
+    <!-- Params: getButtonText(button) | Returns Data; Else false Boolean -->
+    <export function="getButtonText" type="client"/>
+
 </meta>

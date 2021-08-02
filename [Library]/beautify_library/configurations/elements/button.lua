@@ -42,4 +42,16 @@ availableElements["beautify_button"] = {
     }
 }
 
-availableElements["beautify_button"]["APIs"] = {}
+availableElements["beautify_button"]["APIs"] = {
+    ["setButtonText"] = {
+        parameters = {
+            {name = "button", type = "userdata", userDataType = "beautify_button"},
+            {name = "text", type = "string"}
+        }
+    },
+    ["getButtonText"] = {
+        parameters = {
+            {name = "button", type = "userdata", userDataType = "beautify_button"}
+        }
+    }
+}

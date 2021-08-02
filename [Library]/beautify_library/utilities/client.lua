@@ -161,7 +161,7 @@ function areUIParametersValid(parameters, elementType, apiName)
             break
         else
             if j.type == "string" then
-                if availableElements[elementType].syntax.parameters["TEMPLATE_PARAMETERS"] and j.isTemplateType then
+                if not apiName and availableElements[elementType].syntax.parameters["TEMPLATE_PARAMETERS"] and j.isTemplateType then
                     if not availableElements[elementType].syntax.parameters["TEMPLATE_PARAMETERS"][(parameters[i])] then
                         areParametersValid = false
                         break
@@ -192,7 +192,7 @@ function areUIParametersValid(parameters, elementType, apiName)
             additionParameters = false
         end
     end
-    if availableElements[elementType].syntax.parameters["TEMPLATE_PARAMETERS"] and not templateReferenceIndex then areParametersValid = false end
+    if not apiName and availableElements[elementType].syntax.parameters["TEMPLATE_PARAMETERS"] and not templateReferenceIndex then areParametersValid = false end
 
     if not areParametersValid then
         local syntaxMessage = functionName.."("

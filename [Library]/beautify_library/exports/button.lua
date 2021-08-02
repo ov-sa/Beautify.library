@@ -64,3 +64,36 @@ function createButton(...)
     return createdElement
 
 end
+
+
+--------------------------------------------
+--[[ Functions: Sets/Gets Button's Text ]]--
+--------------------------------------------
+
+function setButtonText(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "setButtonText") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementParent = getUIParent(element)
+    local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
+    if (elementReference.gui.text == parameters[2]) then return false end
+    elementReference.gui.text = parameters[2]
+    return true
+
+end
+
+function getButtonText(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "getButtonText") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementParent = getUIParent(element)
+    local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
+    return elementReference.gui.text
+
+end
