@@ -61,8 +61,8 @@ function renderElementChildren(element, isFetchingInput)
     if not isFetchingInput then
         dxSetRenderTarget(element_renderTarget, true)
         dxSetBlendMode("modulate_add")
-        for i = 1, #elementReference.renderIndexReference.children, 1 do
-            local child = elementReference.renderIndexReference.children[i].element
+        for i = 1, #elementReference.renderIndexReference[(elementReference.renderIndex)].children, 1 do
+            local child = elementReference.renderIndexReference[(elementReference.renderIndex)].children[i].element
             if isUIValid(child) and isUIVisible(child) then
                 local childType = child:getType()
                 if availableElements[childType] and availableElements[childType].renderFunction and type(availableElements[childType].renderFunction) == "function" then
@@ -75,19 +75,21 @@ function renderElementChildren(element, isFetchingInput)
         dxSetBlendMode("blend")
         dxSetRenderTarget()
     else
-        for i = #elementReference.renderIndexReference.children, 1, -1 do
-            local child = elementReference.renderIndexReference.children[i].element
-            local childType = elementReference.renderIndexReference.children[i].element:getType()
-            if (CLIENT_HOVERED_ELEMENT == element) and not isUIDisabled(child) then
-                local childReference = createdElements[child]
-                local isParentContentHovered = isMouseOnPosition(elementReference.gui.x, elementReference.gui.y, elementReference.gui.width, elementReference.gui.height) and isMouseOnPosition(elementReference.gui.x + elementReference.gui.contentSection.startX, elementReference.gui.y + elementReference.gui.contentSection.startY, elementReference.gui.contentSection.width, elementReference.gui.contentSection.height)
-                if isParentContentHovered then
-                    if isMouseOnPosition(elementReference.gui.x + elementReference.gui.contentSection.startX + childReference.gui.x, elementReference.gui.y + elementReference.gui.contentSection.startY + childReference.gui.y, childReference.gui.width, childReference.gui.height) then
-                        CLIENT_HOVERED_ELEMENT = child
+        for i = #elementReference.renderIndexReference[(elementReference.renderIndex)].children, 1, -1 do
+            local child = elementReference.renderIndexReference[(elementReference.renderIndex)].children[i].element
+            if isUIValid(child) and isUIVisible(child) then
+                local childType = child:getType()
+                if (CLIENT_HOVERED_ELEMENT == element) and not isUIDisabled(child) then
+                    local childReference = createdElements[child]
+                    local isParentContentHovered = isMouseOnPosition(elementReference.gui.x, elementReference.gui.y, elementReference.gui.width, elementReference.gui.height) and isMouseOnPosition(elementReference.gui.x + elementReference.gui.contentSection.startX, elementReference.gui.y + elementReference.gui.contentSection.startY, elementReference.gui.contentSection.width, elementReference.gui.contentSection.height)
+                    if isParentContentHovered then
+                        if isMouseOnPosition(elementReference.gui.x + elementReference.gui.contentSection.startX + childReference.gui.x, elementReference.gui.y + elementReference.gui.contentSection.startY + childReference.gui.y, childReference.gui.width, childReference.gui.height) then
+                            CLIENT_HOVERED_ELEMENT = child
+                        end
                     end
                 end
+                availableElements[childType].renderFunction(child, true)
             end
-            availableElements[childType].renderFunction(child, true)
         end
     end
     return true

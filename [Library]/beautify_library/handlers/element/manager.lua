@@ -43,9 +43,7 @@ function createElement(elementType, parentElement, sourceResource)
     if not elementType or not availableElements[elementType] then return false end
 
     local createdElement = Element(elementType)
-    if not createdElement or not isElement(createdElement) then 
-        return false
-    else
+    if createdElement and isElement(createdElement) then 
         local isChildElement = false
         if parentElement and isElement(parentElement) then
             local parentType = parentElement:getType()
@@ -58,11 +56,7 @@ function createElement(elementType, parentElement, sourceResource)
         end
         local renderIndexReference = false
         if isChildElement then
-            renderIndexReference = createdElements[parentElement].renderIndexReference.children
-            table.insert(renderIndexReference, {
-                element = createdElement,
-                children = {}
-            })
+            renderIndexReference = createdElements[parentElement].renderIndexReference[(createdElements[parentElement].renderIndex)].children
             createdElements[createdElement] = {
                 parentElement = parentElement
             }
@@ -70,16 +64,16 @@ function createElement(elementType, parentElement, sourceResource)
         else
             parentElement = nil
             renderIndexReference = createdRenderingPriority
-            table.insert(renderIndexReference, {
-                element = createdElement,
-                children = {}
-            })
             createdElements[createdElement] = {}
             createdNonParentElements[createdElement] = true
         end
+        table.insert(renderIndexReference, {
+            element = createdElement,
+            children = {}
+        })
         createdElements[createdElement].sourceResource = sourceResource
         createdElements[createdElement].renderIndex = #renderIndexReference
-        createdElements[createdElement].renderIndexReference = renderIndexReference[(createdElements[createdElement].renderIndex)]
+        createdElements[createdElement].renderIndexReference = renderIndexReference
         createdElements[createdElement].isValid = false
         createdElements[createdElement].isVisible = false
         createdElements[createdElement].isDraggable = false
@@ -87,6 +81,7 @@ function createElement(elementType, parentElement, sourceResource)
         createdElements[createdElement].children = {}
         return createdElement, parentElement
     end
+    return false
 
 end
 
@@ -94,6 +89,7 @@ function destroyElement(element)
 
     if not element or not isElement(element) or not createdElements[element] then return false end
 
+    local parentElement = createdElements[element].parentElement
     createdElements[element].isValid = false
     for i, j in pairs(createdElements[element].children) do
         destroyElement(i)
@@ -107,7 +103,8 @@ function destroyElement(element)
     end
     table.remove(createdElements[element].renderIndexReference, createdElements[element].renderIndex)
     createdNonParentElements[element] = nil
-    if createdElements[element].parentElement and isElement(createdElements[element].parentElement) and createdElements[parentElement] then
+    if parentElement and createdElements[parentElement] then
+        createdElements[parentElement].renderIndexReference[(createdElements[parentElement].renderIndex)].children[element] = nil
         createdElements[parentElement].children[element] = nil
     end
     createdElements[element] = nil
