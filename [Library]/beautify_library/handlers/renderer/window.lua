@@ -20,9 +20,13 @@ local elementType = "beautify_window"
 --[[ Function: Renders Window ]]--
 ----------------------------------
 
-function renderWindow(element, isFetchingInput)
+function renderWindow(element, isFetchingInput, mouseReference)
 
-    if not isFetchingInput and not isUIValid(element) or (element:getType() ~= elementType) then return false end
+    if not isFetchingInput then
+        if not isUIValid(element) or (element:getType() ~= elementType) then return false end
+    else
+        if not mouseReference then return false end
+    end
 
     local elementParent = getUIParent(element)
     local elementReference = createdElements[element]
@@ -142,11 +146,7 @@ function renderWindow(element, isFetchingInput)
         if isElementHovered then
             local isTitleBarClicked = false
             if isKeyClicked("mouse1") then
-                if not elementParent then
-                    isTitleBarClicked = isMouseOnPosition(elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width - elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize)
-                else
-                    isTitleBarClicked = isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX + elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY + elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width - elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize)
-                end
+                isTitleBarClicked = isMouseOnPosition(mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX, mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width - elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize)
             end
             if isTitleBarClicked then
                 if not elementReference.isDisabled and elementReference.isDraggable then
@@ -154,11 +154,7 @@ function renderWindow(element, isFetchingInput)
                 end
             else
                 if not getAttachedElement() then
-                    if not elementParent then
-                        isCloseButtonHovered = isMouseOnPosition(elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].startX, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize)
-                    else
-                        isCloseButtonHovered = isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].startX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize)
-                    end
+                    isCloseButtonHovered = isMouseOnPosition(mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].startX, mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize)
                 end
             end
         end
@@ -176,7 +172,7 @@ function renderWindow(element, isFetchingInput)
                 elementReference.gui.titleBar.close_button.hoverAnimTickCounter = getTickCount()
             end
         end
-        renderElementChildren(element, true)
+        renderElementChildren(element, true, mouseReference)
     end
     return true
 

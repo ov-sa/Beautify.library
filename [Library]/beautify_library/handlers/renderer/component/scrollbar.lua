@@ -20,9 +20,14 @@ local componentType = "beautify_scrollbar"
 --[[ Function: Renders Scroll Bar ]]--
 --------------------------------------
 
-function renderScrollbar(elementParent, renderData, referenceData, isFetchingInput)
+function renderScrollbar(elementParent, renderData, referenceData, isFetchingInput, mouseReference)
 
     if not isUIValid(elementParent) or not renderData or not referenceData then return false end
+    if not isFetchingInput then
+        if not isUIValid(element) or (element:getType() ~= elementType) then return false end
+    else
+        if not mouseReference then return false end
+    end
 
     local elementReference = renderData.elementReference
     local scrollbar_overflownSize = renderData.overflownSize

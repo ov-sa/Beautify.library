@@ -19,14 +19,21 @@ addEventHandler("onClientResourceStart", resource, function()
     setUIVisible(createdButton2, true)
     --setUIDisabled(createdGridlist, true)
 
-    local createdWindow2 = createWindow(0, 0, 300, 300, "Development UI 2", nil, false)
+    local createdWindow2 = createWindow((1366 - 300)/2, (768 - 300)/2, 300, 300, "Development UI 2", nil, false)
     setUIVisible(createdWindow2, true)
     setUIDraggable(createdWindow2, true)
+    
     local createdWindow3 = createWindow(50, 50, 200, 200, "Development UI 3", createdWindow2, false)
     setUIVisible(createdWindow3, true)
     setUIDraggable(createdWindow3, true)
+
     local createdButton3 = createButton("Button #3", 25, 25, "default", 175, 23, createdWindow3, false)
     setUIVisible(createdButton3, true)
+
+    local createdButton4 = createButton("Button #3", 25, 75, "default", 175, 23, createdWindow3, false)
+    setUIVisible(createdButton4, true)
+
+    showCursor(true)
 
     local testRows = {
         {

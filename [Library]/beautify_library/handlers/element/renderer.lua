@@ -45,20 +45,27 @@ local function renderElements()
                 CLIENT_HOVERED_ELEMENT = element
             end
         end
-        availableElements[elementType].renderFunction(element, true)
+        availableElements[elementType].renderFunction(element, true, {x = 0, y = 0, element = element})
     end
     return true
 
 end
 
-function renderElementChildren(element, isFetchingInput)
-
-    if not isFetchingInput and (not element or not isElement(element)) then return false end
-    local elementReference = createdElements[element]
-    local element_renderTarget = elementReference.gui.renderTarget
-    if not isFetchingInput and (not element_renderTarget or not isElement(element_renderTarget)) then return false end
+function renderElementChildren(element, isFetchingInput, mouseReference)
 
     if not isFetchingInput then
+        if not element or not isElement(element) then return false end
+    else
+        if not mouseReference then return false end
+    end
+
+    local elementReference = createdElements[element]
+    if #elementReference.renderIndexReference[(elementReference.renderIndex)].children <= 0 then return false end
+
+    if not isFetchingInput then
+        local element_renderTarget = elementReference.gui.renderTarget
+        if not element_renderTarget or not isElement(element_renderTarget) then return false end
+
         dxSetRenderTarget(element_renderTarget, true)
         dxSetBlendMode("modulate_add")
         for i = 1, #elementReference.renderIndexReference[(elementReference.renderIndex)].children, 1 do
@@ -73,20 +80,26 @@ function renderElementChildren(element, isFetchingInput)
             end
         end
     else
+        local propagatedMouseReference = false
+        if mouseReference.element == element then
+            propagatedMouseReference = mouseReference
+        else
+            propagatedMouseReference = cloneTableDatas(mouseReference)
+            propagatedMouseReference.element = element
+        end
+        propagatedMouseReference.x = propagatedMouseReference.x + elementReference.gui.x + (tonumber(elementReference.gui.contentSection and elementReference.gui.contentSection.startX) or 0)
+        propagatedMouseReference.y = propagatedMouseReference.y + elementReference.gui.y + (tonumber(elementReference.gui.contentSection and elementReference.gui.contentSection.startY) or 0)
         for i = #elementReference.renderIndexReference[(elementReference.renderIndex)].children, 1, -1 do
             local child = elementReference.renderIndexReference[(elementReference.renderIndex)].children[i].element
             if isUIValid(child) and isUIVisible(child) then
                 local childType = child:getType()
+                local childReference = createdElements[child]
                 if (CLIENT_HOVERED_ELEMENT == element) and not isUIDisabled(child) then
-                    local childReference = createdElements[child]
-                    local isParentContentHovered = isMouseOnPosition(elementReference.gui.x, elementReference.gui.y, elementReference.gui.width, elementReference.gui.height) and isMouseOnPosition(elementReference.gui.x + elementReference.gui.contentSection.startX, elementReference.gui.y + elementReference.gui.contentSection.startY, elementReference.gui.contentSection.width, elementReference.gui.contentSection.height)
-                    if isParentContentHovered then
-                        if isMouseOnPosition(elementReference.gui.x + elementReference.gui.contentSection.startX + childReference.gui.x, elementReference.gui.y + elementReference.gui.contentSection.startY + childReference.gui.y, childReference.gui.width, childReference.gui.height) then
-                            CLIENT_HOVERED_ELEMENT = child
-                        end
+                    if isMouseOnPosition(propagatedMouseReference.x + childReference.gui.x, propagatedMouseReference.y + childReference.gui.y, childReference.gui.width, childReference.gui.height, childReference.gui.height) then
+                        CLIENT_HOVERED_ELEMENT = child
                     end
                 end
-                availableElements[childType].renderFunction(child, true)
+                availableElements[childType].renderFunction(child, true, propagatedMouseReference)
             end
         end
     end

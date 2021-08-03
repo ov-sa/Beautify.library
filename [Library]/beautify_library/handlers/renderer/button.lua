@@ -20,9 +20,13 @@ local elementType = "beautify_button"
 --[[ Function: Renders Button ]]--
 ----------------------------------
 
-function renderButton(element, isFetchingInput)
+function renderButton(element, isFetchingInput, mouseReference)
 
-    if not isFetchingInput and not isUIValid(element) or (element:getType() ~= elementType) then return false end
+    if not isFetchingInput then
+        if not isUIValid(element) or (element:getType() ~= elementType) then return false end
+    else
+        if not mouseReference then return false end
+    end
 
     local elementParent = getUIParent(element)
     local elementReference = createdElements[element]
@@ -111,11 +115,7 @@ function renderButton(element, isFetchingInput)
             local isButtonHovered = false
             if isElementHovered then
                 if not elementReference.isDisabled then
-                    if not elementParent then
-                        isButtonHovered = isMouseOnPosition(elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].height)
-                    else
-                        isButtonHovered = isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX + elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY + elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].height)
-                    end
+                    isButtonHovered = isMouseOnPosition(mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX, mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].height)
                 end
             end
             if isButtonHovered then
@@ -129,6 +129,7 @@ function renderButton(element, isFetchingInput)
                     elementReference.gui.hoverAnimTickCounter = getTickCount()
                 end
             end
+            renderElementChildren(element, true, mouseReference)
         end
     end
     return true
