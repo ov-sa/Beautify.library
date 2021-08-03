@@ -97,6 +97,7 @@ function createElement(elementType, parentElement, sourceResource)
                 createdResourceElements[sourceResource] = {}
             end
             createdElements[createdElement].sourceResource = sourceResource
+            table.insert(createdResourceElements[sourceResource], createdElement)
         end
         createdElements[createdElement].renderIndex = #renderIndexReference
         createdElements[createdElement].renderIndexReference = renderIndexReference
@@ -105,7 +106,6 @@ function createElement(elementType, parentElement, sourceResource)
         createdElements[createdElement].isDraggable = false
         createdElements[createdElement].isDisabled = false
         createdElements[createdElement].children = {}
-        table.insert(createdResourceElements[sourceResource], createdElement)
         return createdElement, parentElement
     end
     return false
