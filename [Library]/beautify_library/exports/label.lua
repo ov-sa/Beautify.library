@@ -24,7 +24,7 @@ function createLabel(...)
 
     local parameters = {...}
     if not areUIParametersValid(parameters, elementType) then return false end
-    local createdElement = createElement(elementType, parameters[(#availableElements[elementType].syntax.parameters + #templateReference + 1)], sourceResource)
+    local createdElement = createElement(elementType, parameters[(#availableElements[elementType].syntax.parameters + 1)], sourceResource)
     if not createdElement then return false end
     local uiTemplate = getUITemplate(elementType)
     if not uiTemplate then return false end

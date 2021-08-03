@@ -59,7 +59,7 @@ function renderGridlist(element, isFetchingInput, mouseReference)
         if elementReference.gui["__UI_CACHE__"]["Column"].areColumnsModified then
             elementReference.gui["__UI_CACHE__"]["Column"].offsets = {}
             for i, j in ipairs(elementReference.gridData.columns) do
-                local gridlist_column_offsetX = (tonumber(elementReference.gui["__UI_CACHE__"]["Column"].offsets[i - 1] and elementReference.gui["__UI_CACHE__"]["Column"].offsets[i - 1].endX) or 0) + gridlist_columnBar_divider_size
+                local gridlist_column_offsetX = ((elementReference.gui["__UI_CACHE__"]["Column"].offsets[i - 1] and elementReference.gui["__UI_CACHE__"]["Column"].offsets[i - 1].endX) or 0) + gridlist_columnBar_divider_size
                 elementReference.gui["__UI_CACHE__"]["Column"].offsets[i] = {
                     startX = gridlist_column_offsetX,
                     endX = gridlist_column_offsetX + j.width + gridlist_columnBar_divider_size

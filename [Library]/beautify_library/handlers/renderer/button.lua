@@ -66,7 +66,7 @@ function renderButton(element, isFetchingInput, mouseReference)
                 end
                 dxSetRenderTarget(elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget, true)
                 dxSetBlendMode("modulate_add")
-                local button_color = tocolor(elementTemplate.color[1], elementTemplate.color[2], elementTemplate.color[3], elementTemplate.color[4])
+                local button_color = tocolor(unpackColor(elementTemplate.color))
                 dxDrawImage(0, 0, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/button/top_left.png"], 0, 0, 0, button_color, false)
                 dxDrawImage(button_width - button_borderSize, 0, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/button/top_right.png"], 0, 0, 0, button_color, false)
                 dxDrawImage(0, button_height - button_borderSize, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/button/bottom_left.png"], 0, 0, 0, button_color, false)
@@ -78,6 +78,7 @@ function renderButton(element, isFetchingInput, mouseReference)
                         dxDrawRectangle(button_width - button_borderSize, button_borderSize, button_borderSize, button_height - availableElements[elementType]["TEMPLATE_PROPERTIES"][button_type].minimumSize, button_color, false)
                     end
                 end
+                renderElementChildren(element)
                 dxSetBlendMode("blend")
                 if not elementParent then
                     dxSetRenderTarget()

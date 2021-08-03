@@ -25,10 +25,7 @@ availableElements["beautify_label"] = {
         }
     },
     renderFunction = renderLabel,
-    allowedChildren = false,
-    contentSection = {
-        paddingX = 5
-    }
+    allowedChildren = false
 }
 
 availableElements["beautify_label"]["APIs"] = {

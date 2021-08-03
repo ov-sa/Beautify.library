@@ -87,8 +87,8 @@ function renderElementChildren(element, isFetchingInput, mouseReference)
             propagatedMouseReference = cloneTableDatas(mouseReference)
             propagatedMouseReference.element = element
         end
-        propagatedMouseReference.x = propagatedMouseReference.x + elementReference.gui.x + (tonumber(elementReference.gui.contentSection and elementReference.gui.contentSection.startX) or 0)
-        propagatedMouseReference.y = propagatedMouseReference.y + elementReference.gui.y + (tonumber(elementReference.gui.contentSection and elementReference.gui.contentSection.startY) or 0)
+        propagatedMouseReference.x = propagatedMouseReference.x + elementReference.gui.x + ((elementReference.gui.contentSection and elementReference.gui.contentSection.startX) or 0)
+        propagatedMouseReference.y = propagatedMouseReference.y + elementReference.gui.y + ((elementReference.gui.contentSection and elementReference.gui.contentSection.startY) or 0)
         for i = #elementReference.renderIndexReference[(elementReference.renderIndex)].children, 1, -1 do
             local child = elementReference.renderIndexReference[(elementReference.renderIndex)].children[i].element
             if isUIValid(child) and isUIVisible(child) then

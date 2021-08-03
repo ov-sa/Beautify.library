@@ -5,7 +5,8 @@ addEventHandler("onClientResourceStart", resource, function()
 
     local window_width, window_height = 700, 350
     local createdWindow = createWindow((sX*1366 - window_width)/2, (sY*768 - window_height)/2, window_width, window_height, "Development UI", nil, false)
-    local createdGridlist = createGridlist(0, 0, window_width, window_height - 30, createdWindow, false)
+    local createdLabel = createLabel("DISCLAIMER: THIS IS JUST A DEVELOPMENT UI!", 0, 0, window_width, 20, createdWindow, false)
+    local createdGridlist = createGridlist(0, 20, window_width, window_height - 20 - 30, createdWindow, false)
     local createdButton = createButton("Button #1", 0, window_height - 30 + 5, "default", 175, 24, createdWindow, false)
     local createdButton2 = createButton("Button #2", 180, window_height - 30 + 5, "default", 175, 23, createdWindow, false)
     addGridlistColumn(createdGridlist, "S.No", 75)
@@ -14,27 +15,13 @@ addEventHandler("onClientResourceStart", resource, function()
     addGridlistColumn(createdGridlist, "Rank", 250)
     setUIVisible(createdWindow, true)
     setUIDraggable(createdWindow, true)
+    setUIVisible(createdLabel, true)
     setUIVisible(createdGridlist, true)
     setUIVisible(createdButton, true)
     setUIVisible(createdButton2, true)
     --setUIDisabled(createdGridlist, true)
 
-    local createdButton_WEW = createButton("Button #NESTED", 25, 75, "default", 175, 23, createdGridlist, false)
-    setUIVisible(createdButton_WEW, true)
-
-    local createdWindow2 = createWindow((1366 - 300)/2, (768 - 300)/2, 300, 300, "Development UI 2", nil, false)
-    setUIVisible(createdWindow2, true)
-    setUIDraggable(createdWindow2, true)
-    
-    local createdWindow3 = createWindow(50, 50, 200, 200, "Development UI 3", createdWindow2, false)
-    setUIVisible(createdWindow3, true)
-    setUIDraggable(createdWindow3, true)
-
-    local createdButton3 = createButton("Button #3", 25, 25, "default", 175, 23, createdWindow3, false)
-    setUIVisible(createdButton3, true)
-
-    local createdButton4 = createButton("Button #3", 25, 75, "default", 175, 23, createdWindow3, false)
-    setUIVisible(createdButton4, true)
+    showCursor(true)
 
     local testRows = {
         {
@@ -65,7 +52,6 @@ addEventHandler("onClientResourceStart", resource, function()
         end
     end
     setGridlistSelection(createdGridlist, 1)
-    showCursor(true)
 
     addEventHandler("onClientUIClick", root, function(key)
         outputChatBox("Clicked: "..source:getType())
