@@ -72,8 +72,6 @@ function renderElementChildren(element, isFetchingInput)
                 end
             end
         end
-        dxSetBlendMode("blend")
-        dxSetRenderTarget()
     else
         for i = #elementReference.renderIndexReference[(elementReference.renderIndex)].children, 1, -1 do
             local child = elementReference.renderIndexReference[(elementReference.renderIndex)].children[i].element

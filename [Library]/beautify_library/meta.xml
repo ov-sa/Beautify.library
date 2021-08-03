@@ -103,7 +103,7 @@
     <!-- Params: setUIDisabled(element, state) | Returns Boolean -->
     <export function="setUIDisabled" type="client"/>
 
-    <!-- Params: createWindow(x, y, width, height, title, postGUI) | Returns Element; Else false Boolean -->
+    <!-- Params: createWindow(x, y, width, height, title, parent, postGUI) | Returns Element; Else false Boolean -->
     <export function="createWindow" type="client"/>
 
     <!-- Params: createGridlist(x, y, width, height, parent, postGUI) | Returns Element; Else false Boolean -->

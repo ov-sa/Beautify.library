@@ -24,7 +24,7 @@ function createWindow(...)
 
     local parameters = {...}
     if not areUIParametersValid(parameters, elementType) then return false end
-    local createdElement = createElement(elementType, nil, sourceResource)
+    local createdElement = createElement(elementType, parameters[(#availableElements[elementType].syntax.parameters + 1)], sourceResource)
     if not createdElement then return false end
     local uiTemplate = getUITemplate(elementType)
     if not uiTemplate then return false end
@@ -44,14 +44,14 @@ function createWindow(...)
             end
         end
     end
-    elementReference.gui.postGUI = (parameters[(#availableElements[elementType].syntax.parameters + 1)] and true) or false
+    elementReference.gui.postGUI = (parameters[(#availableElements[elementType].syntax.parameters + 2)] and true) or false
     elementReference.gui.contentSection = {
         startX = availableElements["beautify_window"].contentSection.padding,
         startY = (availableElements["beautify_window"].minimumSize*0.5) + availableElements["beautify_window"].contentSection.padding,
         width = elementReference.gui.width - (availableElements["beautify_window"].contentSection.padding*2),
         height = elementReference.gui.height - (availableElements["beautify_window"].minimumSize*0.5) - (availableElements["beautify_window"].contentSection.padding*2)
     }
-    if elementReference.gui.contentSection.width > 0 and elementReference.gui.contentSection.height > 0 then
+    if (elementReference.gui.contentSection.width > math.max(0, availableElements[elementType].minimumSize*0.5)) and (elementReference.gui.contentSection.height > math.max(0, availableElements[elementType].minimumSize*0.5)) then
         elementReference.gui.renderTarget = DxRenderTarget(elementReference.gui.contentSection.width, elementReference.gui.contentSection.height, true)
     end
     elementReference.isValid = true

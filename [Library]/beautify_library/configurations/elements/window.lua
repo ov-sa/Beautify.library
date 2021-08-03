@@ -26,6 +26,7 @@ availableElements["beautify_window"] = {
     },
     renderFunction = renderWindow,
     allowedChildren = {
+        ["beautify_window"] = true, --TODO: REMOVE LATER
         ["beautify_gridlist"] = true,
         ["beautify_button"] = true
     },

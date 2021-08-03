@@ -24,6 +24,7 @@ function renderWindow(element, isFetchingInput)
 
     if not isFetchingInput and not isUIValid(element) or (element:getType() ~= elementType) then return false end
 
+    local elementParent = getUIParent(element)
     local elementReference = createdElements[element]
     if not isFetchingInput then
         local elementTemplate = getUITemplate(elementType)
@@ -50,7 +51,7 @@ function renderWindow(element, isFetchingInput)
         elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].startX = window_close_button_startX
         elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].startY = window_close_button_startY
 
-        dxSetRenderTarget()
+        if not elementParent then dxSetRenderTarget() end
         if not elementReference.gui["__UI_CACHE__"]["Content Section"] or not elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture or elementReference.gui["__UI_CACHE__"]["Content Section"].updateTexture then
             if not elementReference.gui["__UI_CACHE__"]["Content Section"] then
                 elementReference.gui["__UI_CACHE__"]["Content Section"] = {}
@@ -125,22 +126,39 @@ function renderWindow(element, isFetchingInput)
             dxDrawText("X", window_close_button_startX, window_close_button_startY + (elementTemplate.titleBar.fontPaddingY or 0), window_close_button_startX + window_borderSize, window_close_button_startY + window_borderSize, tocolor(elementTemplate.titleBar.close_button.hoverFontColor[1], elementTemplate.titleBar.close_button.hoverFontColor[2], elementTemplate.titleBar.close_button.hoverFontColor[3], elementTemplate.titleBar.close_button.hoverFontColor[4]*elementReference.gui.titleBar.close_button.animAlphaPercent), elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "center", "center", true, false, window_postGUI, false)
         end
         dxDrawRectangle(window_close_button_startX, window_close_button_startY, window_titleBar_divider_size, window_borderSize, window_titleBar_divider_color, window_postGUI)
-        if (window_width >= window_borderSize) and (window_height >= window_borderSize) and window_renderTarget and isElement(window_renderTarget) then
+        if window_renderTarget and isElement(window_renderTarget) then
             renderElementChildren(element)
+            dxSetBlendMode("blend")
+            if not elementParent then
+                dxSetRenderTarget()
+            else
+                dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
+            end
             dxDrawImage(window_renderTarget_startX, window_renderTarget_startY, window_renderTarget_width, window_renderTarget_height, window_renderTarget, 0, 0, 0, tocolor(255, 255, 255, 255), window_postGUI)
         end
     else
         local isElementHovered = CLIENT_HOVERED_ELEMENT == element
         local isCloseButtonHovered = false
         if isElementHovered then
-            local isTitleBarClicked = isKeyClicked("mouse1") and isMouseOnPosition(elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width - elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize)
+            local isTitleBarClicked = false
+            if isKeyClicked("mouse1") then
+                if not elementParent then
+                    isTitleBarClicked = isMouseOnPosition(elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width - elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize)
+                else
+                    isTitleBarClicked = isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX + elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY + elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width - elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize)
+                end
+            end
             if isTitleBarClicked then
                 if not elementReference.isDisabled and elementReference.isDraggable then
                     attachElement(element)
                 end
             else
                 if not getAttachedElement() then
-                    isCloseButtonHovered = isMouseOnPosition(elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].startX, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize)
+                    if not elementParent then
+                        isCloseButtonHovered = isMouseOnPosition(elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].startX, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize)
+                    else
+                        isCloseButtonHovered = isMouseOnPosition(createdElements[elementParent].gui.x + createdElements[elementParent].gui.contentSection.startX + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].startX, createdElements[elementParent].gui.y + createdElements[elementParent].gui.contentSection.startY + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize)
+                    end
                 end
             end
         end
