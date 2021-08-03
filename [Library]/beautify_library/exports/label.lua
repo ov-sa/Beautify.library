@@ -39,6 +39,10 @@ function createLabel(...)
         end
     end
     elementReference.gui.postGUI = (parameters[(#availableElements[elementType].syntax.parameters + 2)] and true) or false
+    elementReference.gui.alignment = {
+        horizontal = "left",
+        vertical = "center"
+    }
     elementReference.isValid = true
     return createdElement
 

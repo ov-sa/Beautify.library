@@ -161,7 +161,7 @@ addEventHandler("onClientKey", root, function(button, state)
             INPUT_CACHE.prevScrollState.streakCounter = 1
             INPUT_CACHE.prevScrollState.tickCounter = getTickCount()
         else
-            if (getTickCount() - INPUT_CACHE.prevScrollState.tickCounter) < UI_INPUT_FRAMES.SCROLL_DELAY then
+            if (getTickCount() - INPUT_CACHE.prevScrollState.tickCounter) < UI_INPUT_FRAME.SCROLL_DELAY then
                 INPUT_CACHE.prevScrollState.streakCounter = INPUT_CACHE.prevScrollState.streakCounter + 1 + (INPUT_CACHE.prevScrollState.streakCounter*0.1)
             else
                 INPUT_CACHE.prevScrollState.streakCounter = 1
