@@ -231,15 +231,8 @@ addEventHandler("onClientResourceStop", root, function()
         isLibraryResourceStopping = true
         collectgarbage()
     else
-        --TODO: WORK ON IT :)
-        --[[
-        for i, j in pairs(createdNonParentElements) do
-            if i and isElement(i) and j and j.sourceResource and j.sourceResource == source then
-                i:destroy()
-            end
-        end
-        clearResourceUITemplates(sourceResource)
-        ]]--
+        __clearResourceUIElements(source)
+        clearResourceUITemplates(source)
     end
 
 end)

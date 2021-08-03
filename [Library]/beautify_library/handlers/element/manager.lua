@@ -13,9 +13,30 @@
 --[[ Variables ]]--
 -------------------
 
+local createdResourceElements = {}
 createdElements = {}
 createdRenderingPriority = {}
 local createdNonParentElements = {}
+
+
+-------------------------------------------------
+--[[ Function: Clears Resource's UI Elements ]]--
+-------------------------------------------------
+
+function __clearResourceUIElements(sourceResource)
+
+    if not sourceResource or not createdResourceElements[sourceResource] then return false end
+
+    for i, j in ipairs(createdResourceElements[sourceResource]) do
+        if j and isElement(j) then
+            j:destroy()
+        end
+    end
+    createdResourceElements[sourceResource] = nil
+    collectgarbage()
+    return true
+
+end
 
 
 -----------------------------------------
@@ -71,6 +92,9 @@ function createElement(elementType, parentElement, sourceResource)
             element = createdElement,
             children = {}
         })
+        if not createdResourceElements[sourceResource] then
+            createdResourceElements[sourceResource] = {}
+        end
         createdElements[createdElement].sourceResource = sourceResource
         createdElements[createdElement].renderIndex = #renderIndexReference
         createdElements[createdElement].renderIndexReference = renderIndexReference
@@ -79,6 +103,7 @@ function createElement(elementType, parentElement, sourceResource)
         createdElements[createdElement].isDraggable = false
         createdElements[createdElement].isDisabled = false
         createdElements[createdElement].children = {}
+        table.insert(createdResourceElements[sourceResource], createdElement)
         return createdElement, parentElement
     end
     return false

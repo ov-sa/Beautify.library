@@ -73,6 +73,9 @@
     <!-- Params: clearResourceUITemplates() | Returns Boolean -->
     <export function="clearResourceUITemplates" type="client"/>
 
+    <!-- Params: clearResourceUIElements() | Returns Boolean -->
+    <export function="clearResourceUIElements" type="client"/>
+
     <!-- Params: getUITemplate(elementType) | Returns Data; Else false Boolean -->
     <export function="getUITemplate" type="client"/>
 

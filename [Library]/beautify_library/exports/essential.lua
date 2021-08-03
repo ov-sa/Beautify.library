@@ -9,13 +9,19 @@
 ----------------------------------------------------------------
 
 
---------------------------------------------------
---[[ Function: Clears Resource's UI Templates ]]--
---------------------------------------------------
+------------------------------------------------------------
+--[[ Functions: Clears Resource's UI Templates/Elements ]]--
+------------------------------------------------------------
 
 function clearResourceUITemplates()
 
     return __clearResourceUITemplates(sourceResource)
+
+end
+
+function clearResourceUIElements()
+
+    return __clearResourceUIElements(sourceResource)
 
 end
 
