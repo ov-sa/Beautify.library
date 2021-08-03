@@ -29,7 +29,7 @@ function createGridlist(...)
     local uiTemplate = getUITemplate(elementType)
     if not uiTemplate then return false end
 
-    local elementReference = (elementParent and createdParentElements[elementParent][createdElement]) or createdElements[createdElement]
+    local elementReference = createdElements[createdElement]
     elementReference.gui = cloneUIOutline(elementType)
     elementReference.gridData = {
         columns = {},
@@ -74,8 +74,7 @@ function countGridlistColumns(...)
     local element = parameters[1]
     if not isUIValid(element) then return false end
 
-    local elementParent = getUIParent(element)
-    local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
+    local elementReference = createdElements[element]
     return #elementReference.gridData.columns
 
 end
@@ -87,8 +86,7 @@ function addGridlistColumn(...)
     local element = parameters[1]
     if not isUIValid(element) then return false end
 
-    local elementParent = getUIParent(element)
-    local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
+    local elementReference = createdElements[element]
     table.insert(elementReference.gridData.columns, {name = parameters[2], width = parameters[3]})
     elementReference.gui["__UI_CACHE__"]["Column"].areColumnsModified = true
     triggerEvent("onClientUIAltered", element)
@@ -103,8 +101,7 @@ function removeGridlistColumn(...)
     local element = parameters[1]
     if not isUIValid(element) then return false end
 
-    local elementParent = getUIParent(element)
-    local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
+    local elementReference = createdElements[element]
     if not elementReference.gridData.columns[(parameters[2])] then return false end
     table.remove(elementReference.gridData.columns, parameters[2])
     for i, j in ipairs(elementReference.gridData.rows) do
@@ -131,8 +128,7 @@ function setGridlistColumnName(...)
     local element = parameters[1]
     if not isUIValid(element) then return false end
 
-    local elementParent = getUIParent(element)
-    local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
+    local elementReference = createdElements[element]
     if not elementReference.gridData.columns[(parameters[2])] or (elementReference.gridData.columns[(parameters[2])].name == parameters[3]) then return false end
     elementReference.gridData.columns[(parameters[2])].name = parameters[3]
     return true
@@ -146,8 +142,7 @@ function getGridlistColumnName(...)
     local element = parameters[1]
     if not isUIValid(element) then return false end
 
-    local elementParent = getUIParent(element)
-    local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
+    local elementReference = createdElements[element]
     if not elementReference.gridData.columns[(parameters[2])] then return false end
     return elementReference.gridData.columns[(parameters[2])].name
 
@@ -165,8 +160,7 @@ function countGridlistRows(...)
     local element = parameters[1]
     if not isUIValid(element) then return false end
 
-    local elementParent = getUIParent(element)
-    local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
+    local elementReference = createdElements[element]
     return #elementReference.gridData.rows
 
 end
@@ -178,8 +172,7 @@ function addGridlistRow(...)
     local element = parameters[1]
     if not isUIValid(element) then return false end
 
-    local elementParent = getUIParent(element)
-    local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
+    local elementReference = createdElements[element]
     table.insert(elementReference.gridData.rows, {})
     triggerEvent("onClientUIAltered", element)
     return #elementReference.gridData.rows
@@ -193,8 +186,7 @@ function removeGridlistRow(...)
     local element = parameters[1]
     if not isUIValid(element) then return false end
 
-    local elementParent = getUIParent(element)
-    local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
+    local elementReference = createdElements[element]
     if not elementReference.gridData.rows[(parameters[2])] then return false end
     table.remove(elementReference.gridData.rows, parameters[2])
     if elementReference.gridData.selection and elementReference.gridData.selection == parameters[2] then
@@ -217,8 +209,7 @@ function setGridlistRowData(...)
     local element = parameters[1]
     if not isUIValid(element) then return false end
 
-    local elementParent = getUIParent(element)
-    local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
+    local elementReference = createdElements[element]
     if not elementReference.gridData.rows[(parameters[2])] or not elementReference.gridData.columns[(parameters[3])] or (elementReference.gridData.rows[(parameters[2])][(parameters[3])] == parameters[4]) then return false end
     elementReference.gridData.rows[(parameters[2])][(parameters[3])] = parameters[4]
     return true
@@ -232,8 +223,7 @@ function getGridlistRowData(...)
     local element = parameters[1]
     if not isUIValid(element) then return false end
 
-    local elementParent = getUIParent(element)
-    local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
+    local elementReference = createdElements[element]
     if not elementReference.gridData.rows[(parameters[2])] or not elementReference.gridData.columns[(parameters[3])] then return false end
     return elementReference.gridData.rows[(parameters[2])][(parameters[3])]
 
@@ -251,8 +241,7 @@ function setGridlistSelection(...)
     local element = parameters[1]
     if not isUIValid(element) then return false end
 
-    local elementParent = getUIParent(element)
-    local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
+    local elementReference = createdElements[element]
     if not elementReference.gridData.rows[(parameters[2])] or (elementReference.gridData.selection and elementReference.gridData.selection == parameters[2]) then return false end
     elementReference.gridData.selection = parameters[2]
     return true
@@ -266,8 +255,7 @@ function getGridlistSelection(...)
     local element = parameters[1]
     if not isUIValid(element) then return false end
 
-    local elementParent = getUIParent(element)
-    local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
+    local elementReference = createdElements[element]
     if not elementReference.gridData.selection or not elementReference.gridData.rows[(elementReference.gridData.selection)] then return false end
     return elementReference.gridData.selection
 

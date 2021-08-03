@@ -33,9 +33,8 @@ end
 
 function attachElement(element)
 
-    if not element or not isElement(element) or not createdElements[element] then return false end
     if GuiElement.isMTAWindowActive() or not isCursorShowing() or not getKeyState("mouse1") or not isUIValid(element) or not isUIVisible(element) then return false end
-    if attachedElement and attachedElement.element and isElement(attachedElement.element) and attachedElement.element == element then return false end
+    if attachedElement and attachedElement.element and isElement(attachedElement.element) and (attachedElement.element == element) then return false end
     local cX, cY = getAbsoluteCursorPosition()
     if not cX or not cY then return false end
 

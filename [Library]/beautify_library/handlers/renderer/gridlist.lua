@@ -25,7 +25,7 @@ function renderGridlist(element, isFetchingInput)
     if not isFetchingInput and not isUIValid(element) or (element:getType() ~= elementType) then return false end
 
     local elementParent = getUIParent(element)
-    local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
+    local elementReference = createdElements[element]
     if not isFetchingInput then
         local elementTemplate = getUITemplate(elementType)
         local gridlist_startX, gridlist_startY = elementReference.gui.x, elementReference.gui.y

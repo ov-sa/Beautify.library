@@ -27,12 +27,12 @@ function createButton(...)
     if not parameterValidity[1] then return false end
     local templateReferenceName = parameters[(parameterValidity[2])]
     local templateReference = availableElements[elementType].syntax.parameters["TEMPLATE_PARAMETERS"][templateReferenceName]
-    local createdElement, elementParent = createElement(elementType, parameters[(#availableElements[elementType].syntax.parameters + #templateReference + 1)], sourceResource)
+    local createdElement = createElement(elementType, parameters[(#availableElements[elementType].syntax.parameters + #templateReference + 1)], sourceResource)
     if not createdElement then return false end
     local uiTemplate = getUITemplate(elementType)
     if not uiTemplate then return false end
 
-    local elementReference = (elementParent and createdParentElements[elementParent][createdElement]) or createdElements[createdElement]
+    local elementReference = createdElements[createdElement]
     elementReference.gui = cloneUIOutline(elementType)
     for i, j in ipairs(availableElements[elementType].syntax.parameters) do
         elementReference.gui[j.name] = parameters[i]
@@ -78,8 +78,7 @@ function setButtonText(...)
     local element = parameters[1]
     if not isUIValid(element) then return false end
 
-    local elementParent = getUIParent(element)
-    local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
+    local elementReference = createdElements[element]
     if (elementReference.gui.text == parameters[2]) then return false end
     elementReference.gui.text = parameters[2]
     return true
@@ -93,8 +92,7 @@ function getButtonText(...)
     local element = parameters[1]
     if not isUIValid(element) then return false end
 
-    local elementParent = getUIParent(element)
-    local elementReference = (elementParent and createdParentElements[elementParent][element]) or createdElements[element]
+    local elementReference = createdElements[element]
     return elementReference.gui.text
 
 end

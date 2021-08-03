@@ -13,21 +13,9 @@
 --[[ Variables ]]--
 -------------------
 
-createdRenderingPriority = {}
 createdElements = {}
-createdParentElements = {}
-local createdChildElements = {}
-
-
---------------------------------------------
---[[ Function: Retrieves Child Elements ]]--
---------------------------------------------
-
-function __getChildElements()
-
-    return createdChildElements
-
-end
+createdRenderingPriority = {}
+local createdNonParentElements = {}
 
 
 -----------------------------------------
@@ -36,10 +24,9 @@ end
 
 function __getUIParent(element)
 
-    if element and isElement(element) and not createdElements[element] then
-        local elementParent = createdChildElements[element]
-        if elementParent and isElement(elementParent) and createdParentElements[elementParent] and createdParentElements[elementParent][element] and createdElements[elementParent] then
-            return elementParent
+    if element and isElement(element) and not createdNonParentElements[element] and createdElements[element] then
+        if createdElements[element].parentElement and isElement(createdElements[element].parentElement) then
+            return createdElements[element].parentElement, createdElements[element].parentReference
         end
     end
     return false
@@ -62,42 +49,42 @@ function createElement(elementType, parentElement, sourceResource)
         local isChildElement = false
         if parentElement and isElement(parentElement) then
             local parentType = parentElement:getType()
-            if createdElements[parentElement] and createdParentElements[parentElement] and availableElements[parentType] and availableElements[parentType].allowedChildren and availableElements[parentType].allowedChildren[elementType] and createdElements[parentElement].sourceResource == sourceResource then
+            if availableElements[parentType] and availableElements[parentType].allowedChildren and availableElements[parentType].allowedChildren[elementType] and (createdElements[parentElement].sourceResource == sourceResource) then
                 isChildElement = true
             else
                 createdElement:destroy()
                 return false
             end
         end
+        local renderIndexReference = false
         if isChildElement then
-            createdChildElements[createdElement] = parentElement
-            createdParentElements[parentElement][createdElement] = {
-                renderIndex = #createdRenderingPriority[(createdElements[parentElement].renderIndex)].children + 1,
-                isValid = false,
-                isVisible = true,
-                isDraggable = false,
-                isDisabled = false
-            }
-            table.insert(createdRenderingPriority[(createdElements[parentElement].renderIndex)].children, {
-                element = createdElement
-            })
-        else
-            if availableElements[elementType].allowedChildren then
-                createdParentElements[createdElement] = {}
-            end
-            createdElements[createdElement] = {
-                sourceResource = sourceResource,
-                renderIndex = #createdRenderingPriority + 1,
-                isValid = false,
-                isVisible = false,
-                isDraggable = false,
-                isDisabled = false
-            }
-            table.insert(createdRenderingPriority, {
+            renderIndexReference = createdElements[parentElement].renderIndexReference.children
+            table.insert(renderIndexReference, {
                 element = createdElement,
                 children = {}
             })
+            createdElements[createdElement] = {
+                parentElement = parentElement
+            }
+            createdElements[parentElement].children[createdElement] = true
+        else
+            parentElement = nil
+            renderIndexReference = createdRenderingPriority
+            table.insert(renderIndexReference, {
+                element = createdElement,
+                children = {}
+            })
+            createdElements[createdElement] = {}
+            createdNonParentElements[createdElement] = true
         end
+        createdElements[createdElement].sourceResource = sourceResource
+        createdElements[createdElement].renderIndex = #renderIndexReference
+        createdElements[createdElement].renderIndexReference = renderIndexReference[(createdElements[createdElement].renderIndex)]
+        createdElements[createdElement].isValid = false
+        createdElements[createdElement].isVisible = false
+        createdElements[createdElement].isDraggable = false
+        createdElements[createdElement].isDisabled = false
+        createdElements[createdElement].children = {}
         return createdElement, parentElement
     end
 
@@ -105,48 +92,27 @@ end
 
 function destroyElement(element)
 
-    if not element or not isElement(element) then return false end
+    if not element or not isElement(element) or not createdElements[element] then return false end
 
-    local elementType = element:getType()
-    if availableElements[elementType] then
-        if createdElements[element] then
-            createdElements[element].isValid = false
-            if createdParentElements[element] then
-                for i, j in pairs(createdParentElements[element]) do
-                    if i and isElement(i) then
-                        createdChildElements[i] = nil
-                        i:destroy()
-                    end
-                end
-                createdParentElements[element] = nil
-            end
-            if createdElements[element].gui then
-                for i, j in pairs(createdElements[element].gui) do
-                    if i and isElement(i) then
-                        i:destroy()
-                    end
-                end
-            end
-            table.remove(createdRenderingPriority, createdElements[element].renderIndex)
-            createdElements[element] = nil
-            return true
-        else
-            local elementParent = createdChildElements[element]
-            if elementParent and createdParentElements[elementParent] then
-                if createdParentElements[elementParent][element].gui then
-                    for i, j in pairs(createdParentElements[elementParent][element].gui) do
-                        if i and isElement(i) then
-                            i:destroy()
-                        end
-                    end
-                end
-                createdParentElements[elementParent][element] = nil
-                createdChildElements[element] = nil
-                return true
+    createdElements[element].isValid = false
+    for i, j in pairs(createdElements[element].children) do
+        destroyElement(i)
+    end
+    if createdElements[element].gui then
+        for i, j in pairs(createdElements[element].gui) do
+            if i and isElement(i) then
+                i:destroy()
             end
         end
     end
+    table.remove(createdElements[element].renderIndexReference, createdElements[element].renderIndex)
+    createdNonParentElements[element] = nil
+    if createdElements[element].parentElement and isElement(createdElements[element].parentElement) and createdElements[parentElement] then
+        createdElements[parentElement].children[element] = nil
+    end
+    createdElements[element] = nil
+    element:destroy()
     collectgarbage()
-    return false
+    return true
 
 end
