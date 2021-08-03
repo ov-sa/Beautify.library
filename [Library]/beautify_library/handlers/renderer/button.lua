@@ -82,7 +82,7 @@ function renderButton(element, isFetchingInput)
                 end
                 local renderPixels = dxGetTexturePixels(elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget)
                 if renderPixels then
-                    elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture = DxTexture(renderPixels, "argb", true, "clamp")
+                    elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture = DxTexture(renderPixels, "argb", false, "clamp")
                     elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget:destroy()
                     elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget = nil
                     elementReference.gui["__UI_CACHE__"]["Content Section"].updateTexture = nil
