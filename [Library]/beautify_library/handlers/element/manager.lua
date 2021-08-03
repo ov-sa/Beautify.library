@@ -92,10 +92,12 @@ function createElement(elementType, parentElement, sourceResource)
             element = createdElement,
             children = {}
         })
-        if not createdResourceElements[sourceResource] then
-            createdResourceElements[sourceResource] = {}
+        if sourceResource then
+            if not createdResourceElements[sourceResource] then
+                createdResourceElements[sourceResource] = {}
+            end
+            createdElements[createdElement].sourceResource = sourceResource
         end
-        createdElements[createdElement].sourceResource = sourceResource
         createdElements[createdElement].renderIndex = #renderIndexReference
         createdElements[createdElement].renderIndexReference = renderIndexReference
         createdElements[createdElement].isValid = false
