@@ -110,12 +110,14 @@ function renderButton(element, isFetchingInput, mouseReference)
             dxDrawText(elementReference.gui.text, button_startX + button_content_padding, button_startY + (elementTemplate.fontPaddingY or 0), button_startX + button_width - button_content_padding, button_startY + button_height, button_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "center", "center", true, false, button_postGUI, false)
         end
     else
+        local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
+        renderElementChildren(element, true, mouseReference)
         if elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width and elementReference.gui["__UI_INPUT_FETCH_CACHE__"].height then
             local isElementHovered = CLIENT_HOVERED_ELEMENT == element
             local isButtonHovered = false
             if isElementHovered then
                 if not elementReference.isDisabled then
-                    isButtonHovered = isMouseOnPosition(mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX, mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].height)
+                    isButtonHovered = isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].height)
                 end
             end
             if isButtonHovered then
@@ -129,7 +131,6 @@ function renderButton(element, isFetchingInput, mouseReference)
                     elementReference.gui.hoverAnimTickCounter = getTickCount()
                 end
             end
-            renderElementChildren(element, true, mouseReference)
         end
     end
     return true

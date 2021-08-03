@@ -147,6 +147,8 @@ function renderGridlist(element, isFetchingInput, mouseReference)
             dxDrawText(j.name, gridlist_startX + elementReference.gui["__UI_CACHE__"]["Column"].offsets[i].startX + gridlist_columnBar_padding, gridlist_startY + gridlist_columnBar_padding + (elementTemplate.columnBar.fontPaddingY or 0), gridlist_startX + elementReference.gui["__UI_CACHE__"]["Column"].offsets[i].endX - gridlist_columnBar_padding, gridlist_startY + gridlist_columnBar_height, gridlist_columnBar_fontColor, elementTemplate.columnBar.fontScale or 1, elementTemplate.columnBar.font, "center", "center", true, false, gridlist_postGUI, false)
         end
     else
+        local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
+        renderElementChildren(element, true, mouseReference)
         if #elementReference.gridData.rows > 0 then
             local isElementHovered = CLIENT_HOVERED_ELEMENT == element
             local isGridListHovered = false
@@ -160,7 +162,7 @@ function renderGridlist(element, isFetchingInput, mouseReference)
                 local j = elementReference.gridData.rows[i]
                 local isRowHovered = false
                 if isGridListHovered then
-                    isRowHovered = isMouseOnPosition(mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Rows"][i].startX, mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Rows"][i].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Content Section"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Row"].height)
+                    isRowHovered = isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Rows"][i].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Rows"][i].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Content Section"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Row"].height)
                 end
                 if isRowHovered or (elementReference.gridData.selection == i) then
                     if isKeyClicked("mouse1") and (elementReference.gridData.selection ~= i) then
@@ -185,7 +187,6 @@ function renderGridlist(element, isFetchingInput, mouseReference)
                 renderScrollbar(element, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bar"]["Vertical"][1], elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bar"]["Vertical"][2], true)
             end
         end
-        renderElementChildren(element, true, mouseReference)
     end
     return true
 

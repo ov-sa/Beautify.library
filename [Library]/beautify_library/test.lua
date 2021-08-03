@@ -19,6 +19,9 @@ addEventHandler("onClientResourceStart", resource, function()
     setUIVisible(createdButton2, true)
     --setUIDisabled(createdGridlist, true)
 
+    local createdButton_WEW = createButton("Button #NESTED", 25, 75, "default", 175, 23, createdGridlist, false)
+    setUIVisible(createdButton_WEW, true)
+
     local createdWindow2 = createWindow((1366 - 300)/2, (768 - 300)/2, 300, 300, "Development UI 2", nil, false)
     setUIVisible(createdWindow2, true)
     setUIDraggable(createdWindow2, true)
@@ -32,8 +35,6 @@ addEventHandler("onClientResourceStart", resource, function()
 
     local createdButton4 = createButton("Button #3", 25, 75, "default", 175, 23, createdWindow3, false)
     setUIVisible(createdButton4, true)
-
-    showCursor(true)
 
     local testRows = {
         {
