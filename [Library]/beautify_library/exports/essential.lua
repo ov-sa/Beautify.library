@@ -32,7 +32,8 @@ end
 
 function getUITemplate(...)
 
-    return __getUITemplate({...}[1])
+    local parameters = {...}
+    return __getUITemplate(parameters[1])
 
 end
 
