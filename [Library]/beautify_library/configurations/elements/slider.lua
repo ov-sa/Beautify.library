@@ -24,7 +24,11 @@ availableElements["beautify_slider"] = {
         }
     },
     renderFunction = createSlider,
-    allowedChildren = false
+    allowedChildren = false,
+    minimumSize = 56,
+    contentSection = {
+        padding = 5
+    }
 }
 
 availableElements["beautify_slider"]["APIs"] = {}
