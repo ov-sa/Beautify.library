@@ -14,19 +14,23 @@
 ------------------------
 
 availableAssets["images"] = {
+    "canvas/circle.png",
     "right_triangle/default.png",
     "right_triangle/flipped.png",
     "right_triangle/inverted.png",
     "right_triangle/flipped_inverted.png",
-    "curved_square/left.png",
-    "curved_square/right.png",
-    "curved_square/top_left.png",
-    "curved_square/top_right.png",
-    "curved_square/bottom_left.png",
-    "curved_square/bottom_right.png",
-    "curved_square/square.png",
-    "curved_square/button/top_left.png",
-    "curved_square/button/top_right.png",
-    "curved_square/button/bottom_left.png",
-    "curved_square/button/bottom_right.png"
+    "curved_square/regular/left.png",
+    "curved_square/regular/right.png",
+    "curved_square/regular/top_left.png",
+    "curved_square/regular/top_right.png",
+    "curved_square/regular/bottom_left.png",
+    "curved_square/regular/bottom_right.png",
+    "curved_square/regular/square.png",
+    "curved_square/semi_thick/left.png",
+    "curved_square/semi_thick/right.png",
+    "curved_square/semi_thick/top_left.png",
+    "curved_square/semi_thick/top_right.png",
+    "curved_square/semi_thick/bottom_left.png",
+    "curved_square/semi_thick/bottom_right.png",
+    "curved_square/semi_thick/square.png"
 }

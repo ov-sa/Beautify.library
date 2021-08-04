@@ -54,21 +54,25 @@
     <file src="files/assets/fonts/poppins_medium.ttf"/>
 
     <!-- Files: Assets: Images -->
+    <file src="files/assets/images/canvas/circle.png"/>
     <file src="files/assets/images/right_triangle/default.png"/>
     <file src="files/assets/images/right_triangle/flipped.png"/>
     <file src="files/assets/images/right_triangle/inverted.png"/>
     <file src="files/assets/images/right_triangle/flipped_inverted.png"/>
-    <file src="files/assets/images/curved_square/left.png"/>
-    <file src="files/assets/images/curved_square/right.png"/>
-    <file src="files/assets/images/curved_square/top_left.png"/>
-    <file src="files/assets/images/curved_square/top_right.png"/>
-    <file src="files/assets/images/curved_square/bottom_left.png"/>
-    <file src="files/assets/images/curved_square/bottom_right.png"/>
-    <file src="files/assets/images/curved_square/square.png"/>
-    <file src="files/assets/images/curved_square/button/top_left.png"/>
-    <file src="files/assets/images/curved_square/button/top_right.png"/>
-    <file src="files/assets/images/curved_square/button/bottom_left.png"/>
-    <file src="files/assets/images/curved_square/button/bottom_right.png"/>
+    <file src="files/assets/images/curved_square/regular/left.png"/>
+    <file src="files/assets/images/curved_square/regular/right.png"/>
+    <file src="files/assets/images/curved_square/regular/top_left.png"/>
+    <file src="files/assets/images/curved_square/regular/top_right.png"/>
+    <file src="files/assets/images/curved_square/regular/bottom_left.png"/>
+    <file src="files/assets/images/curved_square/regular/bottom_right.png"/>
+    <file src="files/assets/images/curved_square/regular/square.png"/>
+    <file src="files/assets/images/curved_square/semi_thick/left.png"/>
+    <file src="files/assets/images/curved_square/semi_thick/right.png"/>
+    <file src="files/assets/images/curved_square/semi_thick/top_left.png"/>
+    <file src="files/assets/images/curved_square/semi_thick/top_right.png"/>
+    <file src="files/assets/images/curved_square/semi_thick/bottom_left.png"/>
+    <file src="files/assets/images/curved_square/semi_thick/bottom_right.png"/>
+    <file src="files/assets/images/curved_square/semi_thick/square.png"/>
 
     <!-- TODO: REMOVE LATER -->
     <script src="test.lua" type="client" cache="false"/>
