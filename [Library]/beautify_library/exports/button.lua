@@ -29,10 +29,11 @@ function createButton(...)
     local templateReference = availableElements[elementType].syntax.parameters["TEMPLATE_PARAMETERS"][templateReferenceName]
     local createdElement = createElement(elementType, parameters[(#availableElements[elementType].syntax.parameters + #templateReference + 1)], sourceResource)
     if not createdElement then return false end
-    local uiTemplate = __getUITemplate(elementType, createdElement)
-    if not uiTemplate then return false end
 
     local elementReference = createdElements[createdElement]
+    local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
+    if not elementTemplate then return false end
+
     elementReference.gui = cloneUIOutline(elementType)
     for i, j in ipairs(availableElements[elementType].syntax.parameters) do
         elementReference.gui[j.name] = parameters[i]

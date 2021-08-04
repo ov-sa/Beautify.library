@@ -26,10 +26,11 @@ function createLabel(...)
     if not areUIParametersValid(parameters, elementType) then return false end
     local createdElement = createElement(elementType, parameters[(#availableElements[elementType].syntax.parameters + 1)], sourceResource)
     if not createdElement then return false end
-    local uiTemplate = __getUITemplate(elementType, createdElement)
-    if not uiTemplate then return false end
 
     local elementReference = createdElements[createdElement]
+    local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
+    if not elementTemplate then return false end
+
     elementReference.gui = cloneUIOutline(elementType)
     for i, j in ipairs(availableElements[elementType].syntax.parameters) do
         if (j.name == "width") or (j.name == "height") then
@@ -114,7 +115,7 @@ function getLabelColor(...)
     if not isUIValid(element) then return false end
 
     local elementReference = createdElements[element]
-    local elementTemplate = __getUITemplate(elementType, element)
+    local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
     return elementReference.gui.fontColor or elementTemplate.fontColor
 
 end
