@@ -39,7 +39,7 @@ end
 --[[ Functions: Retrieves/Set's UI's Template ]]--
 --------------------------------------------------
 
-function __getUITemplate(elementType, element, elementSource)
+function __getUITemplate(elementType, elementSourceResource)
 
     if not elementType or not availableTemplates[elementType] then return false end
     
