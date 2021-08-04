@@ -166,6 +166,12 @@
     <!-- Params: getLabelText(label) | Returns Data; Else false Boolean -->
     <export function="getLabelText" type="client"/>
 
+    <!-- Params: setLabelColor(label, color) | Returns Boolean -->
+    <export function="setLabelColor" type="client"/>
+
+    <!-- Params: getLabelColor(label) | Returns Data; Else false Boolean -->
+    <export function="getLabelColor" type="client"/>
+
     <!-- Params: setLabelHorizontalAlignment(label, alignment) | Returns Boolean -->
     <export function="setLabelHorizontalAlignment" type="client"/>
 

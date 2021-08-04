@@ -80,6 +80,46 @@ function getLabelText(...)
 end
 
 
+--------------------------------------------
+--[[ Functions: Sets/Gets Label's Color ]]--
+--------------------------------------------
+
+function setLabelColor(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "setLabelColor") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    parameters[2][1] = tonumber(parameters[2][1]); parameters[2][2] = tonumber(parameters[2][3]);
+    parameters[2][3] = tonumber(parameters[2][3]); parameters[2][4] = tonumber(parameters[2][4]);
+    for i = 1, 4, 1 do
+        if not parameters[2][i] or (parameters[2][i] < 0) or (parameters[2][i] > 255) then
+            return false
+        end
+    end
+    local elementReference = createdElements[element]
+    local labelColor = getLabelColor(element)
+    if not labelColor or ((labelColor[1] == parameters[2][1]) and (labelColor[2] == parameters[2][2]) and (labelColor[3] == parameters[2][3]) and (labelColor[4] == parameters[2][4])) then return false end
+    elementReference.gui.fontColor = {parameters[2][1], parameters[2][2], parameters[2][3], parameters[2][4]}
+    return true
+
+end
+
+function getLabelColor(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "getLabelColor") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementReference = createdElements[element]
+    local elementTemplate = getUITemplate(elementType)
+    return elementReference.gui.fontColor or elementTemplate.fontColor
+
+end
+
+
 --------------------------------------------------------------------
 --[[ Functions: Sets/Gets Label's Horizontal/Vertical Alignment ]]--
 --------------------------------------------------------------------
@@ -92,7 +132,7 @@ function setLabelHorizontalAlignment(...)
     if not isUIValid(element) then return false end
 
     local elementReference = createdElements[element]
-    if not parameters[2] or not UI_VALID_ALIGNMENT.horizontal[(parameters[2])] or (elementReference.gui.alignment.horizontal == parameters[2]) then return false end
+    if not UI_VALID_ALIGNMENT.horizontal[(parameters[2])] or (elementReference.gui.alignment.horizontal == parameters[2]) then return false end
     elementReference.gui.alignment.horizontal = parameters[2]
     return true
 
@@ -118,7 +158,7 @@ function setLabelVerticalAlignment(...)
     if not isUIValid(element) then return false end
 
     local elementReference = createdElements[element]
-    if not parameters[2] or not UI_VALID_ALIGNMENT.vertical[(parameters[2])] or (elementReference.gui.alignment.vertical == parameters[2]) then return false end
+    if not UI_VALID_ALIGNMENT.vertical[(parameters[2])] or (elementReference.gui.alignment.vertical == parameters[2]) then return false end
     elementReference.gui.alignment.vertical = parameters[2]
     return true
 

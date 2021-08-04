@@ -40,6 +40,17 @@ availableElements["beautify_label"]["APIs"] = {
             {name = "label", type = "userdata", userDataType = "beautify_label"}
         }
     },
+    ["setLabelColor"] = {
+        parameters = {
+            {name = "label", type = "userdata", userDataType = "beautify_label"},
+            {name = "color", type = "table"}
+        }
+    },
+    ["getLabelColor"] = {
+        parameters = {
+            {name = "label", type = "userdata", userDataType = "beautify_label"}
+        }
+    },
     ["setLabelHorizontalAlignment"] = {
         parameters = {
             {name = "label", type = "userdata", userDataType = "beautify_label"},
