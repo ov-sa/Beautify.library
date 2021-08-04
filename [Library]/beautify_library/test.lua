@@ -22,7 +22,6 @@ addEventHandler("onClientResourceStart", resource, function()
     setUIVisible(createdButton, true)
     setUIVisible(createdButton2, true)
     --setUIDisabled(createdGridlist, true)
-
     showCursor(true)
 
     local testRows = {
