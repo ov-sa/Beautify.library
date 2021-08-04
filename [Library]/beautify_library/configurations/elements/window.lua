@@ -28,7 +28,8 @@ availableElements["beautify_window"] = {
     allowedChildren = {
         ["beautify_gridlist"] = true,
         ["beautify_button"] = true,
-        ["beautify_label"] = true
+        ["beautify_label"] = true,
+        ["beautify_slider"] = true
     },
     isDraggable = true,
     minimumSize = 56,

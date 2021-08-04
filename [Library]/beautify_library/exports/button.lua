@@ -41,22 +41,13 @@ function createButton(...)
     for i, j in ipairs(templateReference) do
         local parameterIndex = #availableElements[elementType].syntax.parameters + i
         if (j.name == "width") or (j.name == "height") or (j.name == "size") then
-            local conditionalChecks = {
-                "minimum"..j.name:sub(1,1):upper()..j.name:sub(2),
-                "minimumSize"
-            }
-            local isConditionMatched = false
-            for k, v in ipairs(conditionalChecks) do
-                if availableElements[elementType]["TEMPLATE_PROPERTIES"][templateReferenceName][v] then
-                    elementReference.gui[j.name] = math.max(availableElements[elementType]["TEMPLATE_PROPERTIES"][templateReferenceName][v], parameters[parameterIndex])
-                    isConditionMatched = true
-                    break
-                end
-            end
-            if not isConditionMatched then
+            local minRequirementIndex = "minimum"..j.name:sub(1,1):upper()..j.name:sub(2)
+            if availableElements[elementType]["TEMPLATE_PROPERTIES"][templateReferenceName][minRequirementIndex] then
+                elementReference.gui[j.name] = math.max(availableElements[elementType]["TEMPLATE_PROPERTIES"][templateReferenceName][minRequirementIndex], parameters[parameterIndex])
+            else
                 elementReference.gui[j.name] = parameters[parameterIndex]
             end
-            elementReference.gui[j.name] = math.max(0, elementReference.gui[j.name])
+            elementReference.gui[j.name] = math.max(0, math.max(availableElements[elementType].minimumSize, elementReference.gui[j.name]))
         else
             elementReference.gui[j.name] = parameters[parameterIndex]
         end

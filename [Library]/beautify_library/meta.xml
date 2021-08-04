@@ -30,6 +30,7 @@
     <script src="handlers/renderer/gridlist.lua" type="client" cache="false"/>
     <script src="handlers/renderer/button.lua" type="client" cache="false"/>
     <script src="handlers/renderer/label.lua" type="client" cache="false"/>
+    <script src="handlers/renderer/slider.lua" type="client" cache="false"/>
 
     <!-- Configurations -->
     <script src="configurations/assets/initial.lua" type="client" cache="false"/>

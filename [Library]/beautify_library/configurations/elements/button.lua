@@ -31,10 +31,9 @@ availableElements["beautify_button"] = {
     },
     renderFunction = renderButton,
     allowedChildren = false,
+    minimumSize = 24,
     ["TEMPLATE_PROPERTIES"] = {
-        ["default"] = {
-            minimumSize = 24,
-        }
+        ["default"] = {}
     },
     contentSection = {
         paddingX = 5,

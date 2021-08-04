@@ -34,7 +34,7 @@ function renderButton(element, isFetchingInput, mouseReference)
         local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
         local button_type = elementReference.gui.type
         elementTemplate = elementTemplate[button_type]
-        local button_borderSize = availableElements[elementType]["TEMPLATE_PROPERTIES"][button_type].minimumSize*0.5
+        local button_borderSize = availableElements[elementType].minimumSize*0.5
         local button_startX, button_startY = elementReference.gui.x, elementReference.gui.y
         local button_width, button_height = false, false
         local button_content_padding = availableElements[elementType].contentSection.paddingX
@@ -71,11 +71,11 @@ function renderButton(element, isFetchingInput, mouseReference)
                 dxDrawImage(button_width - button_borderSize, 0, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/top_right.png"], 0, 0, 0, button_color, false)
                 dxDrawImage(0, button_height - button_borderSize, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/bottom_left.png"], 0, 0, 0, button_color, false)
                 dxDrawImage(button_width - button_borderSize, button_height - button_borderSize, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/bottom_right.png"], 0, 0, 0, button_color, false)
-                if (button_width > availableElements[elementType]["TEMPLATE_PROPERTIES"][button_type].minimumSize) and (button_height >= availableElements[elementType]["TEMPLATE_PROPERTIES"][button_type].minimumSize) then
-                    dxDrawRectangle(button_borderSize, 0, button_width - availableElements[elementType]["TEMPLATE_PROPERTIES"][button_type].minimumSize, button_height, button_color, false)
-                    if button_height > availableElements[elementType]["TEMPLATE_PROPERTIES"][button_type].minimumSize then
-                        dxDrawRectangle(0, button_borderSize, button_borderSize, button_height - availableElements[elementType]["TEMPLATE_PROPERTIES"][button_type].minimumSize, button_color, false)
-                        dxDrawRectangle(button_width - button_borderSize, button_borderSize, button_borderSize, button_height - availableElements[elementType]["TEMPLATE_PROPERTIES"][button_type].minimumSize, button_color, false)
+                if (button_width > availableElements[elementType].minimumSize) and (button_height >= availableElements[elementType].minimumSize) then
+                    dxDrawRectangle(button_borderSize, 0, button_width - availableElements[elementType].minimumSize, button_height, button_color, false)
+                    if button_height > availableElements[elementType].minimumSize then
+                        dxDrawRectangle(0, button_borderSize, button_borderSize, button_height - availableElements[elementType].minimumSize, button_color, false)
+                        dxDrawRectangle(button_width - button_borderSize, button_borderSize, button_borderSize, button_height - availableElements[elementType].minimumSize, button_color, false)
                     end
                 end
                 renderElementChildren(element)
