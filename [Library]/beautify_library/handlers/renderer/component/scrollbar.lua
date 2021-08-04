@@ -27,7 +27,7 @@ function renderScrollbar(elementParent, renderData, referenceData, isFetchingInp
     local elementReference = renderData.elementReference
     local scrollbar_overflownSize = renderData.overflownSize
     if not isFetchingInput then
-        local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
+        local componentTemplate = __getUITemplate(componentType, elementReference.sourceResource)
         local scrollbar_isHorizontal = referenceData.isHorizontal
         local scrollbar_startX, scrollbar_startY = renderData.startX, renderData.startY
         local scrollbar_width, scrollbar_height, scrollbar_thumb_size = nil, nil, nil
