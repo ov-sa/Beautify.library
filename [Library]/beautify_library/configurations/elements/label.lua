@@ -39,5 +39,27 @@ availableElements["beautify_label"]["APIs"] = {
         parameters = {
             {name = "label", type = "userdata", userDataType = "beautify_label"}
         }
+    },
+    ["setLabelHorizontalAlignment"] = {
+        parameters = {
+            {name = "label", type = "userdata", userDataType = "beautify_label"},
+            {name = "alignment", type = "string"}
+        }
+    },
+    ["getLabelHorizontalAlignment"] = {
+        parameters = {
+            {name = "label", type = "userdata", userDataType = "beautify_label"}
+        }
+    },
+    ["setLabelVerticalAlignment"] = {
+        parameters = {
+            {name = "label", type = "userdata", userDataType = "beautify_label"},
+            {name = "alignment", type = "string"}
+        }
+    },
+    ["getLabelVerticalAlignment"] = {
+        parameters = {
+            {name = "label", type = "userdata", userDataType = "beautify_label"}
+        }
     }
 }

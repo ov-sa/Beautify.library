@@ -166,4 +166,16 @@
     <!-- Params: getLabelText(label) | Returns Data; Else false Boolean -->
     <export function="getLabelText" type="client"/>
 
+    <!-- Params: setLabelHorizontalAlignment(label, alignment) | Returns Boolean -->
+    <export function="setLabelHorizontalAlignment" type="client"/>
+
+    <!-- Params: getLabelHorizontalAlignment(label) | Returns Data; Else false Boolean -->
+    <export function="getLabelHorizontalAlignment" type="client"/>
+
+    <!-- Params: setLabelVerticalAlignment(label, alignment) | Returns Boolean -->
+    <export function="setLabelVerticalAlignment" type="client"/>
+
+    <!-- Params: getLabelVerticalAlignment(label) | Returns Data; Else false Boolean -->
+    <export function="getLabelVerticalAlignment" type="client"/>
+
 </meta>

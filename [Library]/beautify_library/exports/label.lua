@@ -78,3 +78,60 @@ function getLabelText(...)
     return elementReference.gui.text
 
 end
+
+
+--------------------------------------------------------------------
+--[[ Functions: Sets/Gets Label's Horizontal/Vertical Alignment ]]--
+--------------------------------------------------------------------
+
+function setLabelHorizontalAlignment(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "setLabelHorizontalAlignment") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementReference = createdElements[element]
+    if not parameters[2] or not UI_VALID_ALIGNMENT.horizontal[(parameters[2])] or (elementReference.gui.alignment.horizontal == parameters[2]) then return false end
+    elementReference.gui.alignment.horizontal = parameters[2]
+    return true
+
+end
+
+function getLabelHorizontalAlignment(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "getLabelHorizontalAlignment") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementReference = createdElements[element]
+    return elementReference.gui.alignment.horizontal
+
+end
+
+function setLabelVerticalAlignment(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "setLabelVerticalAlignment") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementReference = createdElements[element]
+    if not parameters[2] or not UI_VALID_ALIGNMENT.vertical[(parameters[2])] or (elementReference.gui.alignment.vertical == parameters[2]) then return false end
+    elementReference.gui.alignment.vertical = parameters[2]
+    return true
+
+end
+
+function getLabelVerticalAlignment(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "getLabelVerticalAlignment") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementReference = createdElements[element]
+    return elementReference.gui.alignment.vertical
+
+end
