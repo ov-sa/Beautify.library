@@ -40,9 +40,6 @@ function createWindow(...)
             end
         else
             elementReference.gui[j.name] = parameters[i]
-            if j.name == "y" then
-                elementReference.gui[j.name] = parameters[i] + (availableElements["beautify_window"].minimumSize*0.5)
-            end
         end
     end
     elementReference.gui.postGUI = (parameters[(#availableElements[elementType].syntax.parameters + 2)] and true) or false

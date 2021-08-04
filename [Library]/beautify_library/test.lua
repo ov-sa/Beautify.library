@@ -1,30 +1,39 @@
-local sX, sY = guiGetScreenSize()
-sX = sX/1366; sY = sY/768;
 
-addEventHandler("onClientResourceStart", resource, function()
 
-    local window_width, window_height = 700, 350
-    local createdWindow = createWindow((sX*1366 - window_width)/2, (sY*768 - window_height)/2, window_width, window_height, "Development UI", nil, false)
+-------------------
+--[[ Variables ]]--
+-------------------
+
+local _sX = sX/1366; _sY = sY/768;
+
+
+---------------------------
+-->> Development UI 1 <<--
+---------------------------
+
+local function devUI1()
+
+    local window_width, window_height = 700, 378
+    local createdWindow = createWindow(50, (sY - window_height)/2, window_width, window_height, "Development UI #1", nil, false)
     local createdLabel = createLabel("DISCLAIMER: THIS IS JUST A DEVELOPMENT UI!", 0, 0, window_width, 20, createdWindow, false)
     local createdGridlist = createGridlist(0, 20, window_width, window_height - 20 - 30, createdWindow, false)
-    local createdButton = createButton("Button #1", 0, window_height - 30 + 5, "default", 175, 24, createdWindow, false)
+    local createdButton = createButton("Button #1", 0, window_height - 30, "default", 175, 24, createdWindow, false)
     local createdButton2 = createButton("Button #2", 180, window_height - 30 + 5, "default", 175, 23, createdWindow, false)
     setLabelHorizontalAlignment(createdLabel, "center")
     setLabelVerticalAlignment(createdLabel, "center")
+    setUIDisabled(createdLabel, true)
+    setUIVisible(createdLabel, true)
     addGridlistColumn(createdGridlist, "S.No", 75)
     addGridlistColumn(createdGridlist, "Name", 250)
     addGridlistColumn(createdGridlist, "Country", 100)
     addGridlistColumn(createdGridlist, "Rank", 250)
-    setUIVisible(createdWindow, true)
-    setUIDraggable(createdWindow, true)
-    setUIVisible(createdLabel, true)
     setUIVisible(createdGridlist, true)
     setUIVisible(createdButton, true)
     setUIVisible(createdButton2, true)
-    --setUIDisabled(createdGridlist, true)
-    showCursor(true)
+    setUIVisible(createdWindow, true)
+    setUIDraggable(createdWindow, true)
 
-    local testRows = {
+    local rowDatas = {
         {
             [1] = "1", [2] = "Tron", [3] = "BH", [4] = "CEO"
         },
@@ -39,7 +48,7 @@ addEventHandler("onClientResourceStart", resource, function()
         }
     }
     for x = 1, 500, 1 do
-        for i, j in ipairs(testRows) do
+        for i, j in ipairs(rowDatas) do
             local rowIndex = addGridlistRow(createdGridlist)
             local rowData = {}
             for k, v in pairs(j) do
@@ -63,5 +72,36 @@ addEventHandler("onClientResourceStart", resource, function()
     addEventHandler("onClientUIAltered", createdGridlist, function()
         outputChatBox("Altered")
     end)
+
+end
+
+
+---------------------------
+-->> Development UI 2 <<--
+---------------------------
+
+local function devUI2()
+
+    local window_width, window_height = 275, 350
+    local createdWindow = createWindow(750 + 50, (sY - window_height)/2, window_width, window_height, "Development UI #2", nil, false)
+    local createdLabel = createLabel("DISCLAIMER: THIS IS JUST A DEVELOPMENT UI!", 0, 0, window_width, 20, createdWindow, false)
+    local createdGridlist = createGridlist(0, 20, window_width, window_height - 20 - 30, createdWindow, false)
+    local createdButton = createButton("Button #1", 0, window_height - 30, "default", 175, 24, createdWindow, false)
+    local createdButton2 = createButton("Button #2", 180, window_height - 30 + 5, "default", 175, 23, createdWindow, false)
+    setUIVisible(createdWindow, true)
+    setUIDraggable(createdWindow, true)
+
+end
+
+
+-----------------------------------------
+--[[ Event: On Client Resource Start ]]--
+-----------------------------------------
+
+addEventHandler("onClientResourceStart", resource, function()
+
+    devUI1()
+    devUI2()
+    showCursor(true)
 
 end)
