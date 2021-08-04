@@ -26,7 +26,7 @@ function createWindow(...)
     if not areUIParametersValid(parameters, elementType) then return false end
     local createdElement = createElement(elementType, parameters[(#availableElements[elementType].syntax.parameters + 1)], sourceResource)
     if not createdElement then return false end
-    local uiTemplate = getUITemplate(elementType)
+    local uiTemplate = __getUITemplate(elementType, createdElement)
     if not uiTemplate then return false end
 
     local elementReference = createdElements[createdElement]

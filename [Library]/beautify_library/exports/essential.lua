@@ -32,7 +32,7 @@ end
 
 function getUITemplate(...)
 
-    return __getUITemplate(...)
+    return __getUITemplate({...}[1])
 
 end
 

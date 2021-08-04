@@ -31,7 +31,7 @@ function renderGridlist(element, isFetchingInput, mouseReference)
     local elementParent = getUIParent(element)
     local elementReference = createdElements[element]
     if not isFetchingInput then
-        local elementTemplate = getUITemplate(elementType)
+        local elementTemplate = __getUITemplate(elementType, element)
         local gridlist_startX, gridlist_startY = elementReference.gui.x, elementReference.gui.y
         local gridlist_width, gridlist_height = elementReference.gui.width, elementReference.gui.height
         local gridlist_color, gridlist_columnBar_color, gridlist_columnBar_fontColor = tocolor(unpackColor(elementTemplate.color)), tocolor(unpackColor(elementTemplate.columnBar.color)), tocolor(unpackColor(elementTemplate.columnBar.fontColor))

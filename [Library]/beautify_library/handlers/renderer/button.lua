@@ -31,7 +31,7 @@ function renderButton(element, isFetchingInput, mouseReference)
     local elementParent = getUIParent(element)
     local elementReference = createdElements[element]
     if not isFetchingInput then
-        local elementTemplate = getUITemplate(elementType)
+        local elementTemplate = __getUITemplate(elementType, element)
         local button_type = elementReference.gui.type
         elementTemplate = elementTemplate[button_type]
         local button_borderSize = availableElements[elementType]["TEMPLATE_PROPERTIES"][button_type].minimumSize*0.5

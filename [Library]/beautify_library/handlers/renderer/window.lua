@@ -31,7 +31,7 @@ function renderWindow(element, isFetchingInput, mouseReference)
     local elementParent = getUIParent(element)
     local elementReference = createdElements[element]
     if not isFetchingInput then
-        local elementTemplate = getUITemplate(elementType)
+        local elementTemplate = __getUITemplate(elementType, element)
         local window_borderSize = availableElements[elementType].minimumSize*0.5
         local window_startX, window_startY = elementReference.gui.x, elementReference.gui.y
         local window_width, window_height = elementReference.gui.width, elementReference.gui.height

@@ -31,7 +31,7 @@ function renderLabel(element, isFetchingInput, mouseReference)
     local elementParent = getUIParent(element)
     local elementReference = createdElements[element]
     if not isFetchingInput then
-        local elementTemplate = getUITemplate(elementType)
+        local elementTemplate = __getUITemplate(elementType, element)
         local label_startX, label_startY = elementReference.gui.x, elementReference.gui.y
         local label_width, label_height = elementReference.gui.width, elementReference.gui.height
         local label_postGUI = elementReference.gui.postGUI

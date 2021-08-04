@@ -39,12 +39,19 @@ end
 --[[ Functions: Retrieves/Set's UI's Template ]]--
 --------------------------------------------------
 
-function __getUITemplate(elementType)
+function __getUITemplate(elementType, element)
 
     if not elementType or not availableTemplates[elementType] then return false end
     
-    if createdTemplates[elementType] and createdTemplates[elementType][sourceResource or resource] then
-        return createdTemplates[elementType][sourceResource or resource]
+    if element and isElement(element) and createdElements[element] then
+        local sourceResource = createdElements[element].sourceResource
+        if sourceResource and createdTemplates[elementType] and createdTemplates[elementType][sourceResource] then
+            return createdTemplates[elementType][sourceResource]
+        end
+    else
+        if sourceResource and createdTemplates[elementType] and createdTemplates[elementType][sourceResource] then
+            return createdTemplates[elementType][sourceResource]
+        end
     end
     return availableTemplates[elementType]
 
@@ -52,10 +59,10 @@ end
 
 function __setUITemplate(elementType, elementTemplate)
 
-    if not elementType or not elementTemplate or not availableTemplates[elementType] then return false end
+    if not elementType or not elementTemplate or not availableTemplates[elementType] or not sourceResource then return false end
 
     if not createdTemplates[elementType] then createdTemplates[elementType] = {} end
-    createdTemplates[elementType][sourceResource or resource] = elementTemplate
+    createdTemplates[elementType][sourceResource] = elementTemplate
     return true
 
 end
