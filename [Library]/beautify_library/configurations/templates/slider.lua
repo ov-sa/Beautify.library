@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
 --[[ Resource: Beautify Library
-     Script: configurations: templates: button.lua
+     Script: configurations: templates: slider.lua
      Server: -
      Author: OvileAmriam
      Developer: -
@@ -13,11 +13,8 @@
 --[[ Configurations ]]--
 ------------------------
 
-availableTemplates["beautify_button"] = {
-    ["default"] = {
-        fontPaddingY = 3,
-        font = DxFont("files/assets/fonts/poppins_medium.ttf", 15),
-        color = {20, 20, 20, 255},
-        fontColor = {255, 255, 255, 255}
-    }
+availableTemplates["beautify_slider"] = {
+    font = DxFont("files/assets/fonts/poppins_medium.ttf", 15),
+    color = {20, 20, 20, 255},
+    fontColor = {255, 255, 255, 255}
 }
