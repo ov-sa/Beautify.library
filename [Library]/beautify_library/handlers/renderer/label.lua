@@ -44,7 +44,9 @@ function renderLabel(element, isFetchingInput, mouseReference)
         else
             dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
         end
-        dxDrawText(elementReference.gui.text, label_startX, label_startY + (elementTemplate.fontPaddingY or 0), label_startX + label_width, label_startY + label_height, tocolor(unpackColor(elementReference.gui.fontColor or elementTemplate.fontColor)), elementTemplate.fontScale or 1, elementTemplate.font, elementReference.gui.alignment.horizontal, elementReference.gui.alignment.vertical, true, false, label_postGUI, false)
+        if (label_width > 0) and (label_height > 0) then
+            dxDrawText(elementReference.gui.text, label_startX, label_startY + (elementTemplate.fontPaddingY or 0), label_startX + label_width, label_startY + label_height, tocolor(unpackColor(elementReference.gui.fontColor or elementTemplate.fontColor)), elementTemplate.fontScale or 1, elementTemplate.font, elementReference.gui.alignment.horizontal, elementReference.gui.alignment.vertical, true, false, label_postGUI, false)
+        end
     else
         renderElementChildren(element, true, mouseReference)
     end

@@ -26,6 +26,7 @@ availableElements["beautify_slider"] = {
     renderFunction = createSlider,
     allowedChildren = false,
     minimumSize = 56,
+    minimumWidth = 10,
     contentSection = {
         padding = 5
     }
