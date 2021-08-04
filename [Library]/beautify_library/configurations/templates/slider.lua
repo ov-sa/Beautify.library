@@ -14,16 +14,18 @@
 ------------------------
 
 availableTemplates["beautify_slider"] = {
-    font = DxFont("files/assets/fonts/poppins_medium.ttf", 15),
-    color = {5, 5, 5, 253},
-    fontColor = {255, 255, 255, 255},
+    fontScale = 0.5,
+    font = DxFont("files/assets/fonts/signika_semibold.ttf", 20),
+    fontColor = {200, 200, 200, 255},
     track = {
-        size = 3,
+        size = 2,
         color = {125, 125, 255, 255}
     },
     thumb = {
-        size = 7,
-        color = {255, 255, 255, 255}
+        size = 8.4,
+        shadowSize = 2,
+        color = {5, 5, 5, 255},
+        shadowColor = {125, 125, 255, 255}
     },
     slideBar_Horizontal = {
         isOutLine = true

@@ -32,9 +32,10 @@ function renderSlider(element, isFetchingInput, mouseReference)
     local elementReference = createdElements[element]
     if not isFetchingInput then
         local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
+        local slider_type = elementReference.gui.type
         local slider_startX, slider_startY = elementReference.gui.x, elementReference.gui.y
-        local slider_width, slider_height, slider_track_size, slider_thumb_size = elementReference.gui.width, elementReference.gui.height, elementTemplate.track.size, elementTemplate.thumb.size
-        local slider_content_padding, slider_thumb_size = availableElements["beautify_window"].contentSection.padding
+        local slider_width, slider_height, slider_track_size, slider_thumb_size, slider_thumb_shadow_size = elementReference.gui.width, elementReference.gui.height, elementTemplate.track.size, elementTemplate.thumb.size, elementTemplate.thumb.shadowSize
+        local slider_content_padding = availableElements["beautify_window"].contentSection.padding
         local slider_postGUI = elementReference.gui.postGUI
 
         elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX = slider_startX
@@ -43,6 +44,7 @@ function renderSlider(element, isFetchingInput, mouseReference)
         elementReference.gui["__UI_INPUT_FETCH_CACHE__"].height = slider_height
 
         if not elementParent then dxSetRenderTarget() end
+        --[[
         if not elementReference.gui["__UI_CACHE__"]["Content Section"] or not elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture or elementReference.gui["__UI_CACHE__"]["Content Section"].updateTexture then
             if not elementReference.gui["__UI_CACHE__"]["Content Section"] then
                 elementReference.gui["__UI_CACHE__"]["Content Section"] = {}
@@ -85,16 +87,17 @@ function renderSlider(element, isFetchingInput, mouseReference)
                 elementReference.gui["__UI_CACHE__"]["Content Section"].updateTexture = nil
             end
         end
+        ]]--
 
         if not elementReference.gui.animAlphaPercent then
-            elementReference.gui.animAlphaPercent = 0.25
+            elementReference.gui.animAlphaPercent = 0.8
             elementReference.gui.hoverStatus = "backward"
             elementReference.gui.hoverAnimTickCounter = getTickCount()
         end
         if elementReference.gui.hoverStatus == "forward" then
             elementReference.gui.animAlphaPercent = interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
         else
-            elementReference.gui.animAlphaPercent = interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 0.25, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
+            elementReference.gui.animAlphaPercent = interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 0.8, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
         end
         renderElementChildren(element)
         dxSetBlendMode("blend")
@@ -103,13 +106,19 @@ function renderSlider(element, isFetchingInput, mouseReference)
         else
             dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
         end
-        if elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture then
-            dxDrawImage(slider_startX, slider_startY, slider_width, slider_height, elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture, 0, 0, 0, tocolor(255, 255, 255, 255), slider_postGUI)
+        local slider_percent = 0
+        if slider_type == "horizontal" then
+            slider_percent = elementReference.gui.slideBar_Horizontal.currentPercent
+        else
+            slider_percent = elementReference.gui.sliderBar_Vertical.currentPercent
         end
-        local slider_track_color, slider_thumb_color = tocolor(elementTemplate.track.color[1], elementTemplate.track.color[2], elementTemplate.track.color[3], elementTemplate.track.color[4]*elementReference.gui.animAlphaPercent), tocolor(elementTemplate.thumb.color[1], elementTemplate.thumb.color[2], elementTemplate.thumb.color[3], elementTemplate.thumb.color[4])
-        local slider_fontColor = tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4]*elementReference.gui.animAlphaPercent)
-        dxDrawRectangle(slider_startX + slider_content_padding, slider_startY + (slider_height - slider_track_size)*0.5, slider_width - (slider_content_padding*2), slider_track_size, slider_track_color, false)
-        --dxDrawText(elementReference.gui.text, slider_startX, slider_startY + (elementTemplate.fontPaddingY or 0), slider_startX + slider_width, slider_startY + slider_height, tocolor(unpackColor(elementReference.gui.fontColor or elementTemplate.fontColor)), elementTemplate.fontScale or 1, elementTemplate.font, elementReference.gui.alignment.horizontal, elementReference.gui.alignment.vertical, true, false, slider_postGUI, false)
+        local slider_track_color, slider_fontColor = tocolor(elementTemplate.track.color[1], elementTemplate.track.color[2], elementTemplate.track.color[3], elementTemplate.track.color[4]*elementReference.gui.animAlphaPercent), tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4]*elementReference.gui.animAlphaPercent)
+        local slider_track_startX, slider_track_startY = slider_startX + slider_content_padding, slider_startY + (slider_height + (slider_track_size + slider_thumb_size + slider_thumb_shadow_size))*0.5
+        local slider_thumb_startX, slider_thumb_startY = slider_track_startX, slider_track_startY + ((slider_track_size - slider_thumb_size)*0.5)
+        dxDrawRectangle(slider_track_startX, slider_track_startY, slider_width - (slider_content_padding*2), slider_track_size, slider_track_color, slider_postGUI)
+        dxDrawRectangle(slider_track_startX - slider_thumb_shadow_size, slider_thumb_startY - slider_thumb_shadow_size, slider_thumb_size + (slider_thumb_shadow_size*2), slider_thumb_size + (slider_thumb_shadow_size*2), tocolor(unpackColor(elementTemplate.thumb.shadowColor)), slider_postGUI)
+        dxDrawRectangle(slider_track_startX, slider_thumb_startY, slider_thumb_size, slider_thumb_size, tocolor(unpackColor(elementTemplate.thumb.color)), slider_postGUI)
+        dxDrawText("PROGRESS: "..slider_percent.."%", slider_startX + slider_content_padding, slider_startY + (elementTemplate.fontPaddingY or 0), slider_startX + slider_width - (slider_content_padding*2), slider_track_startY, slider_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "right", "bottom", true, false, slider_postGUI, false)
     else
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
         renderElementChildren(element, true, mouseReference)
