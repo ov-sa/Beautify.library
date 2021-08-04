@@ -23,10 +23,11 @@ availableElements["beautify_slider"] = {
             {name = "height", type = "float"}
         }
     },
-    renderFunction = createSlider,
+    renderFunction = renderSlider,
     allowedChildren = false,
-    minimumSize = 56,
-    minimumWidth = 10,
+    minimumSize = 24,
+    minimumWidth = 50,
+    minimumHeight = 37,
     contentSection = {
         padding = 5
     }
