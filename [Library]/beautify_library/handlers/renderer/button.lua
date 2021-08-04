@@ -34,7 +34,6 @@ function renderButton(element, isFetchingInput, mouseReference)
         local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
         local button_type = elementReference.gui.type
         elementTemplate = elementTemplate[button_type]
-        local button_borderSize = availableElements[elementType].minimumSize*0.5
         local button_startX, button_startY = elementReference.gui.x, elementReference.gui.y
         local button_width, button_height = false, false
         local button_content_padding = availableElements[elementType].contentSection.paddingX
@@ -66,19 +65,19 @@ function renderButton(element, isFetchingInput, mouseReference)
                 end
                 dxSetRenderTarget(elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget, true)
                 dxSetBlendMode("modulate_add")
+                local button_borderSize = availableElements[elementType].minimumSize*0.5
                 local button_color = tocolor(unpackColor(elementTemplate.color))
                 dxDrawImage(0, 0, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/top_left.png"], 0, 0, 0, button_color, false)
                 dxDrawImage(button_width - button_borderSize, 0, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/top_right.png"], 0, 0, 0, button_color, false)
                 dxDrawImage(0, button_height - button_borderSize, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/bottom_left.png"], 0, 0, 0, button_color, false)
                 dxDrawImage(button_width - button_borderSize, button_height - button_borderSize, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/bottom_right.png"], 0, 0, 0, button_color, false)
-                if (button_width > availableElements[elementType].minimumSize) and (button_height >= availableElements[elementType].minimumSize) then
+                if button_width > availableElements[elementType].minimumSize then
                     dxDrawRectangle(button_borderSize, 0, button_width - availableElements[elementType].minimumSize, button_height, button_color, false)
-                    if button_height > availableElements[elementType].minimumSize then
-                        dxDrawRectangle(0, button_borderSize, button_borderSize, button_height - availableElements[elementType].minimumSize, button_color, false)
-                        dxDrawRectangle(button_width - button_borderSize, button_borderSize, button_borderSize, button_height - availableElements[elementType].minimumSize, button_color, false)
-                    end
                 end
-                renderElementChildren(element)
+                if button_height > availableElements[elementType].minimumSize then
+                    dxDrawRectangle(0, button_borderSize, button_borderSize, button_height - availableElements[elementType].minimumSize, button_color, false)
+                    dxDrawRectangle(button_width - button_borderSize, button_borderSize, button_borderSize, button_height - availableElements[elementType].minimumSize, button_color, false)
+                end
                 dxSetBlendMode("blend")
                 if not elementParent then
                     dxSetRenderTarget()
@@ -103,6 +102,13 @@ function renderButton(element, isFetchingInput, mouseReference)
                 elementReference.gui.animAlphaPercent = interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
             else
                 elementReference.gui.animAlphaPercent = interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 0.25, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
+            end
+            renderElementChildren(element)
+            dxSetBlendMode("blend")
+            if not elementParent then
+                dxSetRenderTarget()
+            else
+                dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
             end
             local button_fontColor = tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4]*elementReference.gui.animAlphaPercent)
             if elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture then

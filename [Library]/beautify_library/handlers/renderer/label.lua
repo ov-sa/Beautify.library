@@ -37,8 +37,14 @@ function renderLabel(element, isFetchingInput, mouseReference)
         local label_postGUI = elementReference.gui.postGUI
     
         if not elementParent then dxSetRenderTarget() end
-        dxDrawText(elementReference.gui.text, label_startX, label_startY + (elementTemplate.fontPaddingY or 0), label_startX + label_width, label_startY + label_height, tocolor(unpackColor(elementReference.gui.fontColor or elementTemplate.fontColor)), elementTemplate.fontScale or 1, elementTemplate.font, elementReference.gui.alignment.horizontal, elementReference.gui.alignment.vertical, true, false, label_postGUI, false)
         renderElementChildren(element)
+        dxSetBlendMode("blend")
+        if not elementParent then
+            dxSetRenderTarget()
+        else
+            dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
+        end
+        dxDrawText(elementReference.gui.text, label_startX, label_startY + (elementTemplate.fontPaddingY or 0), label_startX + label_width, label_startY + label_height, tocolor(unpackColor(elementReference.gui.fontColor or elementTemplate.fontColor)), elementTemplate.fontScale or 1, elementTemplate.font, elementReference.gui.alignment.horizontal, elementReference.gui.alignment.vertical, true, false, label_postGUI, false)
     else
         renderElementChildren(element, true, mouseReference)
     end
