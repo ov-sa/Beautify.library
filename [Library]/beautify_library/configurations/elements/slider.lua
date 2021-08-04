@@ -20,14 +20,19 @@ availableElements["beautify_slider"] = {
             {name = "x", type = "float"},
             {name = "y", type = "float"},
             {name = "width", type = "float"},
-            {name = "height", type = "float"}
+            {name = "height", type = "float"},
+            {name = "type", type = "string"}
         }
     },
     renderFunction = renderSlider,
     allowedChildren = false,
     minimumSize = 24,
     minimumWidth = 24,
-    minimumHeight = 30,
+    minimumHeight = 24,
+    validTypes = {
+        ["horizontal"] = true,
+        ["vertical"] = true
+    },
     contentSection = {
         padding = 5,
         hoverAnimDuration = 1250

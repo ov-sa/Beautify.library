@@ -84,7 +84,7 @@ local function devUI2()
 
     local window_width, window_height = 275, 350
     local createdWindow = createWindow(750 + 50, (sY - window_height)/2, window_width, window_height, "Development UI #2", nil, false)
-    local createdSlider = createSlider(12.5, 12.5, 250, 30, createdWindow, false)
+    local createdSlider = createSlider(12.5, 12.5, 250, 24, "horizontal", createdWindow, false)
     setUIVisible(createdSlider, true)
     setUIVisible(createdWindow, true)
     setUIDraggable(createdWindow, true)

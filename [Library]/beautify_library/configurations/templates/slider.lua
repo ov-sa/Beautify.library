@@ -15,14 +15,20 @@
 
 availableTemplates["beautify_slider"] = {
     font = DxFont("files/assets/fonts/poppins_medium.ttf", 15),
-    color = {5, 5, 5, 255},
+    color = {5, 5, 5, 253},
     fontColor = {255, 255, 255, 255},
     track = {
         size = 3,
-        color = {125, 125, 255, 253}
+        color = {125, 125, 255, 255}
     },
     thumb = {
-        minSize = 75,
-        color = {175, 175, 175, 255}
+        size = 7,
+        color = {255, 255, 255, 255}
+    },
+    slideBar_Horizontal = {
+        isOutLine = true
+    },
+    slideBar_Vertical = {
+        isOutLine = true
     }
 }

@@ -195,7 +195,7 @@
     <!-- Params: getLabelVerticalAlignment(label) | Returns Data; Else false Boolean -->
     <export function="getLabelVerticalAlignment" type="client"/>
 
-    <!-- Params: createSlider(x, y, width, height, parent, postGUI) | Returns Element; Else false Boolean -->
+    <!-- Params: createSlider(x, y, width, height, type, parent, postGUI) | Returns Element; Else false Boolean -->
     <export function="createSlider" type="client"/>
 
 </meta>

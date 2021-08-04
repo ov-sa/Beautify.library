@@ -41,6 +41,8 @@ function createSlider(...)
                 elementReference.gui[j.name] = parameters[i]
             end
             elementReference.gui[j.name] = math.max(0, math.max(availableElements[elementType].minimumSize, elementReference.gui[j.name]))
+        elseif j.name == "type" then
+            elementReference.gui[j.name] = (availableElements[elementType].validTypes[(parameters[i])] and parameters[i]) or "horizontal"
         else
             elementReference.gui[j.name] = parameters[i]
         end

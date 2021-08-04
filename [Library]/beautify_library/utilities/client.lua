@@ -69,6 +69,9 @@ function cloneUIOutline(elementType, nestedOutline)
                     clonedOutline[i].finalPercent = 0
                     clonedOutline[i].currentThumbSize = 0
                     clonedOutline[i].finalThumbSize = 0
+                elseif (i == "slideBar_Horizontal") or (i == "slideBar_Vertical") then
+                    clonedOutline[i].currentPercent = 0
+                    clonedOutline[i].finalPercent = 0
                 end
             end
         end

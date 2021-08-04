@@ -33,8 +33,8 @@ function renderSlider(element, isFetchingInput, mouseReference)
     if not isFetchingInput then
         local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
         local slider_startX, slider_startY = elementReference.gui.x, elementReference.gui.y
-        local slider_width, slider_height = elementReference.gui.width, elementReference.gui.height
-        local label_thumb_color = tocolor(unpackColor(elementTemplate.thumb.color))
+        local slider_width, slider_height, slider_track_size, slider_thumb_size = elementReference.gui.width, elementReference.gui.height, elementTemplate.track.size, elementTemplate.thumb.size
+        local slider_content_padding, slider_thumb_size = availableElements["beautify_window"].contentSection.padding
         local slider_postGUI = elementReference.gui.postGUI
 
         elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX = slider_startX
@@ -103,10 +103,12 @@ function renderSlider(element, isFetchingInput, mouseReference)
         else
             dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
         end
-        local slider_fontColor = tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4]*elementReference.gui.animAlphaPercent)
         if elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture then
             dxDrawImage(slider_startX, slider_startY, slider_width, slider_height, elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture, 0, 0, 0, tocolor(255, 255, 255, 255), slider_postGUI)
         end
+        local slider_track_color, slider_thumb_color = tocolor(elementTemplate.track.color[1], elementTemplate.track.color[2], elementTemplate.track.color[3], elementTemplate.track.color[4]*elementReference.gui.animAlphaPercent), tocolor(elementTemplate.thumb.color[1], elementTemplate.thumb.color[2], elementTemplate.thumb.color[3], elementTemplate.thumb.color[4])
+        local slider_fontColor = tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4]*elementReference.gui.animAlphaPercent)
+        dxDrawRectangle(slider_startX + slider_content_padding, slider_startY + (slider_height - slider_track_size)*0.5, slider_width - (slider_content_padding*2), slider_track_size, slider_track_color, false)
         --dxDrawText(elementReference.gui.text, slider_startX, slider_startY + (elementTemplate.fontPaddingY or 0), slider_startX + slider_width, slider_startY + slider_height, tocolor(unpackColor(elementReference.gui.fontColor or elementTemplate.fontColor)), elementTemplate.fontScale or 1, elementTemplate.font, elementReference.gui.alignment.horizontal, elementReference.gui.alignment.vertical, true, false, slider_postGUI, false)
     else
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}

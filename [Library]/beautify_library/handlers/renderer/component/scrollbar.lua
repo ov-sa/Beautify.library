@@ -38,12 +38,12 @@ function renderScrollbar(elementParent, renderData, referenceData, isFetchingInp
             scrollbar_width = renderData.width
             scrollbar_height = availableTemplates[componentType].size
             scrollbar_startY = scrollbar_startY - scrollbar_height
-            scrollbar_thumb_size = math.max(math.min(scrollbar_width/2, availableTemplates[componentType].thumb.minSize), (scrollbar_width/(scrollbar_width + scrollbar_overflownSize))*scrollbar_width)
+            scrollbar_thumb_size = math.max(math.min(scrollbar_width*0.5, availableTemplates[componentType].thumb.minSize), (scrollbar_width/(scrollbar_width + scrollbar_overflownSize))*scrollbar_width)
         else
             scrollbar_width = availableTemplates[componentType].size
             scrollbar_height = renderData.height
             scrollbar_startX = scrollbar_startX - scrollbar_width
-            scrollbar_thumb_size = math.max(math.min(scrollbar_height/2, availableTemplates[componentType].thumb.minSize), (scrollbar_height/(scrollbar_height + scrollbar_overflownSize))*scrollbar_height)
+            scrollbar_thumb_size = math.max(math.min(scrollbar_height*0.5, availableTemplates[componentType].thumb.minSize), (scrollbar_height/(scrollbar_height + scrollbar_overflownSize))*scrollbar_height)
         end
 
         elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bar"]["Vertical"].track = {
