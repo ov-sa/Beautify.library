@@ -34,13 +34,13 @@ function renderSlider(element, isFetchingInput, mouseReference)
         local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
         local slider_startX, slider_startY = elementReference.gui.x, elementReference.gui.y
         local slider_width, slider_height = elementReference.gui.width, elementReference.gui.height
-        --[[
-        local label_color, label_thumb_color = tocolor(unpackColor(elementTemplate.color)), tocolor(unpackColor(elementTemplate.thumb.color))
-        local window_close_button_startX, window_close_button_startY = window_startX + window_width - window_borderSize, window_startY
-        local window_renderTarget_startX, window_renderTarget_startY = window_startX + elementReference.gui.contentSection.startX, window_startY + elementReference.gui.contentSection.startY
-        local window_renderTarget_width, window_renderTarget_height = elementReference.gui.contentSection.width, elementReference.gui.contentSection.height
-        ]]--
+        local label_thumb_color = tocolor(unpackColor(elementTemplate.thumb.color))
         local slider_postGUI = elementReference.gui.postGUI
+
+        elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX = slider_startX
+        elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY = slider_startY
+        elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width = slider_width
+        elementReference.gui["__UI_INPUT_FETCH_CACHE__"].height = slider_height
 
         if not elementParent then dxSetRenderTarget() end
         if not elementReference.gui["__UI_CACHE__"]["Content Section"] or not elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture or elementReference.gui["__UI_CACHE__"]["Content Section"].updateTexture then
@@ -92,9 +92,9 @@ function renderSlider(element, isFetchingInput, mouseReference)
             elementReference.gui.hoverAnimTickCounter = getTickCount()
         end
         if elementReference.gui.hoverStatus == "forward" then
-            --elementReference.gui.animAlphaPercent = interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
+            elementReference.gui.animAlphaPercent = interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
         else
-            --elementReference.gui.animAlphaPercent = interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 0.25, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
+            elementReference.gui.animAlphaPercent = interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 0.25, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
         end
         renderElementChildren(element)
         dxSetBlendMode("blend")
@@ -105,11 +105,33 @@ function renderSlider(element, isFetchingInput, mouseReference)
         end
         local slider_fontColor = tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4]*elementReference.gui.animAlphaPercent)
         if elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture then
-            dxDrawImage(slider_startX, slider_startY, slider_width, slider_height, elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture, 0, 0, 0, tocolor(255, 255, 255, 255*math.max(0.85, elementReference.gui.animAlphaPercent)), button_postGUI)
+            dxDrawImage(slider_startX, slider_startY, slider_width, slider_height, elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture, 0, 0, 0, tocolor(255, 255, 255, 255), slider_postGUI)
         end
         --dxDrawText(elementReference.gui.text, slider_startX, slider_startY + (elementTemplate.fontPaddingY or 0), slider_startX + slider_width, slider_startY + slider_height, tocolor(unpackColor(elementReference.gui.fontColor or elementTemplate.fontColor)), elementTemplate.fontScale or 1, elementTemplate.font, elementReference.gui.alignment.horizontal, elementReference.gui.alignment.vertical, true, false, slider_postGUI, false)
     else
+        local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
         renderElementChildren(element, true, mouseReference)
+        if elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width and elementReference.gui["__UI_INPUT_FETCH_CACHE__"].height then
+            local isElementHovered = CLIENT_HOVERED_ELEMENT == element
+            local isSliderHovered = false
+            if isElementHovered then
+                if not elementReference.isDisabled then
+                    isSliderHovered = isElementHovered
+                    --isSliderHovered = isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].height)
+                end
+            end
+            if isSliderHovered then
+                if elementReference.gui.hoverStatus ~= "forward" then
+                    elementReference.gui.hoverStatus = "forward"
+                    elementReference.gui.hoverAnimTickCounter = getTickCount()
+                end
+            else
+                if elementReference.gui.hoverStatus ~= "backward" then
+                    elementReference.gui.hoverStatus = "backward"
+                    elementReference.gui.hoverAnimTickCounter = getTickCount()
+                end
+            end
+        end
     end
     return true
 

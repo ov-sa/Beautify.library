@@ -26,10 +26,11 @@ availableElements["beautify_slider"] = {
     renderFunction = renderSlider,
     allowedChildren = false,
     minimumSize = 24,
-    minimumWidth = 50,
-    minimumHeight = 37,
+    minimumWidth = 24,
+    minimumHeight = 30,
     contentSection = {
-        padding = 5
+        padding = 5,
+        hoverAnimDuration = 1250
     }
 }
 
