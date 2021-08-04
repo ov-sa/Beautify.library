@@ -92,7 +92,7 @@ function setLabelColor(...)
     local element = parameters[1]
     if not isUIValid(element) then return false end
 
-    parameters[2][1] = tonumber(parameters[2][1]); parameters[2][2] = tonumber(parameters[2][3]);
+    parameters[2][1] = tonumber(parameters[2][1]); parameters[2][2] = tonumber(parameters[2][2]);
     parameters[2][3] = tonumber(parameters[2][3]); parameters[2][4] = tonumber(parameters[2][4]);
     for i = 1, 4, 1 do
         if not parameters[2][i] or (parameters[2][i] < 0) or (parameters[2][i] > 255) then
