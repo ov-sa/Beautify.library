@@ -39,4 +39,21 @@ availableElements["beautify_slider"] = {
     }
 }
 
-availableElements["beautify_slider"]["APIs"] = {}
+availableElements["beautify_slider"]["APIs"] = {
+    ["clearSliderText"] = {
+        parameters = {
+            {name = "slider", type = "userdata", userDataType = "beautify_slider"}
+        }
+    },
+    ["setSliderText"] = {
+        parameters = {
+            {name = "slider", type = "userdata", userDataType = "beautify_slider"},
+            {name = "text", type = "string"}
+        }
+    },
+    ["getSliderText"] = {
+        parameters = {
+            {name = "slider", type = "userdata", userDataType = "beautify_slider"}
+        }
+    }
+}

@@ -39,16 +39,13 @@ function renderSlider(element, isFetchingInput, mouseReference)
         local slider_content_padding = availableElements["beautify_window"].contentSection.padding
         local slider_postGUI = elementReference.gui.postGUI
 
-        elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX = slider_startX
-        elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY = slider_startY
-        elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width = slider_width
-        elementReference.gui["__UI_INPUT_FETCH_CACHE__"].height = slider_height
-
         if not elementParent then dxSetRenderTarget() end
-        if not elementReference.gui["__UI_CACHE__"]["Thumb"] or not elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture or elementReference.gui["__UI_CACHE__"]["Thumb"].updateTexture then
-            if not elementReference.gui["__UI_CACHE__"]["Thumb"] then
-                elementReference.gui["__UI_CACHE__"]["Thumb"] = {}
-            end
+        if not elementReference.gui["__UI_CACHE__"]["Thumb"] then
+            elementReference.gui["__UI_CACHE__"]["Thumb"] = {
+                offsets = {}
+            }
+        end
+        if not elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture or elementReference.gui["__UI_CACHE__"]["Thumb"].updateTexture then
             if not elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget then
                 elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget = DxRenderTarget(slider_thumb_container_size, slider_thumb_container_size, true)
             end
@@ -102,35 +99,48 @@ function renderSlider(element, isFetchingInput, mouseReference)
         end
         local slider_track_color, slider_fontColor = tocolor(elementTemplate.track.color[1], elementTemplate.track.color[2], elementTemplate.track.color[3], elementTemplate.track.color[4]*elementReference.gui.animAlphaPercent), tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4]*elementReference.gui.animAlphaPercent)
         local slider_track_startX, slider_track_startY = slider_startX + slider_content_padding, slider_startY + (slider_height + (slider_track_size + slider_thumb_size + slider_thumb_shadow_size))*0.5
-        local slider_thumb_startX, slider_thumb_startY = slider_track_startX - slider_thumb_shadow_size, slider_track_startY - slider_thumb_shadow_size + ((slider_track_size - slider_thumb_size)*0.5)
-        dxDrawRectangle(slider_track_startX, slider_track_startY, slider_width - (slider_content_padding*2), slider_track_size, slider_track_color, slider_postGUI)
-        dxDrawText("PROGRESS: "..slider_percent.."%", slider_startX + slider_content_padding, slider_startY + (elementTemplate.fontPaddingY or 0), slider_startX + slider_width - (slider_content_padding*2), slider_track_startY, slider_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "right", "bottom", true, false, slider_postGUI, false)
-        if elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture then
-            dxDrawImage(slider_track_startX, slider_thumb_startY, slider_thumb_container_size, slider_thumb_container_size, elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture, 0, 0, 0, tocolor(255, 255, 255, 255), slider_postGUI)
+        local slider_track_width = math.max(0, slider_width - (slider_content_padding*2))
+        local slider_thumb_startX, slider_thumb_startY = slider_track_startX - slider_thumb_shadow_size + (slider_track_width - slider_thumb_size)*(slider_percent*0.01), slider_track_startY - slider_thumb_shadow_size + ((slider_track_size - slider_thumb_size)*0.5)
+        if (slider_track_width > 0) and (slider_height > slider_track_size) then
+            elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX = slider_thumb_startX
+            elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY = slider_thumb_startY
+            elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.size = slider_thumb_size
+            dxDrawRectangle(slider_track_startX, slider_track_startY, slider_track_width, slider_track_size, slider_track_color, slider_postGUI)
+            if elementReference.gui.text then
+                dxDrawText(elementReference.gui.text..": "..slider_percent.."%", slider_track_startX, slider_startY + (elementTemplate.fontPaddingY or 0), slider_track_startX + slider_track_width, slider_track_startY, slider_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "right", "bottom", true, false, slider_postGUI, false)
+            end
+            if elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture then
+                dxDrawImage(slider_thumb_startX, slider_thumb_startY, slider_thumb_container_size, slider_thumb_container_size, elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture, 0, 0, 0, tocolor(255, 255, 255, 255), slider_postGUI)
+            end
         end
     else
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
         renderElementChildren(element, true, mouseReference)
-        if elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width and elementReference.gui["__UI_INPUT_FETCH_CACHE__"].height then
-            local isElementHovered = CLIENT_HOVERED_ELEMENT == element
-            local isSliderHovered = false
-            if isElementHovered then
-                if not elementReference.isDisabled then
-                    isSliderHovered = isElementHovered
-                    --isSliderHovered = isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].height)
-                end
+        local isElementHovered = CLIENT_HOVERED_ELEMENT == element
+        local isSliderHovered, isSliderThumbHovered = false, false
+        if isElementHovered then
+            if not elementReference.isDisabled then
+                isSliderHovered = isElementHovered
             end
-            if isSliderHovered then
-                if elementReference.gui.hoverStatus ~= "forward" then
-                    elementReference.gui.hoverStatus = "forward"
-                    elementReference.gui.hoverAnimTickCounter = getTickCount()
-                end
-            else
-                if elementReference.gui.hoverStatus ~= "backward" then
-                    elementReference.gui.hoverStatus = "backward"
-                    elementReference.gui.hoverAnimTickCounter = getTickCount()
-                end
+        end
+        if isSliderHovered then
+            if elementReference.gui.hoverStatus ~= "forward" then
+                elementReference.gui.hoverStatus = "forward"
+                elementReference.gui.hoverAnimTickCounter = getTickCount()
             end
+            isSliderThumbHovered = isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX, __mouseReference.y + elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.size, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.size)
+        else
+            if elementReference.gui.hoverStatus ~= "backward" then
+                elementReference.gui.hoverStatus = "backward"
+                elementReference.gui.hoverAnimTickCounter = getTickCount()
+            end
+        end
+        if isSliderThumbHovered then
+            if isKeyClicked("mouse1") then
+                --TODO: DO QUERIES
+            end
+        else
+
         end
     end
     return true

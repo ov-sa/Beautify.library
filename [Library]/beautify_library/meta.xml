@@ -198,4 +198,13 @@
     <!-- Params: createSlider(x, y, width, height, type, parent, postGUI) | Returns Element; Else false Boolean -->
     <export function="createSlider" type="client"/>
 
+    <!-- Params: clearSliderText(slider) | Returns Boolean -->
+    <export function="clearSliderText" type="client"/>
+
+    <!-- Params: setSliderText(slider, text) | Returns Boolean -->
+    <export function="setSliderText" type="client"/>
+
+    <!-- Params: getSliderText(slider) | Returns Data; Else false Boolean -->
+    <export function="getSliderText" type="client"/>
+
 </meta>

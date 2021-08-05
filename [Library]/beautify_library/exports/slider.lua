@@ -52,3 +52,49 @@ function createSlider(...)
     return createdElement
 
 end
+
+
+---------------------------------------------------
+--[[ Functions: Clears/Sets/Gets Slider's Text ]]--
+---------------------------------------------------
+
+function clearSliderText(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "clearSliderText") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementReference = createdElements[element]
+    if not elementReference.gui.text then return false end
+    elementReference.gui.text = nil
+    return true
+
+end
+
+function setSliderText(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "setSliderText") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementReference = createdElements[element]
+    if (elementReference.gui.text == parameters[2]) then return false end
+    elementReference.gui.text = parameters[2]
+    return true
+
+end
+
+function getSliderText(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "getSliderText") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementReference = createdElements[element]
+    if not elementReference.gui.text then return false end
+    return elementReference.gui.text
+
+end

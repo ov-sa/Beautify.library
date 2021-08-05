@@ -56,13 +56,13 @@ function renderScrollbar(elementParent, renderData, referenceData, isFetchingInp
         scrollbar_thumb_size = referenceData.currentThumbSize
         dxDrawRectangle(scrollbar_startX, scrollbar_startY, scrollbar_width, scrollbar_height, scrollbar_track_color, scrollbar_postGUI)
         if scrollbar_isHorizontal then
-            local scrollbar_thumb_offset = (scrollbar_width - scrollbar_thumb_size)*(referenceData.currentPercent*0.01)
-            dxDrawRectangle(scrollbar_startX + scrollbar_thumb_offset, scrollbar_startY, scrollbar_thumb_size, scrollbar_height, scrollbar_thumb_color, scrollbar_postGUI)
-            dxDrawRectangle(scrollbar_startX + scrollbar_thumb_offset, scrollbar_startY, scrollbar_thumb_size, scrollbar_thumb_shadowSize, scrollbar_thumb_shadow_color, scrollbar_postGUI)
+            local scrollbar_thumb_startX, scrollbar_thumb_startY = scrollbar_startX + (scrollbar_width - scrollbar_thumb_size)*(referenceData.currentPercent*0.01), scrollbar_startY
+            dxDrawRectangle(scrollbar_thumb_startX, scrollbar_thumb_startY, scrollbar_thumb_size, scrollbar_height, scrollbar_thumb_color, scrollbar_postGUI)
+            dxDrawRectangle(scrollbar_thumb_startX, scrollbar_thumb_startY, scrollbar_thumb_size, scrollbar_thumb_shadowSize, scrollbar_thumb_shadow_color, scrollbar_postGUI)
         else
-            local scrollbar_thumb_offset = (scrollbar_height - scrollbar_thumb_size)*(referenceData.currentPercent*0.01)
-            dxDrawRectangle(scrollbar_startX, scrollbar_startY + scrollbar_thumb_offset, scrollbar_width, scrollbar_thumb_size, scrollbar_thumb_color, scrollbar_postGUI)
-            dxDrawRectangle(scrollbar_startX, scrollbar_startY + scrollbar_thumb_offset, scrollbar_thumb_shadowSize, scrollbar_thumb_size, scrollbar_thumb_shadow_color, scrollbar_postGUI)
+            local scrollbar_thumb_startX, scrollbar_thumb_startY = scrollbar_startX, scrollbar_startY + (scrollbar_height - scrollbar_thumb_size)*(referenceData.currentPercent*0.01)
+            dxDrawRectangle(scrollbar_thumb_startX, scrollbar_thumb_startY, scrollbar_width, scrollbar_thumb_size, scrollbar_thumb_color, scrollbar_postGUI)
+            dxDrawRectangle(scrollbar_thumb_startX, scrollbar_thumb_startY, scrollbar_thumb_shadowSize, scrollbar_thumb_size, scrollbar_thumb_shadow_color, scrollbar_postGUI)
         end
     else
         if not renderData.isDisabled then
