@@ -56,7 +56,7 @@ function renderGridlist(element, isFetchingInput, mouseReference)
         elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bar"] = {}
 
         if not elementParent then dxSetRenderTarget() end
-        if elementReference.gui["__UI_CACHE__"]["Column"].areColumnsModified then
+        if elementReference.gui["__UI_CACHE__"]["Column"].updateColumns then
             elementReference.gui["__UI_CACHE__"]["Column"].offsets = {}
             for i, j in ipairs(elementReference.gridData.columns) do
                 local gridlist_column_offsetX = ((elementReference.gui["__UI_CACHE__"]["Column"].offsets[i - 1] and elementReference.gui["__UI_CACHE__"]["Column"].offsets[i - 1].endX) or 0) + gridlist_columnBar_divider_size
@@ -65,7 +65,7 @@ function renderGridlist(element, isFetchingInput, mouseReference)
                     endX = gridlist_column_offsetX + j.width + gridlist_columnBar_divider_size
                 }
             end
-            elementReference.gui["__UI_CACHE__"]["Column"].areColumnsModified = false
+            elementReference.gui["__UI_CACHE__"]["Column"].updateColumns = false
         end
         dxDrawRectangle(gridlist_startX, gridlist_startY, gridlist_width, gridlist_height, gridlist_color, gridlist_postGUI)
 

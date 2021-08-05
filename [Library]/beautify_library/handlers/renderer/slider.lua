@@ -35,6 +35,7 @@ function renderSlider(element, isFetchingInput, mouseReference)
         local slider_type = elementReference.gui.type
         local slider_startX, slider_startY = elementReference.gui.x, elementReference.gui.y
         local slider_width, slider_height, slider_track_size, slider_thumb_size, slider_thumb_shadow_size = elementReference.gui.width, elementReference.gui.height, elementTemplate.track.size, elementTemplate.thumb.size, elementTemplate.thumb.shadowSize
+        local slider_thumb_container_size = slider_thumb_size + (slider_thumb_shadow_size*2)
         local slider_content_padding = availableElements["beautify_window"].contentSection.padding
         local slider_postGUI = elementReference.gui.postGUI
 
@@ -44,50 +45,37 @@ function renderSlider(element, isFetchingInput, mouseReference)
         elementReference.gui["__UI_INPUT_FETCH_CACHE__"].height = slider_height
 
         if not elementParent then dxSetRenderTarget() end
-        --[[
-        if not elementReference.gui["__UI_CACHE__"]["Content Section"] or not elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture or elementReference.gui["__UI_CACHE__"]["Content Section"].updateTexture then
-            if not elementReference.gui["__UI_CACHE__"]["Content Section"] then
-                elementReference.gui["__UI_CACHE__"]["Content Section"] = {}
+        if not elementReference.gui["__UI_CACHE__"]["Thumb"] or not elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture or elementReference.gui["__UI_CACHE__"]["Thumb"].updateTexture then
+            if not elementReference.gui["__UI_CACHE__"]["Thumb"] then
+                elementReference.gui["__UI_CACHE__"]["Thumb"] = {}
             end
-            if not elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget then
-                elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget = DxRenderTarget(slider_width, slider_height, true)
+            if not elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget then
+                elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget = DxRenderTarget(slider_thumb_container_size, slider_thumb_container_size, true)
             end
-            if elementReference.gui["__UI_CACHE__"]["Content Section"].updateTexture then
-                if elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture and isElement(elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture) then
-                    elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture:destroy()
-                    elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture = nil
+            if elementReference.gui["__UI_CACHE__"]["Thumb"].updateTexture then
+                if elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture and isElement(elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture) then
+                    elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture:destroy()
+                    elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture = nil
                 end
             end
-            dxSetRenderTarget(elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget, true)
+            dxSetRenderTarget(elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget, true)
             dxSetBlendMode("modulate_add")
-            local slider_borderSize = availableElements[elementType].minimumSize*0.5
-            local slider_color = tocolor(unpackColor(elementTemplate.color))
-            dxDrawImage(0, 0, slider_borderSize, slider_borderSize, createdAssets["images"]["curved_square/semi_thick/top_left.png"], 0, 0, 0, slider_color, false)
-            dxDrawImage(slider_width - slider_borderSize, 0, slider_borderSize, slider_borderSize, createdAssets["images"]["curved_square/semi_thick/top_right.png"], 0, 0, 0, slider_color, false)
-            dxDrawImage(0, slider_height - slider_borderSize, slider_borderSize, slider_borderSize, createdAssets["images"]["curved_square/semi_thick/bottom_left.png"], 0, 0, 0, slider_color, false)
-            dxDrawImage(slider_width - slider_borderSize, slider_height - slider_borderSize, slider_borderSize, slider_borderSize, createdAssets["images"]["curved_square/semi_thick/bottom_right.png"], 0, 0, 0, slider_color, false)
-            if slider_width > availableElements[elementType].minimumSize then
-                dxDrawRectangle(slider_borderSize, 0, slider_width - availableElements[elementType].minimumSize, slider_height, slider_color, false)
-            end
-            if slider_height > availableElements[elementType].minimumSize then
-                dxDrawRectangle(0, slider_borderSize, slider_borderSize, slider_height - availableElements[elementType].minimumSize, slider_color, false)
-                dxDrawRectangle(slider_width - slider_borderSize, slider_borderSize, slider_borderSize, slider_height - availableElements[elementType].minimumSize, slider_color, false)
-            end
+            dxDrawRectangle(0, 0, slider_thumb_container_size, slider_thumb_container_size, tocolor(unpackColor(elementTemplate.thumb.shadowColor)), false)
+            dxDrawRectangle(slider_thumb_shadow_size, slider_thumb_shadow_size, slider_thumb_size, slider_thumb_size, tocolor(unpackColor(elementTemplate.thumb.color)), false)
             dxSetBlendMode("blend")
             if not elementParent then
                 dxSetRenderTarget()
             else
                 dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
             end
-            local renderPixels = dxGetTexturePixels(elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget)
+            local renderPixels = dxGetTexturePixels(elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget)
             if renderPixels then
-                elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture = DxTexture(renderPixels, "argb", false, "clamp")
-                elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget:destroy()
-                elementReference.gui["__UI_CACHE__"]["Content Section"].renderTarget = nil
-                elementReference.gui["__UI_CACHE__"]["Content Section"].updateTexture = nil
+                elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture = DxTexture(renderPixels, "argb", false, "clamp")
+                elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget:destroy()
+                elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget = nil
+                elementReference.gui["__UI_CACHE__"]["Thumb"].updateTexture = nil
             end
         end
-        ]]--
 
         if not elementReference.gui.animAlphaPercent then
             elementReference.gui.animAlphaPercent = 0.8
@@ -114,11 +102,12 @@ function renderSlider(element, isFetchingInput, mouseReference)
         end
         local slider_track_color, slider_fontColor = tocolor(elementTemplate.track.color[1], elementTemplate.track.color[2], elementTemplate.track.color[3], elementTemplate.track.color[4]*elementReference.gui.animAlphaPercent), tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4]*elementReference.gui.animAlphaPercent)
         local slider_track_startX, slider_track_startY = slider_startX + slider_content_padding, slider_startY + (slider_height + (slider_track_size + slider_thumb_size + slider_thumb_shadow_size))*0.5
-        local slider_thumb_startX, slider_thumb_startY = slider_track_startX, slider_track_startY + ((slider_track_size - slider_thumb_size)*0.5)
+        local slider_thumb_startX, slider_thumb_startY = slider_track_startX - slider_thumb_shadow_size, slider_track_startY - slider_thumb_shadow_size + ((slider_track_size - slider_thumb_size)*0.5)
         dxDrawRectangle(slider_track_startX, slider_track_startY, slider_width - (slider_content_padding*2), slider_track_size, slider_track_color, slider_postGUI)
-        dxDrawRectangle(slider_track_startX - slider_thumb_shadow_size, slider_thumb_startY - slider_thumb_shadow_size, slider_thumb_size + (slider_thumb_shadow_size*2), slider_thumb_size + (slider_thumb_shadow_size*2), tocolor(unpackColor(elementTemplate.thumb.shadowColor)), slider_postGUI)
-        dxDrawRectangle(slider_track_startX, slider_thumb_startY, slider_thumb_size, slider_thumb_size, tocolor(unpackColor(elementTemplate.thumb.color)), slider_postGUI)
         dxDrawText("PROGRESS: "..slider_percent.."%", slider_startX + slider_content_padding, slider_startY + (elementTemplate.fontPaddingY or 0), slider_startX + slider_width - (slider_content_padding*2), slider_track_startY, slider_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "right", "bottom", true, false, slider_postGUI, false)
+        if elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture then
+            dxDrawImage(slider_track_startX, slider_thumb_startY, slider_thumb_container_size, slider_thumb_container_size, elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture, 0, 0, 0, tocolor(255, 255, 255, 255), slider_postGUI)
+        end
     else
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
         renderElementChildren(element, true, mouseReference)
