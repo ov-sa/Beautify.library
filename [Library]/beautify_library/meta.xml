@@ -177,6 +177,9 @@
     <!-- Params: getLabelText(label) | Returns Data; Else false Boolean -->
     <export function="getLabelText" type="client"/>
 
+    <!-- Params: clearLabelColor(label) | Returns Boolean -->
+    <export function="clearLabelColor" type="client"/>
+
     <!-- Params: setLabelColor(label, color) | Returns Boolean -->
     <export function="setLabelColor" type="client"/>
 

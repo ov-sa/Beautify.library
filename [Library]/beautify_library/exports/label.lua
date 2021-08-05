@@ -81,9 +81,23 @@ function getLabelText(...)
 end
 
 
---------------------------------------------
---[[ Functions: Sets/Gets Label's Color ]]--
---------------------------------------------
+---------------------------------------------------
+--[[ Functions: Clears/Sets/Gets Label's Color ]]--
+---------------------------------------------------
+
+function clearLabelColor(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "clearLabelColor") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementReference = createdElements[element]
+    if not elementReference.gui.fontColor then return false end
+    elementReference.gui.fontColor = nil
+    return true
+
+end
 
 function setLabelColor(...)
 
