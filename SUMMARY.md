@@ -6,18 +6,18 @@
 
 ## E L E M E N T S
 
-* [Window](.docs/window.md)
-* [Grid List](.docs/gridlist.md)
-* [Button](.docs/button.md)
-* [Label](.docs/label.md)
-* [Slider](.docs/slider.md)
-* [Switcher](.docs/switcher.md)
-* [Checkbox](.docs/checkbox.md)
-* [Progress Bar](.docs/progressbar.md)
-* [Tab Pane](.docs/tabpane.md)
-* [Deck](.docs/deck.md)
-* [Combo Box](.docs/combobox.md)
-* [Edit Box](.docs/editbox.md)
-* [Memo](.docs/memo.md)
+* [Window](.docs/elements/window.md)
+* [Grid List](.docs/elements/gridlist.md)
+* [Button](.docs/elements/button.md)
+* [Label](.docs/elements/label.md)
+* [Slider](.docs/elements/slider.md)
+* [Switcher](.docs/elements/switcher.md)
+* [Checkbox](.docs/elements/checkbox.md)
+* [Progress Bar](.docs/elements/progressbar.md)
+* [Tab Pane](.docs/elements/tabpane.md)
+* [Deck](.docs/elements/deck.md)
+* [Combo Box](.docs/elements/combobox.md)
+* [Edit Box](.docs/elements/editbox.md)
+* [Memo](.docs/elements/memo.md)
 
 
