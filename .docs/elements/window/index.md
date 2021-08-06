@@ -10,4 +10,4 @@
 
 ## ━ APIs:
 
-* [createWindow](#createWindow)
+* [createWindow]("/beautify-library/elements/index/createWindow")
