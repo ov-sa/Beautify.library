@@ -9,11 +9,18 @@
 ----------------------------------------------------------------
 
 
+-------------------
+--[[ Variables ]]--
+-------------------
+
+local elementType = "beautify_label"
+
+
 ------------------------
 --[[ Configurations ]]--
 ------------------------
 
-availableElements["beautify_label"] = {
+availableElements[elementType] = {
     syntax = {
         functionName = "createLabel",
         parameters = {
@@ -29,54 +36,54 @@ availableElements["beautify_label"] = {
     isDraggable = false
 }
 
-availableElements["beautify_label"]["APIs"] = {
+availableElements[elementType]["APIs"] = {
     ["setLabelText"] = {
         parameters = {
-            {name = "label", type = "userdata", userDataType = "beautify_label"},
+            {name = "label", type = "userdata", userDataType = elementType},
             {name = "text", type = "string"}
         }
     },
     ["getLabelText"] = {
         parameters = {
-            {name = "label", type = "userdata", userDataType = "beautify_label"}
+            {name = "label", type = "userdata", userDataType = elementType}
         }
     },
     ["clearLabelColor"] = {
         parameters = {
-            {name = "label", type = "userdata", userDataType = "beautify_label"}
+            {name = "label", type = "userdata", userDataType = elementType}
         }
     },
     ["setLabelColor"] = {
         parameters = {
-            {name = "label", type = "userdata", userDataType = "beautify_label"},
+            {name = "label", type = "userdata", userDataType = elementType},
             {name = "color", type = "table"}
         }
     },
     ["getLabelColor"] = {
         parameters = {
-            {name = "label", type = "userdata", userDataType = "beautify_label"}
+            {name = "label", type = "userdata", userDataType = elementType}
         }
     },
     ["setLabelHorizontalAlignment"] = {
         parameters = {
-            {name = "label", type = "userdata", userDataType = "beautify_label"},
+            {name = "label", type = "userdata", userDataType = elementType},
             {name = "alignment", type = "string"}
         }
     },
     ["getLabelHorizontalAlignment"] = {
         parameters = {
-            {name = "label", type = "userdata", userDataType = "beautify_label"}
+            {name = "label", type = "userdata", userDataType = elementType}
         }
     },
     ["setLabelVerticalAlignment"] = {
         parameters = {
-            {name = "label", type = "userdata", userDataType = "beautify_label"},
+            {name = "label", type = "userdata", userDataType = elementType},
             {name = "alignment", type = "string"}
         }
     },
     ["getLabelVerticalAlignment"] = {
         parameters = {
-            {name = "label", type = "userdata", userDataType = "beautify_label"}
+            {name = "label", type = "userdata", userDataType = elementType}
         }
     }
 }

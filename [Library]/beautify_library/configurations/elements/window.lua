@@ -9,11 +9,18 @@
 ----------------------------------------------------------------
 
 
+-------------------
+--[[ Variables ]]--
+-------------------
+
+local elementType = "beautify_window"
+
+
 ------------------------
 --[[ Configurations ]]--
 ------------------------
 
-availableElements["beautify_window"] = {
+availableElements[elementType] = {
     syntax = {
         functionName = "createWindow",
         parameters = {
@@ -44,4 +51,4 @@ availableElements["beautify_window"] = {
     }
 }
 
-availableElements["beautify_window"]["APIs"] = {}
+availableElements[elementType]["APIs"] = {}

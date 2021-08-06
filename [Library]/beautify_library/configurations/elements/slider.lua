@@ -9,11 +9,18 @@
 ----------------------------------------------------------------
 
 
+-------------------
+--[[ Variables ]]--
+-------------------
+
+local elementType = "beautify_slider"
+
+
 ------------------------
 --[[ Configurations ]]--
 ------------------------
 
-availableElements["beautify_slider"] = {
+availableElements[elementType] = {
     syntax = {
         functionName = "createSlider",
         parameters = {
@@ -40,21 +47,21 @@ availableElements["beautify_slider"] = {
     }
 }
 
-availableElements["beautify_slider"]["APIs"] = {
+availableElements[elementType]["APIs"] = {
     ["clearSliderText"] = {
         parameters = {
-            {name = "slider", type = "userdata", userDataType = "beautify_slider"}
+            {name = "slider", type = "userdata", userDataType = elementType}
         }
     },
     ["setSliderText"] = {
         parameters = {
-            {name = "slider", type = "userdata", userDataType = "beautify_slider"},
+            {name = "slider", type = "userdata", userDataType = elementType},
             {name = "text", type = "string"}
         }
     },
     ["getSliderText"] = {
         parameters = {
-            {name = "slider", type = "userdata", userDataType = "beautify_slider"}
+            {name = "slider", type = "userdata", userDataType = elementType}
         }
     }
 }

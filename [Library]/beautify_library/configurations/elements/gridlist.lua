@@ -9,11 +9,18 @@
 ----------------------------------------------------------------
 
 
+-------------------
+--[[ Variables ]]--
+-------------------
+
+local elementType = "beautify_gridlist"
+
+
 ------------------------
 --[[ Configurations ]]--
 ------------------------
 
-availableElements["beautify_gridlist"] = {
+availableElements[elementType] = {
     syntax = {
         functionName = "createGridlist",
         parameters = {
@@ -38,57 +45,57 @@ availableElements["beautify_gridlist"] = {
     }
 }
 
-availableElements["beautify_gridlist"]["APIs"] = {
+availableElements[elementType]["APIs"] = {
     ["countGridlistColumns"] = {
         parameters = {
-            {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"}
+            {name = "gridlist", type = "userdata", userDataType = elementType}
         }
     },
     ["addGridlistColumn"] = {
         parameters = {
-            {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"},
+            {name = "gridlist", type = "userdata", userDataType = elementType},
             {name = "name", type = "string"},
             {name = "width", type = "float"}
         }
     },
     ["removeGridlistColumn"] = {
         parameters = {
-            {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"},
+            {name = "gridlist", type = "userdata", userDataType = elementType},
             {name = "column", type = "number"}
         }
     },
     ["setGridlistColumnName"] = {
         parameters = {
-            {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"},
+            {name = "gridlist", type = "userdata", userDataType = elementType},
             {name = "column", type = "number"},
             {name = "name", type = "string"}
         }
     },
     ["getGridlistColumnName"] = {
         parameters = {
-            {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"},
+            {name = "gridlist", type = "userdata", userDataType = elementType},
             {name = "column", type = "number"}
         }
     },
     ["countGridlistRows"] = {
         parameters = {
-            {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"}
+            {name = "gridlist", type = "userdata", userDataType = elementType}
         }
     },
     ["addGridlistRow"] = {
         parameters = {
-            {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"}
+            {name = "gridlist", type = "userdata", userDataType = elementType}
         }
     },
     ["removeGridlistRow"] = {
         parameters = {
-            {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"},
+            {name = "gridlist", type = "userdata", userDataType = elementType},
             {name = "row", type = "number"}
         }
     },
     ["setGridlistRowData"] = {
         parameters = {
-            {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"},
+            {name = "gridlist", type = "userdata", userDataType = elementType},
             {name = "row", type = "number"},
             {name = "column", type = "number"},
             {name = "data", type = "string"}
@@ -96,20 +103,20 @@ availableElements["beautify_gridlist"]["APIs"] = {
     },
     ["getGridlistRowData"] = {
         parameters = {
-            {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"},
+            {name = "gridlist", type = "userdata", userDataType = elementType},
             {name = "row", type = "number"},
             {name = "column", type = "number"}
         }
     },
     ["setGridlistSelection"] = {
         parameters = {
-            {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"},
+            {name = "gridlist", type = "userdata", userDataType = elementType},
             {name = "row", type = "number"}
         }
     },
     ["getGridlistSelection"] = {
         parameters = {
-            {name = "gridlist", type = "userdata", userDataType = "beautify_gridlist"}
+            {name = "gridlist", type = "userdata", userDataType = elementType}
         }
     }
 }

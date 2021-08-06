@@ -9,11 +9,18 @@
 ----------------------------------------------------------------
 
 
+-------------------
+--[[ Variables ]]--
+-------------------
+
+local elementType = "beautify_button"
+
+
 ------------------------
 --[[ Configurations ]]--
 ------------------------
 
-availableElements["beautify_button"] = {
+availableElements[elementType] = {
     syntax = {
         functionName = "createButton",
         parameters = {
@@ -42,16 +49,16 @@ availableElements["beautify_button"] = {
     }
 }
 
-availableElements["beautify_button"]["APIs"] = {
+availableElements[elementType]["APIs"] = {
     ["setButtonText"] = {
         parameters = {
-            {name = "button", type = "userdata", userDataType = "beautify_button"},
+            {name = "button", type = "userdata", userDataType = elementType},
             {name = "text", type = "string"}
         }
     },
     ["getButtonText"] = {
         parameters = {
-            {name = "button", type = "userdata", userDataType = "beautify_button"}
+            {name = "button", type = "userdata", userDataType = elementType}
         }
     }
 }
