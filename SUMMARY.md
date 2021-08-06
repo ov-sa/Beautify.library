@@ -8,7 +8,7 @@
 
 ## ELEMENTS
 * [Window](.docs/elements/window/index.md)
-  * [createWindow](.docs/elements/window/createWindow.md)
+  * [createWindow](.docs/elements/window/createwindow.md)
 * [Grid List](.docs/elements/gridlist.md)
 * [Button](.docs/elements/button.md)
 * [Label](.docs/elements/label.md)
