@@ -19,6 +19,7 @@
   * [removeGridlistColumn](docs/elements/gridlist/removegridlistcolumn.md)
   * [setGridlistColumnName](docs/elements/gridlist/setgridlistcolumnname.md)
   * [getGridlistColumnName](docs/elements/gridlist/getgridlistcolumnname.md)
+  * [countGridlistRows](docs/elements/gridlist/countgridlistrows.md)
 
 * [Button](docs/elements/button.md)
 * [Label](docs/elements/label.md)
