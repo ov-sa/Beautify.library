@@ -1,4 +1,4 @@
-# B E A U T I F Y ━ L I B R A R Y
+# ━ S Y N O P S I S
 
 **Beautify Library** is a open-source DX based powerful UI library made by **ᴏᴠ Team** for [Multi Theft Auto \(MTA\)](https://multitheftauto.com/).
 
@@ -30,3 +30,4 @@
 3. Type `refresh` in the console to load the library.
 4. Type `start beautify_library` in the console and the library shall be successfully started.
 5. Head over to [Getting Started](https://github.com/OvileAmriam/MTA-Beautify-Library/wiki/Getting-Started) to know more about the usage.
+

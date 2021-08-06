@@ -1,3 +1,5 @@
+# Window
+
 ## ━ Properties:
 
 * **Reference:** `window`
@@ -10,4 +12,7 @@
 
 ## ━ APIs:
 
-* [createWindow](/beautify-library/elements/index/createWindow)
+* [createWindow](createwindow.md)
+
+
+
