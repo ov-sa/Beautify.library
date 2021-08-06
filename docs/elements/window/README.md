@@ -1,5 +1,3 @@
-# Window
-
 ## ━ Properties:
 
 * **Reference:** `window`
