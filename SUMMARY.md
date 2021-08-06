@@ -9,7 +9,7 @@
 
 ## ELEMENTS
 
-* [Window](.docs/elements/window/README.md)
+* [Window](.docs/elements/window/main.md)
   * [createWindow](.docs/elements/window/APIs/createwindow.md)
 * [Grid List](.docs/elements/gridlist.md)
 * [Button](.docs/elements/button.md)
