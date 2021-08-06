@@ -1,6 +1,6 @@
 ---
 description: >-
-  Counts and retrieves the number of columns within your gridlist.
+  Counts and retrieves the number of columns within the gridlist.
 ---
 
 ## **Syntax:**

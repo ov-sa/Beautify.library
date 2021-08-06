@@ -15,6 +15,8 @@
 * [Grid List](docs/elements/gridlist/README.md)
   * [createGridlist](docs/elements/gridlist/creategridlist.md)
   * [countGridlistColumns](docs/elements/gridlist/countgridlistcolumns.md)
+  * [addGridlistColumn](docs/elements/gridlist/addgridlistcolumn.md)
+  * [removeGridlistColumn](docs/elements/gridlist/removegridlistcolumn.md)
 * [Button](docs/elements/button.md)
 * [Label](docs/elements/label.md)
 * [Slider](docs/elements/slider.md)

@@ -32,4 +32,3 @@ local createdWindow = beautify.window.createWindow((sX - window_width)/2, (sY - 
 beautify.setUIDraggable(createdWindow, true)
 beautify.setUIVisible(createdWindow, true)
 ```
-

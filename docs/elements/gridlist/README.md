@@ -19,4 +19,3 @@
 * [getGridlistRowData](getgridlistrowdata)
 * [setGridlistSelection](setgridlistselection)
 * [getGridlistSelection](getgridlistselection)
-

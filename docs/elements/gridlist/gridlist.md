@@ -1,56 +1,5 @@
 
 
-## ━ addGridlistColumn
-
-Adds new column to your gridlist.
-
-### **Syntax:**
-
-```lua
-column addGridlistColumn(gridlist, name, width)
-```
-
-#### _**\#Counterpart:**_ [_**removeGridlistColumn**_](https://github.com/OvileAmriam/MTA-Beautify-Library/wiki/Gridlist#-removeGridlistColumn)
-
-* **Parameters:**
-  * **gridlist** \(_element_\) : Gridlist element you wish to add the column in.
-  * **name** \(_string_\) : Name of the column.
-  * **width** \(_float_\) : Absolute width of the column.
-* **Returns:**
-  * **column** \(_int_\) : Added column's index.
-* **Example:**
-
-  ```lua
-  local columnIndex1 = beautify.gridlist.addGridlistColumn(createdGridlist, "S.No", 75)
-  local columnIndex2 = beautify.gridlist.addGridlistColumn(createdGridlist, "Name", 250)
-  local columnIndex3 = beautify.gridlist.addGridlistColumn(createdGridlist, "Country", 100)
-  local columnIndex4 = beautify.gridlist.addGridlistColumn(createdGridlist, "Rank", 250)
-  ```
-
-## ━ removeGridlistColumn
-
-Removes specified column from your gridlist.
-
-### **Syntax:**
-
-```lua
-state removeGridlistColumn(gridlist, column)
-```
-
-#### _**\#Counterpart:**_ [_**addGridlistColumn**_](https://github.com/OvileAmriam/MTA-Beautify-Library/wiki/Gridlist#-addGridlistColumn)
-
-* **Parameters:**
-  * **gridlist** \(_element_\) : Gridlist element you wish to remove the column from.
-  * **column** \(_int_\) : Index of the column you wish to remove.
-* **Returns:**
-  * **state** \(_bool_\) : Execution state.
-* **Example:**
-
-  ```lua
-  local resultState = beautify.gridlist.removeGridlistColumn(createdGridlist, 1)
-  print(tostring(resultState))
-  ```
-
 ## ━ setGridlistColumnName
 
 Sets specified column's name within your gridlist.
