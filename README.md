@@ -1,5 +1,3 @@
-# README
-
 ## Beautify Library
 
 > **Beautify Library** is a open-source DX based powerful UI library made by **ᴏᴠ Team** for [Multi Theft Auto \(MTA\)](https://multitheftauto.com/). **Beautify** combines powerful visualization and interaction techniques with component based **Template** approach for theme manipulation, giving you the full capabilities of modern UIs and the freedom to design the right visual interface for your environment. Beautify helps you to accelerate and spin up your beautiful UIs faster without stressing about performances issues, since the library is developed with '**Performance-First**' in mind!
