@@ -1,8 +1,8 @@
 # Table of contents
 
-* [README](README.md)
+* [Introduction](README.md)
 
-## INFO
+## REFERENCES
 
-* [Untitled](info/untitled.md)
+* [Untitled](.docs//untitled.md)
 
