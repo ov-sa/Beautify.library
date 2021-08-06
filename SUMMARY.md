@@ -4,23 +4,23 @@
 
 ## G L O S S A R Y
 
-* [Getting Started](g-l-o-s-s-a-r-y/getting_started.md)
-* [References](g-l-o-s-s-a-r-y/references.md)
+* [Getting Started](.docs/glossary/getting_started.md)
+* [References](.docs/glossary/references.md)
 
 ## ELEMENTS
 
-* [Window](elements/index/README.md)
-  * [createWindow](elements/index/createwindow.md)
-* [Grid List](elements/gridlist.md)
-* [Button](elements/button.md)
-* [Label](elements/label.md)
-* [Slider](elements/slider.md)
-* [Switcher](elements/switcher.md)
-* [Checkbox](elements/checkbox.md)
-* [Progress Bar](elements/progressbar.md)
-* [Tab Pane](elements/tabpane.md)
-* [Deck](elements/deck.md)
-* [Combo Box](elements/combobox.md)
-* [Edit Box](elements/edit-box.md)
-* [Memo](elements/memo.md)
+* [Window](.docs/elements/index/README.md)
+  * [createWindow](.docs/elements/index/createwindow.md)
+* [Grid List](.docs/elements/gridlist.md)
+* [Button](.docs/elements/button.md)
+* [Label](.docs/elements/label.md)
+* [Slider](.docs/elements/slider.md)
+* [Switcher](.docs/elements/switcher.md)
+* [Checkbox](.docs/elements/checkbox.md)
+* [Progress Bar](.docs/elements/progressbar.md)
+* [Tab Pane](.docs/elements/tabpane.md)
+* [Deck](.docs/elements/deck.md)
+* [Combo Box](.docs/elements/combobox.md)
+* [Edit Box](.docs/elements/edit-box.md)
+* [Memo](.docs/elements/memo.md)
 
