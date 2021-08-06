@@ -1,14 +1,14 @@
 # Table of contents
 
+* [Introduction](.README.md)
+
 ## G L O S S A R Y
-* [Introduction](.docs/test.md)
-* [Getting Started](.docs/getting_started.md)
+* [Getting Started](.docs/glossary/getting_started.md)
+* [References](.docs/glossary/references.md)
 
 ## E L E M E N T S
 
 * [Window](.docs/elements/window.md)
-  * [Window](.docs/elements/window.md)
-    * [Window](.docs/elements/window.md)
 * [Grid List](.docs/elements/gridlist.md)
 * [Button](.docs/elements/button.md)
 * [Label](.docs/elements/label.md)
