@@ -10,4 +10,4 @@
 
 ## ━ APIs:
 
-* [createWindow](/createWindow.md)
+* [createWindow](https://crazynuggets.gitbook.io/beautify-library/elements/index/createwindow)
