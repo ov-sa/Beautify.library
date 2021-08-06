@@ -4,7 +4,7 @@
 * **isDraggable:** `false`
 * **Allowed Children:** -
 
-## APIs :
+## APIs:
 
 * [createGridlist](creategridlist)
 * [countGridlistColumns](countgridlistcolumns)
