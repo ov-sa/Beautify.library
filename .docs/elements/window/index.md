@@ -10,4 +10,4 @@
 
 ## ━ APIs:
 
-* [createWindow](/createwindow)
+* [createWindow](.docs/elements/window/APIs/createWindow.md)
