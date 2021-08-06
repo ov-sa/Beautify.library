@@ -1,3 +1,7 @@
+---
+description: 'Test'
+---
+
 ## Beautify Library
 
 **Beautify Library** is a open-source DX based powerful UI library made by **ᴏᴠ Team** for [Multi Theft Auto (MTA)](https://multitheftauto.com/).
