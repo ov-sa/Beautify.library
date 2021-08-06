@@ -13,6 +13,7 @@
 * [Window](docs/elements/window/README.md)
   * [createWindow](docs/elements/window/createwindow.md)
 * [Grid List](docs/elements/gridlist/README.md)
+  * [createGridlist](docs/elements/window/creategridlist.md)
 * [Button](docs/elements/button.md)
 * [Label](docs/elements/label.md)
 * [Slider](docs/elements/slider.md)

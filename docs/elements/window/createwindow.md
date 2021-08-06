@@ -3,8 +3,6 @@ description: >-
   Creates a new blank window which can be further used as a container for other elements.
 ---
 
-# createWindow
-
 ## **Syntax:**
 
 ```lua
@@ -28,10 +26,10 @@ window createWindow(x, y, width, height, title, [parent = nil], [postGUI = false
 ## **Example:**
 
 ```lua
-  local sX, sY = guiGetScreenSize()
-  local window_width, window_height = 600, 300
-  local createdWindow = beautify.window.createWindow((sX - window_width)/2, (sY - window_height)/2, window_width, window_height, "Window #1", nil, false)
-  beautify.setUIDraggable(createdWindow, true)
-  beautify.setUIVisible(createdWindow, true)
+local sX, sY = guiGetScreenSize()
+local window_width, window_height = 600, 300
+local createdWindow = beautify.window.createWindow((sX - window_width)/2, (sY - window_height)/2, window_width, window_height, "Window #1", nil, false)
+beautify.setUIDraggable(createdWindow, true)
+beautify.setUIVisible(createdWindow, true)
 ```
 
