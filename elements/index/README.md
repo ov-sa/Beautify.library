@@ -14,5 +14,3 @@
 
 * [createWindow](createwindow.md)
 
-
-
