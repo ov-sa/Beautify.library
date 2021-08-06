@@ -1,12 +1,10 @@
 # Table of contents
 
-* [━ S Y N O P S I S](README.md)
-
 ## G L O S S A R Y
 * [Getting Started](.docs/glossary/getting_started.md)
 * [References](.docs/glossary/references.md)
 
-## E L E M E N T S
+## ELEMENTS
 
 * [Window](.docs/elements/window.md)
 * [Grid List](.docs/elements/gridlist.md)
