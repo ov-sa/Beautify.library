@@ -1,26 +1,5 @@
 
 
-Counts and retrieves number of columns within your gridlist.
-
-### **Syntax:**
-
-```lua
-count countGridlistColumns(gridlist)
-```
-
-#### _**\#Counterpart:**_ [_**countGridlistRows**_](https://github.com/OvileAmriam/MTA-Beautify-Library/wiki/Gridlist#-countGridlistRows)
-
-* **Parameters:**
-  * **gridlist** \(_element_\) : Gridlist element you wish to retrieve the column count of.
-* **Returns:**
-  * **count** \(_int_\) : Number of columns.
-* **Example:**
-
-  ```lua
-  local totalColumns = beautify.gridlist.countGridlistColumns(createdGridlist)
-  print(totalColumns)
-  ```
-
 ## ━ addGridlistColumn
 
 Adds new column to your gridlist.

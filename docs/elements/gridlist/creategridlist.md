@@ -11,16 +11,16 @@ gridlist createGridlist(x, y, width, height, [parent = nil], [postGUI = false])
 
 ### **Parameters:**
 
-* **x** \(_float_\) : Absolute x coordinate of the gridlist within the container.
-* **y** \(_float_\) : Absolute y coordinate of the gridlist within the container.
-* **width** \(_float_\) : Absolute width of the gridlist.
-* **height** \(_float_\) : Absolute height of the gridlist.
-* **parent** \(_element_\) : Supported parent element to use as a container for the gridlist. \(_Optional_\)
-* **postGUI** \(_bool_\) : State whether the UI will be drawn below/over CEGUI. \(_Optional_\)
+* **x** \(float\) : Absolute x coordinate of the gridlist within the container.
+* **y** \(float\) : Absolute y coordinate of the gridlist within the container.
+* **width** \(float\) : Absolute width of the gridlist.
+* **height** \(float\) : Absolute height of the gridlist.
+* **parent** \(element\) : Supported parent element to use as a container for the gridlist. \(_Optional_\)
+* **postGUI** \(bool\) : State whether the UI will be drawn below/over CEGUI. \(_Optional_\)
 
 ### **Returns:**
 
-* **gridlist** \(_element_\) : Created gridlist element.
+* **gridlist** \(element\) : Created gridlist element.
 
 ## **Example:**
 

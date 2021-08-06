@@ -11,17 +11,17 @@ window createWindow(x, y, width, height, title, [parent = nil], [postGUI = false
 
 ### **Parameters:**
 
-* **x** \(_float_\) : Absolute x coordinate of the window within the container.
-* **y** \(_float_\) : Absolute y coordinate of the window within the container.
-* **width** \(_float_\) : Absolute width of the window.
-* **height** \(_float_\) : Absolute height of the window.
-* **title** \(_string_\) : Title of the window.
-* **parent** \(_element_\) : Supported parent element to use as a container for the window. \(_Optional_\)
-* **postGUI** \(_bool_\) : State whether the UI will be drawn below/over CEGUI. \(_Optional_\)
+* **x** \(float\) : Absolute x coordinate of the window within the container.
+* **y** \(float\) : Absolute y coordinate of the window within the container.
+* **width** \(float\) : Absolute width of the window.
+* **height** \(float\) : Absolute height of the window.
+* **title** \(string\) : Title of the window.
+* **parent** \(element\) : Supported parent element to use as a container for the window. \(_Optional_\)
+* **postGUI** \(bool\) : State whether the UI will be drawn below/over CEGUI. \(_Optional_\)
 
 ### **Returns:**
 
-* **window** \(_element_\) : Created window element.
+* **window** \(element\) : Created window element.
 
 ## **Example:**
 
