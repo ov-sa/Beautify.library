@@ -31,6 +31,7 @@ availableElements["beautify_button"] = {
     },
     renderFunction = renderButton,
     allowedChildren = false,
+    isDraggable = false,
     minimumSize = 24,
     ["TEMPLATE_PROPERTIES"] = {
         ["default"] = {}

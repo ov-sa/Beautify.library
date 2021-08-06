@@ -26,6 +26,7 @@ availableElements["beautify_slider"] = {
     },
     renderFunction = renderSlider,
     allowedChildren = false,
+    isDraggable = false,
     minimumSize = 24,
     minimumWidth = 24,
     minimumHeight = 24,

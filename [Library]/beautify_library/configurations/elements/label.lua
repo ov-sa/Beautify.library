@@ -25,7 +25,8 @@ availableElements["beautify_label"] = {
         }
     },
     renderFunction = renderLabel,
-    allowedChildren = false
+    allowedChildren = false,
+    isDraggable = false
 }
 
 availableElements["beautify_label"]["APIs"] = {

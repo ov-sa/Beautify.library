@@ -25,6 +25,7 @@ availableElements["beautify_gridlist"] = {
     },
     renderFunction = renderGridlist,
     allowedChildren = false,
+    isDraggable = false,
     minimumSize = 25,
     columnBar = {
         padding = 5,
