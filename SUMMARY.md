@@ -7,7 +7,6 @@
 * [References](.docs/glossary/references.md)
 
 ## * ELEMENTS
-
   * [Window](.docs/elements/window/index.md)
     * [createWindow](.docs/elements/window/APIs/createWindow.md)
   * [Grid List](.docs/elements/gridlist.md)
