@@ -3,7 +3,6 @@ description: 'Creates a new blank window which can be further used as a containe
 ---
 
 ## **Syntax:**
-
 ```lua
 window createWindow(x, y, width, height, title, [parent = nil], [postGUI = false])
 ```
@@ -16,6 +15,7 @@ window createWindow(x, y, width, height, title, [parent = nil], [postGUI = false
   * **title** \(_string_\) : Title of the window.
   * **parent** \(_element_\) : Supported parent element to use as a container for the window. \(_Optional_\)
   * **postGUI** \(_bool_\) : State whether the UI will be drawn below/over CEGUI. \(_Optional_\)
+
 ### **Returns:**
   * **window** \(_element_\) : Created window element.
 
