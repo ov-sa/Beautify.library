@@ -1,4 +1,4 @@
-## ━ Properties:
+## Properties:
 
 * **Reference:** `window`
 * **isDraggable:** `true`
@@ -8,7 +8,7 @@
   * `label`
   * `slider`
 
-## ━ APIs:
+## APIs:
 
 * [createWindow](createwindow.md)
 
