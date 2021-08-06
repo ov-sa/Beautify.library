@@ -1,12 +1,14 @@
-Creates a new blank window which can be further used as a container for other elements.
+---
+description: 'Creates a new blank window which can be further used as a container for other elements.'
+---
 
-### **Syntax:**
+## **Syntax:**
 
 ```lua
 window createWindow(x, y, width, height, title, [parent = nil], [postGUI = false])
 ```
 
-* **Parameters:**
+### **Parameters:**
   * **x** \(_float_\) : Absolute x coordinate of the window within the container.
   * **y** \(_float_\) : Absolute y coordinate of the window within the container.
   * **width** \(_float_\) : Absolute width of the window.
@@ -14,9 +16,10 @@ window createWindow(x, y, width, height, title, [parent = nil], [postGUI = false
   * **title** \(_string_\) : Title of the window.
   * **parent** \(_element_\) : Supported parent element to use as a container for the window. \(_Optional_\)
   * **postGUI** \(_bool_\) : State whether the UI will be drawn below/over CEGUI. \(_Optional_\)
-* **Returns:**
+### **Returns:**
   * **window** \(_element_\) : Created window element.
-* **Example:**
+
+## **Example:**
 
   ```lua
   local sX, sY = guiGetScreenSize()
