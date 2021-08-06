@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Introduction](.README.md)
+* [Synopsis](.README.md)
 
 ## G L O S S A R Y
 * [Getting Started](.docs/glossary/getting_started.md)

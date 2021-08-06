@@ -35,12 +35,12 @@ button createButton(text, x, y, type, ...Template_Parameters..., [parent = nil],
 - ### **Returns:**
   - **button** (_element_) : Created button element.
 - ### **Example:**
-
 ```lua
 local sX, sY = guiGetScreenSize()
 local button_width, button_height = 175, 24
 local createdButton = beautify.button.createButton("Button #1", (sX - button_width)/2, (sY - button_height)/2, "default", button_width, button_height, nil, false)
 beautify.setUIVisible(createdButton, true)
+
 addEventHandler("onClientUIClick", createdButton, function(key)
     print("You've clicked your button! (Key: "..key..")")
 end)
