@@ -1,54 +1,5 @@
 
 
-## ━ setGridlistColumnName
-
-Sets specified column's name within your gridlist.
-
-### **Syntax:**
-
-```lua
-state setGridlistColumnName(gridlist, column, name)
-```
-
-#### _**\#Counterpart:**_ [_**getGridlistColumnName**_](https://github.com/OvileAmriam/MTA-Beautify-Library/wiki/Gridlist#-getGridlistColumnName)
-
-* **Parameters:**
-  * **gridlist** \(_element_\) : Gridlist element you wish to update the column name of.
-  * **column** \(_int_\) : Index of the column you wish to update.
-  * **name** \(_string_\) : Name of the column.
-* **Returns:**
-  * **state** \(_bool_\) : Execution state.
-* **Example:**
-
-  ```lua
-  local resultState = beautify.gridlist.setGridlistColumnName(createdGridlist, 1, "Serial")
-  print(tostring(resultState))
-  ```
-
-## ━ getGridlistColumnName
-
-Retrieves specified column's name from your gridlist.
-
-### **Syntax:**
-
-```lua
-name getGridlistColumnName(gridlist, column)
-```
-
-#### _**\#Counterpart:**_ [_**setGridlistColumnName**_](https://github.com/OvileAmriam/MTA-Beautify-Library/wiki/Gridlist#-setGridlistColumnName)
-
-* **Parameters:**
-  * **gridlist** \(_element_\) : Gridlist element you wish to retrieve the column name of.
-  * **column** \(_int_\) : Index of the column you wish to retrieve the name of.
-* **Returns:**
-  * **name** \(_string_\) : Name of the column.
-* **Example:**
-
-  ```lua
-  local columnName= beautify.gridlist.getGridlistColumnName(createdGridlist, 1)
-  print(columnName)
-  ```
-
 ## ━ countGridlistRows
 
 Counts and retrieves number of rows within your gridlist.
