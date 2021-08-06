@@ -1,6 +1,6 @@
 # Table of contents
 
-* [INTRODUCTION](README.md)
+* [INTRODUCTION](.docs/introduction.md)
 
 ## REFERENCES
 
