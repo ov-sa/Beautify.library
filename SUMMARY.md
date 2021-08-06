@@ -7,7 +7,7 @@
 * [Getting Started](docs/glossary/getting_started.md)
 * [References](docs/glossary/references.md)
 
-## ELEMENTS
+## E L E M E N T S
 
 * [Window](docs/elements/window/README.md)
   * [createWindow](docs/elements/window/createwindow.md)
