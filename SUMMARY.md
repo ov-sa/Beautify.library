@@ -2,13 +2,13 @@
 
 * [━ S Y N O P S I S](README.md)
 
-## G L O S S A R Y <a id="glossary"></a>
+## 📌 G L O S S A R Y <a id="glossary"></a>
 
 * [Getting Started](docs/glossary/getting_started.md)
 * [Releases](https://github.com/OvileAmriam/MTA-Beautify-Library/releases)
 * [Discord Community](http://discord.gg/sVCnxPW)
 
-## E L E M E N T S <a id="elements"></a>
+## 📕 E L E M E N T S <a id="elements"></a>
 
 * [Window](docs/elements/window/README.md)
   * [createWindow](docs/elements/window/createwindow.md)
