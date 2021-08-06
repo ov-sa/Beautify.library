@@ -2,12 +2,12 @@
 
 * [━ S Y N O P S I S](README.md)
 
-## G L O S S A R Y <a id="glossary"></a>
+## G L O S S A R Y
 
 * [Getting Started](docs/glossary/getting_started.md)
 * [References](docs/glossary/references.md)
 
-## E L E M E N T S <a id="elements"></a>
+## E L E M E N T S
 
 * [Window](docs/elements/window/README.md)
   * [createWindow](docs/elements/window/createwindow.md)
