@@ -1,6 +1,6 @@
 # Table of contents
 
-* [README](README.md)
+* [Initial page](README.md)
 
 ## INFO
 
