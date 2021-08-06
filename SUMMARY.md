@@ -1,7 +1,7 @@
 # Table of contents
 
 ## G L O S S A R Y
-* [Testing](.docs/introduction.md)
+* [Introduction](.docs/test.md)
 * [Getting Started](.docs/getting_started.md)
 
 ## E L E M E N T S
