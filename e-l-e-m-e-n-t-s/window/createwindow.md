@@ -1,6 +1,7 @@
 ---
 description: >-
-  Creates a new blank window which can be further used as a container for other elements.
+  Creates a new blank window which can be further used as a container for other
+  elements.
 ---
 
 # createWindow

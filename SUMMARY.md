@@ -2,25 +2,25 @@
 
 * [━ S Y N O P S I S](README.md)
 
-## G L O S S A R Y
+## G L O S S A R Y <a id="glossary"></a>
 
-* [Getting Started](docs/glossary/getting_started.md)
-* [References](docs/glossary/references.md)
+* [Getting Started](glossary/getting_started.md)
+* [References](glossary/references.md)
 
 ## E L E M E N T S
 
-* [Window](docs/elements/window/README.md)
-  * [createWindow](docs/elements/window/createwindow.md)
-* [Grid List](docs/elements/gridlist.md)
-* [Button](docs/elements/button.md)
-* [Label](docs/elements/label.md)
-* [Slider](docs/elements/slider.md)
-* [Switcher](docs/elements/switcher.md)
-* [Checkbox](docs/elements/checkbox.md)
-* [Progress Bar](docs/elements/progressbar.md)
-* [Tab Pane](docs/elements/tabpane.md)
-* [Deck](docs/elements/deck.md)
-* [Combo Box](docs/elements/combobox.md)
-* [Edit Box](docs/elements/edit-box.md)
-* [Memo](docs/elements/memo.md)
+* [Window](e-l-e-m-e-n-t-s/window/README.md)
+  * [createWindow](e-l-e-m-e-n-t-s/window/createwindow.md)
+* [Grid List](e-l-e-m-e-n-t-s/gridlist.md)
+* [Button](e-l-e-m-e-n-t-s/button.md)
+* [Label](e-l-e-m-e-n-t-s/label.md)
+* [Slider](e-l-e-m-e-n-t-s/slider.md)
+* [Switcher](e-l-e-m-e-n-t-s/switcher.md)
+* [Checkbox](e-l-e-m-e-n-t-s/checkbox.md)
+* [Progress Bar](e-l-e-m-e-n-t-s/progressbar.md)
+* [Tab Pane](e-l-e-m-e-n-t-s/tabpane.md)
+* [Deck](e-l-e-m-e-n-t-s/deck.md)
+* [Combo Box](e-l-e-m-e-n-t-s/combobox.md)
+* [Edit Box](e-l-e-m-e-n-t-s/edit-box.md)
+* [Memo](e-l-e-m-e-n-t-s/memo.md)
 
