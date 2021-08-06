@@ -5,7 +5,8 @@
 ## G L O S S A R Y <a id="glossary"></a>
 
 * [Getting Started](docs/glossary/getting_started.md)
-* [References](docs/glossary/references.md)
+* [Releases](https://github.com/OvileAmriam/MTA-Beautify-Library/releases)
+* [Discord Community](http://discord.gg/sVCnxPW)
 
 ## E L E M E N T S <a id="elements"></a>
 
