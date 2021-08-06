@@ -13,12 +13,12 @@ state removeGridlistColumn(gridlist, column)
 
 ### **Parameters:**
 
-* **gridlist** \(_element_\) : Gridlist element you wish to remove the column from.
-* **column** \(_int_\) : Index of the column you wish to remove.
+* **gridlist** \(element\) : Gridlist element you wish to remove the column from.
+* **column** \(int\) : Index of the column you wish to remove.
 
 ### **Returns:**
 
-* **state** \(_bool_\) : Execution state.
+* **state** \(bool\) : Execution state.
 
 ## **Example:**
 
