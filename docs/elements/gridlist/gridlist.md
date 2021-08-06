@@ -1,53 +1,5 @@
 
 
-## ━ addGridlistRow
-
-Adds new row to your gridlist.
-
-### **Syntax:**
-
-```lua
-row addGridlistRow(gridlist)
-```
-
-#### _**\#Counterpart:**_ [_**removeGridlistRow**_](https://github.com/OvileAmriam/MTA-Beautify-Library/wiki/Gridlist#-removeGridlistRow)
-
-* **Parameters:**
-  * **gridlist** \(_element_\) : Gridlist element you wish to add the row in.
-* **Returns:**
-  * **row** \(_int_\) : Added row's index.
-* **Example:**
-
-  ```lua
-  local rowIndex1 = beautify.gridlist.addGridlistRow(createdGridlist)
-  local rowIndex2 = beautify.gridlist.addGridlistRow(createdGridlist)
-  local rowIndex3 = beautify.gridlist.addGridlistRow(createdGridlist)
-  ```
-
-## ━ removeGridlistRow
-
-Removes specified row from your gridlist.
-
-### **Syntax:**
-
-```lua
-state removeGridlistRow(gridlist, row)
-```
-
-#### _**\#Counterpart:**_ [_**addGridlistRow**_](https://github.com/OvileAmriam/MTA-Beautify-Library/wiki/Gridlist#-addGridlistRow)
-
-* **Parameters:**
-  * **gridlist** \(_element_\) : Gridlist element you wish to remove the row from.
-  * **row** \(_int_\) : Index of the row you wish to remove.
-* **Returns:**
-  * **state** \(_bool_\) : Execution state.
-* **Example:**
-
-  ```lua
-  local resultState = beautify.gridlist.removeGridlistRow(createdGridlist, 1)
-  print(tostring(resultState))
-  ```
-
 ## ━ setGridlistRowData
 
 Sets specified row's data within your gridlist.

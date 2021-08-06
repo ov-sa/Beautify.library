@@ -1,6 +1,6 @@
 ---
 description: >-
-  Removes specified column from the gridlist.
+  Removes a specified column from the gridlist.
 ---
 
 ## **Syntax:**
