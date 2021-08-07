@@ -28,5 +28,5 @@ local columnName= beautify.gridlist.getGridlistColumnName(createdGridlist, 1)
 print(columnName)
 ```
 
-![](../../.gitbook/assets/getgridlistcolumnname.png)
+![](../../.gitbook/assets/elements/gridlist/api//getgridlistcolumnname.png)
 

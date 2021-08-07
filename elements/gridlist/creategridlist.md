@@ -35,5 +35,5 @@ beautify.setUIVisible(createdWindow, true)
 beautify.setUIVisible(createdGridlist, true)
 ```
 
-![](../../.gitbook/assets/creategridlist.png)
+![](../../.gitbook/assets/elements/gridlist/api//creategridlist.png)
 

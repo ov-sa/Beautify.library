@@ -29,5 +29,5 @@ local rowData = beautify.gridlist.getGridlistRowData(createdGridlist, 1, 2)
 print(rowData)
 ```
 
-![](../../.gitbook/assets/getgridlistrowdata.png)
+![](../../.gitbook/assets/elements/gridlist/api//getgridlistrowdata.png)
 

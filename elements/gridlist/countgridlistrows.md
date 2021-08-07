@@ -27,5 +27,5 @@ local totalRows = beautify.gridlist.countGridlistRows(createdGridlist)
 print(totalRows)
 ```
 
-![](../../.gitbook/assets/countgridlistrows.png)
+![](../../.gitbook/assets/elements/gridlist/api//countgridlistrows.png)
 

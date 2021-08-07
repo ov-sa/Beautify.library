@@ -27,5 +27,5 @@ local resultState = beautify.gridlist.getGridlistSelection(createdGridlist)
 print(resultState)
 ```
 
-![](../../.gitbook/assets/getgridlistselection.png)
+![](../../.gitbook/assets/elements/gridlist/api//getgridlistselection.png)
 
