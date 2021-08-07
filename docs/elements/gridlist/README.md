@@ -6,7 +6,6 @@
 
 ## APIs:
 
-* [TEST](~/creategridlist)
 * [createGridlist](creategridlist)
 * [countGridlistColumns](countgridlistcolumns)
 * [addGridlistColumn](addgridlistcolumn)
