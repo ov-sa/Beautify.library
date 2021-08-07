@@ -10,7 +10,7 @@ description: Sets the text of the label.
 state setLabelText(label, text)
 ```
 
-#### _**\#Counterpart:**_ [_**getLabelText**_](https://github.com/OvileAmriam/MTA-Beautify-Library/wiki/Label#-getLabelText)
+#### _**\#Counterpart:**_ [_**getLabelText**_](getlabeltext.md)
 
 ### **Parameters:**
 

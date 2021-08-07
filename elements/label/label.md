@@ -1,27 +1,4 @@
 
-## ━ getLabelText
-
-Retrieves the text of your label.
-
-### **Syntax:**
-
-```lua
-text getLabelText(label)
-```
-
-#### _**\#Counterpart:**_ [_**setLabelText**_](https://github.com/OvileAmriam/MTA-Beautify-Library/wiki/Label#-setLabelText)
-
-* **Parameters:**
-  * **label** \(_element_\) : Label element you wish to retrieve the text of.
-* **Returns:**
-  * **text** \(_string_\) : Text of the label.
-* **Example:**
-
-  ```lua
-  local labelText = beautify.label.getLabelText(createdLabel)
-  print(labelText)
-  ```
-
 ## ━ clearLabelColor
 
 Clears overridden color of your label.
