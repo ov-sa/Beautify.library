@@ -1,52 +1,5 @@
 
 
-## ━ setLabelHorizontalAlignment
-
-Sets the horizontal alignment of your label.
-
-### **Syntax:**
-
-```lua
-state setLabelHorizontalAlignment(label, alignment)
-```
-
-#### _**\#Counterpart:**_ [_**getLabelHorizontalAlignment**_](https://github.com/OvileAmriam/MTA-Beautify-Library/wiki/Label#-getLabelHorizontalAlignment)
-
-* **Parameters:**
-  * **label** \(_element_\) : Label element you wish to set the horizontal alignment of.
-  * **alignment** \(_string_\) : Horizontal alignment of the label \(Left/Center/Right\).
-* **Returns:**
-  * **state** \(_bool_\) : Execution state.
-* **Example:**
-
-  ```lua
-  local resultState = beautify.label.setLabelHorizontalAlignment(createdLabel, "center")
-  print(tostring(resultState))
-  ```
-
-## ━ getLabelHorizontalAlignment
-
-Retrieves the horizontal alignment of your label.
-
-### **Syntax:**
-
-```lua
-alignment getLabelHorizontalAlignment(label)
-```
-
-#### _**\#Counterpart:**_ [_**setLabelHorizontalAlignment**_](https://github.com/OvileAmriam/MTA-Beautify-Library/wiki/Label#-setLabelHorizontalAlignment)
-
-* **Parameters:**
-  * **label** \(_element_\) : Label element you wish to retrieve the horizontal alignment of.
-* **Returns:**
-  * **alignment** \(_string_\) : Horizontal alignment of the label.
-* **Example:**
-
-  ```lua
-  local labelHorizontalAlignment = beautify.label.getLabelHorizontalAlignment(createdLabel)
-  print(labelHorizontalAlignment)
-  ```
-
 ## ━ setLabelVerticalAlignment
 
 Sets the vertical alignment of your label.
