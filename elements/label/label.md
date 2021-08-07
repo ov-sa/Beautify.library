@@ -1,26 +1,3 @@
-## ━ setLabelText
-
-Sets the text of your label.
-
-### **Syntax:**
-
-```lua
-state setLabelText(label, text)
-```
-
-#### _**\#Counterpart:**_ [_**getLabelText**_](https://github.com/OvileAmriam/MTA-Beautify-Library/wiki/Label#-getLabelText)
-
-* **Parameters:**
-  * **label** \(_element_\) : Label element you wish to set the text of.
-  * **text** \(_string_\) : Text of the label.
-* **Returns:**
-  * **state** \(_bool_\) : Execution state.
-* **Example:**
-
-  ```lua
-  local resultState = beautify.label.setLabelText(createdLabel, "My First Label #1")
-  print(tostring(resultState))
-  ```
 
 ## ━ getLabelText
 
