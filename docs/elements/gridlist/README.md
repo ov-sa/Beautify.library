@@ -6,7 +6,7 @@
 
 ## APIs:
 
-* <a href="creategridlist" onclick="window.open('creategridlist', '_self');">createGridlist</a>
+* [TEST](~/creategridlist)
 * [createGridlist](creategridlist)
 * [countGridlistColumns](countgridlistcolumns)
 * [addGridlistColumn](addgridlistcolumn)
