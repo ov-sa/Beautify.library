@@ -42,5 +42,5 @@ beautify.gridlist.setGridlistRowData(createdGridlist, 3, 3, "BH")
 beautify.gridlist.setGridlistRowData(createdGridlist, 3, 4, "CEO")
 ```
 
-![](../../.gitbook/assets/elements/gridlist/api//setgridlistrowdata.png)
+![](../../.gitbook/assets/setgridlistrowdata.png)
 

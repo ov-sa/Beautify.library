@@ -29,5 +29,5 @@ local resultState = beautify.gridlist.setGridlistColumnName(createdGridlist, 1, 
 print(tostring(resultState))
 ```
 
-![](../../.gitbook/assets/elements/gridlist/api//setgridlistcolumnname.png)
+![](../../.gitbook/assets/setgridlistcolumnname.png)
 

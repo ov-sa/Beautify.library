@@ -27,5 +27,5 @@ local totalColumns = beautify.gridlist.countGridlistColumns(createdGridlist)
 print(totalColumns)
 ```
 
-![](../../.gitbook/assets/elements/gridlist/api//countgridlistcolumns.png)
+![](../../.gitbook/assets/countgridlistcolumns.png)
 

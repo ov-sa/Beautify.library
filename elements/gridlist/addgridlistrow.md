@@ -28,5 +28,5 @@ local rowIndex2 = beautify.gridlist.addGridlistRow(createdGridlist)
 local rowIndex3 = beautify.gridlist.addGridlistRow(createdGridlist)
 ```
 
-![](../../.gitbook/assets/elements/gridlist/api//addgridlistrow.png)
+![](../../.gitbook/assets/addgridlistrow.png)
 

@@ -28,5 +28,5 @@ local resultState = beautify.gridlist.removeGridlistRow(createdGridlist, 1)
 print(tostring(resultState))
 ```
 
-![](../../.gitbook/assets/elements/gridlist/api//removegridlistrow.png)
+![](../../.gitbook/assets/removegridlistrow.png)
 
