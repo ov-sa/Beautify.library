@@ -29,3 +29,4 @@ local rowData = beautify.gridlist.getGridlistRowData(createdGridlist, 1, 2)
 print(rowData)
 ```
 
+<img src="snaps/APIs/getGridlistRowData.png" alt=""/>

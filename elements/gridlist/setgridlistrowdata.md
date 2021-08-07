@@ -42,3 +42,4 @@ beautify.gridlist.setGridlistRowData(createdGridlist, 3, 3, "BH")
 beautify.gridlist.setGridlistRowData(createdGridlist, 3, 4, "CEO")
 ```
 
+<img src="snaps/APIs/setGridlistRowData.png" alt=""/>

@@ -28,3 +28,4 @@ local columnName= beautify.gridlist.getGridlistColumnName(createdGridlist, 1)
 print(columnName)
 ```
 
+<img src="snaps/APIs/getGridlistColumnName.png" alt=""/>

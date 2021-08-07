@@ -28,3 +28,4 @@ local resultState = beautify.gridlist.removeGridlistColumn(createdGridlist, 1)
 print(tostring(resultState))
 ```
 
+<img src="snaps/APIs/removeGridlistColumn.png" alt=""/>

@@ -27,3 +27,4 @@ local totalRows = beautify.gridlist.countGridlistRows(createdGridlist)
 print(totalRows )
 ```
 
+<img src="snaps/APIs/countGridlistRows.png" alt=""/>

@@ -27,3 +27,4 @@ local resultState = beautify.gridlist.getGridlistSelection(createdGridlist)
 print(resultState)
 ```
 
+<img src="snaps/APIs/getGridlistSelection.png" alt=""/>

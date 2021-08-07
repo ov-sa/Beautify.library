@@ -28,3 +28,4 @@ local rowIndex2 = beautify.gridlist.addGridlistRow(createdGridlist)
 local rowIndex3 = beautify.gridlist.addGridlistRow(createdGridlist)
 ```
 
+<img src="snaps/APIs/addGridlistRow.png" alt=""/>
