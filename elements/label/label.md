@@ -1,24 +1,3 @@
-# Label
-
-## ━ Properties:
-
-* **Reference:** `label`
-* **isDraggable:** `false`
-* **Allowed Children:** -
-
-## ━ APIs:
-
-* [createLabel](https://github.com/OvileAmriam/MTA-Beautify-Library/wiki/Label#-createLabel)
-* [setLabelText](https://github.com/OvileAmriam/MTA-Beautify-Library/wiki/Label#-setLabelText)
-* [getLabelText](https://github.com/OvileAmriam/MTA-Beautify-Library/wiki/Label#-getLabelText)
-* [clearLabelColor](https://github.com/OvileAmriam/MTA-Beautify-Library/wiki/Label#-clearLabelColor)
-* [setLabelColor](https://github.com/OvileAmriam/MTA-Beautify-Library/wiki/Label#-setLabelColor)
-* [getLabelColor](https://github.com/OvileAmriam/MTA-Beautify-Library/wiki/Label#-getLabelColor)
-* [setLabelHorizontalAlignment](https://github.com/OvileAmriam/MTA-Beautify-Library/wiki/Label#-setLabelHorizontalAlignment)
-* [getLabelHorizontalAlignment](https://github.com/OvileAmriam/MTA-Beautify-Library/wiki/Label#-getLabelHorizontalAlignment)
-* [setLabelVerticalAlignment](https://github.com/OvileAmriam/MTA-Beautify-Library/wiki/Label#-setLabelVerticalAlignment)
-* [getLabelVerticalAlignment](https://github.com/OvileAmriam/MTA-Beautify-Library/wiki/Label#-getLabelVerticalAlignment)
-
 ## ━ createLabel
 
 Creates a new label which can be further used to name your components.
