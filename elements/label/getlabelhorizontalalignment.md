@@ -27,4 +27,5 @@ local labelHorizontalAlignment = beautify.label.getLabelHorizontalAlignment(crea
 print(labelHorizontalAlignment)
 ```
 
-![](../../.gitbook/assets/getlabelhorizontalalignment.png)
+![](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/fa0a436b55c8c25e32ea12d83b59a5808b2c3af2/.gitbook/assets/getlabelhorizontalalignment.png)
+
