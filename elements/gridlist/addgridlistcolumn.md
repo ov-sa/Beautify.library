@@ -31,3 +31,5 @@ local columnIndex3 = beautify.gridlist.addGridlistColumn(createdGridlist, "Count
 local columnIndex4 = beautify.gridlist.addGridlistColumn(createdGridlist, "Rank", 250)
 ```
 
+![](../../.gitbook/assets/addgridlistcolumn.png)
+

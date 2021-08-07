@@ -36,3 +36,5 @@ beautify.setUIDraggable(createdWindow, true)
 beautify.setUIVisible(createdWindow, true)
 ```
 
+![](../../.gitbook/assets/createwindow.png)
+
