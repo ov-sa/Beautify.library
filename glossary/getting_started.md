@@ -1,3 +1,5 @@
+# Getting Started
+
 ## ━ How to get started?
 
 * You need to know how to use Lua & Debug scripts.
@@ -63,4 +65,5 @@ end
 
 ## ━ How to get the API Names?
 
-**Head over to the sidebar and navigate into the section 'E L E M E N T S'. Dive into the element you wish to learn further more about (Properties/APIs etc).**
+**Head over to the sidebar and navigate into the section 'E L E M E N T S'. Dive into the element you wish to learn further more about \(Properties/APIs etc\).**
+

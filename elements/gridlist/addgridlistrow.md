@@ -1,7 +1,8 @@
 ---
-description: >-
-  Adds a new row to the gridlist.
+description: Adds a new row to the gridlist.
 ---
+
+# addGridlistRow
 
 ## **Syntax:**
 
@@ -9,7 +10,7 @@ description: >-
 row addGridlistRow(gridlist)
 ```
 
-#### _**\#Counterpart:**_ [_**removeGridlistRow**_](removegridlistrow)
+#### _**\#Counterpart:**_ [_**removeGridlistRow**_](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/8b32a1354f437b84b8192867c66f498a0fc3cd85/docs/elements/gridlist/removegridlistrow/README.md)
 
 ### **Parameters:**
 
@@ -26,3 +27,4 @@ local rowIndex1 = beautify.gridlist.addGridlistRow(createdGridlist)
 local rowIndex2 = beautify.gridlist.addGridlistRow(createdGridlist)
 local rowIndex3 = beautify.gridlist.addGridlistRow(createdGridlist)
 ```
+

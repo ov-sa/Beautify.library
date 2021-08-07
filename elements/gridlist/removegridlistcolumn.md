@@ -1,7 +1,8 @@
 ---
-description: >-
-  Removes a specified column from the gridlist.
+description: Removes a specified column from the gridlist.
 ---
+
+# removeGridlistColumn
 
 ## **Syntax:**
 
@@ -9,7 +10,7 @@ description: >-
 state removeGridlistColumn(gridlist, column)
 ```
 
-#### _**\#Counterpart:**_ [_**addGridlistColumn**_](addgridlistcolumn)
+#### _**\#Counterpart:**_ [_**addGridlistColumn**_](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/8b32a1354f437b84b8192867c66f498a0fc3cd85/docs/elements/gridlist/addgridlistcolumn/README.md)
 
 ### **Parameters:**
 
@@ -26,3 +27,4 @@ state removeGridlistColumn(gridlist, column)
 local resultState = beautify.gridlist.removeGridlistColumn(createdGridlist, 1)
 print(tostring(resultState))
 ```
+

@@ -1,7 +1,8 @@
 ---
-description: >-
-  Sets specified row's data within the gridlist.
+description: Sets specified row's data within the gridlist.
 ---
+
+# setGridlistRowData
 
 ## **Syntax:**
 
@@ -9,7 +10,7 @@ description: >-
 state setGridlistRowData(gridlist, row, column, data)
 ```
 
-#### _**\#Counterpart:**_ [_**getGridlistRowData**_](getgridlistrowdata)
+#### _**\#Counterpart:**_ [_**getGridlistRowData**_](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/8b32a1354f437b84b8192867c66f498a0fc3cd85/docs/elements/gridlist/getgridlistrowdata/README.md)
 
 ### **Parameters:**
 
@@ -40,3 +41,4 @@ beautify.gridlist.setGridlistRowData(createdGridlist, 3, 2, "Mario")
 beautify.gridlist.setGridlistRowData(createdGridlist, 3, 3, "BH")
 beautify.gridlist.setGridlistRowData(createdGridlist, 3, 4, "CEO")
 ```
+

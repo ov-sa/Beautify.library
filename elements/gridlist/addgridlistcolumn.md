@@ -1,7 +1,8 @@
 ---
-description: >-
-  Adds a new column to the gridlist.
+description: Adds a new column to the gridlist.
 ---
+
+# addGridlistColumn
 
 ## **Syntax:**
 
@@ -9,7 +10,7 @@ description: >-
 column addGridlistColumn(gridlist, name, width)
 ```
 
-#### _**\#Counterpart:**_ [_**removeGridlistColumn**_](removegridlistcolumn)
+#### _**\#Counterpart:**_ [_**removeGridlistColumn**_](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/8b32a1354f437b84b8192867c66f498a0fc3cd85/docs/elements/gridlist/removegridlistcolumn/README.md)
 
 ### **Parameters:**
 
@@ -29,3 +30,4 @@ local columnIndex2 = beautify.gridlist.addGridlistColumn(createdGridlist, "Name"
 local columnIndex3 = beautify.gridlist.addGridlistColumn(createdGridlist, "Country", 100)
 local columnIndex4 = beautify.gridlist.addGridlistColumn(createdGridlist, "Rank", 250)
 ```
+

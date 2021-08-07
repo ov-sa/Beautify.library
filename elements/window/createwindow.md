@@ -1,7 +1,10 @@
 ---
 description: >-
-  Creates a new blank window which can be further used as a container for other elements.
+  Creates a new blank window which can be further used as a container for other
+  elements.
 ---
+
+# createWindow
 
 ## **Syntax:**
 
@@ -32,3 +35,4 @@ local createdWindow = beautify.window.createWindow((sX - window_width)/2, (sY - 
 beautify.setUIDraggable(createdWindow, true)
 beautify.setUIVisible(createdWindow, true)
 ```
+

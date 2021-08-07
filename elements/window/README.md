@@ -1,3 +1,5 @@
+# Window
+
 ## Properties:
 
 * **Reference:** `window`
@@ -11,3 +13,4 @@
 ## APIs:
 
 * [createWindow](createwindow.md)
+

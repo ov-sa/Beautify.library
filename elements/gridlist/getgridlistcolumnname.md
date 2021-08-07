@@ -1,7 +1,8 @@
 ---
-description: >-
-  Retrieves specified column's name from the gridlist.
+description: Retrieves specified column's name from the gridlist.
 ---
+
+# getGridlistColumnName
 
 ## **Syntax:**
 
@@ -9,7 +10,7 @@ description: >-
 name getGridlistColumnName(gridlist, column)
 ```
 
-#### _**\#Counterpart:**_ [_**setGridlistColumnName**_](setgridlistcolumnname)
+#### _**\#Counterpart:**_ [_**setGridlistColumnName**_](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/8b32a1354f437b84b8192867c66f498a0fc3cd85/docs/elements/gridlist/setgridlistcolumnname/README.md)
 
 ### **Parameters:**
 
@@ -26,3 +27,4 @@ name getGridlistColumnName(gridlist, column)
 local columnName= beautify.gridlist.getGridlistColumnName(createdGridlist, 1)
 print(columnName)
 ```
+

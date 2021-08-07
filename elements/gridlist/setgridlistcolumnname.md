@@ -1,7 +1,8 @@
 ---
-description: >-
-  Sets specified column's name within the gridlist.
+description: Sets specified column's name within the gridlist.
 ---
+
+# setGridlistColumnName
 
 ## **Syntax:**
 
@@ -9,7 +10,7 @@ description: >-
 state setGridlistColumnName(gridlist, column, name)
 ```
 
-#### _**\#Counterpart:**_ [_**getGridlistColumnName**_](getgridlistcolumnname)
+#### _**\#Counterpart:**_ [_**getGridlistColumnName**_](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/8b32a1354f437b84b8192867c66f498a0fc3cd85/docs/elements/gridlist/getgridlistcolumnname/README.md)
 
 ### **Parameters:**
 
@@ -27,3 +28,4 @@ state setGridlistColumnName(gridlist, column, name)
 local resultState = beautify.gridlist.setGridlistColumnName(createdGridlist, 1, "Serial")
 print(tostring(resultState))
 ```
+

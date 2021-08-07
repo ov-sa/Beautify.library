@@ -1,7 +1,8 @@
 ---
-description: >-
-  Selects specified row from the gridlist.
+description: Selects specified row from the gridlist.
 ---
+
+# setGridlistSelection
 
 ## **Syntax:**
 
@@ -9,7 +10,7 @@ description: >-
 state setGridlistSelection(gridlist, row)
 ```
 
-#### _**\#Counterpart:**_ [_**getGridlistSelection**_](getGridlistSelection)
+#### _**\#Counterpart:**_ [_**getGridlistSelection**_](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/8b32a1354f437b84b8192867c66f498a0fc3cd85/docs/elements/gridlist/getGridlistSelection/README.md)
 
 ### **Parameters:**
 
@@ -26,3 +27,4 @@ state setGridlistSelection(gridlist, row)
 local resultState = beautify.gridlist.setGridlistSelection(createdGridlist, 1)
 print(tostring(resultState))
 ```
+

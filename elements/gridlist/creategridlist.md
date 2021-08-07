@@ -1,7 +1,8 @@
 ---
-description: >-
-  Creates a new blank gridlist which can be further used to list your datas.
+description: Creates a new blank gridlist which can be further used to list your datas.
 ---
+
+# createGridlist
 
 ## **Syntax:**
 
@@ -33,3 +34,4 @@ beautify.setUIDraggable(createdWindow, true)
 beautify.setUIVisible(createdWindow, true)
 beautify.setUIVisible(createdGridlist, true)
 ```
+
