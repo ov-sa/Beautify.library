@@ -28,3 +28,4 @@ local resultState = beautify.button.setButtonText(createdButton, "My First Butto
 print(tostring(resultState))
 ```
 
+![](../../.gitbook/assets/elements/button/api//setbuttontext.png)

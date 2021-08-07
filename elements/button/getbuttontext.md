@@ -27,3 +27,4 @@ local buttonText = beautify.button.getButtonText(createdButton)
 print(buttonText)
 ```
 
+![](../../.gitbook/assets/elements/button/api//getbuttontext.png)
