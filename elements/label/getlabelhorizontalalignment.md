@@ -27,3 +27,4 @@ local labelHorizontalAlignment = beautify.label.getLabelHorizontalAlignment(crea
 print(labelHorizontalAlignment)
 ```
 
+![](../../.gitbook/assets/getlabelhorizontalalignment.png)

@@ -25,3 +25,4 @@ local resultState = beautify.label.clearLabelColor(createdLabel)
 print(tostring(resultState))
 ```
 
+![](../../.gitbook/assets/clearlabelcolor.png)

@@ -34,3 +34,4 @@ beautify.setUIDisabled(createdLabel, true)
 beautify.setUIVisible(createdLabel , true)
 ```
 
+![](../../.gitbook/assets/createlabel.png)

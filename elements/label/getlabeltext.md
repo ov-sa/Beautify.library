@@ -27,3 +27,4 @@ local labelText = beautify.label.getLabelText(createdLabel)
 print(labelText)
 ```
 
+![](../../.gitbook/assets/getlabeltext.png)

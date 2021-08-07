@@ -28,3 +28,4 @@ local resultState = beautify.label.setLabelColor(createdLabel, {255, 0, 0, 255})
 print(tostring(resultState))
 ```
 
+![](../../.gitbook/assets/setlabelcolor.png)

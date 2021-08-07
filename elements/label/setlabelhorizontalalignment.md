@@ -28,3 +28,4 @@ local resultState = beautify.label.setLabelHorizontalAlignment(createdLabel, "ce
 print(tostring(resultState))
 ```
 
+![](../../.gitbook/assets/setlabelhorizontalalignment.png)

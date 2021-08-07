@@ -28,3 +28,4 @@ local resultState = beautify.label.setLabelVerticalAlignment(createdLabel, "cent
 print(tostring(resultState))
 ```
 
+![](../../.gitbook/assets/setlabelverticalalignment.png)

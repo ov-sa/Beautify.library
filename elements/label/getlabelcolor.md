@@ -27,3 +27,4 @@ local labelColor = beautify.label.getLabelColor(createdLabel)
 print(toJSON(labelColor))
 ```
 
+![](../../.gitbook/assets/getlabelcolor.png)
