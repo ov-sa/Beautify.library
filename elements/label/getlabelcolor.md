@@ -26,3 +26,4 @@ color getLabelColor(label)
 local labelColor = beautify.label.getLabelColor(createdLabel)
 print(toJSON(labelColor))
 ```
+

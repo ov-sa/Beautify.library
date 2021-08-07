@@ -24,3 +24,4 @@ state clearLabelColor(label)
 local resultState = beautify.label.clearLabelColor(createdLabel)
 print(tostring(resultState))
 ```
+

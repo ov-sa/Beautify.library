@@ -27,5 +27,3 @@ local labelVerticalAlignment = beautify.label.getLabelVerticalAlignment(createdL
 print(labelVerticalAlignment)
 ```
 
-
-

@@ -27,3 +27,4 @@ state setLabelText(label, text)
 local resultState = beautify.label.setLabelText(createdLabel, "My First Label #1")
 print(tostring(resultState))
 ```
+

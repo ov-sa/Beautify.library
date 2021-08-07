@@ -33,3 +33,4 @@ local createdLabel = beautify.button.createButton("Label #1", (sX - label_width)
 beautify.setUIDisabled(createdLabel, true)
 beautify.setUIVisible(createdLabel , true)
 ```
+

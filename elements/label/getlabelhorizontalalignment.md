@@ -26,3 +26,4 @@ alignment getLabelHorizontalAlignment(label)
 local labelHorizontalAlignment = beautify.label.getLabelHorizontalAlignment(createdLabel)
 print(labelHorizontalAlignment)
 ```
+

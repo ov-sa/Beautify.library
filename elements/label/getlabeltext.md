@@ -26,3 +26,4 @@ text getLabelText(label)
 local labelText = beautify.label.getLabelText(createdLabel)
 print(labelText)
 ```
+

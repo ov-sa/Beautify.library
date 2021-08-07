@@ -27,3 +27,4 @@ state setLabelHorizontalAlignment(label, alignment)
 local resultState = beautify.label.setLabelHorizontalAlignment(createdLabel, "center")
 print(tostring(resultState))
 ```
+

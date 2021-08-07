@@ -35,4 +35,3 @@ beautify.setUIVisible(createdWindow, true)
 beautify.setUIVisible(createdGridlist, true)
 ```
 
-<img src="snaps/APIs/createGridlist.png" alt=""/>

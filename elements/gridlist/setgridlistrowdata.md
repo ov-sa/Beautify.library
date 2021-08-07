@@ -42,4 +42,5 @@ beautify.gridlist.setGridlistRowData(createdGridlist, 3, 3, "BH")
 beautify.gridlist.setGridlistRowData(createdGridlist, 3, 4, "CEO")
 ```
 
-<img src="snaps/APIs/setGridlistRowData.png" alt=""/>
+![](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/6acabc0cbcb0620b5fffa0b9fafb65273c38dc19/elements/gridlist/snaps/APIs/setGridlistRowData.png)
+

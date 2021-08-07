@@ -36,4 +36,3 @@ beautify.setUIDraggable(createdWindow, true)
 beautify.setUIVisible(createdWindow, true)
 ```
 
-<img src="snaps/APIs/createWindow.png" alt=""/>
