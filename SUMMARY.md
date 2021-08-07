@@ -22,6 +22,10 @@
   * [countGridlistRows](docs/elements/gridlist/countgridlistrows.md)
   * [addGridlistRow](docs/elements/gridlist/addgridlistrow.md)
   * [removeGridlistRow](docs/elements/gridlist/removegridlistrow.md)
+  * [setGridlistRowData](docs/elements/gridlist/setgridlistrowdata.md)
+  * [getGridlistRowData](docs/elements/gridlist/getgridlistrowdata.md)
+  * [setGridlistSelection](docs/elements/gridlist/setgridlistselection.md)
+  * [getGridlistSelection](docs/elements/gridlist/getgridlistselection.md)
 
 * [Button](docs/elements/button.md)
 * [Label](docs/elements/label.md)
