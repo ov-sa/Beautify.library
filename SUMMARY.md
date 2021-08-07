@@ -1,9 +1,9 @@
 # Table of contents
 
+* [━ I N S T A L L A T I O N](README.md)
 
 ## ➟ G L O S S A R Y <a id="glossary"></a>
 
-* [━ I N S T A L L A T I O N](INSTALLATION.md)
 * [Getting Started](glossary/Getting_Started.md)
 * [Releases](https://github.com/OvileAmriam/MTA-Beautify-Library/releases)
 * [Discord Community](http://discord.gg/sVCnxPW)
