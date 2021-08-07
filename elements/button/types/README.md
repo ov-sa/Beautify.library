@@ -1,7 +1,3 @@
----
-description: Button Types.
----
-
 # Button Types
 
 ## ━ Types:
