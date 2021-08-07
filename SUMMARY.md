@@ -4,7 +4,7 @@
 
 ## ➟ G L O S S A R Y <a id="glossary"></a>
 
-* [Getting Started](glossary/getting_started.md)
+* [Getting Started](glossary/Getting_Started.md)
 * [Releases](https://github.com/OvileAmriam/MTA-Beautify-Library/releases)
 * [Discord Community](http://discord.gg/sVCnxPW)
 
