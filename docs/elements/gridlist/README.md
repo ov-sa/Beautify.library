@@ -6,7 +6,7 @@
 
 ## APIs:
 
-* [createGridlist](creategridlist)
+* [createGridlist](/elements/gridlist/creategridlist)
 * [countGridlistColumns](countgridlistcolumns)
 * [addGridlistColumn](addgridlistcolumn)
 * [removeGridlistColumn](removegridlistcolumn)
