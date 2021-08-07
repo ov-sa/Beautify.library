@@ -24,7 +24,7 @@ count countGridlistRows(gridlist)
 
 ```lua
 local totalRows = beautify.gridlist.countGridlistRows(createdGridlist)
-print(totalRows )
+print(totalRows)
 ```
 
 <img src="snaps/APIs/countGridlistRows.png" alt=""/>
