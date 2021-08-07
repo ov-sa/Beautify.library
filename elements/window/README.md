@@ -13,4 +13,3 @@
 ## APIs:
 
 * [createWindow](createwindow.md)
-
