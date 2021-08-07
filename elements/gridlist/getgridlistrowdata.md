@@ -10,7 +10,7 @@ description: Retrieves specified row's data from the gridlist.
 data getGridlistRowData(gridlist, row, column)
 ```
 
-#### _**\#Counterpart:**_ [_**setGridlistRowData**_](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/8b32a1354f437b84b8192867c66f498a0fc3cd85/docs/elements/gridlist/setgridlistrowdata/README.md)
+#### _**\#Counterpart:**_ [_**setGridlistRowData**_](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/8b32a1354f437b84b8192867c66f498a0fc3cd85/docs/elements/gridlist/setGridlistRowData/README.md)
 
 ### **Parameters:**
 

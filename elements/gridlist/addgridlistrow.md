@@ -10,7 +10,7 @@ description: Adds a new row to the gridlist.
 row addGridlistRow(gridlist)
 ```
 
-#### _**\#Counterpart:**_ [_**removeGridlistRow**_](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/8b32a1354f437b84b8192867c66f498a0fc3cd85/docs/elements/gridlist/removegridlistrow/README.md)
+#### _**\#Counterpart:**_ [_**removeGridlistRow**_](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/8b32a1354f437b84b8192867c66f498a0fc3cd85/docs/elements/gridlist/removeGridlistRow/README.md)
 
 ### **Parameters:**
 

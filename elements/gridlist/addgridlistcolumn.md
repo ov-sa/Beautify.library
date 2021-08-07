@@ -10,7 +10,7 @@ description: Adds a new column to the gridlist.
 column addGridlistColumn(gridlist, name, width)
 ```
 
-#### _**\#Counterpart:**_ [_**removeGridlistColumn**_](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/8b32a1354f437b84b8192867c66f498a0fc3cd85/docs/elements/gridlist/removegridlistcolumn/README.md)
+#### _**\#Counterpart:**_ [_**removeGridlistColumn**_](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/8b32a1354f437b84b8192867c66f498a0fc3cd85/docs/elements/gridlist/removeGridlistColumn/README.md)
 
 ### **Parameters:**
 
