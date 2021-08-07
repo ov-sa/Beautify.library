@@ -1,3 +1,3 @@
 # Button Types
 
-* **[Default](default.md)**
+* **[Button: Default](default.md)**
