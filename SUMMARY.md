@@ -1,6 +1,6 @@
 # Table of contents
 
-* [━ S Y N O P S I S](README.md)
+* [━ I N S T A L L A T I O N](README.md)
 
 ## ➟ G L O S S A R Y <a id="glossary"></a>
 
