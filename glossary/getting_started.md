@@ -30,6 +30,8 @@ beautify.setUIDraggable(createdWindow, true)
 beautify.setUIVisible(createdWindow, true)
 ```
 
+![](../.gitbook/assets/getting_started_#1.png)
+
 ```lua
 -- Creates a gridlist with some columns and adds it within the window created above
 local createdGridlist = beautify.gridlist.createGridlist(0, 0, window_width, window_height, createdWindow, false)
@@ -39,6 +41,9 @@ beautify.gridlist.addGridlistColumn(createdGridlist, "Country", 100)
 beautify.gridlist.addGridlistColumn(createdGridlist, "Rank", 250)
 beautify.setUIVisible(createdGridlist, true)
 ```
+
+![](../.gitbook/assets/getting_started_#2.png)
+
 
 ```lua
 -- Appends some rows from predefined table into the gridlist created above
@@ -62,6 +67,9 @@ for i, j in ipairs(dummyRowDatas) do
     end
 end
 ```
+
+![](../.gitbook/assets/getting_started_#3.png)
+
 
 ## ━ How to get the API Names?
 
