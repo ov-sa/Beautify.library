@@ -9,8 +9,8 @@
 
 ## ━ INSTRUCTIONS
 
-1. Head over to [Beautify Library](https://github.com/OvileAmriam/MTA-Beautify-Library/) and '**Clone**' the repository.
-2. Drag and drop the **\[Library\]** folder into your `YourMTAFolder\server\mods\deathmatch\resources`.
+1. Head over to [Beautify's Releases](https://github.com/OvileAmriam/MTA-Beautify-Library/releases) and download the latest build.
+2. Drag and drop the **\[Library\]** folder into your `YourMTAFolder\server\mods\deathmatch\resources` after unzipping.
 3. Type `refresh` in the console to load the library.
 4. Type `start beautify_library` in the console and the library shall be successfully started.
 5. Head over to [Getting Started](https://ovileamriam.gitbook.io/beautify-library/v/Documentation/glossary/getting_started) to know further more about the usage!
