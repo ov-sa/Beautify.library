@@ -10,7 +10,7 @@ description: Retrieves specified column's name from the gridlist.
 name getGridlistColumnName(gridlist, column)
 ```
 
-#### _**\#Counterpart:**_ [_**setGridlistColumnName**_](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/8b32a1354f437b84b8192867c66f498a0fc3cd85/docs/elements/gridlist/setGridlistColumnName/README.md)
+#### _**\#Counterpart:**_ [_**setGridlistColumnName**_](setGridlistColumnName.md)
 
 ### **Parameters:**
 

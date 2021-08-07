@@ -10,7 +10,7 @@ description: Counts and retrieves the number of columns within the gridlist.
 count countGridlistColumns(gridlist)
 ```
 
-#### _**\#Counterpart:**_ [_**countGridlistRows**_](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/8b32a1354f437b84b8192867c66f498a0fc3cd85/docs/elements/gridlist/countGridlistRows/README.md)
+#### _**\#Counterpart:**_ [_**countGridlistRows**_](countGridlistRows.md)
 
 ### **Parameters:**
 
