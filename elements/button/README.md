@@ -5,8 +5,7 @@
 * **Reference:** `button`
 * **isDraggable:** `false`
 * **Allowed Children:** -
-
-## ━ Types: [Button Types](types/)
+* **[Types](types/)**
 
 ## ━ APIs:
 
