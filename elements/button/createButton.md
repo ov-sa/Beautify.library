@@ -35,4 +35,4 @@ addEventHandler("onClientUIClick", createdButton, function(key)
 end)
 ```
 
-![](../../.gitbook/assets/elements/button/api//createbutton.png)
+![](../../.gitbook/assets/createbutton.png)

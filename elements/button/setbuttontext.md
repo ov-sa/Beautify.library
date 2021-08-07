@@ -28,5 +28,5 @@ local resultState = beautify.button.setButtonText(createdButton, "My First Butto
 print(tostring(resultState))
 ```
 
-![](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/93385f1e523e89dcaee8f9c7733d29a48ad4519e/.gitbook/assets/elements/button/api/setbuttontext.png)
+![](../../.gitbook/assets/setbuttontext.png)
 
