@@ -1,7 +1,3 @@
----
-description: 'Button Type: Default'
----
-
 # Button: Default
 
 ### **Template Parameters:**
