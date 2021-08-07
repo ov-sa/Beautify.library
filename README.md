@@ -1,4 +1,4 @@
-# B E A U T I F Y ━ L I B R A R Y
+# ━ S Y N O P S I S
 
 **Beautify Library** is a open-source DX based powerful UI library made by **ᴏᴠ Team** for [Multi Theft Auto \(MTA\)](https://multitheftauto.com/).
 
@@ -18,7 +18,8 @@
 
 ## ━ Contents
 
-* **[Official Releases](https://github.com/OvileAmriam/MTA-Beautify-Library/releases)**
-* **[Installation Guide](https://ovileamriam.gitbook.io/beautify-library/v/Documentation/)**
-* **[Documentations](https://ovileamriam.gitbook.io/beautify-library/v/Documentation/glossary/getting_started)**
-* **[Discord Community](http://discord.gg/sVCnxPW)**
+* [**Official Releases**](https://github.com/OvileAmriam/MTA-Beautify-Library/releases)
+* [**Installation Guide**](https://ovileamriam.gitbook.io/beautify-library/v/Documentation/)
+* [**Documentations**](https://ovileamriam.gitbook.io/beautify-library/v/Documentation/glossary/getting_started)
+* [**Discord Community**](http://discord.gg/sVCnxPW)
+
