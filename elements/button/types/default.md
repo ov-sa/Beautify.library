@@ -1,4 +1,4 @@
-# Button: Default
+# Button : Default
 
 ### **Template Parameters:**
 

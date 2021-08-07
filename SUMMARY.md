@@ -29,7 +29,7 @@
   * [getGridlistSelection](elements/gridlist/getgridlistselection.md)
 * [Button](elements/button/README.md)
   * [Button Types](elements/button/types/README.md)
-    * [Button: Default](elements/button/types/default.md)
+    * [Button : Default](elements/button/types/default.md)
   * [createButton](elements/button/createbutton.md)
   * [setButtonText](elements/button/setbuttontext.md)
   * [getButtonText](elements/button/getbuttontext.md)
