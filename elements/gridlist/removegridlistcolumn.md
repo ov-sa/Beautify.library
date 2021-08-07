@@ -10,7 +10,7 @@ description: Removes a specified column from the gridlist.
 state removeGridlistColumn(gridlist, column)
 ```
 
-#### _**\#Counterpart:**_ [_**addGridlistColumn**_](addGridlistColumn.md)
+#### _**\#Counterpart:**_ [_**addGridlistColumn**_](addgridlistcolumn.md)
 
 ### **Parameters:**
 

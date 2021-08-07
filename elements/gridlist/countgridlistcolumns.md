@@ -10,7 +10,7 @@ description: Counts and retrieves the number of columns within the gridlist.
 count countGridlistColumns(gridlist)
 ```
 
-#### _**\#Counterpart:**_ [_**countGridlistRows**_](countGridlistRows.md)
+#### _**\#Counterpart:**_ [_**countGridlistRows**_](countgridlistrows.md)
 
 ### **Parameters:**
 

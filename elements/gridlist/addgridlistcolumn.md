@@ -10,7 +10,7 @@ description: Adds a new column to the gridlist.
 column addGridlistColumn(gridlist, name, width)
 ```
 
-#### _**\#Counterpart:**_ [_**removeGridlistColumn**_](removeGridlistColumn.md)
+#### _**\#Counterpart:**_ [_**removeGridlistColumn**_](removegridlistcolumn.md)
 
 ### **Parameters:**
 

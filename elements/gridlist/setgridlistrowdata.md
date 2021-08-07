@@ -10,7 +10,7 @@ description: Sets specified row's data within the gridlist.
 state setGridlistRowData(gridlist, row, column, data)
 ```
 
-#### _**\#Counterpart:**_ [_**getGridlistRowData**_](getGridlistRowData.md)
+#### _**\#Counterpart:**_ [_**getGridlistRowData**_](getgridlistrowdata.md)
 
 ### **Parameters:**
 

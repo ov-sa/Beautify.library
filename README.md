@@ -1,4 +1,4 @@
-# ━ S Y N O P S I S
+# ━ I N S T A L L A T I O N
 
 **Beautify Library** is a open-source DX based powerful UI library made by **ᴏᴠ Team** for [Multi Theft Auto \(MTA\)](https://multitheftauto.com/).
 

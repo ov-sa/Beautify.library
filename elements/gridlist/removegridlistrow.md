@@ -10,7 +10,7 @@ description: Removes a specified row from the gridlist.
 state removeGridlistRow(gridlist, row)
 ```
 
-#### _**\#Counterpart:**_ [_**addGridlistRow**_](addGridlistRow.md)
+#### _**\#Counterpart:**_ [_**addGridlistRow**_](addgridlistrow.md)
 
 ### **Parameters:**
 

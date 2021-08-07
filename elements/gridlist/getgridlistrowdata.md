@@ -10,7 +10,7 @@ description: Retrieves specified row's data from the gridlist.
 data getGridlistRowData(gridlist, row, column)
 ```
 
-#### _**\#Counterpart:**_ [_**setGridlistRowData**_](setGridlistRowData.md)
+#### _**\#Counterpart:**_ [_**setGridlistRowData**_](setgridlistrowdata.md)
 
 ### **Parameters:**
 

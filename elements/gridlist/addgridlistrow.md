@@ -10,7 +10,7 @@ description: Adds a new row to the gridlist.
 row addGridlistRow(gridlist)
 ```
 
-#### _**\#Counterpart:**_ [_**removeGridlistRow**_](removeGridlistRow.md)
+#### _**\#Counterpart:**_ [_**removeGridlistRow**_](removegridlistrow.md)
 
 ### **Parameters:**
 

@@ -10,7 +10,7 @@ description: Selects specified row from the gridlist.
 state setGridlistSelection(gridlist, row)
 ```
 
-#### _**\#Counterpart:**_ [_**getGridlistSelection**_](getGridlistSelection.md)
+#### _**\#Counterpart:**_ [_**getGridlistSelection**_](getgridlistselection.md)
 
 ### **Parameters:**
 

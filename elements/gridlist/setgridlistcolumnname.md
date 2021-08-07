@@ -10,7 +10,7 @@ description: Sets specified column's name within the gridlist.
 state setGridlistColumnName(gridlist, column, name)
 ```
 
-#### _**\#Counterpart:**_ [_**getGridlistColumnName**_](getGridlistColumnName.md)
+#### _**\#Counterpart:**_ [_**getGridlistColumnName**_](getgridlistcolumnname.md)
 
 ### **Parameters:**
 
