@@ -10,7 +10,7 @@ description: Retrieves specified column's name from the gridlist.
 name getGridlistColumnName(gridlist, column)
 ```
 
-#### _**\#Counterpart:**_ [_**setGridlistColumnName**_](setGridlistColumnName.md)
+#### _**\#Counterpart:**_ [_**setGridlistColumnName**_](setgridlistcolumnname.md)
 
 ### **Parameters:**
 

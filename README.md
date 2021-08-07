@@ -1,4 +1,4 @@
-# ━ S Y N O P S I S
+# ━ I N S T A L L A T I O N
 
 ### BEFORE YOU CONSIDER THIS FRAMEWORK
 

@@ -10,7 +10,7 @@ description: Retrieves selected row from the gridlist.
 row getGridlistSelection(gridlist)
 ```
 
-#### _**\#Counterpart:**_ [_**setGridlistSelection**_](setGridlistSelection.md)
+#### _**\#Counterpart:**_ [_**setGridlistSelection**_](setgridlistselection.md)
 
 ### **Parameters:**
 
