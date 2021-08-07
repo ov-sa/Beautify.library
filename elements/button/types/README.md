@@ -1,4 +1,4 @@
 # Button Types
 
-* [**Default**](default.md)
+* [Default](default.md)
 
