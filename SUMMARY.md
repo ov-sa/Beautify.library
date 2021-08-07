@@ -7,6 +7,7 @@
 * [Getting Started](glossary/getting_started.md)
 * [Releases](https://github.com/OvileAmriam/MTA-Beautify-Library/releases)
 * [Discord Community](http://discord.gg/sVCnxPW)
+* [Sponsor Us 💎](https://ko-fi.com/ovileamriam)
 
 ## ➟ E L E M E N T S <a id="elements"></a>
 
