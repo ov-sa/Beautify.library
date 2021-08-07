@@ -18,7 +18,7 @@
 
 ## ━ Contents
 
-* **- [Official Releases](https://github.com/OvileAmriam/MTA-Beautify-Library/releases)**
-* **- [Installation Guide](https://ovileamriam.gitbook.io/beautify-library/v/Documentation/)**
-* **- [Documentations](https://ovileamriam.gitbook.io/beautify-library/v/Documentation/glossary/getting_started)**
-* **- [Discord Community](http://discord.gg/sVCnxPW)**
+* **[Official Releases](https://github.com/OvileAmriam/MTA-Beautify-Library/releases)**
+* **[Installation Guide](https://ovileamriam.gitbook.io/beautify-library/v/Documentation/)**
+* **[Documentations](https://ovileamriam.gitbook.io/beautify-library/v/Documentation/glossary/getting_started)**
+* **[Discord Community](http://discord.gg/sVCnxPW)**
