@@ -1,33 +1,3 @@
-## ━ createLabel
-
-Creates a new label which can be further used to name your components.
-
-### **Syntax:**
-
-```lua
-label createLabel(text, x, y, width, height, [parent = nil], [postGUI = false])
-```
-
-* **Parameters:**
-  * **text** \(_string_\) : Text of the label.
-  * **x** \(_float_\) : Absolute x coordinate of the label within the container.
-  * **y** \(_float_\) : Absolute y coordinate of the label within the container.
-  * **width** \(_float_\) : Absolute width of the label.
-  * **height** \(_float_\) : Absolute height of the label.
-  * **parent** \(_element_\) : Supported parent element to use as a container for the label. \(_Optional_\)
-  * **postGUI** \(_bool_\) : State whether the UI will be drawn below/over CEGUI. \(_Optional_\)
-* **Returns:**
-  * **label** \(_element_\) : Created label element.
-* **Example:**
-
-  ```lua
-  local sX, sY = guiGetScreenSize()
-  local label_width, label_height = 300, 50
-  local createdLabel = beautify.button.createButton("Label #1", (sX - label_width)/2, (sY - label_height)/2, label_width, label_height, nil, false)
-  beautify.setUIDisabled(createdLabel, true)
-  beautify.setUIVisible(createdLabel , true)
-  ```
-
 ## ━ setLabelText
 
 Sets the text of your label.
