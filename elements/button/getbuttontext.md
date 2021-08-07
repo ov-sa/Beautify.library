@@ -27,4 +27,3 @@ local buttonText = beautify.button.getButtonText(createdButton)
 print(buttonText)
 ```
 
-

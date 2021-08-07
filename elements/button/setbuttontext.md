@@ -27,3 +27,4 @@ state setButtonText(button, text)
 local resultState = beautify.button.setButtonText(createdButton, "My First Button #1")
 print(tostring(resultState))
 ```
+
