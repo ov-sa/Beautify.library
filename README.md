@@ -23,11 +23,9 @@
 * Deep-Nesting Support
 * Necessary UI APIs
 
-## ━ Installation
+## ━ Contents
 
-1. Head over to [Beautify Library](https://github.com/OvileAmriam/MTA-Beautify-Library/) and '**Clone**' the repository.
-2. Drag and drop the **\[Library\]** folder into your `YourMTAFolder\server\mods\deathmatch\resources`.
-3. Type `refresh` in the console to load the library.
-4. Type `start beautify_library` in the console and the library shall be successfully started.
-5. Head over to [Getting Started](https://ovileamriam.gitbook.io/beautify-library/glossary/getting_started) to know more about the usage.
-
+* **- [Official Releases](https://github.com/OvileAmriam/MTA-Beautify-Library/releases)**
+* **- [Installation Guide](https://ovileamriam.gitbook.io/beautify-library/v/Documentation/)**
+* **- [Documentations](https://ovileamriam.gitbook.io/beautify-library/v/Documentation/glossary/getting_started)**
+* **- [Discord Community](http://discord.gg/sVCnxPW)**
