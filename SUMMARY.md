@@ -26,7 +26,6 @@
   * [getGridlistRowData](elements/gridlist/getGridlistRowData.md)
   * [setGridlistSelection](elements/gridlist/setGridlistSelection.md)
   * [getGridlistSelection](elements/gridlist/getGridlistSelection.md)
-  * [TEST](elements/gridlist/LOLaaa.md)
 * [Button](elements/button.md)
 * [Label](elements/label.md)
 * [Slider](elements/slider.md)
