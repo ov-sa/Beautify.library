@@ -15,7 +15,7 @@ button createButton(text, x, y, type, ...Template_Parameters..., [parent = nil],
 * **x** \(float\) : Absolute x coordinate of the button within the container.
 * **y** \(float\) : Absolute y coordinate of the button within the container.
 * **type** \(string\) : Type of button.
-* **Template\_Parameters** : Refer to [Types](types/).
+* **Template\_Parameters** : Refer to [Button Types](types/).
 * **parent** \(element\) : Supported parent element to use as a container for the button. \(_Optional_\)
 * **postGUI** \(bool\) : State whether the UI will be drawn below/over CEGUI. \(_Optional_\)
 
