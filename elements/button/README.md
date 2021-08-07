@@ -16,6 +16,7 @@
 
 ## ━ APIs:
 
-* [createButton](createButton.md)
-* [setButtonText](setButtonText.md)
-* [getButtonText](getButtonText.md)
+* [createButton](createbutton.md)
+* [setButtonText](setbuttontext.md)
+* [getButtonText](getbuttontext.md)
+
