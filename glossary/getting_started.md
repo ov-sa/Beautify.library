@@ -9,7 +9,7 @@
 
 ## ━ How to Initialize the Module?
 
-**Add the below codes once in either of the `.lua` script of the resource you want to use it:**
+Add the below codes once in either of the `.lua` script of the resource you want to use it:
 
 ```lua
 -- Declare it globally once
@@ -19,7 +19,7 @@ loadstring(beautify)()
 
 ## ━ How to Invoke the APIs?
 
-**Since you have initialized and imported** Beautify's **module, you can invoke APIs now as below:**
+Since you have initialized and imported **Beautify's** module, you can invoke APIs now as below:
 
 ```lua
 -- Creates a centered window & sets it draggable 
@@ -71,5 +71,5 @@ end
 
 ## ━ How to get the API Names?
 
-**Head over to the sidebar and navigate into the section 'E L E M E N T S'. Dive into the element you wish to learn further more about \(Properties/APIs etc\).**
+Head over to the sidebar and navigate into the section 'E L E M E N T S'. Dive into the element you wish to learn further more about \(Properties/APIs etc\).
 
