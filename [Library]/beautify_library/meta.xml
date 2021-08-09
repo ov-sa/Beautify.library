@@ -210,4 +210,13 @@
     <!-- Params: getSliderText(slider) | Returns Data; Else false Boolean -->
     <export function="getSliderText" type="client"/>
 
+    <!-- Params: clearSliderTextColor(slider) | Returns Boolean -->
+    <export function="clearSliderTextColor" type="client"/>
+
+    <!-- Params: setSliderTextColor(slider, color) | Returns Boolean -->
+    <export function="setSliderTextColor" type="client"/>
+
+    <!-- Params: getSliderTextColor(slider) | Returns Data; Else false Boolean -->
+    <export function="getSliderTextColor" type="client"/>
+
 </meta>

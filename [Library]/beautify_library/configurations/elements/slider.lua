@@ -63,5 +63,21 @@ availableElements[elementType]["APIs"] = {
         parameters = {
             {name = "slider", type = "userdata", userDataType = elementType}
         }
+    },
+    ["clearSliderTextColor"] = {
+        parameters = {
+            {name = "slider", type = "userdata", userDataType = elementType}
+        }
+    },
+    ["setSliderTextColor"] = {
+        parameters = {
+            {name = "slider", type = "userdata", userDataType = elementType},
+            {name = "color", type = "table"}
+        }
+    },
+    ["getSliderTextColor"] = {
+        parameters = {
+            {name = "slider", type = "userdata", userDataType = elementType}
+        }
     }
 }
