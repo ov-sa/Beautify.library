@@ -102,6 +102,17 @@ local function devUI2()
     setUIVisible(createdWindow, true)
     setUIDraggable(createdWindow, true)
 
+    --local createdSlider6 = createSlider(12.5, 170.5 + 30, 27, 140, "vertical", createdWindow, false)
+
+    --local createdSlider7 = createSlider(12.5 + 27 + 10, 170.5 + 30, 27, 140, "vertical", createdWindow, false)
+
+    local createdSlider8 = createSlider(12.5 + 27 + 27 + 20, 170.5 + 30, 27, 140, "vertical", createdWindow, false)
+
+    setUIVisible(createdSlider6, true)
+    setUIVisible(createdSlider7, true)
+    setUIVisible(createdSlider8, true)
+
+
 end
 
 

@@ -39,16 +39,20 @@ function renderScrollbar(elementParent, renderData, referenceData, isFetchingInp
             scrollbar_height = availableTemplates[componentType].size
             scrollbar_startY = scrollbar_startY - scrollbar_height
             scrollbar_thumb_size = math.max(math.min(scrollbar_width*0.5, availableTemplates[componentType].thumb.minSize), (scrollbar_width/(scrollbar_width + scrollbar_overflownSize))*scrollbar_width)
+            if not elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bar"]["Horizontal"].track then
+                elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bar"]["Horizontal"].track = {}
+            end
+            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bar"]["Horizontal"].track.width = scrollbar_width
         else
             scrollbar_width = availableTemplates[componentType].size
             scrollbar_height = renderData.height
             scrollbar_startX = scrollbar_startX - scrollbar_width
             scrollbar_thumb_size = math.max(math.min(scrollbar_height*0.5, availableTemplates[componentType].thumb.minSize), (scrollbar_height/(scrollbar_height + scrollbar_overflownSize))*scrollbar_height)
+            if not elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bar"]["Vertical"].track then
+                elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bar"]["Vertical"].track = {}
+            end
+            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bar"]["Vertical"].track.height = scrollbar_height
         end
-
-        elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bar"]["Vertical"].track = {
-            height = scrollbar_height
-        } 
 
         referenceData.finalThumbSize = scrollbar_thumb_size
         referenceData.currentThumbSize = interpolateBetween(referenceData.currentThumbSize, 0, 0, referenceData.finalThumbSize, 0, 0, 0.25, "InQuad")
@@ -56,11 +60,11 @@ function renderScrollbar(elementParent, renderData, referenceData, isFetchingInp
         scrollbar_thumb_size = referenceData.currentThumbSize
         dxDrawRectangle(scrollbar_startX, scrollbar_startY, scrollbar_width, scrollbar_height, scrollbar_track_color, scrollbar_postGUI)
         if scrollbar_isHorizontal then
-            local scrollbar_thumb_startX, scrollbar_thumb_startY = scrollbar_startX + (scrollbar_width - scrollbar_thumb_size)*(referenceData.currentPercent*0.01), scrollbar_startY
+            local scrollbar_thumb_startX, scrollbar_thumb_startY = math.max(scrollbar_startX, scrollbar_startX + (scrollbar_width - scrollbar_thumb_size)*(referenceData.currentPercent*0.01)), scrollbar_startY
             dxDrawRectangle(scrollbar_thumb_startX, scrollbar_thumb_startY, scrollbar_thumb_size, scrollbar_height, scrollbar_thumb_color, scrollbar_postGUI)
             dxDrawRectangle(scrollbar_thumb_startX, scrollbar_thumb_startY, scrollbar_thumb_size, scrollbar_thumb_shadowSize, scrollbar_thumb_shadow_color, scrollbar_postGUI)
         else
-            local scrollbar_thumb_startX, scrollbar_thumb_startY = scrollbar_startX, scrollbar_startY + (scrollbar_height - scrollbar_thumb_size)*(referenceData.currentPercent*0.01)
+            local scrollbar_thumb_startX, scrollbar_thumb_startY = scrollbar_startX, math.max(scrollbar_startY, scrollbar_startY + (scrollbar_height - scrollbar_thumb_size)*(referenceData.currentPercent*0.01))
             dxDrawRectangle(scrollbar_thumb_startX, scrollbar_thumb_startY, scrollbar_width, scrollbar_thumb_size, scrollbar_thumb_color, scrollbar_postGUI)
             dxDrawRectangle(scrollbar_thumb_startX, scrollbar_thumb_startY, scrollbar_thumb_shadowSize, scrollbar_thumb_size, scrollbar_thumb_shadow_color, scrollbar_postGUI)
         end

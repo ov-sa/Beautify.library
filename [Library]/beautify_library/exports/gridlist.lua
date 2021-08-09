@@ -38,7 +38,6 @@ function createGridlist(...)
         selection = false
     }
     elementReference.gui["__UI_CACHE__"]["Column"] = {
-        updateColumns = false,
         offsets = {}
     }
     for i, j in ipairs(availableElements[elementType].syntax.parameters) do
