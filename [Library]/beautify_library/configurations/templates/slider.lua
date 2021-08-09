@@ -19,14 +19,23 @@ availableTemplates["beautify_slider"] = {
     fontColor = {200, 200, 200, 255},
     track = {
         size = 2,
-        color = {125, 125, 255, 255}
+        progressedColor = {125, 125, 255, 255},
+        unprogressedColor = {15, 15, 15, 255}
     },
     thumb = {
-        size = 8.4,
-        shadowSize = 2,
-        color = {5, 5, 5, 255},
+        size = 8,
+        shadowSize = 25.2,
+        color = {125, 125, 255, 255},
+        shadowColor = {255, 0, 0, 255}
+    },
+    --[[
+            thumb = {
+        size = 8,
+        shadowSize = 1.2,
+        color = {125, 125, 255, 255},
         shadowColor = {125, 125, 255, 255}
     },
+    ]]
     slideBar_Horizontal = {
         isOutLine = true
     },
