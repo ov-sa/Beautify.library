@@ -51,9 +51,9 @@ function createGridlist(...)
     elementReference.gui.postGUI = (not elementParent and (parameters[(#availableElements[elementType].syntax.parameters + 2)] and true)) or false
     elementReference.gui.contentSection = {
         startX = 0,
-        startY = availableElements["beautify_gridlist"].columnBar.height,
+        startY = availableElements[elementType].columnBar.height,
         width = elementReference.gui.width,
-        height = elementReference.gui.height - availableElements["beautify_gridlist"].columnBar.height
+        height = elementReference.gui.height - availableElements[elementType].columnBar.height
     }
     if elementReference.gui.contentSection.width > 0 and elementReference.gui.contentSection.height > 0 then
         elementReference.gui.renderTarget = DxRenderTarget(elementReference.gui.contentSection.width, elementReference.gui.contentSection.height, true)
