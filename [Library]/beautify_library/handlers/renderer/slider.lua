@@ -130,8 +130,7 @@ function renderSlider(element, isFetchingInput, mouseReference)
                     elementReference.gui["__UI_CACHE__"]["Track"].offsets.width = math.min(slider_track_size, slider_width)
                     elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width = math.min(slider_thumb_size, slider_width)
                     elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.height = math.min(slider_thumb_size, slider_height)
-                    --TODO: IT SHOULD BE ON MARGIN WITH LEFT...
-                    local slider_track_startX = slider_startX + slider_width - ((slider_width + (slider_track_size + slider_thumb_size))*0.5)
+                    local slider_track_startX = slider_startX + (slider_width - ((slider_width + (slider_track_size + slider_thumb_size))*0.5)) - (slider_thumb_size*0.5)
                     local slider_thumb_startX = slider_track_startX + ((slider_track_size - slider_thumb_size)*0.5)
                     local slider_exceeded_height = math.max(slider_track_startX + elementReference.gui["__UI_CACHE__"]["Track"].offsets.width, slider_thumb_startX + elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width) - (slider_startX + slider_width)
                     slider_exceeded_height = math.max(0, slider_exceeded_height)
@@ -174,7 +173,7 @@ function renderSlider(element, isFetchingInput, mouseReference)
                 dxDrawImage(elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.height, elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture, 0, 0, 0, tocolor(255, 255, 255, 255), slider_postGUI)
             end
             --TODO: BG CHECKER REMOVE LATER
-            dxDrawRectangle(slider_startX, slider_startY, slider_width, slider_height, tocolor(255, 0, 0, 200), slider_postGUI)
+            dxDrawRectangle(slider_startX, slider_startY, slider_width, slider_height, tocolor(255, 0, 0, 100), slider_postGUI)
         end
     else
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
