@@ -23,19 +23,9 @@ availableTemplates["beautify_slider"] = {
         unprogressedColor = {15, 15, 15, 255}
     },
     thumb = {
-        size = 8,
-        shadowSize = 25.2,
-        color = {125, 125, 255, 255},
-        shadowColor = {255, 0, 0, 255}
+        size = 9.2,
+        color = {125, 125, 255, 255}
     },
-    --[[
-            thumb = {
-        size = 8,
-        shadowSize = 1.2,
-        color = {125, 125, 255, 255},
-        shadowColor = {125, 125, 255, 255}
-    },
-    ]]
     slideBar_Horizontal = {
         isOutLine = true
     },
