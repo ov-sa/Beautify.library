@@ -84,12 +84,12 @@ local function devUI2()
 
     local window_width, window_height = 275, 350
     local createdWindow = createWindow(750 + 50, (sY - window_height)/2, window_width, window_height, "Development UI #2", nil, false)
-    local createdSlider = createSlider(12.5, 12.5, 250, 27, "horizontal", createdWindow, false)
-    local createdSlider2 = createSlider(12.5, 52, 250, 27, "horizontal", createdWindow, false)
-    local createdSlider3 = createSlider(12.5, 91.5, 250, 27, "horizontal", createdWindow, false)
-    local createdSlider4 = createSlider(12.5, 131, 250, 27, "horizontal", createdWindow, false)
-    local createdSlider5 = createSlider(12.5, 170.5, 250, 27, "horizontal", createdWindow, false)
-    setSliderText(createdSlider, "VOLUME")
+    local createdSlider = createSlider(12.5, 12.5, 250, 28, "horizontal", createdWindow, false)
+    local createdSlider2 = createSlider(12.5, 52, 250, 28, "horizontal", createdWindow, false)
+    local createdSlider3 = createSlider(12.5, 91.5, 250, 28, "horizontal", createdWindow, false)
+    local createdSlider4 = createSlider(12.5, 131, 250, 28, "horizontal", createdWindow, false)
+    local createdSlider5 = createSlider(12.5, 170.5, 250, 28, "horizontal", createdWindow, false)
+    setSliderText(createdSlider, "VOLUMNE")
     setSliderText(createdSlider2, "VISIBILITY")
     setSliderText(createdSlider3, "DRAW DISTANCE")
     setSliderText(createdSlider4, "FIELD OF VIEW")
@@ -102,17 +102,19 @@ local function devUI2()
     setUIVisible(createdWindow, true)
     setUIDraggable(createdWindow, true)
 
-    local testPADDING = 75
-    local createdSlider6 = createSlider(12.5 + testPADDING, 170.5 + 30, 27, 140, "vertical", createdWindow, false)
-    local createdSlider7 = createSlider(12.5 + testPADDING + 27 + 10, 170.5 + 30, 27, 140, "vertical", createdWindow, false)
-    local createdSlider8 = createSlider(12.5 + testPADDING + 27 + 27 + 20, 170.5 + 30, 27, 140, "vertical", createdWindow, false)
-
+    local verticalPadding = 75
+    local createdSlider6 = createSlider(64.75, 200.5, 28, 140, "vertical", createdWindow, false)
+    local createdSlider7 = createSlider(104.25, 200.5, 28, 140, "vertical", createdWindow, false)
+    local createdSlider8 = createSlider(143.75, 200.5, 28, 140, "vertical", createdWindow, false)
+    local createdSlider9 = createSlider(183.25, 200.5, 28, 140, "vertical", createdWindow, false)
     setUIVisible(createdSlider6, true)
-    setSliderText(createdSlider6, "VOLUME")
+    setSliderText(createdSlider6, "H-SENSITIVITY")
     setUIVisible(createdSlider7, true)
-    setSliderText(createdSlider7, "VOLUME")
+    setSliderText(createdSlider7, "V-SENSITIVITY")
     setUIVisible(createdSlider8, true)
-    setSliderText(createdSlider8, "VOLUME")
+    setSliderText(createdSlider8, "AMBIENCE")
+    setUIVisible(createdSlider9, true)
+    setSliderText(createdSlider9, "OVERLAYS")
 
 end
 

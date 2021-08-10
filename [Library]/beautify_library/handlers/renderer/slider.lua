@@ -167,7 +167,8 @@ function renderSlider(element, isFetchingInput, mouseReference)
                 end
                 if elementReference.gui.text then
                     local slider_text_rotValue = slider_width*0.5
-                    dxDrawText(elementReference.gui.text..": "..slider_percent.."%", slider_startX + slider_content_padding, slider_startY + (elementTemplate.fontPaddingY or 0), slider_startX + slider_height - slider_content_padding, slider_startY + slider_width - math.max(elementReference.gui["__UI_CACHE__"]["Track"].offsets.width, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width), slider_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "right", "bottom", true, false, slider_postGUI, false, false, 90, slider_startX + slider_text_rotValue, slider_startY + slider_text_rotValue)
+                    local slider_text_offsetY = slider_width - (math.max(elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX + elementReference.gui["__UI_CACHE__"]["Track"].offsets.width, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX + (elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width*0.5)) - slider_startX) - (slider_content_padding*0.5)
+                    dxDrawText(elementReference.gui.text..": "..slider_percent.."%", slider_startX + slider_content_padding, slider_startY + (elementTemplate.fontPaddingY or 0), slider_startX + slider_height - slider_content_padding, slider_startY + slider_text_offsetY, slider_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "right", "bottom", true, false, slider_postGUI, false, false, 90, slider_startX + slider_text_rotValue, slider_startY + slider_text_rotValue)
                 end
             end
             if elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture then
