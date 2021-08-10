@@ -39,14 +39,15 @@ function renderSlider(element, isFetchingInput, mouseReference)
         local slider_postGUI = elementReference.gui.postGUI
 
         if not elementParent then dxSetRenderTarget() end
-        if not elementReference.gui["__UI_CACHE__"]["Track"] then
+        if not elementReference.gui["__UI_CACHE__"]["Text"] then
+            elementReference.gui["__UI_CACHE__"]["Text"] = {
+                offsets = {}
+            }
             elementReference.gui["__UI_CACHE__"]["Track"] = {
                 offsets = {
                     height = slider_track_size
                 }
             }
-        end
-        if not elementReference.gui["__UI_CACHE__"]["Thumb"] then
             elementReference.gui["__UI_CACHE__"]["Thumb"] = {
                 offsets = {}
             }
@@ -105,7 +106,7 @@ function renderSlider(element, isFetchingInput, mouseReference)
                 elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX = slider_startX + slider_content_padding
                 elementReference.gui["__UI_CACHE__"]["Track"].offsets.width = slider_track_width
                 local slider_thumb_startX = math.max(slider_startX, elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX + (slider_track_width - slider_thumb_size)*(slider_percent*0.01))
-                if not elementReference.gui["__UI_CACHE__"]["Track"].offsets.startY or not elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY or not elementReference.gui["__UI_CACHE__"]["Track"].offsets.height or not elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width or not elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.height or elementReference.gui["__UI_CACHE__"].updateOffsets then
+                if not elementReference.gui["__UI_CACHE__"]["Text"].offsets.startX or not elementReference.gui["__UI_CACHE__"]["Text"].offsets.startY or not elementReference.gui["__UI_CACHE__"]["Track"].offsets.startY or not elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY or not elementReference.gui["__UI_CACHE__"]["Track"].offsets.height or not elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width or not elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.height or elementReference.gui["__UI_CACHE__"].updateElement then
                     elementReference.gui["__UI_CACHE__"]["Track"].offsets.height = math.min(slider_track_size, slider_height)
                     elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width = math.min(slider_thumb_size, slider_width)
                     elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.height = math.min(slider_thumb_size, slider_height)
@@ -115,9 +116,13 @@ function renderSlider(element, isFetchingInput, mouseReference)
                     slider_exceeded_height = math.max(0, slider_exceeded_height)
                     elementReference.gui["__UI_CACHE__"]["Track"].offsets.startY = math.max(slider_startY, slider_track_startY - slider_exceeded_height)
                     elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY = math.max(slider_startY, slider_thumb_startY - slider_exceeded_height)
+                    elementReference.gui["__UI_CACHE__"]["Text"].offsets.startX = elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX
+                    elementReference.gui["__UI_CACHE__"]["Text"].offsets.startY = slider_startY
+                    elementReference.gui["__UI_CACHE__"]["Text"].offsets.endX = elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX + elementReference.gui["__UI_CACHE__"]["Track"].offsets.width
+                    elementReference.gui["__UI_CACHE__"]["Text"].offsets.endY = math.min(elementReference.gui["__UI_CACHE__"]["Track"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY)
                 end
-                elementReference.gui["__UI_CACHE__"].updateOffsets = nil
                 elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX = slider_thumb_startX
+                elementReference.gui["__UI_CACHE__"].updateElement = nil
             end
         else
             local slider_track_height = slider_height - (slider_content_padding*2)
@@ -126,7 +131,7 @@ function renderSlider(element, isFetchingInput, mouseReference)
                 elementReference.gui["__UI_CACHE__"]["Track"].offsets.startY = slider_startY + slider_content_padding
                 elementReference.gui["__UI_CACHE__"]["Track"].offsets.height = slider_track_height
                 local slider_thumb_startY = math.max(slider_startY, elementReference.gui["__UI_CACHE__"]["Track"].offsets.startY + (slider_track_height - slider_thumb_size)*(slider_percent*0.01))
-                if not elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX or not elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX or not elementReference.gui["__UI_CACHE__"]["Track"].offsets.width or not elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width or not elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.height or elementReference.gui["__UI_CACHE__"].updateOffsets then
+                if not elementReference.gui["__UI_CACHE__"]["Text"].offsets.startX or not elementReference.gui["__UI_CACHE__"]["Text"].offsets.startY or not elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX or not elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX or not elementReference.gui["__UI_CACHE__"]["Track"].offsets.width or not elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width or not elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.height or elementReference.gui["__UI_CACHE__"].updateElement then
                     elementReference.gui["__UI_CACHE__"]["Track"].offsets.width = math.min(slider_track_size, slider_width)
                     elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width = math.min(slider_thumb_size, slider_width)
                     elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.height = math.min(slider_thumb_size, slider_height)
@@ -136,12 +141,19 @@ function renderSlider(element, isFetchingInput, mouseReference)
                     slider_exceeded_height = math.max(0, slider_exceeded_height)
                     elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX = math.max(slider_startX, slider_track_startX - slider_exceeded_height)
                     elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX = math.max(slider_startX, slider_thumb_startX - slider_exceeded_height)
+                    elementReference.gui["__UI_CACHE__"]["Text"].offsets.rotValue = slider_width*0.5
+                    local slider_text_offsetY = slider_width - (math.max(elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX + elementReference.gui["__UI_CACHE__"]["Track"].offsets.width, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX + (elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width*0.5)) - slider_startX) - (slider_content_padding*0.5)
+                    elementReference.gui["__UI_CACHE__"]["Text"].offsets.startX = slider_startX + slider_content_padding
+                    elementReference.gui["__UI_CACHE__"]["Text"].offsets.startY = slider_startY
+                    elementReference.gui["__UI_CACHE__"]["Text"].offsets.endX = slider_startX + slider_height - slider_content_padding
+                    elementReference.gui["__UI_CACHE__"]["Text"].offsets.endY = slider_startY + slider_text_offsetY
+                    elementReference.gui["__UI_CACHE__"]["Text"].offsets.rotX = slider_startX + elementReference.gui["__UI_CACHE__"]["Text"].offsets.rotValue
+                    elementReference.gui["__UI_CACHE__"]["Text"].offsets.rotY = slider_startY + elementReference.gui["__UI_CACHE__"]["Text"].offsets.rotValue
                 end
-                elementReference.gui["__UI_CACHE__"].updateOffsets = nil
                 elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY = slider_thumb_startY
+                elementReference.gui["__UI_CACHE__"].updateElement = nil
             end
         end
-
         if elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX and elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY then
             local slider_track_progressed_color, slider_track_unprogressed_color, slider_fontColor = tocolor(elementTemplate.track.progressedColor[1], elementTemplate.track.progressedColor[2], elementTemplate.track.progressedColor[3], elementTemplate.track.progressedColor[4]*elementReference.gui.animAlphaPercent), tocolor(elementTemplate.track.unprogressedColor[1], elementTemplate.track.unprogressedColor[2], elementTemplate.track.unprogressedColor[3], elementTemplate.track.unprogressedColor[4]*elementReference.gui.animAlphaPercent), (elementReference.gui.fontColor and tocolor(elementReference.gui.fontColor[1], elementReference.gui.fontColor[2], elementReference.gui.fontColor[3], elementReference.gui.fontColor[4]*elementReference.gui.animAlphaPercent)) or tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4]*elementReference.gui.animAlphaPercent)
             if slider_type == "horizontal" then
@@ -154,7 +166,7 @@ function renderSlider(element, isFetchingInput, mouseReference)
                     dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX + slider_track_progressed_length, elementReference.gui["__UI_CACHE__"]["Track"].offsets.startY, slider_track_unprogressed_length, elementReference.gui["__UI_CACHE__"]["Track"].offsets.height, slider_track_unprogressed_color, slider_postGUI)
                 end
                 if elementReference.gui.text then
-                    dxDrawText(elementReference.gui.text..": "..slider_percent.."%", elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX, slider_startY + (elementTemplate.fontPaddingY or 0), elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX + elementReference.gui["__UI_CACHE__"]["Track"].offsets.width, math.min(elementReference.gui["__UI_CACHE__"]["Track"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY), slider_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "right", "bottom", true, false, slider_postGUI, false)
+                    dxDrawText(elementReference.gui.text..": "..slider_percent.."%", elementReference.gui["__UI_CACHE__"]["Text"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Text"].offsets.startY + (elementTemplate.fontPaddingY or 0), elementReference.gui["__UI_CACHE__"]["Text"].offsets.endX, elementReference.gui["__UI_CACHE__"]["Text"].offsets.endY, slider_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "right", "bottom", true, false, slider_postGUI, false)
                 end
             else
                 local slider_track_progressed_length = elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY - elementReference.gui["__UI_CACHE__"]["Track"].offsets.startY + slider_thumb_size
@@ -166,9 +178,7 @@ function renderSlider(element, isFetchingInput, mouseReference)
                     dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Track"].offsets.startY + slider_track_progressed_length, elementReference.gui["__UI_CACHE__"]["Track"].offsets.width, slider_track_unprogressed_length, slider_track_unprogressed_color, slider_postGUI)
                 end
                 if elementReference.gui.text then
-                    local slider_text_rotValue = slider_width*0.5
-                    local slider_text_offsetY = slider_width - (math.max(elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX + elementReference.gui["__UI_CACHE__"]["Track"].offsets.width, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX + (elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width*0.5)) - slider_startX) - (slider_content_padding*0.5)
-                    dxDrawText(elementReference.gui.text..": "..slider_percent.."%", slider_startX + slider_content_padding, slider_startY + (elementTemplate.fontPaddingY or 0), slider_startX + slider_height - slider_content_padding, slider_startY + slider_text_offsetY, slider_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "right", "bottom", true, false, slider_postGUI, false, false, 90, slider_startX + slider_text_rotValue, slider_startY + slider_text_rotValue)
+                    dxDrawText(elementReference.gui.text..": "..slider_percent.."%", elementReference.gui["__UI_CACHE__"]["Text"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Text"].offsets.startY + (elementTemplate.fontPaddingY or 0), elementReference.gui["__UI_CACHE__"]["Text"].offsets.endX, elementReference.gui["__UI_CACHE__"]["Text"].offsets.endY, slider_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "right", "bottom", true, false, slider_postGUI, false, false, 90, elementReference.gui["__UI_CACHE__"]["Text"].offsets.rotX, elementReference.gui["__UI_CACHE__"]["Text"].offsets.rotY)
                 end
             end
             if elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture then
