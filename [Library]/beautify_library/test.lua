@@ -104,15 +104,15 @@ local function devUI2()
 
     local testPADDING = 75
     local createdSlider6 = createSlider(12.5 + testPADDING, 170.5 + 30, 27, 140, "vertical", createdWindow, false)
-
     local createdSlider7 = createSlider(12.5 + testPADDING + 27 + 10, 170.5 + 30, 27, 140, "vertical", createdWindow, false)
-
     local createdSlider8 = createSlider(12.5 + testPADDING + 27 + 27 + 20, 170.5 + 30, 27, 140, "vertical", createdWindow, false)
 
     setUIVisible(createdSlider6, true)
+    setSliderText(createdSlider6, "VOLUME")
     setUIVisible(createdSlider7, true)
+    setSliderText(createdSlider7, "VOLUME")
     setUIVisible(createdSlider8, true)
-
+    setSliderText(createdSlider8, "VOLUME")
 
 end
 

@@ -166,14 +166,12 @@ function renderSlider(element, isFetchingInput, mouseReference)
                     dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Track"].offsets.startY + slider_track_progressed_length, elementReference.gui["__UI_CACHE__"]["Track"].offsets.width, slider_track_unprogressed_length, slider_track_unprogressed_color, slider_postGUI)
                 end
                 if elementReference.gui.text then
-                    --dxDrawText(elementReference.gui.text..": "..slider_percent.."%", elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX, slider_startY + (elementTemplate.fontPaddingY or 0), elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX + elementReference.gui["__UI_CACHE__"]["Track"].offsets.width, math.min(elementReference.gui["__UI_CACHE__"]["Track"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY), slider_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "right", "bottom", true, false, slider_postGUI, false)
+                    dxDrawText(elementReference.gui.text..": "..slider_percent.."%", slider_startX + slider_content_padding, slider_startY + (elementTemplate.fontPaddingY or 0), slider_startX + slider_height - slider_content_padding, slider_startY + slider_width - math.max(elementReference.gui["__UI_CACHE__"]["Track"].offsets.width, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width), slider_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "right", "bottom", true, false, slider_postGUI, false, false, 90, slider_startX + (slider_width/2), slider_startY + (slider_width/2))
                 end
             end
             if elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture then
                 dxDrawImage(elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.height, elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture, 0, 0, 0, tocolor(255, 255, 255, 255), slider_postGUI)
             end
-            --TODO: BG CHECKER REMOVE LATER
-            dxDrawRectangle(slider_startX, slider_startY, slider_width, slider_height, tocolor(255, 0, 0, 100), slider_postGUI)
         end
     else
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
