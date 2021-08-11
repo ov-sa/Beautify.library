@@ -15,7 +15,7 @@ state setLabelHorizontalAlignment(label, alignment)
 ### **Parameters:**
 
 * **label** \(element\) : Label element you wish to set the horizontal alignment of.
-* **alignment** \(string\) : Horizontal alignment of the label \(Left/Center/Right\).
+* **alignment** \(string\) : Horizontal alignment of the label \(left/center/right\).
 
 ### **Returns:**
 

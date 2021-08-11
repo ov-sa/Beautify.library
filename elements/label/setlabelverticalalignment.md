@@ -15,7 +15,7 @@ state setLabelVerticalAlignment(label, alignment)
 ### **Parameters:**
 
 * **label** \(element\) : Label element you wish to set the vertical alignment of.
-* **alignment** \(string\) : Vertical alignment of the label \(Top/Center/Bottom\).
+* **alignment** \(string\) : Vertical alignment of the label \(top/center/bottom\).
 
 ### **Returns:**
 
