@@ -18,6 +18,8 @@ local availableDXNatives = {
     "type",
     "tonumber",
     "tostring",
+    "toJSON",
+    "fromJSON",
     "math.max",
     "math.min",
     "math.ceil",

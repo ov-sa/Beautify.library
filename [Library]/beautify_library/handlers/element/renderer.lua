@@ -121,11 +121,13 @@ addEventHandler("onClientRender", root, function()
             detachElement()
         elseif GuiElement.isMTAWindowActive() or not isCursorShowing() or not getKeyState("mouse1") or not isUIValid(attachedElement.element) or not isUIVisible(attachedElement.element) then
             detachElement()
+            createdElements[(attachedElement.element)].gui["__UI_CACHE__"].updateElement = true
         else
             local cX, cY = getAbsoluteCursorPosition()
             if cX and cY then
                 local attached_offsetX, attached_offsetY = interpolateBetween(createdElements[(attachedElement.element)].gui.x, createdElements[(attachedElement.element)].gui.y, 0, cX - attachedElement.offsetX, cY - attachedElement.offsetY, 0, 0.45, "InQuad")
                 createdElements[(attachedElement.element)].gui.x, createdElements[(attachedElement.element)].gui.y = math.ceil(attached_offsetX), math.ceil(attached_offsetY)
+                createdElements[(attachedElement.element)].gui["__UI_CACHE__"].updateElement = true
             end
         end
     end
