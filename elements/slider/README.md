@@ -8,12 +8,13 @@
 
 ## ━ APIs:
 
-* [createSlider](createSlider.md)
-* [setSliderPercent](setSliderPercent.md)
-* [getSliderPercent](getSliderPercent.md)
-* [clearSliderText](clearSliderText.md)
-* [setSliderText](setSliderText.md)
-* [getSliderText](getSliderText.md)
-* [clearSliderTextColor](clearSliderTextColor.md)
-* [setSliderTextColor](setSliderTextColor.md)
-* [getSliderTextColor](getSliderTextColor.md)
+* [createSlider](createslider.md)
+* [setSliderPercent](setsliderpercent.md)
+* [getSliderPercent](getsliderpercent.md)
+* [clearSliderText](clearslidertext.md)
+* [setSliderText](setslidertext.md)
+* [getSliderText](getslidertext.md)
+* [clearSliderTextColor](clearslidertextcolor.md)
+* [setSliderTextColor](setslidertextcolor.md)
+* [getSliderTextColor](getslidertextcolor.md)
+
