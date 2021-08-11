@@ -13,6 +13,7 @@
 --[[ Variables ]]--
 -------------------
 
+CLIENT_MTA_RESOLUTION = {GuiElement.getScreenSize()}
 CLIENT_MTA_RESTORED = false
 CLIENT_HOVERED_ELEMENT = false
 INPUT_CACHE = {

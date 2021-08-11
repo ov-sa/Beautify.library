@@ -9,12 +9,6 @@
      Desc: Client Sided Utilities ]]--
 ----------------------------------------------------------------
 
--------------------
---[[ Variables ]]--
--------------------
-
-sX, sY = GuiElement.getScreenSize()
-
 
 -----------------------------------
 --[[ Function: Rounds A Number ]]--
@@ -123,8 +117,8 @@ function getAbsoluteCursorPosition()
 
     if not isCursorShowing() then return false end
 
-    local cX, cY = getCursorPosition()
-    return cX*sX, cY*sY
+    local cursorOffset = {getCursorPosition()}
+    return cursorOffset[1]*CLIENT_MTA_RESOLUTION[1], cursorOffset[2]*CLIENT_MTA_RESOLUTION[2]
 
 end
 
@@ -135,11 +129,11 @@ end
 
 function isMouseOnPosition(x, y, w, h)
 
-    if getAttachedElement() or not isCursorShowing() then return false end
+    if attachedElement or not isCursorShowing() then return false end
     if not x or not y or not w or not h then return false end
 
-    local cX, cY = getAbsoluteCursorPosition()
-    return (cX >= x) and (cX <= (x + w)) and (cY >= y) and (cY <= (y + h))
+    local cursorOffset = {getAbsoluteCursorPosition()}
+    return (cursorOffset[1] >= x) and (cursorOffset[1] <= (x + w)) and (cursorOffset[2] >= y) and (cursorOffset[2] <= (y + h))
 
 end
 

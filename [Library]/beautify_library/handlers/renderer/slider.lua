@@ -215,13 +215,20 @@ function renderSlider(element, isFetchingInput, mouseReference)
                 elementReference.gui.hoverAnimTickCounter = getTickCount()
             end
         end
-        if isSliderThumbHovered then
-            if isKeyClicked("mouse1") then
-                outputChatBox("CLICKED THUMB")
-                --TODO: DO QUERIES
+        if attachedElement and (attachedElement.element == element) and attachedElement.isInternal then
+            local cursorOffset = {getAbsoluteCursorPosition()}
+            if cursorOffset[1] and cursorOffset[2] then
+                local slider_type = elementReference.gui.type
+                if slider_type == "horizontal" then
+                    elementReference.gui.slideBar_Horizontal.finalPercent = math.max(0, math.min(100, (cursorOffset[1] - (__mouseReference.x + elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX))/elementReference.gui["__UI_CACHE__"]["Track"].offsets.width*100))
+                elseif slider_type == "vertical" then
+                    elementReference.gui.slideBar_Vertical.finalPercent = math.max(0, math.min(100, (cursorOffset[2] - (__mouseReference.y + elementReference.gui["__UI_CACHE__"]["Track"].offsets.startY))/elementReference.gui["__UI_CACHE__"]["Track"].offsets.height*100))
+                end
             end
         else
-
+            if isSliderThumbHovered and isKeyClicked("mouse1") and not elementReference.isDisabled then
+                attachElement(element, true)
+            end
         end
     end
     return true

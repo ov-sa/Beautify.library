@@ -4,7 +4,7 @@
 --[[ Variables ]]--
 -------------------
 
-local _sX = sX/1366; _sY = sY/768;
+local _sX = CLIENT_MTA_RESOLUTION[1]/1366; _sY = CLIENT_MTA_RESOLUTION[2]/768;
 
 
 ---------------------------
@@ -14,7 +14,7 @@ local _sX = sX/1366; _sY = sY/768;
 local function devUI1()
 
     local window_width, window_height = 700, 378
-    local createdWindow = createWindow(50, (sY - window_height)/2, window_width, window_height, "Development UI #1", nil, false)
+    local createdWindow = createWindow(50, (CLIENT_MTA_RESOLUTION[2] - window_height)/2, window_width, window_height, "Development UI #1", nil, false)
     local createdLabel = createLabel("DISCLAIMER: THIS IS JUST A DEVELOPMENT UI!", 0, 0, window_width, 20, createdWindow, false)
     local createdGridlist = createGridlist(0, 20, window_width, window_height - 20 - 30, createdWindow, false)
     local createdButton = createButton("Button #1", 0, window_height - 30 + 5, "default", 175, 24, createdWindow, false)
@@ -83,7 +83,7 @@ end
 local function devUI2()
 
     local window_width, window_height = 275, 350
-    local createdWindow = createWindow(750 + 50, (sY - window_height)/2, window_width, window_height, "Development UI #2", nil, false)
+    local createdWindow = createWindow(750 + 50, (CLIENT_MTA_RESOLUTION[2] - window_height)/2, window_width, window_height, "Development UI #2", nil, false)
     
     local createdSlider = createSlider(12.5, 12.5, 250, 28, "horizontal", createdWindow, false)
     local createdSlider2 = createSlider(12.5, 52, 250, 28, "horizontal", createdWindow, false)

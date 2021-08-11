@@ -13,7 +13,7 @@
 --[[ Variables ]]--
 -------------------
 
-local attachedElement = false
+attachedElement = false
 
 
 -----------------------------------------------
@@ -35,13 +35,13 @@ function attachElement(element, isInternal)
 
     if GuiElement.isMTAWindowActive() or not isCursorShowing() or not getKeyState("mouse1") or not isUIValid(element) or not isUIVisible(element) then return false end
     if attachedElement and attachedElement.element and isElement(attachedElement.element) and (attachedElement.element == element) then return false end
-    local cX, cY = getAbsoluteCursorPosition()
-    if not cX or not cY then return false end
+    local cursorOffset = {getAbsoluteCursorPosition()}
+    if not cursorOffset[1] or not cursorOffset[2] then return false end
 
     attachedElement = {
         element = element,
-        offsetX = cX - createdElements[element].gui.x,
-        offsetY = cY - createdElements[element].gui.y,
+        offsetX = cursorOffset[1] - createdElements[element].gui.x,
+        offsetY = cursorOffset[2] - createdElements[element].gui.y,
         isInternal = (isInternal and true) or false
     }
     return true
