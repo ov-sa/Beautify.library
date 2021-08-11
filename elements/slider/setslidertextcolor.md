@@ -28,4 +28,5 @@ local resultState = beautify.slider.setSliderTextColor(createdSlider, {255, 0, 0
 print(tostring(resultState))
 ```
 
-![](../../.gitbook/assets/setslidertextcolor.png)
+![](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/6614fb15966a56264b74a8a4ff0630898d171494/.gitbook/assets/setslidertextcolor.png)
+

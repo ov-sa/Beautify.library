@@ -28,3 +28,4 @@ print(sliderPercent)
 ```
 
 ![](../../.gitbook/assets/getsliderpercent.png)
+

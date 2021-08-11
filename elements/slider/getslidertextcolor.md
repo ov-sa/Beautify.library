@@ -27,4 +27,5 @@ local sliderTextColor = beautify.slider.getSliderTextColor(createdSlider)
 print(toJSON(sliderTextColor))
 ```
 
-![](../../.gitbook/assets/getslidertextcolor.png)
+![](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/6614fb15966a56264b74a8a4ff0630898d171494/.gitbook/assets/getslidertextcolor.png)
+

@@ -28,3 +28,4 @@ print(sliderText)
 ```
 
 ![](../../.gitbook/assets/getslidertext.png)
+
