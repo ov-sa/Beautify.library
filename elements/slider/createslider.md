@@ -1,5 +1,7 @@
 ---
-description: Creates a new slider which can be further used to bind your functions/datas on.
+description: >-
+  Creates a new slider which can be further used to bind your functions/datas
+  on.
 ---
 
 # createSlider
@@ -16,7 +18,7 @@ slider createSlider(x, y, width, height, type, [parent = nil], [postGUI = false]
 * **y** \(float\) : Absolute y coordinate of the slider within the container.
 * **width** \(float\) : Absolute width of the slider.
 * **height** \(float\) : Absolute height of the slider.
-* **type** \(string\) : Type of slider \(horizontal\vertical).
+* **type** \(string\) : Type of slider \(horizontal\vertical\).
 * **parent** \(element\) : Supported parent element to use as a container for the slider. \(_Optional_\)
 * **postGUI** \(bool\) : State whether the UI will be drawn below/over CEGUI. \(_Optional_\)
 
@@ -33,4 +35,5 @@ local createdSlider = beautify.slider.createSlider((sX - slider_width)/2, (sY - 
 beautify.setUIVisible(createdSlider, true)
 ```
 
-![](../../.gitbook/assets/createslider.png)
+![](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/8ab024377726be289b02b4cc09c68c74dbaaf367/.gitbook/assets/createslider.png)
+

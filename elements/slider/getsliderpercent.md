@@ -27,4 +27,5 @@ local sliderPercent = beautify.slider.getSliderPercent(createdSlider)
 print(sliderPercent)
 ```
 
-![](../../.gitbook/assets/getsliderpercent.png)
+![](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/58714ad13d6e3877e8bc41e8bb96d921f5c9dd2b/.gitbook/assets/getsliderpercent.png)
+

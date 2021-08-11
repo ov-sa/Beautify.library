@@ -27,4 +27,5 @@ local sliderText = beautify.slider.getSliderText(createdSlider)
 print(sliderText)
 ```
 
-![](../../.gitbook/assets/getslidertext.png)
+![](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/ed45709ed2592eb6919b53e48129bb53425c04e2/.gitbook/assets/getslidertext.png)
+
