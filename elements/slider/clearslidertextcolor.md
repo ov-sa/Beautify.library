@@ -25,5 +25,5 @@ local resultState = beautify.slider.clearSliderTextColor(createdSlider)
 print(tostring(resultState))
 ```
 
-![](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/60e590ef9cd2e820610a4350655598c6ddca3b80/.gitbook/assets/clearslidertextcolor.png)
+![](../../.gitbook/assets/clearslidertextcolor.png)
 
