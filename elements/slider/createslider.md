@@ -30,8 +30,7 @@ slider createSlider(x, y, width, height, type, [parent = nil], [postGUI = false]
 local sX, sY = guiGetScreenSize()
 local slider_width, slider_height = 300, 50
 local createdSlider = beautify.slider.createSlider((sX - slider_width)/2, (sY - slider_height)/2, slider_width, slider_height, "horizontal", nil, false)
-beautify.setUIDisabled(createdSlider, true)
-beautify.setUIVisible(createdSlider , true)
+beautify.setUIVisible(createdSlider, true)
 ```
 
 ![](../../.gitbook/assets/createslider.png)

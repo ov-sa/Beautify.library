@@ -31,7 +31,7 @@ local sX, sY = guiGetScreenSize()
 local label_width, label_height = 300, 50
 local createdLabel = beautify.label.createLabel("Label #1", (sX - label_width)/2, (sY - label_height)/2, label_width, label_height, nil, false)
 beautify.setUIDisabled(createdLabel, true)
-beautify.setUIVisible(createdLabel , true)
+beautify.setUIVisible(createdLabel, true)
 ```
 
 ![](../../.gitbook/assets/createlabel.png)
