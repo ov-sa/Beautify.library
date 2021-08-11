@@ -28,5 +28,5 @@ local resultState = beautify.slider.setSliderText(createdSlider, "My First Slide
 print(tostring(resultState))
 ```
 
-![](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/7e0ecb751e5cb5fb7c0112b4713a70ed9fb13497/.gitbook/assets/setslidertext.png)
+![](../../.gitbook/assets/setslidertext.png)
 

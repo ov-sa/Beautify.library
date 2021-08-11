@@ -35,5 +35,5 @@ local createdSlider = beautify.slider.createSlider((sX - slider_width)/2, (sY - 
 beautify.setUIVisible(createdSlider, true)
 ```
 
-![](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/8ab024377726be289b02b4cc09c68c74dbaaf367/.gitbook/assets/createslider.png)
+![](../../.gitbook/assets/createslider.png)
 
