@@ -1,5 +1,5 @@
 ---
-description: Retrieves the percentage of the slider.
+description: Retrieves the slidden percentage of the slider.
 ---
 
 # getSliderPercent
