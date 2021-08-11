@@ -48,7 +48,7 @@ addEventHandler("onClientResourceStart", resource, function()
     if #availableDXNatives > 0 then
         local clonedNatives = ""
         for i, j in ipairs(availableDXNatives) do
-            clonedNatives = j.." = "..j
+            clonedNatives = clonedNatives..j.." = "..j
             if i ~= #availableDXNatives then
                 clonedNatives = clonedNatives.."\n"
             end

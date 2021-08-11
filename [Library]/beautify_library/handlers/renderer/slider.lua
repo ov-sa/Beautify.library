@@ -117,7 +117,7 @@ function renderSlider(element, isFetchingInput, mouseReference)
                     elementReference.gui["__UI_CACHE__"]["Track"].offsets.startY = math.max(slider_startY, slider_track_startY - slider_exceeded_height)
                     elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY = math.max(slider_startY, slider_thumb_startY - slider_exceeded_height)
                     elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX = slider_thumb_startX
-                    elementReference.gui["__UI_CACHE__"]["Text"].text = (elementReference.gui.text and elementReference.gui.text..": "..math.floor(elementReference.gui.slideBar_Horizontal.currentPercent).."%") or nil
+                    elementReference.gui["__UI_CACHE__"]["Text"].text = (elementReference.gui.text and elementReference.gui.text..": "..math.ceil(elementReference.gui.slideBar_Horizontal.currentPercent).."%") or nil
                     elementReference.gui["__UI_CACHE__"]["Text"].offsets.startX = elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX
                     elementReference.gui["__UI_CACHE__"]["Text"].offsets.startY = slider_startY
                     elementReference.gui["__UI_CACHE__"]["Text"].offsets.endX = elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX + elementReference.gui["__UI_CACHE__"]["Track"].offsets.width
@@ -149,7 +149,7 @@ function renderSlider(element, isFetchingInput, mouseReference)
                     elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY = slider_thumb_startY
                     elementReference.gui["__UI_CACHE__"]["Text"].offsets.rotValue = slider_width*0.5
                     local slider_text_offsetY = slider_width - (math.max(elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX + elementReference.gui["__UI_CACHE__"]["Track"].offsets.width, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX + (elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width*0.5)) - slider_startX) - (slider_content_padding*0.5)
-                    elementReference.gui["__UI_CACHE__"]["Text"].text = (elementReference.gui.text and elementReference.gui.text..": "..math.floor(elementReference.gui.slideBar_Vertical.currentPercent).."%") or nil
+                    elementReference.gui["__UI_CACHE__"]["Text"].text = (elementReference.gui.text and elementReference.gui.text..": "..math.ceil(elementReference.gui.slideBar_Vertical.currentPercent).."%") or nil
                     elementReference.gui["__UI_CACHE__"]["Text"].offsets.startX = slider_startX + slider_content_padding
                     elementReference.gui["__UI_CACHE__"]["Text"].offsets.startY = slider_startY
                     elementReference.gui["__UI_CACHE__"]["Text"].offsets.endX = slider_startX + slider_height - slider_content_padding
