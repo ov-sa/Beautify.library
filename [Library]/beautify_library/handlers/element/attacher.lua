@@ -31,7 +31,7 @@ end
 --[[ Functions: Attaches/Detaches Element ]]--
 ----------------------------------------------
 
-function attachElement(element)
+function attachElement(element, isInternal)
 
     if GuiElement.isMTAWindowActive() or not isCursorShowing() or not getKeyState("mouse1") or not isUIValid(element) or not isUIVisible(element) then return false end
     if attachedElement and attachedElement.element and isElement(attachedElement.element) and (attachedElement.element == element) then return false end
@@ -41,7 +41,8 @@ function attachElement(element)
     attachedElement = {
         element = element,
         offsetX = cX - createdElements[element].gui.x,
-        offsetY = cY - createdElements[element].gui.y
+        offsetY = cY - createdElements[element].gui.y,
+        isInternal = (isInternal and true) or false
     }
     return true
 

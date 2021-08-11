@@ -87,7 +87,7 @@ function isKeyOnHold(key)
 end
 
 function isMouseClicked()
-   
+
     return (isKeyClicked("mouse1") and "mouse1") or (isKeyClicked("mouse2") and "mouse2") or false
 
 end

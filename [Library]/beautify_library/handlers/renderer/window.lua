@@ -155,9 +155,7 @@ function renderWindow(element, isFetchingInput, mouseReference)
                     attachElement(element)
                 end
             else
-                if not getAttachedElement() then
-                    isCloseButtonHovered = isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize)
-                end
+                isCloseButtonHovered = isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].borderSize)
             end
         end
         if isCloseButtonHovered then

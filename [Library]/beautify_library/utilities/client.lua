@@ -135,15 +135,11 @@ end
 
 function isMouseOnPosition(x, y, w, h)
 
-    x = tonumber(x); y = tonumber(y); w = tonumber(w); h = tonumber(h);
-    if not isCursorShowing() then return false end
+    if getAttachedElement() or not isCursorShowing() then return false end
     if not x or not y or not w or not h then return false end
 
     local cX, cY = getAbsoluteCursorPosition()
-    if (cX >= x and cX <= x + w and cY >= y and cY <= y + h) then
-        return true
-    end
-    return false
+    return (cX >= x) and (cX <= (x + w)) and (cY >= y) and (cY <= (y + h))
 
 end
 

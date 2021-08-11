@@ -133,7 +133,7 @@ addEventHandler("onClientRender", root, function()
     end
 
     -->> Renders Element <<--
-    clickedMouseKey = isMouseClicked()
+    clickedMouseKey = (not attachedElement and isMouseClicked())
     renderElements()
     if clickedMouseKey and CLIENT_HOVERED_ELEMENT then
         resetKeyClickCache(clickedMouseKey)
