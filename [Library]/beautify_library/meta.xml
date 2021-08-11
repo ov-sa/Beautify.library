@@ -201,6 +201,12 @@
     <!-- Params: createSlider(x, y, width, height, type, parent, postGUI) | Returns Element; Else false Boolean -->
     <export function="createSlider" type="client"/>
 
+    <!-- Params: setSliderPercent(slider, percent) | Returns Boolean -->
+    <export function="setSliderPercent" type="client"/>
+
+    <!-- Params: getSliderPercent(slider) | Returns Data; Else false Boolean -->
+    <export function="getSliderPercent" type="client"/>
+
     <!-- Params: clearSliderText(slider) | Returns Boolean -->
     <export function="clearSliderText" type="client"/>
 

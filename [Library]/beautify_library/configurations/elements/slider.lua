@@ -48,6 +48,17 @@ availableElements[elementType] = {
 }
 
 availableElements[elementType]["APIs"] = {
+    ["setSliderPercent"] = {
+        parameters = {
+            {name = "slider", type = "userdata", userDataType = elementType},
+            {name = "percent", type = "float"}
+        }
+    },
+    ["getSliderPercent"] = {
+        parameters = {
+            {name = "slider", type = "userdata", userDataType = elementType}
+        }
+    },
     ["clearSliderText"] = {
         parameters = {
             {name = "slider", type = "userdata", userDataType = elementType}

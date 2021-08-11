@@ -54,6 +54,51 @@ function createSlider(...)
 end
 
 
+-----------------------------------------------
+--[[ Functions: Sets/Gets Slider's Percent ]]--
+-----------------------------------------------
+
+function setSliderPercent(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "setSliderPercent") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementReference = createdElements[element]
+    if elementReference.gui.type == "horizontal" then
+        if (elementReference.gui.slideBar_Horizontal.finalPercent == parameters[2]) then return false end
+        elementReference.gui.slideBar_Horizontal.finalPercent = parameters[2]
+        return true
+    elseif elementReference.gui.type == "vertical" then
+        if (elementReference.gui.slideBar_Vertical.finalPercent == parameters[2]) then return false end
+        elementReference.gui.slideBar_Vertical.finalPercent = parameters[2]
+        return true
+    end
+    if (elementReference.gui.text == parameters[2]) then return false end
+    elementReference.gui.text = parameters[2]
+    return false
+
+end
+
+function getSliderPercent(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "getSliderPercent") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementReference = createdElements[element]
+    if elementReference.gui.type == "horizontal" then
+        return elementReference.gui.slideBar_Horizontal.finalPercent
+    elseif elementReference.gui.type == "vertical" then
+        return elementReference.gui.slideBar_Vertical.finalPercent
+    end
+    return false
+
+end
+
+
 ---------------------------------------------------
 --[[ Functions: Clears/Sets/Gets Slider's Text ]]--
 ---------------------------------------------------
