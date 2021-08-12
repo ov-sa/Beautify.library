@@ -31,6 +31,7 @@ function renderButton(element, isFetchingInput, mouseReference)
     local elementParent = getUIParent(element)
     local elementReference = createdElements[element]
     if not isFetchingInput then
+        if not elementParent then dxSetRenderTarget() end
         local isElementToBeUpdated = elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
         local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
         local button_type = elementReference.gui.type
@@ -38,15 +39,6 @@ function renderButton(element, isFetchingInput, mouseReference)
         local button_startX, button_startY = elementReference.gui.x, elementReference.gui.y
         local button_width, button_height = elementReference.gui.size or elementReference.gui.width, elementReference.gui.size or elementReference.gui.height
         local button_postGUI = elementReference.gui.postGUI
-
-        if not elementParent then dxSetRenderTarget() end
-        renderElementChildren(element)
-        dxSetBlendMode("blend")
-        if not elementParent then
-            dxSetRenderTarget()
-        else
-            dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
-        end
 
         if button_width and button_height then
             if not elementReference.gui.animAlphaPercent then
@@ -126,6 +118,13 @@ function renderButton(element, isFetchingInput, mouseReference)
                 dxDrawImage(button_startX, button_startY, button_width, button_height, elementReference.gui["__UI_CACHE__"]["Button"].renderTexture, 0, 0, 0, tocolor(255, 255, 255, 255*math.max(0.3, elementReference.gui.animAlphaPercent)), button_postGUI)
             end
             dxDrawText(elementReference.gui["__UI_CACHE__"]["Text"].text, elementReference.gui["__UI_CACHE__"]["Text"].startX, elementReference.gui["__UI_CACHE__"]["Text"].startY, elementReference.gui["__UI_CACHE__"]["Text"].endX, elementReference.gui["__UI_CACHE__"]["Text"].endY, button_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "center", "center", true, false, button_postGUI, false)
+        end
+        renderElementChildren(element)
+        dxSetBlendMode("blend")
+        if not elementParent then
+            dxSetRenderTarget()
+        else
+            dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
         end
     else
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}

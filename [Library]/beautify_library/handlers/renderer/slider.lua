@@ -31,6 +31,7 @@ function renderSlider(element, isFetchingInput, mouseReference)
     local elementParent = getUIParent(element)
     local elementReference = createdElements[element]
     if not isFetchingInput then
+        if not elementParent then dxSetRenderTarget() end
         local isElementToBeUpdated = elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
         local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
         local slider_type = elementReference.gui.type
@@ -38,15 +39,6 @@ function renderSlider(element, isFetchingInput, mouseReference)
         local slider_width, slider_height, slider_track_size, slider_thumb_size = elementReference.gui.width, elementReference.gui.height, elementTemplate.track.size, elementTemplate.thumb.size
         local slider_content_padding = availableElements[elementType].contentSection.padding
         local slider_postGUI = elementReference.gui.postGUI
-
-        if not elementParent then dxSetRenderTarget() end
-        renderElementChildren(element)
-        dxSetBlendMode("blend")
-        if not elementParent then
-            dxSetRenderTarget()
-        else
-            dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
-        end
 
         if isElementToBeUpdated then
             if not elementReference.gui["__UI_CACHE__"]["Text"] then
@@ -200,6 +192,13 @@ function renderSlider(element, isFetchingInput, mouseReference)
             if elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture then
                 dxDrawImage(elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.height, elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture, 0, 0, 0, tocolor(255, 255, 255, 255), slider_postGUI)
             end
+        end
+        renderElementChildren(element)
+        dxSetBlendMode("blend")
+        if not elementParent then
+            dxSetRenderTarget()
+        else
+            dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
         end
     else
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
