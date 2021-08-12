@@ -59,6 +59,10 @@
 
     <!-- Files: Assets: Images -->
     <file src="files/assets/images/canvas/circle.png"/>
+    <file src="files/assets/images/arrow/left.png"/>
+    <file src="files/assets/images/arrow/right.png"/>
+    <file src="files/assets/images/arrow/top.png"/>
+    <file src="files/assets/images/arrow/bottom.png"/>
     <file src="files/assets/images/right_triangle/default.png"/>
     <file src="files/assets/images/right_triangle/flipped.png"/>
     <file src="files/assets/images/right_triangle/inverted.png"/>

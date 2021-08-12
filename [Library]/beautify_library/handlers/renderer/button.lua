@@ -31,6 +31,7 @@ function renderButton(element, isFetchingInput, mouseReference)
     local elementParent = getUIParent(element)
     local elementReference = createdElements[element]
     if not isFetchingInput then
+        local isElementToBeUpdated = elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
         local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
         local button_type = elementReference.gui.type
         elementTemplate = elementTemplate[button_type]
@@ -49,6 +50,11 @@ function renderButton(element, isFetchingInput, mouseReference)
         elementReference.gui["__UI_INPUT_FETCH_CACHE__"].height = button_height
     
         if not elementParent then dxSetRenderTarget() end
+        if not elementReference.gui["__UI_CACHE__"]["Text"] then
+            elementReference.gui["__UI_CACHE__"]["Text"] = {
+                offsets = {}
+            }
+        end
         if button_width and button_height then
             if not elementReference.gui["__UI_CACHE__"]["Content Section"] or not elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture or elementReference.gui["__UI_CACHE__"]["Content Section"].updateTexture then
                 if not elementReference.gui["__UI_CACHE__"]["Content Section"] then
@@ -110,11 +116,19 @@ function renderButton(element, isFetchingInput, mouseReference)
             else
                 dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
             end
+
+            if isElementToBeUpdated then
+                elementReference.gui["__UI_CACHE__"]["Text"].text = elementReference.gui.text
+                elementReference.gui["__UI_CACHE__"]["Text"].startX = button_startX + button_content_padding
+                elementReference.gui["__UI_CACHE__"]["Text"].startY = button_startY + (elementTemplate.fontPaddingY or 0)
+                elementReference.gui["__UI_CACHE__"]["Text"].endX = button_startX + button_width - button_content_padding
+                elementReference.gui["__UI_CACHE__"]["Text"].endY = button_startY + button_height
+            end
             local button_fontColor = tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4]*elementReference.gui.animAlphaPercent)
             if elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture then
                 dxDrawImage(button_startX, button_startY, button_width, button_height, elementReference.gui["__UI_CACHE__"]["Content Section"].renderTexture, 0, 0, 0, tocolor(255, 255, 255, 255*math.max(0.3, elementReference.gui.animAlphaPercent)), button_postGUI)
             end
-            dxDrawText(elementReference.gui.text, button_startX + button_content_padding, button_startY + (elementTemplate.fontPaddingY or 0), button_startX + button_width - button_content_padding, button_startY + button_height, button_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "center", "center", true, false, button_postGUI, false)
+            dxDrawText(elementReference.gui["__UI_CACHE__"]["Text"].text, elementReference.gui["__UI_CACHE__"]["Text"].startX, elementReference.gui["__UI_CACHE__"]["Text"].startY, elementReference.gui["__UI_CACHE__"]["Text"].endX, elementReference.gui["__UI_CACHE__"]["Text"].endY, button_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "center", "center", true, false, button_postGUI, false)
         end
     else
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}

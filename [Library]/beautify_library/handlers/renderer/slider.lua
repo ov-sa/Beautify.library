@@ -206,6 +206,7 @@ function renderSlider(element, isFetchingInput, mouseReference)
                 elementReference.gui.hoverStatus = "forward"
                 elementReference.gui.hoverAnimTickCounter = getTickCount()
             end
+            --TODO: CHANGE TO I/P FETCH CACHE
             if elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX and elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY then
                 isSliderThumbHovered = isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX, __mouseReference.y + elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.height)
             end
