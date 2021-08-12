@@ -16,9 +16,9 @@
 local elementType = "beautify_label"
 
 
-----------------------------------
+---------------------------------
 --[[ Function: Renders Label ]]--
-----------------------------------
+---------------------------------
 
 function renderLabel(element, isFetchingInput, mouseReference)
 
@@ -36,7 +36,7 @@ function renderLabel(element, isFetchingInput, mouseReference)
         local label_startX, label_startY = elementReference.gui.x, elementReference.gui.y
         local label_width, label_height = elementReference.gui.width, elementReference.gui.height
         local label_postGUI = elementReference.gui.postGUI
-    
+
         if not elementParent then dxSetRenderTarget() end
         renderElementChildren(element)
         dxSetBlendMode("blend")

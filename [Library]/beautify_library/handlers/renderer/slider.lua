@@ -17,7 +17,7 @@ local elementType = "beautify_slider"
 
 
 ----------------------------------
---[[ Function: Renders Label ]]--
+--[[ Function: Renders Slider ]]--
 ----------------------------------
 
 function renderSlider(element, isFetchingInput, mouseReference)
@@ -40,46 +40,6 @@ function renderSlider(element, isFetchingInput, mouseReference)
         local slider_postGUI = elementReference.gui.postGUI
 
         if not elementParent then dxSetRenderTarget() end
-        if not elementReference.gui["__UI_CACHE__"]["Text"] then
-            elementReference.gui["__UI_CACHE__"]["Text"] = {
-                offsets = {}
-            }
-            elementReference.gui["__UI_CACHE__"]["Track"] = {
-                offsets = {}
-            }
-            elementReference.gui["__UI_CACHE__"]["Thumb"] = {
-                offsets = {}
-            }
-        end
-        if not elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture or elementReference.gui["__UI_CACHE__"]["Thumb"].updateTexture then
-            if not elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget then
-                elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget = DxRenderTarget(slider_thumb_size, slider_thumb_size, true)
-            end
-            if elementReference.gui["__UI_CACHE__"]["Thumb"].updateTexture then
-                if elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture and isElement(elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture) then
-                    elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture:destroy()
-                    elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture = nil
-                end
-            end
-            dxSetRenderTarget(elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget, true)
-            dxSetBlendMode("modulate_add")
-            dxDrawRectangle(0, 0, slider_thumb_size, slider_thumb_size, tocolor(unpackColor(elementTemplate.thumb.color)), false)
-            dxSetBlendMode("blend")
-            if not elementParent then
-                dxSetRenderTarget()
-            else
-                dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
-            end
-            local renderPixels = dxGetTexturePixels(elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget)
-            if renderPixels then
-                elementReference.gui["__UI_CACHE__"]["Thumb"].color = cloneTableDatas(elementTemplate.thumb.color, true)
-                elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture = DxTexture(renderPixels, "argb", false, "clamp")
-                elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget:destroy()
-                elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget = nil
-                elementReference.gui["__UI_CACHE__"]["Thumb"].updateTexture = nil
-            end
-        end
-
         renderElementChildren(element)
         dxSetBlendMode("blend")
         if not elementParent then
@@ -88,6 +48,19 @@ function renderSlider(element, isFetchingInput, mouseReference)
             dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
         end
 
+        if isElementToBeUpdated then
+            if not elementReference.gui["__UI_CACHE__"]["Text"] then
+                elementReference.gui["__UI_CACHE__"]["Text"] = {
+                    offsets = {}
+                }
+                elementReference.gui["__UI_CACHE__"]["Track"] = {
+                    offsets = {}
+                }
+                elementReference.gui["__UI_CACHE__"]["Thumb"] = {
+                    offsets = {}
+                }
+            end
+        end
         if slider_type == "horizontal" then
             elementReference.gui.slideBar_Horizontal.currentPercent = interpolateBetween(elementReference.gui.slideBar_Horizontal.currentPercent, 0, 0, elementReference.gui.slideBar_Horizontal.finalPercent, 0, 0, 0.25, "InQuad")
             isElementToBeUpdated = isElementToBeUpdated or (math.round(elementReference.gui.slideBar_Horizontal.currentPercent, 0) ~= math.round(elementReference.gui.slideBar_Horizontal.finalPercent, 0))
@@ -153,6 +126,43 @@ function renderSlider(element, isFetchingInput, mouseReference)
                 end
             end
         end
+        if isElementToBeUpdated then
+            if not elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture or elementReference.gui["__UI_CACHE__"]["Thumb"].updateTexture then
+                if not elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget then
+                    elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget = DxRenderTarget(slider_thumb_size, slider_thumb_size, true)
+                end
+                if elementReference.gui["__UI_CACHE__"]["Thumb"].updateTexture then
+                    if elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture and isElement(elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture) then
+                        elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture:destroy()
+                        elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture = nil
+                    end
+                end
+                dxSetRenderTarget(elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget, true)
+                dxSetBlendMode("modulate_add")
+                dxDrawRectangle(0, 0, slider_thumb_size, slider_thumb_size, tocolor(unpackColor(elementTemplate.thumb.color)), false)
+                dxSetBlendMode("blend")
+                if not elementParent then
+                    dxSetRenderTarget()
+                else
+                    dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
+                end
+                local renderPixels = dxGetTexturePixels(elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget)
+                if renderPixels then
+                    elementReference.gui["__UI_CACHE__"]["Thumb"].color = cloneTableDatas(elementTemplate.thumb.color, true)
+                    elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture = DxTexture(renderPixels, "argb", false, "clamp")
+                    elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget:destroy()
+                    elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget = nil
+                    elementReference.gui["__UI_CACHE__"]["Thumb"].updateTexture = nil
+                end
+            end
+            if not elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"] then
+                elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"] = {}
+            end
+            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].startX = elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX
+            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].startY = elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY
+            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].width = elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width
+            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].height = elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.height
+        end
         elementReference.gui["__UI_CACHE__"].updateElement = nil
         if elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX and elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY then
             if not elementReference.gui.animAlphaPercent then
@@ -206,9 +216,8 @@ function renderSlider(element, isFetchingInput, mouseReference)
                 elementReference.gui.hoverStatus = "forward"
                 elementReference.gui.hoverAnimTickCounter = getTickCount()
             end
-            --TODO: CHANGE TO I/P FETCH CACHE
-            if elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX and elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY then
-                isSliderThumbHovered = isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX, __mouseReference.y + elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.height)
+            if elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].startX and elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].startY then
+                isSliderThumbHovered = isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].height)
             end
         else
             if elementReference.gui.hoverStatus ~= "backward" then
