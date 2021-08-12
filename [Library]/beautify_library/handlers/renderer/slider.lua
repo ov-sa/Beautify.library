@@ -51,7 +51,7 @@ function renderSlider(element, isFetchingInput, mouseReference)
                 offsets = {}
             }
         end
-        if not elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture or elementReference.gui["__UI_CACHE__"]["Thumb"].updateTexture or (toJSON(elementReference.gui["__UI_CACHE__"]["Thumb"].color) ~= toJSON(elementTemplate.thumb.color)) then
+        if not elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture or elementReference.gui["__UI_CACHE__"]["Thumb"].updateTexture then
             if not elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget then
                 elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget = DxRenderTarget(slider_thumb_size, slider_thumb_size, true)
             end
@@ -80,16 +80,6 @@ function renderSlider(element, isFetchingInput, mouseReference)
             end
         end
 
-        if not elementReference.gui.animAlphaPercent then
-            elementReference.gui.animAlphaPercent = 0.8
-            elementReference.gui.hoverStatus = "backward"
-            elementReference.gui.hoverAnimTickCounter = getTickCount()
-        end
-        if elementReference.gui.hoverStatus == "forward" then
-            elementReference.gui.animAlphaPercent = interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
-        else
-            elementReference.gui.animAlphaPercent = interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 0.8, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
-        end
         renderElementChildren(element)
         dxSetBlendMode("blend")
         if not elementParent then
@@ -165,6 +155,16 @@ function renderSlider(element, isFetchingInput, mouseReference)
         end
         elementReference.gui["__UI_CACHE__"].updateElement = nil
         if elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX and elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY then
+            if not elementReference.gui.animAlphaPercent then
+                elementReference.gui.animAlphaPercent = 0.8
+                elementReference.gui.hoverStatus = "backward"
+                elementReference.gui.hoverAnimTickCounter = getTickCount()
+            end
+            if elementReference.gui.hoverStatus == "forward" then
+                elementReference.gui.animAlphaPercent = interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
+            else
+                elementReference.gui.animAlphaPercent = interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 0.8, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
+            end
             local slider_track_progressed_color, slider_track_unprogressed_color, slider_fontColor = tocolor(elementTemplate.track.progressedColor[1], elementTemplate.track.progressedColor[2], elementTemplate.track.progressedColor[3], elementTemplate.track.progressedColor[4]*elementReference.gui.animAlphaPercent), tocolor(elementTemplate.track.unprogressedColor[1], elementTemplate.track.unprogressedColor[2], elementTemplate.track.unprogressedColor[3], elementTemplate.track.unprogressedColor[4]*elementReference.gui.animAlphaPercent), (elementReference.gui.fontColor and tocolor(elementReference.gui.fontColor[1], elementReference.gui.fontColor[2], elementReference.gui.fontColor[3], elementReference.gui.fontColor[4]*elementReference.gui.animAlphaPercent)) or tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4]*elementReference.gui.animAlphaPercent)
             if slider_type == "horizontal" then
                 if elementReference.gui["__UI_CACHE__"]["Track"].progressedWidth > 0 then

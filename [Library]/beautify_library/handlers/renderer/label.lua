@@ -58,6 +58,7 @@ function renderLabel(element, isFetchingInput, mouseReference)
                 elementReference.gui["__UI_CACHE__"]["Text"].startY = label_startY
                 elementReference.gui["__UI_CACHE__"]["Text"].endX = label_startX + label_width
                 elementReference.gui["__UI_CACHE__"]["Text"].endY = label_startY + label_height
+                elementReference.gui["__UI_CACHE__"].updateElement = nil
             end
             dxDrawText(elementReference.gui["__UI_CACHE__"]["Text"].text, elementReference.gui["__UI_CACHE__"]["Text"].startX, elementReference.gui["__UI_CACHE__"]["Text"].startY + (elementTemplate.fontPaddingY or 0), elementReference.gui["__UI_CACHE__"]["Text"].endX, elementReference.gui["__UI_CACHE__"]["Text"].endY, tocolor(unpackColor(elementReference.gui.fontColor or elementTemplate.fontColor)), elementTemplate.fontScale or 1, elementTemplate.font, elementReference.gui.alignment.horizontal, elementReference.gui.alignment.vertical, true, false, label_postGUI, false)
         end
