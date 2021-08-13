@@ -33,13 +33,13 @@ function renderButton(element, isFetchingInput, mouseReference)
     if not isFetchingInput then
         if not elementParent then dxSetRenderTarget() end
         local isElementToBeUpdated = elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
-        local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
-        local button_type = elementReference.gui.type
-        elementTemplate = elementTemplate[button_type]
         local button_width, button_height = elementReference.gui.size or elementReference.gui.width, elementReference.gui.size or elementReference.gui.height
-        local button_postGUI = elementReference.gui.postGUI
 
         if button_width and button_height then
+            local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
+            local button_type = elementReference.gui.type
+            elementTemplate = elementTemplate[button_type]
+            local button_postGUI = elementReference.gui.postGUI
             if isElementToBeUpdated then
                 if not elementReference.gui["__UI_CACHE__"]["Text"] then
                     elementReference.gui["__UI_CACHE__"]["Text"] = {
@@ -53,7 +53,7 @@ function renderButton(element, isFetchingInput, mouseReference)
                 end
                 local button_startX, button_startY = elementReference.gui.x, elementReference.gui.y
                 elementReference.gui["__UI_CACHE__"]["Button"].offsets.startX = button_startX
-                elementReference.gui["__UI_CACHE__"]["Button"].offsets.startY = button_startX
+                elementReference.gui["__UI_CACHE__"]["Button"].offsets.startY = button_startY
                 elementReference.gui["__UI_CACHE__"]["Button"].offsets.width = button_width
                 elementReference.gui["__UI_CACHE__"]["Button"].offsets.height = button_height
                 elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX = elementReference.gui["__UI_CACHE__"]["Button"].offsets.startX
@@ -103,10 +103,10 @@ function renderButton(element, isFetchingInput, mouseReference)
                 end
                 local button_content_padding = availableElements[elementType].contentSection.paddingX
                 elementReference.gui["__UI_CACHE__"]["Text"].text = elementReference.gui.text
-                elementReference.gui["__UI_CACHE__"]["Text"].startX = button_startX + button_content_padding
-                elementReference.gui["__UI_CACHE__"]["Text"].startY = button_startY + (elementTemplate.fontPaddingY or 0)
-                elementReference.gui["__UI_CACHE__"]["Text"].endX = button_startX + button_width - button_content_padding
-                elementReference.gui["__UI_CACHE__"]["Text"].endY = button_startY + button_height
+                elementReference.gui["__UI_CACHE__"]["Text"].offsets.startX = button_startX + button_content_padding
+                elementReference.gui["__UI_CACHE__"]["Text"].offsets.startY = button_startY + (elementTemplate.fontPaddingY or 0)
+                elementReference.gui["__UI_CACHE__"]["Text"].offsets.endX = button_startX + button_width - button_content_padding
+                elementReference.gui["__UI_CACHE__"]["Text"].offsets.endY = button_startY + button_height
                 elementReference.gui["__UI_CACHE__"].updateElement = nil
             end
             if not elementReference.gui.animAlphaPercent then
@@ -123,34 +123,36 @@ function renderButton(element, isFetchingInput, mouseReference)
             if elementReference.gui["__UI_CACHE__"]["Button"].renderTexture then
                 dxDrawImage(elementReference.gui["__UI_CACHE__"]["Button"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Button"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Button"].offsets.width, elementReference.gui["__UI_CACHE__"]["Button"].offsets.height, elementReference.gui["__UI_CACHE__"]["Button"].renderTexture, 0, 0, 0, tocolor(255, 255, 255, 255*math.max(0.3, elementReference.gui.animAlphaPercent)), button_postGUI)
             end
-            dxDrawText(elementReference.gui["__UI_CACHE__"]["Text"].text, elementReference.gui["__UI_CACHE__"]["Text"].startX, elementReference.gui["__UI_CACHE__"]["Text"].startY, elementReference.gui["__UI_CACHE__"]["Text"].endX, elementReference.gui["__UI_CACHE__"]["Text"].endY, button_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "center", "center", true, false, button_postGUI, false)
-        end
-        renderElementChildren(element)
-        dxSetBlendMode("blend")
-        if not elementParent then
-            dxSetRenderTarget()
-        else
-            dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
+            dxDrawText(elementReference.gui["__UI_CACHE__"]["Text"].text, elementReference.gui["__UI_CACHE__"]["Text"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Text"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Text"].offsets.endX, elementReference.gui["__UI_CACHE__"]["Text"].offsets.endY, button_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "center", "center", true, false, button_postGUI, false)
+            renderElementChildren(element)
+            dxSetBlendMode("blend")
+            if not elementParent then
+                dxSetRenderTarget()
+            else
+                dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
+            end
         end
     else
-        local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
-        renderElementChildren(element, true, mouseReference)
-        local isElementHovered = CLIENT_HOVERED_ELEMENT == element
-        local isButtonHovered = false
-        if isElementHovered then
-            if not elementReference.isDisabled then
-                isButtonHovered = isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].height)
+        if elementReference.gui["__UI_CACHE__"]["Button"].offsets.width and elementReference.gui["__UI_CACHE__"]["Button"].offsets.height then
+            local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
+            renderElementChildren(element, true, mouseReference)
+            local isElementHovered = CLIENT_HOVERED_ELEMENT == element
+            local isButtonHovered = false
+            if isElementHovered then
+                if not elementReference.isDisabled then
+                    isButtonHovered = isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"].height)
+                end
             end
-        end
-        if isButtonHovered then
-            if elementReference.gui.hoverStatus ~= "forward" then
-                elementReference.gui.hoverStatus = "forward"
-                elementReference.gui.hoverAnimTickCounter = getTickCount()
-            end
-        else
-            if elementReference.gui.hoverStatus ~= "backward" then
-                elementReference.gui.hoverStatus = "backward"
-                elementReference.gui.hoverAnimTickCounter = getTickCount()
+            if isButtonHovered then
+                if elementReference.gui.hoverStatus ~= "forward" then
+                    elementReference.gui.hoverStatus = "forward"
+                    elementReference.gui.hoverAnimTickCounter = getTickCount()
+                end
+            else
+                if elementReference.gui.hoverStatus ~= "backward" then
+                    elementReference.gui.hoverStatus = "backward"
+                    elementReference.gui.hoverAnimTickCounter = getTickCount()
+                end
             end
         end
     end

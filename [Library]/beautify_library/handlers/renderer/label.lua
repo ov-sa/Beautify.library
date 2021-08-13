@@ -39,30 +39,41 @@ function renderLabel(element, isFetchingInput, mouseReference)
 
         if (label_width > 0) and (label_height > 0) then
             if isElementToBeUpdated then
+                if not elementReference.gui["__UI_CACHE__"]["Label"] then
+                    elementReference.gui["__UI_CACHE__"]["Label"] = {
+                        offsets = {}
+                    }
+                end
                 if not elementReference.gui["__UI_CACHE__"]["Text"] then
                     elementReference.gui["__UI_CACHE__"]["Text"] = {
                         offsets = {}
                     }
                 end
                 local label_startX, label_startY = elementReference.gui.x, elementReference.gui.y
+                elementReference.gui["__UI_CACHE__"]["Label"].offsets.startX = label_startX
+                elementReference.gui["__UI_CACHE__"]["Label"].offsets.startY = label_startY
+                elementReference.gui["__UI_CACHE__"]["Label"].offsets.width = label_width
+                elementReference.gui["__UI_CACHE__"]["Label"].offsets.height = label_height
                 elementReference.gui["__UI_CACHE__"]["Text"].text = elementReference.gui.text
-                elementReference.gui["__UI_CACHE__"]["Text"].startX = label_startX
-                elementReference.gui["__UI_CACHE__"]["Text"].startY = label_startY
-                elementReference.gui["__UI_CACHE__"]["Text"].endX = label_startX + label_width
-                elementReference.gui["__UI_CACHE__"]["Text"].endY = label_startY + label_height
+                elementReference.gui["__UI_CACHE__"]["Text"].offsets.startX = label_startX
+                elementReference.gui["__UI_CACHE__"]["Text"].offsets.startY = label_startY
+                elementReference.gui["__UI_CACHE__"]["Text"].offsets.endX = label_startX + label_width
+                elementReference.gui["__UI_CACHE__"]["Text"].offsets.endY = label_startY + label_height
                 elementReference.gui["__UI_CACHE__"].updateElement = nil
             end
-            dxDrawText(elementReference.gui["__UI_CACHE__"]["Text"].text, elementReference.gui["__UI_CACHE__"]["Text"].startX, elementReference.gui["__UI_CACHE__"]["Text"].startY + (elementTemplate.fontPaddingY or 0), elementReference.gui["__UI_CACHE__"]["Text"].endX, elementReference.gui["__UI_CACHE__"]["Text"].endY, tocolor(unpackColor(elementReference.gui.fontColor or elementTemplate.fontColor)), elementTemplate.fontScale or 1, elementTemplate.font, elementReference.gui.alignment.horizontal, elementReference.gui.alignment.vertical, true, false, label_postGUI, false)
-        end
-        renderElementChildren(element)
-        dxSetBlendMode("blend")
-        if not elementParent then
-            dxSetRenderTarget()
-        else
-            dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
+            dxDrawText(elementReference.gui["__UI_CACHE__"]["Text"].text, elementReference.gui["__UI_CACHE__"]["Text"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Text"].offsets.startY + (elementTemplate.fontPaddingY or 0), elementReference.gui["__UI_CACHE__"]["Text"].offsets.endX, elementReference.gui["__UI_CACHE__"]["Text"].offsets.endY, tocolor(unpackColor(elementReference.gui.fontColor or elementTemplate.fontColor)), elementTemplate.fontScale or 1, elementTemplate.font, elementReference.gui.alignment.horizontal, elementReference.gui.alignment.vertical, true, false, label_postGUI, false)
+            renderElementChildren(element)
+            dxSetBlendMode("blend")
+            if not elementParent then
+                dxSetRenderTarget()
+            else
+                dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
+            end
         end
     else
-        renderElementChildren(element, true, mouseReference)
+        if elementReference.gui["__UI_CACHE__"]["Label"].offsets.width and elementReference.gui["__UI_CACHE__"]["Label"].offsets.height then
+            renderElementChildren(element, true, mouseReference)
+        end
     end
     return true
 
