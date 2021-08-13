@@ -88,7 +88,7 @@ function addGridlistColumn(...)
 
     local elementReference = createdElements[element]
     table.insert(elementReference.gridData.columns, {name = parameters[2], width = parameters[3]})
-    elementReference.gui["__UI_CACHE__"]["Column"].updateColumns = true
+    elementReference.gui["__UI_CACHE__"].reloadElement = true
     triggerEvent("onClientUIAltered", element)
     return #elementReference.gridData.columns
 
@@ -110,7 +110,7 @@ function removeGridlistColumn(...)
     if #elementReference.gridData.columns <= 0 then
         elementReference.gridData.selection = false
     end
-    elementReference.gui["__UI_CACHE__"]["Column"].updateColumns = true
+    elementReference.gui["__UI_CACHE__"].reloadElement = true
     triggerEvent("onClientUIAltered", element)
     return true
 

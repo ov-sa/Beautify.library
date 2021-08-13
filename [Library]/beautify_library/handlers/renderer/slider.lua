@@ -57,6 +57,7 @@ function renderSlider(element, isFetchingInput, mouseReference)
                 elementReference.gui["__UI_CACHE__"]["Thumb"] = {
                     offsets = {}
                 }
+                elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"] = {}
             end
             local slider_startX, slider_startY = elementReference.gui.x, elementReference.gui.y
             local slider_content_padding = availableElements[elementType].contentSection.padding
@@ -117,9 +118,6 @@ function renderSlider(element, isFetchingInput, mouseReference)
                     elementReference.gui["__UI_CACHE__"]["Track"].progressedWidth = slider_track_progressed_length
                     elementReference.gui["__UI_CACHE__"]["Track"].unprogressedWidth = slider_track_unprogressed_length
                 end
-            end
-            if not elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"] then
-                elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"] = {}
             end
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].startX = elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].startY = elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY

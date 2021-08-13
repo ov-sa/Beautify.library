@@ -39,19 +39,19 @@ function renderScrollbar(elementParent, renderData, referenceData, isFetchingInp
             scrollbar_height = availableTemplates[componentType].size
             scrollbar_startY = scrollbar_startY - scrollbar_height
             scrollbar_thumb_size = math.max(math.min(scrollbar_width*0.5, availableTemplates[componentType].thumb.minSize), (scrollbar_width/(scrollbar_width + scrollbar_overflownSize))*scrollbar_width)
-            if not elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bar"]["Horizontal"].track then
-                elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bar"]["Horizontal"].track = {}
+            if not elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Horizontal"].track then
+                elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Horizontal"].track = {}
             end
-            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bar"]["Horizontal"].track.width = scrollbar_width
+            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Horizontal"].track.width = scrollbar_width
         else
             scrollbar_width = availableTemplates[componentType].size
             scrollbar_height = renderData.height
             scrollbar_startX = scrollbar_startX - scrollbar_width
             scrollbar_thumb_size = math.max(math.min(scrollbar_height*0.5, availableTemplates[componentType].thumb.minSize), (scrollbar_height/(scrollbar_height + scrollbar_overflownSize))*scrollbar_height)
-            if not elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bar"]["Vertical"].track then
-                elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bar"]["Vertical"].track = {}
+            if not elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"].track then
+                elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"].track = {}
             end
-            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bar"]["Vertical"].track.height = scrollbar_height
+            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"].track.height = scrollbar_height
         end
 
         referenceData.finalThumbSize = scrollbar_thumb_size
@@ -75,12 +75,12 @@ function renderScrollbar(elementParent, renderData, referenceData, isFetchingInp
             if currentScrollState[1] then
                 if currentScrollState[1] == "up" then
                     if referenceData.finalPercent > 0 then
-                        if scrollbar_overflownSize < elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bar"]["Vertical"].track.height then scrollbar_scrollSpeed = scrollbar_scrollSpeed*25 end
+                        if scrollbar_overflownSize < elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"].track.height then scrollbar_scrollSpeed = scrollbar_scrollSpeed*25 end
                         referenceData.finalPercent = referenceData.finalPercent - (scrollbar_scrollSpeed*currentScrollState[2])
                     end
                 elseif currentScrollState[1] == "down" then
                     if referenceData.finalPercent < 100 then
-                        if scrollbar_overflownSize < elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bar"]["Vertical"].track.height then scrollbar_scrollSpeed = scrollbar_scrollSpeed*25 end
+                        if scrollbar_overflownSize < elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"].track.height then scrollbar_scrollSpeed = scrollbar_scrollSpeed*25 end
                         referenceData.finalPercent = referenceData.finalPercent + (scrollbar_scrollSpeed*currentScrollState[2])
                     end
                 end

@@ -46,27 +46,19 @@ function renderWindow(element, isFetchingInput, mouseReference)
                         offsets = {}
                     }
                 }
-            end
-            if not elementReference.gui["__UI_CACHE__"]["Title Bar"] then
                 elementReference.gui["__UI_CACHE__"]["Title Bar"] = {
                     offsets = {},
                     text = {
                         offsets = {}
                     }
                 }
-            end
-            if not elementReference.gui["__UI_CACHE__"]["Close Button"] then
                 elementReference.gui["__UI_CACHE__"]["Close Button"] = {
                     offsets = {},
                     text = {
                         offsets = {}
                     }
                 }
-            end
-            if not elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Title Bar"] then
                 elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Title Bar"] = {}
-            end
-            if not elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"] then
                 elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"] = {}
             end
             local window_startX, window_startY = elementReference.gui.x, elementReference.gui.y
