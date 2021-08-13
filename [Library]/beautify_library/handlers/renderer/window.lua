@@ -34,12 +34,13 @@ function renderWindow(element, isFetchingInput, mouseReference)
         if not elementParent then dxSetRenderTarget() end
         local isElementToBeUpdated = elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
         local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
-        local window_titleBar_divider_size, window_titleBar_divider_color = elementTemplate.titleBar.divider.size, tocolor(unpackColor(elementTemplate.titleBar.divider.color))
+        local window_titleBar_divider_size, window_titleBar_divider_color = elementTemplate.titleBar.divider.size, ((elementReference.gui["__UI_CACHE__"]["Window"] and elementReference.gui["__UI_CACHE__"]["Window"].divider.color) or tocolor(unpackColor(elementTemplate.titleBar.divider.color)))
         local window_postGUI = elementReference.gui.postGUI
         if isElementToBeUpdated then
             if not elementReference.gui["__UI_CACHE__"]["Window"] then
                 elementReference.gui["__UI_CACHE__"]["Window"] = {
                     offsets = {},
+                    divider = {},
                     view = {
                         offsets = {}
                     }
@@ -75,6 +76,9 @@ function renderWindow(element, isFetchingInput, mouseReference)
             elementReference.gui["__UI_CACHE__"]["Window"].offsets.startY = window_startY
             elementReference.gui["__UI_CACHE__"]["Window"].offsets.width = window_width
             elementReference.gui["__UI_CACHE__"]["Window"].offsets.height = window_height
+            --TODO: ONLY ON TEMPLATE UPDATE
+            elementReference.gui["__UI_CACHE__"]["Window"].divider.fontColor = window_titleBar_divider_color
+            ---
             elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startX = elementReference.gui["__UI_CACHE__"]["Window"].offsets.startX + elementReference.gui.contentSection.startX
             elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startY = elementReference.gui["__UI_CACHE__"]["Window"].offsets.startY + elementReference.gui.contentSection.startY
             elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.width = window_view_width
