@@ -54,7 +54,6 @@ function renderGridlist(element, isFetchingInput, mouseReference)
                     offsets = {}
                 }
                 elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Grid View"] = {}
-                elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Grid Rows"] = {}
             end
             local gridlist_startX, gridlist_startY = elementReference.gui.x, elementReference.gui.y
             local gridlist_width, gridlist_height = elementReference.gui.width, elementReference.gui.height
@@ -102,6 +101,7 @@ function renderGridlist(element, isFetchingInput, mouseReference)
             elementReference.gui["__UI_CACHE__"].updateElement = nil
         end
 
+        elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Grid Rows"] = {}
         dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Gridlist"].startX, elementReference.gui["__UI_CACHE__"]["Gridlist"].startY, elementReference.gui["__UI_CACHE__"]["Gridlist"].width, elementReference.gui["__UI_CACHE__"]["Gridlist"].height, elementReference.gui["__UI_CACHE__"]["Gridlist"].color, gridlist_postGUI)
         local gridlist_renderTarget = elementReference.gui.renderTarget
         if gridlist_renderTarget and isElement(gridlist_renderTarget) then
@@ -140,9 +140,12 @@ function renderGridlist(element, isFetchingInput, mouseReference)
                     end
                     for k = 1, #elementReference.gridData.columns, 1 do
                         local v = elementReference.gridData.columns[k]
-                        dxDrawText(j[k] or "-", row_offsetX + elementReference.gui["__UI_CACHE__"]["Grid Columns"].offsets[k].text.offsets.startX, row_offsetY + (elementTemplate.rowBar.fontPaddingY or 0), row_offsetX + elementReference.gui["__UI_CACHE__"]["Grid Columns"].offsets[k].text.offsets.endX, row_offsetY + elementReference.gui["__UI_CACHE__"]["Grid Rows"].height, elementReference.gui["__UI_CACHE__"]["Grid Rows"].fontColor, elementTemplate.rowBar.fontScale or 1, elementTemplate.rowBar.font, "center", "center", true, false, false, false)
+                        local gridlist_column_text = j[k] or "-"
+                        local gridlist_column_startX, gridlist_column_startY = row_offsetX + elementReference.gui["__UI_CACHE__"]["Grid Columns"].offsets[k].text.offsets.startX, row_offsetY + (elementTemplate.rowBar.fontPaddingY or 0)
+                        local gridlist_column_endX, gridlist_column_endY = row_offsetX + elementReference.gui["__UI_CACHE__"]["Grid Columns"].offsets[k].text.offsets.endX, row_offsetY + elementReference.gui["__UI_CACHE__"]["Grid Rows"].height
+                        dxDrawText(gridlist_column_text, gridlist_column_startX, gridlist_column_startY, gridlist_column_endX, gridlist_column_endY, elementReference.gui["__UI_CACHE__"]["Grid Rows"].fontColor, elementTemplate.rowBar.fontScale or 1, elementTemplate.rowBar.font, "center", "center", true, false, false, false)
                         if j.animAlphaPercent > 0 then
-                            dxDrawText(j[k] or "-", row_offsetX + elementReference.gui["__UI_CACHE__"]["Grid Columns"].offsets[k].startX + elementReference.gui["__UI_CACHE__"]["Grid Columns"].padding, row_offsetY + (elementTemplate.rowBar.fontPaddingY or 0), row_offsetX + elementReference.gui["__UI_CACHE__"]["Grid Columns"].offsets[k].endX, row_offsetY + elementReference.gui["__UI_CACHE__"]["Grid Rows"].height, tocolor(elementTemplate.rowBar.hoverFontColor[1], elementTemplate.rowBar.hoverFontColor[2], elementTemplate.rowBar.hoverFontColor[3], elementTemplate.rowBar.hoverFontColor[4]*j.animAlphaPercent), elementTemplate.rowBar.fontScale or 1, elementTemplate.rowBar.font, "center", "center", true, false, false, false)
+                            dxDrawText(gridlist_column_text, gridlist_column_startX, gridlist_column_startY, gridlist_column_endX, gridlist_column_endY, tocolor(elementTemplate.rowBar.hoverFontColor[1], elementTemplate.rowBar.hoverFontColor[2], elementTemplate.rowBar.hoverFontColor[3], elementTemplate.rowBar.hoverFontColor[4]*j.animAlphaPercent), elementTemplate.rowBar.fontScale or 1, elementTemplate.rowBar.font, "center", "center", true, false, false, false)
                         end
                     end
                 end
@@ -197,7 +200,7 @@ function renderGridlist(element, isFetchingInput, mouseReference)
                 local j = elementReference.gridData.rows[i]
                 local isRowHovered = false
                 if isGridListHovered then
-                    isRowHovered = isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Grid Rows"][i].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Grid Rows"][i].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Gridlist"].width, elementReference.gui["__UI_CACHE__"]["Grid Rows"].height)
+                    isRowHovered = isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Grid Rows"][i].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Grid Rows"][i].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Grid View"].width, elementReference.gui["__UI_CACHE__"]["Grid Rows"].height)
                 end
                 if isRowHovered or (elementReference.gridData.selection == i) then
                     if isKeyClicked("mouse1") and (elementReference.gridData.selection ~= i) then
