@@ -28,9 +28,9 @@ function renderButton(element, isFetchingInput, mouseReference)
         if not mouseReference then return false end
     end
 
-    local elementParent = getUIParent(element)
     local elementReference = createdElements[element]
     if not isFetchingInput then
+        local elementParent = __getUIParent(element)
         if not elementParent then dxSetRenderTarget() end
         local isElementToBeUpdated = elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
         local button_width, button_height = elementReference.gui.size or elementReference.gui.width, elementReference.gui.size or elementReference.gui.height

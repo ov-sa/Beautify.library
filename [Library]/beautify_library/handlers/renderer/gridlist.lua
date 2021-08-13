@@ -28,7 +28,7 @@ function renderGridlist(element, isFetchingInput, mouseReference)
         if not mouseReference then return false end
     end
 
-    local elementParent = getUIParent(element)
+    local elementParent = __getUIParent(element)
     local elementReference = createdElements[element]
     if not isFetchingInput then
         local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)

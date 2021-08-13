@@ -62,7 +62,7 @@ end
 function isUIValid(element)
 
     if element and isElement(element) then
-        local elementParent = getUIParent(element)
+        local elementParent = __getUIParent(element)
         if elementParent then
             if createdElements[elementParent].isValid then
                 return createdElements[element].isValid
@@ -83,7 +83,7 @@ end
 function isUIVisible(element)
 
     if isUIValid(element) then
-        local elementParent = getUIParent(element)
+        local elementParent = __getUIParent(element)
         if elementParent then
             if createdElements[elementParent].isVisible then
                 return createdElements[element].isVisible
