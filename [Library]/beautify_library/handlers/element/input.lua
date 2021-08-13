@@ -21,7 +21,7 @@ INPUT_CACHE = {
     prevScrollState = {scrollState = false, streakState = false, streakCounter = 1, tickCounter = getTickCount()}
 }
 local DEFAULT_INPUT_KEYS = {
-    "mouse1", "mouse2"
+    "mouse1", "mouse2", "lshift"
 }
 
 

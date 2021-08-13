@@ -25,10 +25,10 @@ function renderScrollbar(elementParent, renderData, referenceData, isFetchingInp
     if not isUIValid(elementParent) or not renderData or not referenceData then return false end
 
     local elementReference = renderData.elementReference
+    local scrollbar_isHorizontal = referenceData.isHorizontal
     local scrollbar_overflownSize = renderData.overflownSize
     if not isFetchingInput then
         local componentTemplate = __getUITemplate(componentType, elementReference.sourceResource)
-        local scrollbar_isHorizontal = referenceData.isHorizontal
         local scrollbar_startX, scrollbar_startY = renderData.startX, renderData.startY
         local scrollbar_width, scrollbar_height, scrollbar_thumb_size = nil, nil, nil
         local scrollbar_thumb_shadowSize = availableTemplates[componentType].thumb.shadowSize
@@ -70,17 +70,29 @@ function renderScrollbar(elementParent, renderData, referenceData, isFetchingInp
         end
     else
         if not renderData.isDisabled then
-            local scrollbar_scrollSpeed = (renderData.multiplier/scrollbar_overflownSize)*100
             local currentScrollState = {isMouseScrolled()}
+            if scrollbar_isHorizontal then
+                if not isKeyOnHold("lshift") then
+                    currentScrollState[1] = false
+                end
+            end
             if currentScrollState[1] then
+                local scrollbar_scrollSpeed = (renderData.multiplier/scrollbar_overflownSize)*100
+                if scrollbar_isHorizontal then
+                    if scrollbar_overflownSize < elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Horizontal"].track.width then
+                        scrollbar_scrollSpeed = scrollbar_scrollSpeed*25
+                    end
+                else
+                    if scrollbar_overflownSize < elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"].track.height then
+                        scrollbar_scrollSpeed = scrollbar_scrollSpeed*25
+                    end
+                end
                 if currentScrollState[1] == "up" then
                     if referenceData.finalPercent > 0 then
-                        if scrollbar_overflownSize < elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"].track.height then scrollbar_scrollSpeed = scrollbar_scrollSpeed*25 end
                         referenceData.finalPercent = referenceData.finalPercent - (scrollbar_scrollSpeed*currentScrollState[2])
                     end
                 elseif currentScrollState[1] == "down" then
                     if referenceData.finalPercent < 100 then
-                        if scrollbar_overflownSize < elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"].track.height then scrollbar_scrollSpeed = scrollbar_scrollSpeed*25 end
                         referenceData.finalPercent = referenceData.finalPercent + (scrollbar_scrollSpeed*currentScrollState[2])
                     end
                 end
