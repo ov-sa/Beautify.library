@@ -36,6 +36,7 @@ function renderWindow(element, isFetchingInput, mouseReference)
         local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
         local window_titleBar_divider_size, window_titleBar_divider_color = elementTemplate.titleBar.divider.size, ((elementReference.gui["__UI_CACHE__"]["Window"] and elementReference.gui["__UI_CACHE__"]["Window"].divider.color) or tocolor(unpackColor(elementTemplate.titleBar.divider.color)))
         local window_postGUI = elementReference.gui.postGUI
+
         if isElementToBeUpdated then
             if not elementReference.gui["__UI_CACHE__"]["Window"] then
                 elementReference.gui["__UI_CACHE__"]["Window"] = {
