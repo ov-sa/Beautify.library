@@ -65,7 +65,7 @@ function renderButton(element, isFetchingInput, mouseReference)
                 elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY = elementReference.gui["__UI_CACHE__"]["Button"].offsets.startY
                 elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width = elementReference.gui["__UI_CACHE__"]["Button"].offsets.width
                 elementReference.gui["__UI_INPUT_FETCH_CACHE__"].height = elementReference.gui["__UI_CACHE__"]["Button"].offsets.height
-                if isElementToBeReloaded then
+                if isElementToBeReloaded or not elementReference.gui["__UI_CACHE__"]["Button"].renderTexture then
                     if not elementReference.gui["__UI_CACHE__"]["Button"].renderTarget then
                         elementReference.gui["__UI_CACHE__"]["Button"].renderTarget = DxRenderTarget(button_width, button_height, true)
                     end

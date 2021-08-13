@@ -124,7 +124,7 @@ function renderSlider(element, isFetchingInput, mouseReference)
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].startY = elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].width = elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].height = elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.height
-            if isElementToBeReloaded then
+            if isElementToBeReloaded or not elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture then
                 if not elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget then
                     elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget = DxRenderTarget(slider_thumb_size, slider_thumb_size, true)
                 end
