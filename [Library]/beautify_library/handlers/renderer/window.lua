@@ -110,15 +110,13 @@ function renderWindow(element, isFetchingInput, mouseReference)
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].startY = elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startY
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].width = elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.width
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].height = elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.height
-            if not elementReference.gui["__UI_CACHE__"]["Window"].renderTexture or elementReference.gui["__UI_CACHE__"]["Window"].updateTexture then
+            if isElementToBeReloaded or not elementReference.gui["__UI_CACHE__"]["Window"].renderTexture then
                 if not elementReference.gui["__UI_CACHE__"]["Window"].renderTarget then
                     elementReference.gui["__UI_CACHE__"]["Window"].renderTarget = DxRenderTarget(window_width, window_height, true)
                 end
-                if elementReference.gui["__UI_CACHE__"]["Window"].updateTexture then
-                    if elementReference.gui["__UI_CACHE__"]["Window"].renderTexture and isElement(elementReference.gui["__UI_CACHE__"]["Window"].renderTexture) then
-                        elementReference.gui["__UI_CACHE__"]["Window"].renderTexture:destroy()
-                        elementReference.gui["__UI_CACHE__"]["Window"].renderTexture = nil
-                    end
+                if elementReference.gui["__UI_CACHE__"]["Window"].renderTexture and isElement(elementReference.gui["__UI_CACHE__"]["Window"].renderTexture) then
+                    elementReference.gui["__UI_CACHE__"]["Window"].renderTexture:destroy()
+                    elementReference.gui["__UI_CACHE__"]["Window"].renderTexture = nil
                 end
                 dxSetRenderTarget(elementReference.gui["__UI_CACHE__"]["Window"].renderTarget, true)
                 dxSetBlendMode("modulate_add")
@@ -146,7 +144,6 @@ function renderWindow(element, isFetchingInput, mouseReference)
                     elementReference.gui["__UI_CACHE__"]["Window"].renderTexture = DxTexture(renderPixels, "argb", false, "clamp")
                     elementReference.gui["__UI_CACHE__"]["Window"].renderTarget:destroy()
                     elementReference.gui["__UI_CACHE__"]["Window"].renderTarget = nil
-                    elementReference.gui["__UI_CACHE__"]["Window"].updateTexture = nil
                 end
             end
             elementReference.gui["__UI_CACHE__"].reloadElement = nil
