@@ -35,9 +35,9 @@ function renderSlider(element, isFetchingInput, mouseReference)
         local isElementToBeUpdated = elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
         local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
         local slider_type = elementReference.gui.type
-        local slider_startX, slider_startY = elementReference.gui.x, elementReference.gui.y
-        local slider_width, slider_height, slider_track_size, slider_thumb_size = elementReference.gui.width, elementReference.gui.height, elementTemplate.track.size, elementTemplate.thumb.size
-        local slider_content_padding = availableElements[elementType].contentSection.padding
+        local slider_startX, slider_startY = nil, nil
+        local slider_width, slider_height, slider_track_size, slider_thumb_size = nil, nil, nil, nil
+        local slider_content_padding = nil
         local slider_postGUI = elementReference.gui.postGUI
 
         if isElementToBeUpdated then
@@ -52,6 +52,9 @@ function renderSlider(element, isFetchingInput, mouseReference)
                     offsets = {}
                 }
             end
+            slider_startX, slider_startY = elementReference.gui.x, elementReference.gui.y
+            slider_content_padding = availableElements[elementType].contentSection.padding
+            slider_width, slider_height, slider_track_size, slider_thumb_size = elementReference.gui.width, elementReference.gui.height, elementTemplate.track.size, elementTemplate.thumb.size
         end
         if slider_type == "horizontal" then
             elementReference.gui.slideBar_Horizontal.currentPercent = interpolateBetween(elementReference.gui.slideBar_Horizontal.currentPercent, 0, 0, elementReference.gui.slideBar_Horizontal.finalPercent, 0, 0, 0.25, "InQuad")

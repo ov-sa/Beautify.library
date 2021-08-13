@@ -34,7 +34,6 @@ function renderLabel(element, isFetchingInput, mouseReference)
         if not elementParent then dxSetRenderTarget() end
         local isElementToBeUpdated = elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
         local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
-        local label_startX, label_startY = elementReference.gui.x, elementReference.gui.y
         local label_width, label_height = elementReference.gui.width, elementReference.gui.height
         local label_postGUI = elementReference.gui.postGUI
 
@@ -45,6 +44,7 @@ function renderLabel(element, isFetchingInput, mouseReference)
                         offsets = {}
                     }
                 end
+                local label_startX, label_startY = elementReference.gui.x, elementReference.gui.y
                 elementReference.gui["__UI_CACHE__"]["Text"].text = elementReference.gui.text
                 elementReference.gui["__UI_CACHE__"]["Text"].startX = label_startX
                 elementReference.gui["__UI_CACHE__"]["Text"].startY = label_startY

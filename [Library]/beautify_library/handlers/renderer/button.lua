@@ -36,35 +36,31 @@ function renderButton(element, isFetchingInput, mouseReference)
         local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
         local button_type = elementReference.gui.type
         elementTemplate = elementTemplate[button_type]
-        local button_startX, button_startY = elementReference.gui.x, elementReference.gui.y
         local button_width, button_height = elementReference.gui.size or elementReference.gui.width, elementReference.gui.size or elementReference.gui.height
         local button_postGUI = elementReference.gui.postGUI
 
         if button_width and button_height then
-            if not elementReference.gui.animAlphaPercent then
-                elementReference.gui.animAlphaPercent = 0.25
-                elementReference.gui.hoverStatus = "backward"
-                elementReference.gui.hoverAnimTickCounter = getTickCount()
-            end
-            if elementReference.gui.hoverStatus == "forward" then
-                elementReference.gui.animAlphaPercent = interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
-            else
-                elementReference.gui.animAlphaPercent = interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 0.25, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
-            end
             if isElementToBeUpdated then
                 if not elementReference.gui["__UI_CACHE__"]["Text"] then
                     elementReference.gui["__UI_CACHE__"]["Text"] = {
                         offsets = {}
                     }
                 end
-                elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX = button_startX
-                elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY = button_startY
-                elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width = button_width
-                elementReference.gui["__UI_INPUT_FETCH_CACHE__"].height = button_height
-                if not elementReference.gui["__UI_CACHE__"]["Button"] or not elementReference.gui["__UI_CACHE__"]["Button"].renderTexture or elementReference.gui["__UI_CACHE__"]["Button"].updateTexture then
-                    if not elementReference.gui["__UI_CACHE__"]["Button"] then
-                        elementReference.gui["__UI_CACHE__"]["Button"] = {}
-                    end
+                if not elementReference.gui["__UI_CACHE__"]["Button"] then
+                    elementReference.gui["__UI_CACHE__"]["Button"] = {
+                        offsets = {}
+                    }
+                end
+                local button_startX, button_startY = elementReference.gui.x, elementReference.gui.y
+                elementReference.gui["__UI_CACHE__"]["Button"].offsets.startX = button_startX
+                elementReference.gui["__UI_CACHE__"]["Button"].offsets.startY = button_startX
+                elementReference.gui["__UI_CACHE__"]["Button"].offsets.width = button_width
+                elementReference.gui["__UI_CACHE__"]["Button"].offsets.height = button_height
+                elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX = elementReference.gui["__UI_CACHE__"]["Button"].offsets.startX
+                elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY = elementReference.gui["__UI_CACHE__"]["Button"].offsets.startY
+                elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width = elementReference.gui["__UI_CACHE__"]["Button"].offsets.width
+                elementReference.gui["__UI_INPUT_FETCH_CACHE__"].height = elementReference.gui["__UI_CACHE__"]["Button"].offsets.height
+                if not elementReference.gui["__UI_CACHE__"]["Button"].renderTexture or elementReference.gui["__UI_CACHE__"]["Button"].updateTexture then
                     if not elementReference.gui["__UI_CACHE__"]["Button"].renderTarget then
                         elementReference.gui["__UI_CACHE__"]["Button"].renderTarget = DxRenderTarget(button_width, button_height, true)
                     end
@@ -113,9 +109,19 @@ function renderButton(element, isFetchingInput, mouseReference)
                 elementReference.gui["__UI_CACHE__"]["Text"].endY = button_startY + button_height
                 elementReference.gui["__UI_CACHE__"].updateElement = nil
             end
+            if not elementReference.gui.animAlphaPercent then
+                elementReference.gui.animAlphaPercent = 0.25
+                elementReference.gui.hoverStatus = "backward"
+                elementReference.gui.hoverAnimTickCounter = getTickCount()
+            end
+            if elementReference.gui.hoverStatus == "forward" then
+                elementReference.gui.animAlphaPercent = interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
+            else
+                elementReference.gui.animAlphaPercent = interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 0.25, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
+            end
             local button_fontColor = tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4]*elementReference.gui.animAlphaPercent)
             if elementReference.gui["__UI_CACHE__"]["Button"].renderTexture then
-                dxDrawImage(button_startX, button_startY, button_width, button_height, elementReference.gui["__UI_CACHE__"]["Button"].renderTexture, 0, 0, 0, tocolor(255, 255, 255, 255*math.max(0.3, elementReference.gui.animAlphaPercent)), button_postGUI)
+                dxDrawImage(elementReference.gui["__UI_CACHE__"]["Button"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Button"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Button"].offsets.width, elementReference.gui["__UI_CACHE__"]["Button"].offsets.height, elementReference.gui["__UI_CACHE__"]["Button"].renderTexture, 0, 0, 0, tocolor(255, 255, 255, 255*math.max(0.3, elementReference.gui.animAlphaPercent)), button_postGUI)
             end
             dxDrawText(elementReference.gui["__UI_CACHE__"]["Text"].text, elementReference.gui["__UI_CACHE__"]["Text"].startX, elementReference.gui["__UI_CACHE__"]["Text"].startY, elementReference.gui["__UI_CACHE__"]["Text"].endX, elementReference.gui["__UI_CACHE__"]["Text"].endY, button_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "center", "center", true, false, button_postGUI, false)
         end
