@@ -53,13 +53,17 @@ function renderLabel(element, isFetchingInput, mouseReference)
                 elementReference.gui["__UI_CACHE__"]["Label"].offsets.width = label_width
                 elementReference.gui["__UI_CACHE__"]["Label"].offsets.height = label_height
                 elementReference.gui["__UI_CACHE__"]["Label"].text.text = elementReference.gui.text
+                --TODO: ON ELEMENT UPDATE..
+                elementReference.gui["__UI_CACHE__"]["Label"].text.fontColor = tocolor(unpackColor(elementReference.gui.fontColor or elementTemplate.fontColor))
+                ----
                 elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.startX = elementReference.gui["__UI_CACHE__"]["Label"].offsets.startX
-                elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.startY = elementReference.gui["__UI_CACHE__"]["Label"].offsets.startY
+                elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.startY = elementReference.gui["__UI_CACHE__"]["Label"].offsets.startY + (elementTemplate.fontPaddingY or 0)
                 elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.endX = elementReference.gui["__UI_CACHE__"]["Label"].offsets.startX + elementReference.gui["__UI_CACHE__"]["Label"].offsets.width
                 elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.endY = elementReference.gui["__UI_CACHE__"]["Label"].offsets.startY + elementReference.gui["__UI_CACHE__"]["Label"].offsets.height
+                --
                 elementReference.gui["__UI_CACHE__"].updateElement = nil
             end
-            dxDrawText(elementReference.gui["__UI_CACHE__"]["Label"].text.text, elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.startY + (elementTemplate.fontPaddingY or 0), elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.endY, tocolor(unpackColor(elementReference.gui.fontColor or elementTemplate.fontColor)), elementTemplate.fontScale or 1, elementTemplate.font, elementReference.gui.alignment.horizontal, elementReference.gui.alignment.vertical, true, false, label_postGUI, false)
+            dxDrawText(elementReference.gui["__UI_CACHE__"]["Label"].text.text, elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Label"].text.fontColor, elementTemplate.fontScale or 1, elementTemplate.font, elementReference.gui.alignment.horizontal, elementReference.gui.alignment.vertical, true, false, label_postGUI, false)
             renderElementChildren(element)
             dxSetBlendMode("blend")
             if not elementParent then
