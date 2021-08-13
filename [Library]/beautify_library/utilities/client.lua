@@ -49,7 +49,7 @@ function cloneUIOutline(elementType, nestedOutline)
     local clonedOutline = {}
     if not nestedOutline then
         clonedOutline["__UI_CACHE__"] = {
-            updateElement = true
+            reloadElement = true
         }
         clonedOutline["__UI_INPUT_FETCH_CACHE__"] = {}
     end

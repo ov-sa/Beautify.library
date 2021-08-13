@@ -110,7 +110,7 @@ function renderWindow(element, isFetchingInput, mouseReference)
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].startY = elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startY
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].width = elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.width
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].height = elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.height
-            if isElementToBeReloaded or not elementReference.gui["__UI_CACHE__"]["Window"].renderTexture then
+            if isElementToBeReloaded then
                 if not elementReference.gui["__UI_CACHE__"]["Window"].renderTarget then
                     elementReference.gui["__UI_CACHE__"]["Window"].renderTarget = DxRenderTarget(window_width, window_height, true)
                 end
