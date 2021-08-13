@@ -52,10 +52,16 @@ function renderButton(element, isFetchingInput, mouseReference)
                     }
                 end
                 local button_startX, button_startY = elementReference.gui.x, elementReference.gui.y
+                local button_content_padding = availableElements[elementType].contentSection.paddingX
                 elementReference.gui["__UI_CACHE__"]["Button"].offsets.startX = button_startX
                 elementReference.gui["__UI_CACHE__"]["Button"].offsets.startY = button_startY
                 elementReference.gui["__UI_CACHE__"]["Button"].offsets.width = button_width
                 elementReference.gui["__UI_CACHE__"]["Button"].offsets.height = button_height
+                elementReference.gui["__UI_CACHE__"]["Text"].text = elementReference.gui.text
+                elementReference.gui["__UI_CACHE__"]["Text"].offsets.startX = elementReference.gui["__UI_CACHE__"]["Button"].offsets.startX + button_content_padding
+                elementReference.gui["__UI_CACHE__"]["Text"].offsets.startY = elementReference.gui["__UI_CACHE__"]["Button"].offsets.startY + (elementTemplate.fontPaddingY or 0)
+                elementReference.gui["__UI_CACHE__"]["Text"].offsets.endX = elementReference.gui["__UI_CACHE__"]["Button"].offsets.startX + elementReference.gui["__UI_CACHE__"]["Button"].offsets.width - button_content_padding
+                elementReference.gui["__UI_CACHE__"]["Text"].offsets.endY = elementReference.gui["__UI_CACHE__"]["Button"].offsets.startY + elementReference.gui["__UI_CACHE__"]["Button"].offsets.height
                 elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX = elementReference.gui["__UI_CACHE__"]["Button"].offsets.startX
                 elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY = elementReference.gui["__UI_CACHE__"]["Button"].offsets.startY
                 elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width = elementReference.gui["__UI_CACHE__"]["Button"].offsets.width
@@ -101,12 +107,6 @@ function renderButton(element, isFetchingInput, mouseReference)
                         elementReference.gui["__UI_CACHE__"]["Button"].updateTexture = nil
                     end
                 end
-                local button_content_padding = availableElements[elementType].contentSection.paddingX
-                elementReference.gui["__UI_CACHE__"]["Text"].text = elementReference.gui.text
-                elementReference.gui["__UI_CACHE__"]["Text"].offsets.startX = button_startX + button_content_padding
-                elementReference.gui["__UI_CACHE__"]["Text"].offsets.startY = button_startY + (elementTemplate.fontPaddingY or 0)
-                elementReference.gui["__UI_CACHE__"]["Text"].offsets.endX = button_startX + button_width - button_content_padding
-                elementReference.gui["__UI_CACHE__"]["Text"].offsets.endY = button_startY + button_height
                 elementReference.gui["__UI_CACHE__"].updateElement = nil
             end
             if not elementReference.gui.animAlphaPercent then
