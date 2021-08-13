@@ -21,6 +21,7 @@ local elementType = "beautify_gridlist"
 ------------------------
 
 availableElements[elementType] = {
+    reference = "gridlist",
     syntax = {
         functionName = "createGridlist",
         parameters = {

@@ -21,6 +21,7 @@ local elementType = "beautify_slider"
 ------------------------
 
 availableElements[elementType] = {
+    reference = "slider",
     syntax = {
         functionName = "createSlider",
         parameters = {

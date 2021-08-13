@@ -21,6 +21,7 @@ local elementType = "beautify_button"
 ------------------------
 
 availableElements[elementType] = {
+    reference = "button",
     syntax = {
         functionName = "createButton",
         parameters = {

@@ -21,6 +21,7 @@ local elementType = "beautify_label"
 ------------------------
 
 availableElements[elementType] = {
+    reference = "label",
     syntax = {
         functionName = "createLabel",
         parameters = {

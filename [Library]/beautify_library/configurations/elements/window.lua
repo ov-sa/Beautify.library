@@ -21,6 +21,7 @@ local elementType = "beautify_window"
 ------------------------
 
 availableElements[elementType] = {
+    reference = "window",
     syntax = {
         functionName = "createWindow",
         parameters = {
