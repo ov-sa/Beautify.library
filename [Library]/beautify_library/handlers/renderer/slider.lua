@@ -195,7 +195,7 @@ function renderSlider(element, isFetchingInput, mouseReference)
                 end
             end
             if elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture then
-                dxDrawImage(elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.height, elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture, 0, 0, 0, tocolor(255, 255, 255, 255), slider_postGUI)
+                dxDrawImage(elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.height, elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture, 0, 0, 0, -1, slider_postGUI)
             end
             renderElementChildren(element)
             dxSetBlendMode("blend")

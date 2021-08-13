@@ -174,7 +174,7 @@ function renderWindow(element, isFetchingInput, mouseReference)
             elementReference.gui.titleBar.close_button.animAlphaPercent = interpolateBetween(elementReference.gui.titleBar.close_button.animAlphaPercent, 0, 0, 0, 0, 0, getInterpolationProgress(elementReference.gui.titleBar.close_button.hoverAnimTickCounter, availableElements[elementType].titleBar.close_button.hoverAnimDuration), "InQuad")
         end
         if elementReference.gui["__UI_CACHE__"]["Window"].renderTexture then
-            dxDrawImage(elementReference.gui["__UI_CACHE__"]["Window"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Window"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Window"].offsets.width, elementReference.gui["__UI_CACHE__"]["Window"].offsets.height, elementReference.gui["__UI_CACHE__"]["Window"].renderTexture, 0, 0, 0, tocolor(255, 255, 255, 255), window_postGUI)
+            dxDrawImage(elementReference.gui["__UI_CACHE__"]["Window"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Window"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Window"].offsets.width, elementReference.gui["__UI_CACHE__"]["Window"].offsets.height, elementReference.gui["__UI_CACHE__"]["Window"].renderTexture, 0, 0, 0, -1, window_postGUI)
         end
         local isRenderCloseButtonHover = elementReference.gui.titleBar.close_button.animAlphaPercent > 0
         dxDrawText(elementReference.gui["__UI_CACHE__"]["Title Bar"].text.text, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.fontColor, elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "center", "center", true, false, window_postGUI, false)
@@ -195,7 +195,7 @@ function renderWindow(element, isFetchingInput, mouseReference)
         end
         local window_renderTarget = elementReference.gui.renderTarget
         if window_renderTarget and isElement(window_renderTarget) then
-            dxDrawImage(elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startX, elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startY, elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.height, window_renderTarget, 0, 0, 0, tocolor(255, 255, 255, 255), window_postGUI)
+            dxDrawImage(elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startX, elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startY, elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.height, window_renderTarget, 0, 0, 0, -1, window_postGUI)
         end
     else
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
