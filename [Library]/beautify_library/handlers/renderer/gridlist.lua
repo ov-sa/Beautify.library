@@ -98,9 +98,10 @@ function renderGridlist(element, isFetchingInput, mouseReference)
                     elementReference.gui["__UI_CACHE__"]["Grid Columns"].offsets[i].text.offsets.endX = elementReference.gui["__UI_CACHE__"]["Grid Columns"].offsets[i].endX - elementReference.gui["__UI_CACHE__"]["Grid Columns"].padding            
                 end
             end
+            elementReference.gui["__UI_CACHE__"].reloadElement = nil
+            elementReference.gui["__UI_CACHE__"].updateElement = nil
         end
-        elementReference.gui["__UI_CACHE__"].reloadElement = nil
-        elementReference.gui["__UI_CACHE__"].updateElement = nil
+
         dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Gridlist"].startX, elementReference.gui["__UI_CACHE__"]["Gridlist"].startY, elementReference.gui["__UI_CACHE__"]["Gridlist"].width, elementReference.gui["__UI_CACHE__"]["Gridlist"].height, elementReference.gui["__UI_CACHE__"]["Gridlist"].color, gridlist_postGUI)
         local gridlist_renderTarget = elementReference.gui.renderTarget
         if gridlist_renderTarget and isElement(gridlist_renderTarget) then

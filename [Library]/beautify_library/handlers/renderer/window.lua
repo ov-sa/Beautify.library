@@ -32,7 +32,8 @@ function renderWindow(element, isFetchingInput, mouseReference)
     if not isFetchingInput then
         local elementParent = __getUIParent(element)
         if not elementParent then dxSetRenderTarget() end
-        local isElementToBeUpdated = elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
+        local isElementToBeReloaded = elementReference.gui["__UI_CACHE__"].reloadElement
+        local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
         local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
         local window_titleBar_divider_size, window_titleBar_divider_color = elementTemplate.titleBar.divider.size, ((elementReference.gui["__UI_CACHE__"]["Window"] and elementReference.gui["__UI_CACHE__"]["Window"].divider.color) or tocolor(unpackColor(elementTemplate.titleBar.divider.color)))
         local window_postGUI = elementReference.gui.postGUI
@@ -69,9 +70,6 @@ function renderWindow(element, isFetchingInput, mouseReference)
             elementReference.gui["__UI_CACHE__"]["Window"].offsets.startY = window_startY
             elementReference.gui["__UI_CACHE__"]["Window"].offsets.width = window_width
             elementReference.gui["__UI_CACHE__"]["Window"].offsets.height = window_height
-            --TODO: ONLY ON TEMPLATE UPDATE
-            elementReference.gui["__UI_CACHE__"]["Window"].divider.fontColor = window_titleBar_divider_color
-            ---
             elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startX = elementReference.gui["__UI_CACHE__"]["Window"].offsets.startX + elementReference.gui.contentSection.startX
             elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startY = elementReference.gui["__UI_CACHE__"]["Window"].offsets.startY + elementReference.gui.contentSection.startY
             elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.width = window_view_width
@@ -81,16 +79,16 @@ function renderWindow(element, isFetchingInput, mouseReference)
             elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.startY = elementReference.gui["__UI_CACHE__"]["Window"].offsets.startY
             elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.width = elementReference.gui["__UI_CACHE__"]["Window"].offsets.width
             elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.height = window_borderSize
-            --TODO: ADD UPDATE ONLY ON TEMPLATE CHANGE...
-            elementReference.gui["__UI_CACHE__"]["Title Bar"].text.padding = ""
-            while dxGetTextWidth(elementReference.gui["__UI_CACHE__"]["Title Bar"].text.padding, 1, elementTemplate.titleBar.font) < window_borderSize do
-                elementReference.gui["__UI_CACHE__"]["Title Bar"].text.padding = elementReference.gui["__UI_CACHE__"]["Title Bar"].text.padding.." "
+            if isElementToBeReloaded then
+                elementReference.gui["__UI_CACHE__"]["Window"].divider.fontColor = window_titleBar_divider_color
+                elementReference.gui["__UI_CACHE__"]["Title Bar"].text.fontColor = tocolor(unpackColor(elementTemplate.titleBar.fontColor))
+                elementReference.gui["__UI_CACHE__"]["Title Bar"].text.padding = ""
+                while dxGetTextWidth(elementReference.gui["__UI_CACHE__"]["Title Bar"].text.padding, 1, elementTemplate.titleBar.font) < window_borderSize do
+                    elementReference.gui["__UI_CACHE__"]["Title Bar"].text.padding = elementReference.gui["__UI_CACHE__"]["Title Bar"].text.padding.." "
+                end
+                elementReference.gui["__UI_CACHE__"]["Close Button"].text.fontColor = tocolor(unpackColor(elementTemplate.titleBar.close_button.fontColor))
             end
-            ---
             elementReference.gui["__UI_CACHE__"]["Title Bar"].text.text = elementReference.gui["__UI_CACHE__"]["Title Bar"].text.padding..elementReference.gui.title
-            --TODO: ADD UPDATE ONLY ON TEMPLATE CHANGE...
-            elementReference.gui["__UI_CACHE__"]["Title Bar"].text.fontColor = tocolor(unpackColor(elementTemplate.titleBar.fontColor))
-            ----
             elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startX = elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.startX + window_titleBar_paddingX
             elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startY = elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.startY + (elementTemplate.titleBar.fontPaddingY or 0)
             elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endX = elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.startX + elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.width - elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.height - window_titleBar_paddingX
@@ -104,9 +102,6 @@ function renderWindow(element, isFetchingInput, mouseReference)
             elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.width = elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.height
             elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.height = elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.height
             elementReference.gui["__UI_CACHE__"]["Close Button"].text.text = "X"
-            --TODO: ADD UPDATE ONLY ON TEMPLATE CHANGE...
-            elementReference.gui["__UI_CACHE__"]["Close Button"].text.fontColor = tocolor(unpackColor(elementTemplate.titleBar.close_button.fontColor))
-            ---
             elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.startX = elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startX
             elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.startY = elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startY + (elementTemplate.titleBar.fontPaddingY or 0)
             elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.endX = elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startX + elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.width
@@ -154,8 +149,10 @@ function renderWindow(element, isFetchingInput, mouseReference)
                     elementReference.gui["__UI_CACHE__"]["Window"].updateTexture = nil
                 end
             end
+            elementReference.gui["__UI_CACHE__"].reloadElement = nil
             elementReference.gui["__UI_CACHE__"].updateElement = nil
         end
+
         if not elementReference.gui.titleBar.close_button.animAlphaPercent then
             elementReference.gui.titleBar.close_button.animAlphaPercent = 0
             elementReference.gui.titleBar.close_button.hoverStatus = "backward"

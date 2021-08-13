@@ -32,7 +32,8 @@ function renderSlider(element, isFetchingInput, mouseReference)
     if not isFetchingInput then
         local elementParent = __getUIParent(element)
         if not elementParent then dxSetRenderTarget() end
-        local isElementToBeUpdated = elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
+        local isElementToBeReloaded = elementReference.gui["__UI_CACHE__"].reloadElement
+        local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
         local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
         local slider_type = elementReference.gui.type
         local slider_postGUI = elementReference.gui.postGUI
@@ -123,16 +124,13 @@ function renderSlider(element, isFetchingInput, mouseReference)
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].startY = elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].width = elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].height = elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.height
-            --TODO: UPDATE ON TEMPLATE CHANGE
-            if not elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture or elementReference.gui["__UI_CACHE__"]["Thumb"].updateTexture then
+            if isElementToBeReloaded or not elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture then
                 if not elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget then
                     elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget = DxRenderTarget(slider_thumb_size, slider_thumb_size, true)
                 end
-                if elementReference.gui["__UI_CACHE__"]["Thumb"].updateTexture then
-                    if elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture and isElement(elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture) then
-                        elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture:destroy()
-                        elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture = nil
-                    end
+                if elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture and isElement(elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture) then
+                    elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture:destroy()
+                    elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture = nil
                 end
                 dxSetRenderTarget(elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget, true)
                 dxSetBlendMode("modulate_add")
@@ -149,12 +147,12 @@ function renderSlider(element, isFetchingInput, mouseReference)
                     elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture = DxTexture(renderPixels, "argb", false, "clamp")
                     elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget:destroy()
                     elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget = nil
-                    elementReference.gui["__UI_CACHE__"]["Thumb"].updateTexture = nil
                 end
             end
-            --
+            elementReference.gui["__UI_CACHE__"].reloadElement = nil
+            elementReference.gui["__UI_CACHE__"].updateElement = nil
         end
-        elementReference.gui["__UI_CACHE__"].updateElement = nil
+
         if elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX and elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY then
             if not elementReference.gui.animAlphaPercent then
                 elementReference.gui.animAlphaPercent = 0.8

@@ -32,7 +32,8 @@ function renderButton(element, isFetchingInput, mouseReference)
     if not isFetchingInput then
         local elementParent = __getUIParent(element)
         if not elementParent then dxSetRenderTarget() end
-        local isElementToBeUpdated = elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
+        local isElementToBeReloaded = elementReference.gui["__UI_CACHE__"].reloadElement
+        local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
         local button_width, button_height = elementReference.gui.size or elementReference.gui.width, elementReference.gui.size or elementReference.gui.height
 
         if button_width and button_height then
@@ -64,15 +65,13 @@ function renderButton(element, isFetchingInput, mouseReference)
                 elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY = elementReference.gui["__UI_CACHE__"]["Button"].offsets.startY
                 elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width = elementReference.gui["__UI_CACHE__"]["Button"].offsets.width
                 elementReference.gui["__UI_INPUT_FETCH_CACHE__"].height = elementReference.gui["__UI_CACHE__"]["Button"].offsets.height
-                if not elementReference.gui["__UI_CACHE__"]["Button"].renderTexture or elementReference.gui["__UI_CACHE__"]["Button"].updateTexture then
+                if isElementToBeReloaded or not elementReference.gui["__UI_CACHE__"]["Button"].renderTexture then
                     if not elementReference.gui["__UI_CACHE__"]["Button"].renderTarget then
                         elementReference.gui["__UI_CACHE__"]["Button"].renderTarget = DxRenderTarget(button_width, button_height, true)
                     end
-                    if elementReference.gui["__UI_CACHE__"]["Button"].updateTexture then
-                        if elementReference.gui["__UI_CACHE__"]["Button"].renderTexture and isElement(elementReference.gui["__UI_CACHE__"]["Button"].renderTexture) then
-                            elementReference.gui["__UI_CACHE__"]["Button"].renderTexture:destroy()
-                            elementReference.gui["__UI_CACHE__"]["Button"].renderTexture = nil
-                        end
+                    if elementReference.gui["__UI_CACHE__"]["Button"].renderTexture and isElement(elementReference.gui["__UI_CACHE__"]["Button"].renderTexture) then
+                        elementReference.gui["__UI_CACHE__"]["Button"].renderTexture:destroy()
+                        elementReference.gui["__UI_CACHE__"]["Button"].renderTexture = nil
                     end
                     dxSetRenderTarget(elementReference.gui["__UI_CACHE__"]["Button"].renderTarget, true)
                     dxSetBlendMode("modulate_add")
@@ -102,11 +101,12 @@ function renderButton(element, isFetchingInput, mouseReference)
                         elementReference.gui["__UI_CACHE__"]["Button"].renderTexture = DxTexture(renderPixels, "argb", false, "clamp")
                         elementReference.gui["__UI_CACHE__"]["Button"].renderTarget:destroy()
                         elementReference.gui["__UI_CACHE__"]["Button"].renderTarget = nil
-                        elementReference.gui["__UI_CACHE__"]["Button"].updateTexture = nil
                     end
                 end
+                elementReference.gui["__UI_CACHE__"].reloadElement = nil
                 elementReference.gui["__UI_CACHE__"].updateElement = nil
             end
+
             if not elementReference.gui.animAlphaPercent then
                 elementReference.gui.animAlphaPercent = 0.25
                 elementReference.gui.hoverStatus = "backward"
