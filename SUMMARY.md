@@ -54,7 +54,7 @@
   * [clearSliderTextColor](elements/slider/clearslidertextcolor.md)
   * [setSliderTextColor](elements/slider/setslidertextcolor.md)
   * [getSliderTextColor](elements/slider/getslidertextcolor.md)
-* [Switcher](elements/switcher.md)
+* [Selector](elements/selector.md)
 * [Checkbox](elements/checkbox.md)
 * [Progress Bar](elements/progressbar.md)
 * [Tab Pane](elements/tabpane.md)
