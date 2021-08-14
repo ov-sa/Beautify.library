@@ -7,10 +7,10 @@ description: Retrieves the text of the label.
 ## **Syntax:**
 
 ```lua
-text getLabelText(label)
+text getText(label)
 ```
 
-#### _**\#Counterpart:**_ [_**setLabelText**_](setlabeltext.md)
+#### _**\#Counterpart:**_ [_**setText**_](setlabeltext.md)
 
 ### **Parameters:**
 
@@ -23,7 +23,7 @@ text getLabelText(label)
 ## **Example:**
 
 ```lua
-local labelText = beautify.label.getLabelText(createdLabel)
+local labelText = beautify.label.getText(createdLabel)
 print(labelText)
 ```
 

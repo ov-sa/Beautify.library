@@ -7,7 +7,7 @@ description: Clears overridden color of the label.
 ## **Syntax:**
 
 ```lua
-state clearLabelColor(label)
+state clearColor(label)
 ```
 
 ### **Parameters:**
@@ -21,7 +21,7 @@ state clearLabelColor(label)
 ## **Example:**
 
 ```lua
-local resultState = beautify.label.clearLabelColor(createdLabel)
+local resultState = beautify.label.clearColor(createdLabel)
 print(tostring(resultState))
 ```
 

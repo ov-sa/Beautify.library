@@ -7,10 +7,10 @@ description: Counts and retrieves the number of columns within the gridlist.
 ## **Syntax:**
 
 ```lua
-count countGridlistColumns(gridlist)
+count countColumns(gridlist)
 ```
 
-#### _**\#Counterpart:**_ [_**countGridlistRows**_](countgridlistrows.md)
+#### _**\#Counterpart:**_ [_**countRows**_](countgridlistrows.md)
 
 ### **Parameters:**
 
@@ -23,7 +23,7 @@ count countGridlistColumns(gridlist)
 ## **Example:**
 
 ```lua
-local totalColumns = beautify.gridlist.countGridlistColumns(createdGridlist)
+local totalColumns = beautify.gridlist.countColumns(createdGridlist)
 print(totalColumns)
 ```
 

@@ -7,10 +7,10 @@ description: Removes a specified column from the gridlist.
 ## **Syntax:**
 
 ```lua
-state removeGridlistColumn(gridlist, column)
+state removeColumn(gridlist, column)
 ```
 
-#### _**\#Counterpart:**_ [_**addGridlistColumn**_](addgridlistcolumn.md)
+#### _**\#Counterpart:**_ [_**addColumn**_](addgridlistcolumn.md)
 
 ### **Parameters:**
 
@@ -24,7 +24,7 @@ state removeGridlistColumn(gridlist, column)
 ## **Example:**
 
 ```lua
-local resultState = beautify.gridlist.removeGridlistColumn(createdGridlist, 1)
+local resultState = beautify.gridlist.removeColumn(createdGridlist, 1)
 print(tostring(resultState))
 ```
 

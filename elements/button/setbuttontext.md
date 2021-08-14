@@ -7,10 +7,10 @@ description: Sets the text of the button.
 ## **Syntax:**
 
 ```lua
-state setButtonText(button, text)
+state setText(button, text)
 ```
 
-#### _**\#Counterpart:**_ [_**getButtonText**_](getbuttontext.md)
+#### _**\#Counterpart:**_ [_**getText**_](getbuttontext.md)
 
 ### **Parameters:**
 
@@ -24,7 +24,7 @@ state setButtonText(button, text)
 ## **Example:**
 
 ```lua
-local resultState = beautify.button.setButtonText(createdButton, "My First Button #1")
+local resultState = beautify.button.setText(createdButton, "My First Button #1")
 print(tostring(resultState))
 ```
 

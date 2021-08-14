@@ -7,10 +7,10 @@ description: Retrieves specified row's data from the gridlist.
 ## **Syntax:**
 
 ```lua
-data getGridlistRowData(gridlist, row, column)
+data getRowData(gridlist, row, column)
 ```
 
-#### _**\#Counterpart:**_ [_**setGridlistRowData**_](setgridlistrowdata.md)
+#### _**\#Counterpart:**_ [_**setRowData**_](setgridlistrowdata.md)
 
 ### **Parameters:**
 
@@ -25,7 +25,7 @@ data getGridlistRowData(gridlist, row, column)
 ## **Example:**
 
 ```lua
-local rowData = beautify.gridlist.getGridlistRowData(createdGridlist, 1, 2)
+local rowData = beautify.gridlist.getRowData(createdGridlist, 1, 2)
 print(rowData)
 ```
 

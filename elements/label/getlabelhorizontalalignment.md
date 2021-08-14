@@ -7,10 +7,10 @@ description: Retrieves the horizontal alignment of the label.
 ## **Syntax:**
 
 ```lua
-alignment getLabelHorizontalAlignment(label)
+alignment getHorizontalAlignment(label)
 ```
 
-#### _**\#Counterpart:**_ [_**setLabelHorizontalAlignment**_](setlabelhorizontalalignment.md)
+#### _**\#Counterpart:**_ [_**setHorizontalAlignment**_](setlabelhorizontalalignment.md)
 
 ### **Parameters:**
 
@@ -23,7 +23,7 @@ alignment getLabelHorizontalAlignment(label)
 ## **Example:**
 
 ```lua
-local labelHorizontalAlignment = beautify.label.getLabelHorizontalAlignment(createdLabel)
+local labelHorizontalAlignment = beautify.label.getHorizontalAlignment(createdLabel)
 print(labelHorizontalAlignment)
 ```
 

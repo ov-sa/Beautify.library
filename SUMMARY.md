@@ -21,7 +21,7 @@
   * [setColumnName](elements/gridlist/setgridlistcolumnname.md)
   * [getColumnName](elements/gridlist/getgridlistcolumnname.md)
   * [countRows](elements/gridlist/countgridlistrows.md)
-  * [addRow](elements/gridlist/addgridlistrow.md)
+  * [addRow](elements/gridlist/addRow.md)
   * [removeRow](elements/gridlist/removegridlistrow.md)
   * [setRowData](elements/gridlist/setgridlistrowdata.md)
   * [getRowData](elements/gridlist/getgridlistrowdata.md)

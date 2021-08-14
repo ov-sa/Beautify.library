@@ -7,7 +7,7 @@ description: Creates a new blank button which can be further used to bind your e
 ## **Syntax:**
 
 ```lua
-button createButton(text, x, y, type, ...Template_Parameters..., [parent = nil], [postGUI = false])
+button create(text, x, y, type, ...Template_Parameters..., [parent = nil], [postGUI = false])
 ```
 
 ### **Parameters:**
@@ -28,7 +28,7 @@ button createButton(text, x, y, type, ...Template_Parameters..., [parent = nil],
 ```lua
 local sX, sY = guiGetScreenSize()
 local button_width, button_height = 200, 30
-local createdButton = beautify.button.createButton("Button #1", (sX - button_width)/2, (sY - button_height)/2, "default", button_width, button_height, nil, false)
+local createdButton = beautify.button.create("Button #1", (sX - button_width)/2, (sY - button_height)/2, "default", button_width, button_height, nil, false)
 beautify.setUIVisible(createdButton, true)
 addEventHandler("onClientUIClick", createdButton, function(key)
     print("You've clicked your button! (Key: "..key..")")

@@ -7,7 +7,7 @@ description: Clears the text of the slider.
 ## **Syntax:**
 
 ```lua
-state clearSliderText(slider)
+state clearText(slider)
 ```
 
 ### **Parameters:**
@@ -21,7 +21,7 @@ state clearSliderText(slider)
 ## **Example:**
 
 ```lua
-local resultState = beautify.slider.clearSliderText(createdSlider)
+local resultState = beautify.slider.clearText(createdSlider)
 print(tostring(resultState))
 ```
 

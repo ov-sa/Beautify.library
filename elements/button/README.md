@@ -9,7 +9,7 @@
 
 ## ━ APIs:
 
-* [createButton](createbutton.md)
-* [setButtonText](setbuttontext.md)
-* [getButtonText](getbuttontext.md)
+* [create](createbutton.md)
+* [setText](setbuttontext.md)
+* [getText](getbuttontext.md)
 

@@ -7,10 +7,10 @@ description: Removes a specified row from the gridlist.
 ## **Syntax:**
 
 ```lua
-state removeGridlistRow(gridlist, row)
+state removeRow(gridlist, row)
 ```
 
-#### _**\#Counterpart:**_ [_**addGridlistRow**_](addgridlistrow.md)
+#### _**\#Counterpart:**_ [_**addRow**_](addRow.md)
 
 ### **Parameters:**
 
@@ -24,7 +24,7 @@ state removeGridlistRow(gridlist, row)
 ## **Example:**
 
 ```lua
-local resultState = beautify.gridlist.removeGridlistRow(createdGridlist, 1)
+local resultState = beautify.gridlist.removeRow(createdGridlist, 1)
 print(tostring(resultState))
 ```
 

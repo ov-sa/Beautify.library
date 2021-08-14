@@ -7,10 +7,10 @@ description: Sets the text of the slider.
 ## **Syntax:**
 
 ```lua
-state setSliderText(slider, text)
+state setText(slider, text)
 ```
 
-#### _**\#Counterpart:**_ [_**getSliderText**_](getslidertext.md)
+#### _**\#Counterpart:**_ [_**getText**_](getslidertext.md)
 
 ### **Parameters:**
 
@@ -24,7 +24,7 @@ state setSliderText(slider, text)
 ## **Example:**
 
 ```lua
-local resultState = beautify.slider.setSliderText(createdSlider, "My First Slider #1")
+local resultState = beautify.slider.setText(createdSlider, "My First Slider #1")
 print(tostring(resultState))
 ```
 

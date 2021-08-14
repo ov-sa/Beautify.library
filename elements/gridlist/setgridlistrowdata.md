@@ -7,10 +7,10 @@ description: Sets specified row's data within the gridlist.
 ## **Syntax:**
 
 ```lua
-state setGridlistRowData(gridlist, row, column, data)
+state setRowData(gridlist, row, column, data)
 ```
 
-#### _**\#Counterpart:**_ [_**getGridlistRowData**_](getgridlistrowdata.md)
+#### _**\#Counterpart:**_ [_**getRowData**_](getgridlistrowdata.md)
 
 ### **Parameters:**
 
@@ -26,20 +26,20 @@ state setGridlistRowData(gridlist, row, column, data)
 ## **Example:**
 
 ```lua
-beautify.gridlist.setGridlistRowData(createdGridlist, 1, 1, "1")
-beautify.gridlist.setGridlistRowData(createdGridlist, 1, 2, "Tron")
-beautify.gridlist.setGridlistRowData(createdGridlist, 1, 3, "BH")
-beautify.gridlist.setGridlistRowData(createdGridlist, 1, 4, "CEO")
+beautify.gridlist.setRowData(createdGridlist, 1, 1, "1")
+beautify.gridlist.setRowData(createdGridlist, 1, 2, "Tron")
+beautify.gridlist.setRowData(createdGridlist, 1, 3, "BH")
+beautify.gridlist.setRowData(createdGridlist, 1, 4, "CEO")
 
-beautify.gridlist.setGridlistRowData(createdGridlist, 2, 1, "2")
-beautify.gridlist.setGridlistRowData(createdGridlist, 2, 2, "Aviril")
-beautify.gridlist.setGridlistRowData(createdGridlist, 2, 3, "US")
-beautify.gridlist.setGridlistRowData(createdGridlist, 2, 4, "CEO")
+beautify.gridlist.setRowData(createdGridlist, 2, 1, "2")
+beautify.gridlist.setRowData(createdGridlist, 2, 2, "Aviril")
+beautify.gridlist.setRowData(createdGridlist, 2, 3, "US")
+beautify.gridlist.setRowData(createdGridlist, 2, 4, "CEO")
 
-beautify.gridlist.setGridlistRowData(createdGridlist, 3, 1, "3")
-beautify.gridlist.setGridlistRowData(createdGridlist, 3, 2, "Mario")
-beautify.gridlist.setGridlistRowData(createdGridlist, 3, 3, "BH")
-beautify.gridlist.setGridlistRowData(createdGridlist, 3, 4, "CEO")
+beautify.gridlist.setRowData(createdGridlist, 3, 1, "3")
+beautify.gridlist.setRowData(createdGridlist, 3, 2, "Mario")
+beautify.gridlist.setRowData(createdGridlist, 3, 3, "BH")
+beautify.gridlist.setRowData(createdGridlist, 3, 4, "CEO")
 ```
 
 ![](../../.gitbook/assets/setgridlistrowdata.png)

@@ -7,7 +7,7 @@ description: Clears overridden color of the slider's text.
 ## **Syntax:**
 
 ```lua
-state clearSliderTextColor(slider)
+state clearTextColor(slider)
 ```
 
 ### **Parameters:**
@@ -21,7 +21,7 @@ state clearSliderTextColor(slider)
 ## **Example:**
 
 ```lua
-local resultState = beautify.slider.clearSliderTextColor(createdSlider)
+local resultState = beautify.slider.clearTextColor(createdSlider)
 print(tostring(resultState))
 ```
 

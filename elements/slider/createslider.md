@@ -9,7 +9,7 @@ description: >-
 ## **Syntax:**
 
 ```lua
-slider createSlider(x, y, width, height, type, [parent = nil], [postGUI = false])
+slider create(x, y, width, height, type, [parent = nil], [postGUI = false])
 ```
 
 ### **Parameters:**
@@ -31,7 +31,7 @@ slider createSlider(x, y, width, height, type, [parent = nil], [postGUI = false]
 ```lua
 local sX, sY = guiGetScreenSize()
 local slider_width, slider_height = 300, 50
-local createdSlider = beautify.slider.createSlider((sX - slider_width)/2, (sY - slider_height)/2, slider_width, slider_height, "horizontal", nil, false)
+local createdSlider = beautify.slider.create((sX - slider_width)/2, (sY - slider_height)/2, slider_width, slider_height, "horizontal", nil, false)
 beautify.setUIVisible(createdSlider, true)
 ```
 

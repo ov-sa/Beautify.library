@@ -7,10 +7,10 @@ description: Retrieves the text of the button.
 ## **Syntax:**
 
 ```lua
-text getButtonText(button)
+text getText(button)
 ```
 
-#### _**\#Counterpart:**_ [_**setButtonText**_](setbuttontext.md)
+#### _**\#Counterpart:**_ [_**setText**_](setbuttontext.md)
 
 ### **Parameters:**
 
@@ -23,7 +23,7 @@ text getButtonText(button)
 ## **Example:**
 
 ```lua
-local buttonText = beautify.button.getButtonText(createdButton)
+local buttonText = beautify.button.getText(createdButton)
 print(buttonText)
 ```
 

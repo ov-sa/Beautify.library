@@ -7,7 +7,7 @@ description: Creates a new label which can be further used to name your componen
 ## **Syntax:**
 
 ```lua
-label createLabel(text, x, y, width, height, [parent = nil], [postGUI = false])
+label create(text, x, y, width, height, [parent = nil], [postGUI = false])
 ```
 
 ### **Parameters:**
@@ -29,7 +29,7 @@ label createLabel(text, x, y, width, height, [parent = nil], [postGUI = false])
 ```lua
 local sX, sY = guiGetScreenSize()
 local label_width, label_height = 300, 50
-local createdLabel = beautify.label.createLabel("Label #1", (sX - label_width)/2, (sY - label_height)/2, label_width, label_height, nil, false)
+local createdLabel = beautify.label.create("Label #1", (sX - label_width)/2, (sY - label_height)/2, label_width, label_height, nil, false)
 beautify.setUIDisabled(createdLabel, true)
 beautify.setUIVisible(createdLabel, true)
 ```

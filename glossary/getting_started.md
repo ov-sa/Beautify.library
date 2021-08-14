@@ -25,7 +25,7 @@ Since you have initialized and imported **Beautify's** module, you can invoke AP
 -- Creates a centered window & sets it draggable 
 local sX, sY = guiGetScreenSize()
 local window_width, window_height = 700, 378
-local createdWindow = beautify.window.createWindow((sX - window_width)/2, (sY - window_height)/2, window_width, window_height, "My First Window", nil, false)
+local createdWindow = beautify.window.create((sX - window_width)/2, (sY - window_height)/2, window_width, window_height, "My First Window", nil, false)
 beautify.setUIDraggable(createdWindow, true)
 beautify.setUIVisible(createdWindow, true)
 ```
@@ -34,11 +34,11 @@ beautify.setUIVisible(createdWindow, true)
 
 ```lua
 -- Creates a gridlist with some columns and adds it within the window created above
-local createdGridlist = beautify.gridlist.createGridlist(0, 0, window_width, window_height, createdWindow, false)
-beautify.gridlist.addGridlistColumn(createdGridlist, "S.No", 75)
-beautify.gridlist.addGridlistColumn(createdGridlist, "Name", 250)
-beautify.gridlist.addGridlistColumn(createdGridlist, "Country", 100)
-beautify.gridlist.addGridlistColumn(createdGridlist, "Rank", 250)
+local createdGridlist = beautify.gridlist.create(0, 0, window_width, window_height, createdWindow, false)
+beautify.gridlist.addColumn(createdGridlist, "S.No", 75)
+beautify.gridlist.addColumn(createdGridlist, "Name", 250)
+beautify.gridlist.addColumn(createdGridlist, "Country", 100)
+beautify.gridlist.addColumn(createdGridlist, "Rank", 250)
 beautify.setUIVisible(createdGridlist, true)
 ```
 
@@ -59,10 +59,10 @@ local dummyRowDatas = {
 }
 
 for i, j in ipairs(dummyRowDatas) do
-    local rowIndex = beautify.gridlist.addGridlistRow(createdGridlist)
-    beautify.gridlist.setGridlistRowData(createdGridlist, rowIndex, 1, tostring(beautify.gridlist.countGridlistRows(createdGridlist)))
+    local rowIndex = beautify.gridlist.addRow(createdGridlist)
+    beautify.gridlist.setRowData(createdGridlist, rowIndex, 1, tostring(beautify.gridlist.countRows(createdGridlist)))
     for k, v in pairs(j) do
-        beautify.gridlist.setGridlistRowData(createdGridlist, rowIndex, k, tostring(v))
+        beautify.gridlist.setRowData(createdGridlist, rowIndex, k, tostring(v))
     end
 end
 ```

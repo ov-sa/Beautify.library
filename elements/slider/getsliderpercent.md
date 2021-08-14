@@ -7,10 +7,10 @@ description: Retrieves the percentage of the slider.
 ## **Syntax:**
 
 ```lua
-percent getSliderPercent(slider)
+percent getPercent(slider)
 ```
 
-#### _**\#Counterpart:**_ [_**setSliderPercent**_](setsliderpercent.md)
+#### _**\#Counterpart:**_ [_**setPercent**_](setsliderpercent.md)
 
 ### **Parameters:**
 
@@ -23,7 +23,7 @@ percent getSliderPercent(slider)
 ## **Example:**
 
 ```lua
-local sliderPercent = beautify.slider.getSliderPercent(createdSlider)
+local sliderPercent = beautify.slider.getPercent(createdSlider)
 print(sliderPercent)
 ```
 

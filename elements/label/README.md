@@ -8,14 +8,14 @@
 
 ## ━ APIs:
 
-* [createLabel](createlabel.md)
-* [setLabelText](setlabeltext.md)
-* [getLabelText](getlabeltext.md)
-* [clearLabelColor](clearlabelcolor.md)
-* [setLabelColor](setlabelcolor.md)
-* [getLabelColor](getlabelcolor.md)
-* [setLabelHorizontalAlignment](setlabelhorizontalalignment.md)
-* [getLabelHorizontalAlignment](getlabelhorizontalalignment.md)
-* [setLabelVerticalAlignment](setlabelverticalalignment.md)
-* [getLabelVerticalAlignment](getlabelverticalalignment.md)
+* [create](createlabel.md)
+* [setText](setlabeltext.md)
+* [getText](getlabeltext.md)
+* [clearColor](clearlabelcolor.md)
+* [setColor](setlabelcolor.md)
+* [getColor](getlabelcolor.md)
+* [setHorizontalAlignment](setlabelhorizontalalignment.md)
+* [getHorizontalAlignment](getlabelhorizontalalignment.md)
+* [setVerticalAlignment](setlabelverticalalignment.md)
+* [getVerticalAlignment](getlabelverticalalignment.md)
 

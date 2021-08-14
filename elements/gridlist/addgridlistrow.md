@@ -7,10 +7,10 @@ description: Adds a new row to the gridlist.
 ## **Syntax:**
 
 ```lua
-row addGridlistRow(gridlist)
+row addRow(gridlist)
 ```
 
-#### _**\#Counterpart:**_ [_**removeGridlistRow**_](removegridlistrow.md)
+#### _**\#Counterpart:**_ [_**removeRow**_](removegridlistrow.md)
 
 ### **Parameters:**
 
@@ -23,10 +23,10 @@ row addGridlistRow(gridlist)
 ## **Example:**
 
 ```lua
-local rowIndex1 = beautify.gridlist.addGridlistRow(createdGridlist)
-local rowIndex2 = beautify.gridlist.addGridlistRow(createdGridlist)
-local rowIndex3 = beautify.gridlist.addGridlistRow(createdGridlist)
+local rowIndex1 = beautify.gridlist.addRow(createdGridlist)
+local rowIndex2 = beautify.gridlist.addRow(createdGridlist)
+local rowIndex3 = beautify.gridlist.addRow(createdGridlist)
 ```
 
-![](../../.gitbook/assets/addgridlistrow.png)
+![](../../.gitbook/assets/addRow.png)
 

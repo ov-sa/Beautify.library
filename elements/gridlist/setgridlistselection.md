@@ -7,10 +7,10 @@ description: Selects specified row from the gridlist.
 ## **Syntax:**
 
 ```lua
-state setGridlistSelection(gridlist, row)
+state setSelection(gridlist, row)
 ```
 
-#### _**\#Counterpart:**_ [_**getGridlistSelection**_](getgridlistselection.md)
+#### _**\#Counterpart:**_ [_**getSelection**_](getgridlistselection.md)
 
 ### **Parameters:**
 
@@ -24,7 +24,7 @@ state setGridlistSelection(gridlist, row)
 ## **Example:**
 
 ```lua
-local resultState = beautify.gridlist.setGridlistSelection(createdGridlist, 1)
+local resultState = beautify.gridlist.setSelection(createdGridlist, 1)
 print(tostring(resultState))
 ```
 

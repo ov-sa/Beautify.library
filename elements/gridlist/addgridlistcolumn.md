@@ -7,10 +7,10 @@ description: Adds a new column to the gridlist.
 ## **Syntax:**
 
 ```lua
-column addGridlistColumn(gridlist, name, width)
+column addColumn(gridlist, name, width)
 ```
 
-#### _**\#Counterpart:**_ [_**removeGridlistColumn**_](removegridlistcolumn.md)
+#### _**\#Counterpart:**_ [_**removeColumn**_](removegridlistcolumn.md)
 
 ### **Parameters:**
 
@@ -25,10 +25,10 @@ column addGridlistColumn(gridlist, name, width)
 ## **Example:**
 
 ```lua
-local columnIndex1 = beautify.gridlist.addGridlistColumn(createdGridlist, "S.No", 75)
-local columnIndex2 = beautify.gridlist.addGridlistColumn(createdGridlist, "Name", 250)
-local columnIndex3 = beautify.gridlist.addGridlistColumn(createdGridlist, "Country", 100)
-local columnIndex4 = beautify.gridlist.addGridlistColumn(createdGridlist, "Rank", 250)
+local columnIndex1 = beautify.gridlist.addColumn(createdGridlist, "S.No", 75)
+local columnIndex2 = beautify.gridlist.addColumn(createdGridlist, "Name", 250)
+local columnIndex3 = beautify.gridlist.addColumn(createdGridlist, "Country", 100)
+local columnIndex4 = beautify.gridlist.addColumn(createdGridlist, "Rank", 250)
 ```
 
 ![](../../.gitbook/assets/addgridlistcolumn.png)

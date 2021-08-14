@@ -7,10 +7,10 @@ description: Retrieves the color of the label.
 ## **Syntax:**
 
 ```lua
-color getLabelColor(label)
+color getColor(label)
 ```
 
-#### _**\#Counterpart:**_ [_**setLabelColor**_](setlabelcolor.md)
+#### _**\#Counterpart:**_ [_**setColor**_](setlabelcolor.md)
 
 ### **Parameters:**
 
@@ -23,7 +23,7 @@ color getLabelColor(label)
 ## **Example:**
 
 ```lua
-local labelColor = beautify.label.getLabelColor(createdLabel)
+local labelColor = beautify.label.getColor(createdLabel)
 print(toJSON(labelColor))
 ```
 

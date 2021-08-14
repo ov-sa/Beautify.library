@@ -7,10 +7,10 @@ description: Sets the color of the slider's text.
 ## **Syntax:**
 
 ```lua
-state setSliderTextColor(slider, color)
+state setTextColor(slider, color)
 ```
 
-#### _**\#Counterpart:**_ [_**getSliderTextColor**_](getslidertextcolor.md)
+#### _**\#Counterpart:**_ [_**getTextColor**_](getslidertextcolor.md)
 
 ### **Parameters:**
 
@@ -24,7 +24,7 @@ state setSliderTextColor(slider, color)
 ## **Example:**
 
 ```lua
-local resultState = beautify.slider.setSliderTextColor(createdSlider, {255, 0, 0, 255})
+local resultState = beautify.slider.setTextColor(createdSlider, {255, 0, 0, 255})
 print(tostring(resultState))
 ```
 

@@ -7,10 +7,10 @@ description: Retrieves the vertical alignment of the label.
 ## **Syntax:**
 
 ```lua
-alignment getLabelVerticalAlignment(label)
+alignment getVerticalAlignment(label)
 ```
 
-#### _**\#Counterpart:**_ [_**setLabelVerticalAlignment**_](setlabelverticalalignment.md)
+#### _**\#Counterpart:**_ [_**setVerticalAlignment**_](setlabelverticalalignment.md)
 
 ### **Parameters:**
 
@@ -23,7 +23,7 @@ alignment getLabelVerticalAlignment(label)
 ## **Example:**
 
 ```lua
-local labelVerticalAlignment = beautify.label.getLabelVerticalAlignment(createdLabel)
+local labelVerticalAlignment = beautify.label.getVerticalAlignment(createdLabel)
 print(labelVerticalAlignment)
 ```
 

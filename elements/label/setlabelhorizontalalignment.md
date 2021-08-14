@@ -7,10 +7,10 @@ description: Sets the horizontal alignment of the label.
 ## **Syntax:**
 
 ```lua
-state setLabelHorizontalAlignment(label, alignment)
+state setHorizontalAlignment(label, alignment)
 ```
 
-#### _**\#Counterpart:**_ [_**getLabelHorizontalAlignment**_](getlabelhorizontalalignment.md)
+#### _**\#Counterpart:**_ [_**getHorizontalAlignment**_](getlabelhorizontalalignment.md)
 
 ### **Parameters:**
 
@@ -24,7 +24,7 @@ state setLabelHorizontalAlignment(label, alignment)
 ## **Example:**
 
 ```lua
-local resultState = beautify.label.setLabelHorizontalAlignment(createdLabel, "center")
+local resultState = beautify.label.setHorizontalAlignment(createdLabel, "center")
 print(tostring(resultState))
 ```
 

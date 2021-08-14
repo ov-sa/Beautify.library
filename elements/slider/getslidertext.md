@@ -7,10 +7,10 @@ description: Retrieves the text of the slider.
 ## **Syntax:**
 
 ```lua
-text getSliderText(slider)
+text getText(slider)
 ```
 
-#### _**\#Counterpart:**_ [_**setSliderText**_](setslidertext.md)
+#### _**\#Counterpart:**_ [_**setText**_](setslidertext.md)
 
 ### **Parameters:**
 
@@ -23,7 +23,7 @@ text getSliderText(slider)
 ## **Example:**
 
 ```lua
-local sliderText = beautify.slider.getSliderText(createdSlider)
+local sliderText = beautify.slider.getText(createdSlider)
 print(sliderText)
 ```
 

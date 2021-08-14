@@ -7,10 +7,10 @@ description: Sets the vertical alignment of the label.
 ## **Syntax:**
 
 ```lua
-state setLabelVerticalAlignment(label, alignment)
+state setVerticalAlignment(label, alignment)
 ```
 
-#### _**\#Counterpart:**_ [_**getLabelVerticalAlignment**_](getlabelverticalalignment.md)
+#### _**\#Counterpart:**_ [_**getVerticalAlignment**_](getlabelverticalalignment.md)
 
 ### **Parameters:**
 
@@ -24,7 +24,7 @@ state setLabelVerticalAlignment(label, alignment)
 ## **Example:**
 
 ```lua
-local resultState = beautify.label.setLabelVerticalAlignment(createdLabel, "center")
+local resultState = beautify.label.setVerticalAlignment(createdLabel, "center")
 print(tostring(resultState))
 ```
 

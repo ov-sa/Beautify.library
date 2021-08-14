@@ -7,10 +7,10 @@ description: Retrieves the color of the slider's text.
 ## **Syntax:**
 
 ```lua
-color getSliderTextColor(slider)
+color getTextColor(slider)
 ```
 
-#### _**\#Counterpart:**_ [_**setSliderTextColor**_](setslidertextcolor.md)
+#### _**\#Counterpart:**_ [_**setTextColor**_](setslidertextcolor.md)
 
 ### **Parameters:**
 
@@ -23,7 +23,7 @@ color getSliderTextColor(slider)
 ## **Example:**
 
 ```lua
-local sliderTextColor = beautify.slider.getSliderTextColor(createdSlider)
+local sliderTextColor = beautify.slider.getTextColor(createdSlider)
 print(toJSON(sliderTextColor))
 ```
 

@@ -7,10 +7,10 @@ description: Sets specified column's name within the gridlist.
 ## **Syntax:**
 
 ```lua
-state setGridlistColumnName(gridlist, column, name)
+state setColumnName(gridlist, column, name)
 ```
 
-#### _**\#Counterpart:**_ [_**getGridlistColumnName**_](getgridlistcolumnname.md)
+#### _**\#Counterpart:**_ [_**getColumnName**_](getgridlistcolumnname.md)
 
 ### **Parameters:**
 
@@ -25,7 +25,7 @@ state setGridlistColumnName(gridlist, column, name)
 ## **Example:**
 
 ```lua
-local resultState = beautify.gridlist.setGridlistColumnName(createdGridlist, 1, "Serial")
+local resultState = beautify.gridlist.setColumnName(createdGridlist, 1, "Serial")
 print(tostring(resultState))
 ```
 

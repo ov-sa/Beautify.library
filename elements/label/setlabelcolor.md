@@ -7,10 +7,10 @@ description: Sets the color of the label.
 ## **Syntax:**
 
 ```lua
-state setLabelColor(label, color)
+state setColor(label, color)
 ```
 
-#### _**\#Counterpart:**_ [_**getLabelColor**_](getlabelcolor.md)
+#### _**\#Counterpart:**_ [_**getColor**_](getlabelcolor.md)
 
 ### **Parameters:**
 
@@ -24,7 +24,7 @@ state setLabelColor(label, color)
 ## **Example:**
 
 ```lua
-local resultState = beautify.label.setLabelColor(createdLabel, {255, 0, 0, 255})
+local resultState = beautify.label.setColor(createdLabel, {255, 0, 0, 255})
 print(tostring(resultState))
 ```
 

@@ -12,5 +12,5 @@
 
 ## APIs:
 
-* [createWindow](createwindow.md)
+* [create](createwindow.md)
 

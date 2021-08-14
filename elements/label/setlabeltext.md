@@ -7,10 +7,10 @@ description: Sets the text of the label.
 ## **Syntax:**
 
 ```lua
-state setLabelText(label, text)
+state setText(label, text)
 ```
 
-#### _**\#Counterpart:**_ [_**getLabelText**_](getlabeltext.md)
+#### _**\#Counterpart:**_ [_**getText**_](getlabeltext.md)
 
 ### **Parameters:**
 
@@ -24,7 +24,7 @@ state setLabelText(label, text)
 ## **Example:**
 
 ```lua
-local resultState = beautify.label.setLabelText(createdLabel, "My First Label #1")
+local resultState = beautify.label.setText(createdLabel, "My First Label #1")
 print(tostring(resultState))
 ```
 

@@ -7,10 +7,10 @@ description: Sets the percentage of the slider.
 ## **Syntax:**
 
 ```lua
-state setSliderPercent(slider, percent)
+state setPercent(slider, percent)
 ```
 
-#### _**\#Counterpart:**_ [_**getSliderPercent**_](getsliderpercent.md)
+#### _**\#Counterpart:**_ [_**getPercent**_](getsliderpercent.md)
 
 ### **Parameters:**
 
@@ -24,7 +24,7 @@ state setSliderPercent(slider, percent)
 ## **Example:**
 
 ```lua
-local resultState = beautify.slider.setSliderPercent(createdSlider, 75)
+local resultState = beautify.slider.setPercent(createdSlider, 75)
 print(tostring(resultState))
 ```
 

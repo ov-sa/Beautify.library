@@ -7,10 +7,10 @@ description: Retrieves specified column's name from the gridlist.
 ## **Syntax:**
 
 ```lua
-name getGridlistColumnName(gridlist, column)
+name getColumnName(gridlist, column)
 ```
 
-#### _**\#Counterpart:**_ [_**setGridlistColumnName**_](setgridlistcolumnname.md)
+#### _**\#Counterpart:**_ [_**setColumnName**_](setgridlistcolumnname.md)
 
 ### **Parameters:**
 
@@ -24,7 +24,7 @@ name getGridlistColumnName(gridlist, column)
 ## **Example:**
 
 ```lua
-local columnName= beautify.gridlist.getGridlistColumnName(createdGridlist, 1)
+local columnName= beautify.gridlist.getColumnName(createdGridlist, 1)
 print(columnName)
 ```
 

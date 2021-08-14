@@ -7,7 +7,7 @@ description: Creates a new blank gridlist which can be further used to list your
 ## **Syntax:**
 
 ```lua
-gridlist createGridlist(x, y, width, height, [parent = nil], [postGUI = false])
+gridlist create(x, y, width, height, [parent = nil], [postGUI = false])
 ```
 
 ### **Parameters:**
@@ -28,8 +28,8 @@ gridlist createGridlist(x, y, width, height, [parent = nil], [postGUI = false])
 ```lua
 local sX, sY = guiGetScreenSize()
 local window_width, window_height = 600, 300
-local createdWindow = beautify.window.createWindow((sX - window_width)/2, (sY - window_height)/2, window_width, window_height, "Window #1", nil, false)
-local createdGridlist = beautify.gridlist.createGridlist(0, 0, window_width, window_height, createdWindow, false)
+local createdWindow = beautify.window.create((sX - window_width)/2, (sY - window_height)/2, window_width, window_height, "Window #1", nil, false)
+local createdGridlist = beautify.gridlist.create(0, 0, window_width, window_height, createdWindow, false)
 beautify.setUIDraggable(createdWindow, true)
 beautify.setUIVisible(createdWindow, true)
 beautify.setUIVisible(createdGridlist, true)
