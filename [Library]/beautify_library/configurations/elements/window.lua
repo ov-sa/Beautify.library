@@ -43,7 +43,7 @@ availableElements[elementType] = {
     minimumSize = 56,
     titleBar = {
         paddingX = 5,
-        close_button = {
+        closeButton = {
             hoverAnimDuration = 1000
         }
     },

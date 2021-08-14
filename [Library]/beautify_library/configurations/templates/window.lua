@@ -24,7 +24,7 @@ availableTemplates["beautify_window"] = {
             size = 1,
             color = {125, 125, 255, 150}
         },
-        close_button = {
+        closeButton = {
             isOutLine = true,
             fontColor = {125, 125, 255, 255},
             hoverFontColor = {0, 0, 0, 255},

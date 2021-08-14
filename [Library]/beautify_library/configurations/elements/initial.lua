@@ -13,4 +13,19 @@
 --[[ Configurations ]]--
 ------------------------
 
-availableElements = {}
+availableElements = {
+    ["__ELEMENT_ESSENTIALS__"] = {
+        "clearResourceUITemplates",
+        "clearResourceUIElements",
+        "getUITemplate",
+        "setUITemplate",
+        "getUIParent",
+        "isUIValid",
+        "isUIVisible",
+        "setUIVisible",
+        "isUIDraggable",
+        "setUIDraggable",
+        "isUIDisabled",
+        "setUIDisabled"
+    }
+}

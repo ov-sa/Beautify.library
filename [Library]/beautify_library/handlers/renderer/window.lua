@@ -86,7 +86,7 @@ function renderWindow(element, isFetchingInput, mouseReference)
                 while dxGetTextWidth(elementReference.gui["__UI_CACHE__"]["Title Bar"].text.padding, 1, elementTemplate.titleBar.font) < window_borderSize do
                     elementReference.gui["__UI_CACHE__"]["Title Bar"].text.padding = elementReference.gui["__UI_CACHE__"]["Title Bar"].text.padding.." "
                 end
-                elementReference.gui["__UI_CACHE__"]["Close Button"].text.fontColor = tocolor(unpackColor(elementTemplate.titleBar.close_button.fontColor))
+                elementReference.gui["__UI_CACHE__"]["Close Button"].text.fontColor = tocolor(unpackColor(elementTemplate.titleBar.closeButton.fontColor))
             end
             elementReference.gui["__UI_CACHE__"]["Title Bar"].text.text = elementReference.gui["__UI_CACHE__"]["Title Bar"].text.padding..elementReference.gui.title
             elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startX = elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.startX + window_titleBar_paddingX
@@ -150,27 +150,27 @@ function renderWindow(element, isFetchingInput, mouseReference)
             elementReference.gui["__UI_CACHE__"].updateElement = nil
         end
 
-        if not elementReference.gui.titleBar.close_button.animAlphaPercent then
-            elementReference.gui.titleBar.close_button.animAlphaPercent = 0
-            elementReference.gui.titleBar.close_button.hoverStatus = "backward"
-            elementReference.gui.titleBar.close_button.hoverAnimTickCounter = getTickCount()
+        if not elementReference.gui.titleBar.closeButton.animAlphaPercent then
+            elementReference.gui.titleBar.closeButton.animAlphaPercent = 0
+            elementReference.gui.titleBar.closeButton.hoverStatus = "backward"
+            elementReference.gui.titleBar.closeButton.hoverAnimTickCounter = getTickCount()
         end
-        if elementReference.gui.titleBar.close_button.hoverStatus == "forward" then
-            elementReference.gui.titleBar.close_button.animAlphaPercent = interpolateBetween(elementReference.gui.titleBar.close_button.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(elementReference.gui.titleBar.close_button.hoverAnimTickCounter, availableElements[elementType].titleBar.close_button.hoverAnimDuration), "InQuad")
+        if elementReference.gui.titleBar.closeButton.hoverStatus == "forward" then
+            elementReference.gui.titleBar.closeButton.animAlphaPercent = interpolateBetween(elementReference.gui.titleBar.closeButton.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(elementReference.gui.titleBar.closeButton.hoverAnimTickCounter, availableElements[elementType].titleBar.closeButton.hoverAnimDuration), "InQuad")
         else
-            elementReference.gui.titleBar.close_button.animAlphaPercent = interpolateBetween(elementReference.gui.titleBar.close_button.animAlphaPercent, 0, 0, 0, 0, 0, getInterpolationProgress(elementReference.gui.titleBar.close_button.hoverAnimTickCounter, availableElements[elementType].titleBar.close_button.hoverAnimDuration), "InQuad")
+            --elementReference.gui.titleBar.closeButton.animAlphaPercent = interpolateBetween(elementReference.gui.titleBar.closeButton.animAlphaPercent, 0, 0, 0, 0, 0, getInterpolationProgress(elementReference.gui.titleBar.closeButton.hoverAnimTickCounter, availableElements[elementType].titleBar.closeButton.hoverAnimDuration), "InQuad")
         end
         if elementReference.gui["__UI_CACHE__"]["Window"].renderTexture then
             dxDrawImage(elementReference.gui["__UI_CACHE__"]["Window"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Window"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Window"].offsets.width, elementReference.gui["__UI_CACHE__"]["Window"].offsets.height, elementReference.gui["__UI_CACHE__"]["Window"].renderTexture, 0, 0, 0, -1, window_postGUI)
         end
-        local isRenderCloseButtonHover = elementReference.gui.titleBar.close_button.animAlphaPercent > 0
+        local isRenderCloseButtonHover = elementReference.gui.titleBar.closeButton.animAlphaPercent > 0
         dxDrawText(elementReference.gui["__UI_CACHE__"]["Title Bar"].text.text, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.fontColor, elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "center", "center", true, false, window_postGUI, false)
         if isRenderCloseButtonHover then    
-            dxDrawImage(elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.width, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.height, createdAssets["images"]["curved_square/regular/top_right.png"], 0, 0, 0, tocolor(elementTemplate.titleBar.close_button.hoverColor[1], elementTemplate.titleBar.close_button.hoverColor[2], elementTemplate.titleBar.close_button.hoverColor[3], elementTemplate.titleBar.close_button.hoverColor[4]*elementReference.gui.titleBar.close_button.animAlphaPercent), window_postGUI)
+            dxDrawImage(elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.width, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.height, createdAssets["images"]["curved_square/regular/top_right.png"], 0, 0, 0, tocolor(elementTemplate.titleBar.closeButton.hoverColor[1], elementTemplate.titleBar.closeButton.hoverColor[2], elementTemplate.titleBar.closeButton.hoverColor[3], elementTemplate.titleBar.closeButton.hoverColor[4]*elementReference.gui.titleBar.closeButton.animAlphaPercent), window_postGUI)
         end
         dxDrawText(elementReference.gui["__UI_CACHE__"]["Close Button"].text.text, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Close Button"].text.fontColor, elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "center", "center", true, false, window_postGUI, false)
         if isRenderCloseButtonHover then    
-            dxDrawText(elementReference.gui["__UI_CACHE__"]["Close Button"].text.text, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.endY, tocolor(elementTemplate.titleBar.close_button.hoverFontColor[1], elementTemplate.titleBar.close_button.hoverFontColor[2], elementTemplate.titleBar.close_button.hoverFontColor[3], elementTemplate.titleBar.close_button.hoverFontColor[4]*elementReference.gui.titleBar.close_button.animAlphaPercent), elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "center", "center", true, false, window_postGUI, false)
+            dxDrawText(elementReference.gui["__UI_CACHE__"]["Close Button"].text.text, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.endY, tocolor(elementTemplate.titleBar.closeButton.hoverFontColor[1], elementTemplate.titleBar.closeButton.hoverFontColor[2], elementTemplate.titleBar.closeButton.hoverFontColor[3], elementTemplate.titleBar.closeButton.hoverFontColor[4]*elementReference.gui.titleBar.closeButton.animAlphaPercent), elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "center", "center", true, false, window_postGUI, false)
         end
         dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startY, window_titleBar_divider_size, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.height, window_titleBar_divider_color, window_postGUI)
         renderElementChildren(element)
@@ -206,14 +206,14 @@ function renderWindow(element, isFetchingInput, mouseReference)
             if isKeyClicked("mouse1") then
                 setUIVisible(element, false)
             end
-            if elementReference.gui.titleBar.close_button.hoverStatus ~= "forward" then
-                elementReference.gui.titleBar.close_button.hoverStatus = "forward"
-                elementReference.gui.titleBar.close_button.hoverAnimTickCounter = getTickCount()
+            if elementReference.gui.titleBar.closeButton.hoverStatus ~= "forward" then
+                elementReference.gui.titleBar.closeButton.hoverStatus = "forward"
+                elementReference.gui.titleBar.closeButton.hoverAnimTickCounter = getTickCount()
             end
         else
-            if elementReference.gui.titleBar.close_button.hoverStatus ~= "backward" then
-                elementReference.gui.titleBar.close_button.hoverStatus = "backward"
-                elementReference.gui.titleBar.close_button.hoverAnimTickCounter = getTickCount()
+            if elementReference.gui.titleBar.closeButton.hoverStatus ~= "backward" then
+                elementReference.gui.titleBar.closeButton.hoverStatus = "backward"
+                elementReference.gui.titleBar.closeButton.hoverAnimTickCounter = getTickCount()
             end
         end
     end
