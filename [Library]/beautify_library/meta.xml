@@ -10,6 +10,7 @@
     <script src="exports/button.lua" type="client" cache="false"/>
     <script src="exports/label.lua" type="client" cache="false"/>
     <script src="exports/slider.lua" type="client" cache="false"/>
+    <script src="exports/selector.lua" type="client" cache="false"/>
 
     <!-- Settings & Utilities -->
     <script src="utilities/client.lua" type="client" cache="false"/>
