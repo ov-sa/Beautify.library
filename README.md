@@ -7,7 +7,7 @@
 * You need to not ask the Developer\(s\) for support on how to run the clearly stated instructions in the Documentation.
 * You can approach on our [Discord Community](http://discord.gg/sVCnxPW) for further queries/reports.
 
-## ━ INSTRUCTIONSs
+## ━ INSTRUCTIONS
 
 1. Head over to [Beautify's Releases](https://github.com/OvileAmriam/MTA-Beautify-Library/releases) and download the latest build.
 2. Drag and drop the **\[Library\]** folder into your `YourMTAFolder\server\mods\deathmatch\resources` after unzipping.
