@@ -2,7 +2,7 @@
 description: Sets the horizontal alignment of the label.
 ---
 
-# setLabelHorizontalAlignment
+# setHorizontalAlignment
 
 ## **Syntax:**
 

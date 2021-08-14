@@ -2,7 +2,7 @@
 description: Retrieves specified column's name from the gridlist.
 ---
 
-# getGridlistColumnName
+# getColumnName
 
 ## **Syntax:**
 

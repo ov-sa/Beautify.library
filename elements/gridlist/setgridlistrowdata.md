@@ -2,7 +2,7 @@
 description: Sets specified row's data within the gridlist.
 ---
 
-# setGridlistRowData
+# setRowData
 
 ## **Syntax:**
 

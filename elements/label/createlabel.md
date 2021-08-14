@@ -2,7 +2,7 @@
 description: Creates a new label which can be further used to name your components.
 ---
 
-# createLabel
+# create
 
 ## **Syntax:**
 

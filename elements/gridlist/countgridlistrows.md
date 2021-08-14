@@ -2,7 +2,7 @@
 description: Counts and retrieves the number of rows within the gridlist.
 ---
 
-# countGridlistRows
+# countRows
 
 ## **Syntax:**
 

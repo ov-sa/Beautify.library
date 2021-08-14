@@ -2,7 +2,7 @@
 description: Selects specified row from the gridlist.
 ---
 
-# setGridlistSelection
+# setSelection
 
 ## **Syntax:**
 

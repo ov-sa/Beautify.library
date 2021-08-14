@@ -2,7 +2,7 @@
 description: Clears the text of the slider.
 ---
 
-# clearSliderText
+# clearText
 
 ## **Syntax:**
 

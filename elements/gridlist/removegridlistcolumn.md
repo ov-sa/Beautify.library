@@ -2,7 +2,7 @@
 description: Removes a specified column from the gridlist.
 ---
 
-# removeGridlistColumn
+# removeColumn
 
 ## **Syntax:**
 

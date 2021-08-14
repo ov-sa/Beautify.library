@@ -2,7 +2,7 @@
 description: Retrieves the vertical alignment of the label.
 ---
 
-# getLabelVerticalAlignment
+# getVerticalAlignment
 
 ## **Syntax:**
 

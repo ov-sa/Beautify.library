@@ -2,7 +2,7 @@
 description: Sets the text of the label.
 ---
 
-# setLabelText
+# setText
 
 ## **Syntax:**
 

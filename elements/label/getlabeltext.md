@@ -2,7 +2,7 @@
 description: Retrieves the text of the label.
 ---
 
-# getLabelText
+# getText
 
 ## **Syntax:**
 

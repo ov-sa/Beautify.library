@@ -2,7 +2,7 @@
 description: Retrieves selected row from the gridlist.
 ---
 
-# getGridlistSelection
+# getSelection
 
 ## **Syntax:**
 

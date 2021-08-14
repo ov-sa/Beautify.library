@@ -2,7 +2,7 @@
 description: Adds a new row to the gridlist.
 ---
 
-# addGridlistRow
+# addRow
 
 ## **Syntax:**
 

@@ -2,7 +2,7 @@
 description: Retrieves the color of the label.
 ---
 
-# getLabelColor
+# getColor
 
 ## **Syntax:**
 

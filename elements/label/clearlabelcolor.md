@@ -2,7 +2,7 @@
 description: Clears overridden color of the label.
 ---
 
-# clearLabelColor
+# clearColor
 
 ## **Syntax:**
 

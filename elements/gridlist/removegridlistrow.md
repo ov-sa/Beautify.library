@@ -2,7 +2,7 @@
 description: Removes a specified row from the gridlist.
 ---
 
-# removeGridlistRow
+# removeRow
 
 ## **Syntax:**
 

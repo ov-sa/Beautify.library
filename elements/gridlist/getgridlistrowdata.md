@@ -2,7 +2,7 @@
 description: Retrieves specified row's data from the gridlist.
 ---
 
-# getGridlistRowData
+# getRowData
 
 ## **Syntax:**
 

@@ -2,7 +2,7 @@
 description: Sets the color of the slider's text.
 ---
 
-# setSliderTextColor
+# setTextColor
 
 ## **Syntax:**
 

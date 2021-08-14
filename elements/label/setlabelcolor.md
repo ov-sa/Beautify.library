@@ -2,7 +2,7 @@
 description: Sets the color of the label.
 ---
 
-# setLabelColor
+# setColor
 
 ## **Syntax:**
 

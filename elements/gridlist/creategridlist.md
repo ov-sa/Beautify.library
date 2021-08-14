@@ -2,7 +2,7 @@
 description: Creates a new blank gridlist which can be further used to list your datas.
 ---
 
-# createGridlist
+# create
 
 ## **Syntax:**
 

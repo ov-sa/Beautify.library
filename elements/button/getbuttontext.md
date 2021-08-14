@@ -2,7 +2,7 @@
 description: Retrieves the text of the button.
 ---
 
-# getButtonText
+# getText
 
 ## **Syntax:**
 

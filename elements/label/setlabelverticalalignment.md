@@ -2,7 +2,7 @@
 description: Sets the vertical alignment of the label.
 ---
 
-# setLabelVerticalAlignment
+# setVerticalAlignment
 
 ## **Syntax:**
 

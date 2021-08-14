@@ -2,7 +2,7 @@
 description: Sets the text of the button.
 ---
 
-# setButtonText
+# setText
 
 ## **Syntax:**
 

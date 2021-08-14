@@ -2,7 +2,7 @@
 description: Retrieves the color of the slider's text.
 ---
 
-# getSliderTextColor
+# getTextColor
 
 ## **Syntax:**
 

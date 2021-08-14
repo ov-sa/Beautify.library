@@ -2,7 +2,7 @@
 description: Clears overridden color of the slider's text.
 ---
 
-# clearSliderTextColor
+# clearTextColor
 
 ## **Syntax:**
 

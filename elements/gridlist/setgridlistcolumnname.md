@@ -2,7 +2,7 @@
 description: Sets specified column's name within the gridlist.
 ---
 
-# setGridlistColumnName
+# setColumnName
 
 ## **Syntax:**
 

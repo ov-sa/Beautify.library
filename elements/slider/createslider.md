@@ -4,7 +4,7 @@ description: >-
   on.
 ---
 
-# createSlider
+# create
 
 ## **Syntax:**
 

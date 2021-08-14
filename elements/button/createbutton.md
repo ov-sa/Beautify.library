@@ -2,7 +2,7 @@
 description: Creates a new blank button which can be further used to bind your events on.
 ---
 
-# createButton
+# create
 
 ## **Syntax:**
 

@@ -2,7 +2,7 @@
 description: Sets the percentage of the slider.
 ---
 
-# setSliderPercent
+# setPercent
 
 ## **Syntax:**
 

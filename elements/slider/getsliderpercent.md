@@ -2,7 +2,7 @@
 description: Retrieves the percentage of the slider.
 ---
 
-# getSliderPercent
+# getPercent
 
 ## **Syntax:**
 

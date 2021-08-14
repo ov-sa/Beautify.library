@@ -2,7 +2,7 @@
 description: Adds a new column to the gridlist.
 ---
 
-# addGridlistColumn
+# addColumn
 
 ## **Syntax:**
 
