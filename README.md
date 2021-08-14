@@ -18,7 +18,7 @@
 
 ## ━ Contents
 
-* [**Official Releases**](https://github.com/OvileAmriam/MTA-Beautify-Library/releases)**a**
+* [**Official Releases**](https://github.com/OvileAmriam/MTA-Beautify-Library/releases)
 * [**Installation Guide**](https://ov-mta.gitbook.io/beautify-library/v/Documentation/)
 * [**Documentations**](https://ov-mta.gitbook.io/beautify-library/v/Documentation/glossary/getting_started)
 * [**Discord Community**](http://discord.gg/sVCnxPW)
