@@ -13,8 +13,7 @@ Add the below codes once in either of the `.lua` script of the resource you want
 
 ```lua
 -- Declare it globally once
-beautify = exports.beautify_library:fetchImports()
-loadstring(beautify)()
+loadstring(exports.beautify_library:fetchImports())()
 ```
 
 ## ━ How to Invoke the APIs?
