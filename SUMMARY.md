@@ -12,7 +12,7 @@
 ## ➟ E L E M E N T S <a id="elements"></a>
 
 * [Window](elements/window/README.md)
-  * [createWindow](elements/window/createwindow.md)
+  * [create](elements/window/createwindow.md)
 * [Grid List](elements/gridlist/README.md)
   * [create](elements/gridlist/creategridlist.md)
   * [countColumns](elements/gridlist/countgridlistcolumns.md)
