@@ -34,11 +34,11 @@ function renderLabel(element, isFetchingInput, mouseReference)
         if not elementParent then dxSetRenderTarget() end
         local isElementToBeReloaded = elementReference.gui["__UI_CACHE__"].reloadElement
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
-        local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
         local label_width, label_height = elementReference.gui.width, elementReference.gui.height
-        local label_postGUI = elementReference.gui.postGUI
 
         if (label_width > 0) and (label_height > 0) then
+            local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
+            local label_postGUI = elementReference.gui.postGUI
             if isElementToBeUpdated then
                 if not elementReference.gui["__UI_CACHE__"]["Label"] then
                     elementReference.gui["__UI_CACHE__"]["Label"] = {
