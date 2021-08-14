@@ -28,5 +28,5 @@ local rowIndex2 = beautify.gridlist.addRow(createdGridlist)
 local rowIndex3 = beautify.gridlist.addRow(createdGridlist)
 ```
 
-![](../../.gitbook/assets/addRow.png)
+![](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/b3f243cf817f9422df44925b004bc3e64988621f/.gitbook/assets/addRow.png)
 

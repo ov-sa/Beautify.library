@@ -15,7 +15,7 @@
 * [setColumnName](setgridlistcolumnname.md)
 * [getColumnName](getgridlistcolumnname.md)
 * [countRows](countgridlistrows.md)
-* [addRow](addRow.md)
+* [addRow](addgridlistrow.md)
 * [removeRow](removegridlistrow.md)
 * [setRowData](setgridlistrowdata.md)
 * [getRowData](getgridlistrowdata.md)
