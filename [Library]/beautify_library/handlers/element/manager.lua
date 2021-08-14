@@ -61,7 +61,7 @@ end
 
 function createElement(elementType, parentElement, sourceResource)
 
-    if not elementType or not availableElements[elementType] then return false end
+    if not elementType or not availableElements[elementType] or not sourceResource or (sourceResource == resource) then return false end
 
     local createdElement = Element(elementType)
     if createdElement and isElement(createdElement) then 
@@ -92,13 +92,11 @@ function createElement(elementType, parentElement, sourceResource)
             element = createdElement,
             children = {}
         })
-        if sourceResource then
-            if not createdResourceElements[sourceResource] then
-                createdResourceElements[sourceResource] = {}
-            end
-            createdElements[createdElement].sourceResource = sourceResource
-            table.insert(createdResourceElements[sourceResource], createdElement)
+        if not createdResourceElements[sourceResource] then
+            createdResourceElements[sourceResource] = {}
         end
+        createdElements[createdElement].sourceResource = sourceResource
+        table.insert(createdResourceElements[sourceResource], createdElement)
         createdElements[createdElement].renderIndex = #renderIndexReference
         createdElements[createdElement].renderIndexReference = renderIndexReference
         createdElements[createdElement].isValid = false
