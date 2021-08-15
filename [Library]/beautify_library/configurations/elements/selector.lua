@@ -28,12 +28,18 @@ availableElements[elementType] = {
             {name = "x", type = "float"},
             {name = "y", type = "float"},
             {name = "width", type = "float"},
-            {name = "height", type = "float"}
+            {name = "height", type = "float"},
+            {name = "type", type = "string"}
         }
     },
     renderFunction = renderSelector,
     allowedChildren = false,
-    isDraggable = false
+    isDraggable = false,
+    minimumSize = 24,
+    validTypes = {
+        ["horizontal"] = true,
+        ["vertical"] = true
+    }
 }
 
 availableElements[elementType]["APIs"] = {}

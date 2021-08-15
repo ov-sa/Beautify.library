@@ -34,13 +34,7 @@ function createSlider(...)
     elementReference.gui = cloneUIOutline(elementType)
     for i, j in ipairs(availableElements[elementType].syntax.parameters) do
         if (j.name == "width") or (j.name == "height") then
-            local minRequirementIndex = "minimum"..j.name:sub(1,1):upper()..j.name:sub(2)
-            if availableElements[elementType][minRequirementIndex] then
-                elementReference.gui[j.name] = math.max(availableElements[elementType][minRequirementIndex], parameters[i])
-            else
-                elementReference.gui[j.name] = parameters[i]
-            end
-            elementReference.gui[j.name] = math.max(0, math.max(availableElements[elementType].minimumSize, elementReference.gui[j.name]))
+            elementReference.gui[j.name] = math.max(0, math.max(availableElements[elementType].minimumSize, parameters[i]))
         elseif j.name == "type" then
             elementReference.gui[j.name] = (availableElements[elementType].validTypes[(parameters[i])] and parameters[i]) or "horizontal"
         else

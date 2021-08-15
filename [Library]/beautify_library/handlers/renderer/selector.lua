@@ -35,9 +35,58 @@ function renderSelector(element, isFetchingInput, mouseReference)
         local isElementToBeReloaded = elementReference.gui["__UI_CACHE__"].reloadElement
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
         local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
+        local selector_type = elementReference.gui.type
         local selector_postGUI = elementReference.gui.postGUI
 
-        dxDrawRectangle(elementReference.gui.x, elementReference.gui.y, elementReference.gui.width, elementReference.gui.height, tocolor(255, 0, 0, 200), false)
+        if isElementToBeUpdated then
+            if not elementReference.gui["__UI_CACHE__"]["Selector"] then
+                elementReference.gui["__UI_CACHE__"]["Selector"] = {
+                    text = {
+                        offsets = {}
+                    }
+                }
+                elementReference.gui["__UI_CACHE__"]["Arrow_Previous"] = {
+                    offsets = {}
+                }
+                elementReference.gui["__UI_CACHE__"]["Arrow_Next"] = {
+                    offsets = {}
+                }
+                elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Previous"] = {}
+                elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Next"] = {}
+            end
+            local selector_startX, selector_startY = elementReference.gui.x, elementReference.gui.y
+            --local selector_content_padding = availableElements[elementType].contentSection.padding
+            local selector_width, selector_height = elementReference.gui.width, elementReference.gui.height
+            local selector_arrow_size = availableElements[elementType].minimumSize
+            if selector_type == "horizontal" then
+                local selector_arrow_offsetY = selector_startY + (selector_height - selector_arrow_size)/2
+                elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.width = selector_arrow_size
+                elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.height = selector_arrow_size
+                elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.startX = selector_startX
+                elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.startY = selector_arrow_offsetY
+                elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.width = selector_arrow_size
+                elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.height = selector_arrow_size
+                elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.startX = selector_startX + selector_width - elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.width
+                elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.startY = selector_arrow_offsetY
+            elseif selector_type == "vertical" then
+                local selector_arrow_offsetX = selector_startX + (selector_width - selector_arrow_size)/2
+                elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.width = selector_arrow_size
+                elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.height = selector_arrow_size
+                elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.startX = selector_arrow_offsetX
+                elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.startY = selector_startY
+                elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.width = selector_arrow_size
+                elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.height = selector_arrow_size
+                elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.startX = selector_arrow_offsetX
+                elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.startY = selector_startY + selector_height - elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.height
+            end
+        end
+        if selector_type == "horizontal" then
+            dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.width, elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.height, tocolor(255, 0, 0, 200), false)
+            dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.width, elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.height, tocolor(0, 0, 255, 200), false)
+        elseif selector_type == "vertical" then
+            dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.width, elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.height, tocolor(255, 0, 0, 200), false)
+            dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.width, elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.height, tocolor(0, 0, 255, 200), false)
+        end
         --[[
         if isElementToBeUpdated then
             if not elementReference.gui["__UI_CACHE__"]["Selector"] then

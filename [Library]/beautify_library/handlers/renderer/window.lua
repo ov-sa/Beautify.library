@@ -158,7 +158,7 @@ function renderWindow(element, isFetchingInput, mouseReference)
         if elementReference.gui.titleBar.closeButton.hoverStatus == "forward" then
             elementReference.gui.titleBar.closeButton.animAlphaPercent = interpolateBetween(elementReference.gui.titleBar.closeButton.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(elementReference.gui.titleBar.closeButton.hoverAnimTickCounter, availableElements[elementType].titleBar.closeButton.hoverAnimDuration), "InQuad")
         else
-            --elementReference.gui.titleBar.closeButton.animAlphaPercent = interpolateBetween(elementReference.gui.titleBar.closeButton.animAlphaPercent, 0, 0, 0, 0, 0, getInterpolationProgress(elementReference.gui.titleBar.closeButton.hoverAnimTickCounter, availableElements[elementType].titleBar.closeButton.hoverAnimDuration), "InQuad")
+            elementReference.gui.titleBar.closeButton.animAlphaPercent = interpolateBetween(elementReference.gui.titleBar.closeButton.animAlphaPercent, 0, 0, 0, 0, 0, getInterpolationProgress(elementReference.gui.titleBar.closeButton.hoverAnimTickCounter, availableElements[elementType].titleBar.closeButton.hoverAnimDuration), "InQuad")
         end
         if elementReference.gui["__UI_CACHE__"]["Window"].renderTexture then
             dxDrawImage(elementReference.gui["__UI_CACHE__"]["Window"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Window"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Window"].offsets.width, elementReference.gui["__UI_CACHE__"]["Window"].offsets.height, elementReference.gui["__UI_CACHE__"]["Window"].renderTexture, 0, 0, 0, -1, window_postGUI)

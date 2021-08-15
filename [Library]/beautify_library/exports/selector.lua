@@ -34,7 +34,14 @@ function createSelector(...)
     elementReference.gui = cloneUIOutline(elementType)
     for i, j in ipairs(availableElements[elementType].syntax.parameters) do
         if (j.name == "width") or (j.name == "height") then
-            elementReference.gui[j.name] = math.max(0, parameters[i])
+            elementReference.gui[j.name] = math.max(0, math.max(availableElements[elementType].minimumSize, parameters[i]))
+        elseif j.name == "type" then
+            elementReference.gui[j.name] = (availableElements[elementType].validTypes[(parameters[i])] and parameters[i]) or "horizontal"
+            if elementReference.gui[j.name] == "horizontal" then
+                elementReference.gui.width = math.max(0, math.max(availableElements[elementType].minimumSize*2, elementReference.gui.width))
+            elseif elementReference.gui[j.name] == "vertical" then
+                elementReference.gui.height = math.max(0, math.max(availableElements[elementType].minimumSize*2, elementReference.gui.height))
+            end
         else
             elementReference.gui[j.name] = parameters[i]
         end
