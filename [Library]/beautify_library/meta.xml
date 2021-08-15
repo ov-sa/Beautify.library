@@ -172,4 +172,7 @@
     <export function="setSliderTextColor" type="client"/>
     <export function="getSliderTextColor" type="client"/>
 
+    <!-- Exports: Element: Selector -->
+    <export function="createSelector" type="client"/>
+
 </meta>

@@ -27,7 +27,7 @@ function renderSelector(element, isFetchingInput, mouseReference)
     else
         if not mouseReference then return false end
     end
-
+    
     local elementReference = createdElements[element]
     if not isFetchingInput then
         local elementParent = __getUIParent(element)
@@ -37,6 +37,8 @@ function renderSelector(element, isFetchingInput, mouseReference)
         local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
         local selector_postGUI = elementReference.gui.postGUI
 
+        dxDrawRectangle(elementReference.gui.x, elementReference.gui.y, elementReference.gui.width, elementReference.gui.height, tocolor(255, 0, 0, 200), false)
+        --[[
         if isElementToBeUpdated then
             if not elementReference.gui["__UI_CACHE__"]["Selector"] then
                 elementReference.gui["__UI_CACHE__"]["Selector"] = {
@@ -63,8 +65,9 @@ function renderSelector(element, isFetchingInput, mouseReference)
             elementReference.gui["__UI_CACHE__"].reloadElement = nil
             elementReference.gui["__UI_CACHE__"].updateElement = nil
         end
-
-        dxDrawText(elementReference.gui["__UI_CACHE__"]["Selector"].text.text, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Selector"].text.fontColor, elementTemplate.fontScale or 1, elementTemplate.font, elementReference.gui.alignment.horizontal, elementReference.gui.alignment.vertical, true, false, selector_postGUI, false)
+        ]]
+        
+        --dxDrawText(elementReference.gui["__UI_CACHE__"]["Selector"].text.text, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Selector"].text.fontColor, elementTemplate.fontScale or 1, elementTemplate.font, elementReference.gui.alignment.horizontal, elementReference.gui.alignment.vertical, true, false, selector_postGUI, false)
         renderElementChildren(element)
         dxSetBlendMode("blend")
         if not elementParent then
