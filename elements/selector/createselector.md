@@ -1,6 +1,7 @@
 ---
 description: >-
-  Creates a new selector which can be further used to select a data from your data-list.
+  Creates a new selector which can be further used to select a data from your
+  data-list.
 ---
 
 # create
@@ -34,4 +35,5 @@ local createdSelector = beautify.selector.create((sX - selector_width)/2, (sY - 
 beautify.setUIVisible(createdSelector, true)
 ```
 
-![](../../.gitbook/assets/createselector.png)
+![](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/fa59a1b6c94431637be36b1cf1c57a0bfdface1a/.gitbook/assets/createselector.png)
+
