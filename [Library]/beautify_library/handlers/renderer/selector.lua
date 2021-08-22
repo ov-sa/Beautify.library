@@ -63,7 +63,7 @@ function renderSelector(element, isFetchingInput, mouseReference)
             local selector_startX, selector_startY = elementReference.gui.x, elementReference.gui.y
             local selector_width, selector_height = elementReference.gui.width, elementReference.gui.height
             local selector_arrow_size = availableElements[elementType].minimumSize
-            local selector_arrow_icon_size = math.min(selector_arrow_size, availableElements[elementType].minimumArrowSize)
+            local selector_arrow_icon_size = math.min(selector_arrow_size, availableElements[elementType].arrowIconSize)
             local selector_content_padding = availableElements[elementType].contentSection.padding
             local selector_arrow_icon_padding = (selector_arrow_size - selector_arrow_icon_size)*0.5
             if selector_type == "horizontal" then

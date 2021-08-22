@@ -11,6 +11,7 @@
     <script src="exports/label.lua" type="client" cache="false"/>
     <script src="exports/slider.lua" type="client" cache="false"/>
     <script src="exports/selector.lua" type="client" cache="false"/>
+    <script src="exports/checkbox.lua" type="client" cache="false"/>
 
     <!-- Settings & Utilities -->
     <script src="utilities/client.lua" type="client" cache="false"/>
@@ -45,6 +46,7 @@
     <script src="configurations/elements/label.lua" type="client" cache="false"/>
     <script src="configurations/elements/slider.lua" type="client" cache="false"/>
     <script src="configurations/elements/selector.lua" type="client" cache="false"/>
+    <script src="configurations/elements/checkbox.lua" type="client" cache="false"/>
     <script src="configurations/events/initial.lua" type="client" cache="false"/>
     <script src="configurations/events/generic.lua" type="client" cache="false"/>
     <script src="configurations/templates/initial.lua" type="client" cache="false"/>
@@ -184,5 +186,16 @@
     <export function="getSelectorTextColor" type="client"/>
     <export function="setSelectorSelection" type="client"/>
     <export function="getSelectorSelection" type="client"/>
+
+    <!-- Exports: Element: Checkbox -->
+    <export function="createCheckbox" type="client"/>
+    <export function="setCheckboxSelection" type="client"/>
+    <export function="getCheckboxSelection" type="client"/>
+    <export function="clearCheckboxText" type="client"/>
+    <export function="setCheckboxText" type="client"/>
+    <export function="getCheckboxText" type="client"/>
+    <export function="clearCheckboxTextColor" type="client"/>
+    <export function="setCheckboxTextColor" type="client"/>
+    <export function="getCheckboxTextColor" type="client"/>
 
 </meta>
