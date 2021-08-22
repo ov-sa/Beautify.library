@@ -73,6 +73,7 @@ function setSelectorDataList(...)
     if not elementReference.selectorDataList.list[(elementReference.selectorDataList.selection)] then
         elementReference.selectorDataList.selection = 1
     end
+    elementReference.gui["__UI_CACHE__"].updateElement = true
     triggerEvent("onClientUIAltered", element)
     return true
 
@@ -105,6 +106,7 @@ function clearSelectorText(...)
     local elementReference = createdElements[element]
     if not elementReference.gui.text then return false end
     elementReference.gui.text = nil
+    elementReference.gui["__UI_CACHE__"].updateElement = true
     triggerEvent("onClientUIAltered", element)
     return true
 
@@ -120,6 +122,7 @@ function setSelectorText(...)
     local elementReference = createdElements[element]
     if (elementReference.gui.text == parameters[2]) then return false end
     elementReference.gui.text = parameters[2]
+    elementReference.gui["__UI_CACHE__"].updateElement = true
     triggerEvent("onClientUIAltered", element)
     return true
 
@@ -153,6 +156,7 @@ function clearSelectorTextColor(...)
     local elementReference = createdElements[element]
     if not elementReference.gui.fontColor then return false end
     elementReference.gui.fontColor = nil
+    elementReference.gui["__UI_CACHE__"].reloadElement = true
     triggerEvent("onClientUIAltered", element)
     return true
 
@@ -176,6 +180,7 @@ function setSelectorTextColor(...)
     local selectorTextColor = getSelectorTextColor(element)
     if not selectorTextColor or ((selectorTextColor[1] == parameters[2][1]) and (selectorTextColor[2] == parameters[2][2]) and (selectorTextColor[3] == parameters[2][3]) and (selectorTextColor[4] == parameters[2][4])) then return false end
     elementReference.gui.fontColor = {parameters[2][1], parameters[2][2], parameters[2][3], parameters[2][4]}
+    elementReference.gui["__UI_CACHE__"].reloadElement = true
     triggerEvent("onClientUIAltered", element)
     return true
 
@@ -191,5 +196,39 @@ function getSelectorTextColor(...)
     local elementReference = createdElements[element]
     local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
     return elementReference.gui.fontColor or elementTemplate.fontColor
+
+end
+
+
+---------------------------------------------------
+--[[ Functions: Sets/Gets Selector's Selection ]]--
+---------------------------------------------------
+
+function setSelectorSelection(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "setSelectorSelection") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementReference = createdElements[element]
+    parameters[2] = math.max(1, math.min(#elementReference.selectorDataList.list, parameters[2]))
+    if not elementReference.selectorDataList.list[(parameters[2])] or (elementReference.selectorDataList.selection and elementReference.selectorDataList.selection == parameters[2]) then return false end
+    elementReference.selectorDataList.selection = parameters[2]
+    elementReference.gui["__UI_CACHE__"].updateElement = true
+    return true
+
+end
+
+function getSelectorSelection(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "getSelectorSelection") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementReference = createdElements[element]
+    if not elementReference.selectorDataList.selection or not elementReference.selectorDataList.list[(elementReference.selectorDataList.selection)] then return false end
+    return elementReference.selectorDataList.selection
 
 end

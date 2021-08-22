@@ -64,6 +64,7 @@ function setLabelText(...)
     local elementReference = createdElements[element]
     if (elementReference.gui.text == parameters[2]) then return false end
     elementReference.gui.text = parameters[2]
+    elementReference.gui["__UI_CACHE__"].updateElement = true
     triggerEvent("onClientUIAltered", element)
     return true
 
@@ -96,6 +97,7 @@ function clearLabelColor(...)
     local elementReference = createdElements[element]
     if not elementReference.gui.fontColor then return false end
     elementReference.gui.fontColor = nil
+    elementReference.gui["__UI_CACHE__"].reloadElement = true
     triggerEvent("onClientUIAltered", element)
     return true
 
@@ -119,6 +121,7 @@ function setLabelColor(...)
     local labelColor = getLabelColor(element)
     if not labelColor or ((labelColor[1] == parameters[2][1]) and (labelColor[2] == parameters[2][2]) and (labelColor[3] == parameters[2][3]) and (labelColor[4] == parameters[2][4])) then return false end
     elementReference.gui.fontColor = {parameters[2][1], parameters[2][2], parameters[2][3], parameters[2][4]}
+    elementReference.gui["__UI_CACHE__"].reloadElement = true
     triggerEvent("onClientUIAltered", element)
     return true
 

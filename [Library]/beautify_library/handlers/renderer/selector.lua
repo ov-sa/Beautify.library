@@ -213,6 +213,12 @@ function renderSelector(element, isFetchingInput, mouseReference)
                 end
             end
             if isArrowPreviousHovered then
+                if isKeyClicked("mouse1") then
+                    local currentSelection = getSelectorSelection(element)
+                    if currentSelection then
+                        setSelectorSelection(element, currentSelection - 1)
+                    end
+                end
                 if elementReference.gui.arrow_Previous.hoverStatus ~= "forward" then
                     elementReference.gui.arrow_Previous.hoverStatus = "forward"
                     elementReference.gui.arrow_Previous.hoverAnimTickCounter = getTickCount()
@@ -224,6 +230,12 @@ function renderSelector(element, isFetchingInput, mouseReference)
                 end
             end
             if isArrowNextHovered then
+                if isKeyClicked("mouse1") then
+                    local currentSelection = getSelectorSelection(element)
+                    if currentSelection then
+                        setSelectorSelection(element, currentSelection + 1)
+                    end
+                end
                 if elementReference.gui.arrow_Next.hoverStatus ~= "forward" then
                     elementReference.gui.arrow_Next.hoverStatus = "forward"
                     elementReference.gui.arrow_Next.hoverAnimTickCounter = getTickCount()

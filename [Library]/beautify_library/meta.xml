@@ -182,5 +182,7 @@
     <export function="clearSelectorTextColor" type="client"/>
     <export function="setSelectorTextColor" type="client"/>
     <export function="getSelectorTextColor" type="client"/>
+    <export function="setSelectorSelection" type="client"/>
+    <export function="getSelectorSelection" type="client"/>
 
 </meta>

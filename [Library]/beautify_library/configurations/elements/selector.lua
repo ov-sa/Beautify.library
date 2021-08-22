@@ -90,5 +90,16 @@ availableElements[elementType]["APIs"] = {
         parameters = {
             {name = "selector", type = "userdata", userDataType = elementType}
         }
+    },
+    ["setSelectorSelection"] = {
+        parameters = {
+            {name = "selector", type = "userdata", userDataType = elementType},
+            {name = "index", type = "number"}
+        }
+    },
+    ["getSelectorSelection"] = {
+        parameters = {
+            {name = "selector", type = "userdata", userDataType = elementType}
+        }
     }
 }
