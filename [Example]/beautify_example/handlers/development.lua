@@ -74,9 +74,6 @@ local function devUI1()
     end
     beautify.gridlist.setSelection(createdGridlist, 1)
 
-    addEventHandler("onClientUIClick", root, function(key)
-        outputChatBox("Clicked: "..source:getType())
-    end)
     addEventHandler("onClientUIScroll", createdGridlist, function(state)
         outputChatBox("Scrolled: "..state)
     end)
@@ -235,5 +232,9 @@ addEventHandler("onClientResourceStart", resourceRoot, function()
     devUI3()
     devUI4()
     showCursor(true)
+
+    addEventHandler("onClientUIClick", root, function(key)
+        outputChatBox("Clicked: "..source:getType())
+    end)
 
 end)
