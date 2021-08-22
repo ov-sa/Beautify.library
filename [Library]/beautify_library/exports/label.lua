@@ -64,6 +64,7 @@ function setLabelText(...)
     local elementReference = createdElements[element]
     if (elementReference.gui.text == parameters[2]) then return false end
     elementReference.gui.text = parameters[2]
+    triggerEvent("onClientUIAltered", element)
     return true
 
 end
@@ -95,6 +96,7 @@ function clearLabelColor(...)
     local elementReference = createdElements[element]
     if not elementReference.gui.fontColor then return false end
     elementReference.gui.fontColor = nil
+    triggerEvent("onClientUIAltered", element)
     return true
 
 end
@@ -117,6 +119,7 @@ function setLabelColor(...)
     local labelColor = getLabelColor(element)
     if not labelColor or ((labelColor[1] == parameters[2][1]) and (labelColor[2] == parameters[2][2]) and (labelColor[3] == parameters[2][3]) and (labelColor[4] == parameters[2][4])) then return false end
     elementReference.gui.fontColor = {parameters[2][1], parameters[2][2], parameters[2][3], parameters[2][4]}
+    triggerEvent("onClientUIAltered", element)
     return true
 
 end
@@ -149,6 +152,7 @@ function setLabelHorizontalAlignment(...)
     local elementReference = createdElements[element]
     if not UI_VALID_ALIGNMENT.horizontal[(parameters[2])] or (elementReference.gui.alignment.horizontal == parameters[2]) then return false end
     elementReference.gui.alignment.horizontal = parameters[2]
+    triggerEvent("onClientUIAltered", element)
     return true
 
 end
@@ -175,6 +179,7 @@ function setLabelVerticalAlignment(...)
     local elementReference = createdElements[element]
     if not UI_VALID_ALIGNMENT.vertical[(parameters[2])] or (elementReference.gui.alignment.vertical == parameters[2]) then return false end
     elementReference.gui.alignment.vertical = parameters[2]
+    triggerEvent("onClientUIAltered", element)
     return true
 
 end

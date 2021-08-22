@@ -107,6 +107,7 @@ function clearSliderText(...)
     local elementReference = createdElements[element]
     if not elementReference.gui.text then return false end
     elementReference.gui.text = nil
+    triggerEvent("onClientUIAltered", element)
     return true
 
 end
@@ -121,6 +122,7 @@ function setSliderText(...)
     local elementReference = createdElements[element]
     if (elementReference.gui.text == parameters[2]) then return false end
     elementReference.gui.text = parameters[2]
+    triggerEvent("onClientUIAltered", element)
     return true
 
 end
@@ -153,6 +155,7 @@ function clearSliderTextColor(...)
     local elementReference = createdElements[element]
     if not elementReference.gui.fontColor then return false end
     elementReference.gui.fontColor = nil
+    triggerEvent("onClientUIAltered", element)
     return true
 
 end
@@ -175,6 +178,7 @@ function setSliderTextColor(...)
     local sliderTextColor = getSliderTextColor(element)
     if not sliderTextColor or ((sliderTextColor[1] == parameters[2][1]) and (sliderTextColor[2] == parameters[2][2]) and (sliderTextColor[3] == parameters[2][3]) and (sliderTextColor[4] == parameters[2][4])) then return false end
     elementReference.gui.fontColor = {parameters[2][1], parameters[2][2], parameters[2][3], parameters[2][4]}
+    triggerEvent("onClientUIAltered", element)
     return true
 
 end

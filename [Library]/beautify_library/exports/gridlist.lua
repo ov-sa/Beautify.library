@@ -131,6 +131,7 @@ function setGridlistColumnName(...)
     local elementReference = createdElements[element]
     if not elementReference.gridData.columns[(parameters[2])] or (elementReference.gridData.columns[(parameters[2])].name == parameters[3]) then return false end
     elementReference.gridData.columns[(parameters[2])].name = parameters[3]
+    triggerEvent("onClientUIAltered", element)
     return true
 
 end
@@ -212,6 +213,7 @@ function setGridlistRowData(...)
     local elementReference = createdElements[element]
     if not elementReference.gridData.rows[(parameters[2])] or not elementReference.gridData.columns[(parameters[3])] or (elementReference.gridData.rows[(parameters[2])][(parameters[3])] == parameters[4]) then return false end
     elementReference.gridData.rows[(parameters[2])][(parameters[3])] = parameters[4]
+    triggerEvent("onClientUIAltered", element)
     return true
 
 end

@@ -174,6 +174,8 @@
 
     <!-- Exports: Element: Selector -->
     <export function="createSelector" type="client"/>
+    <export function="setSelectorDataList" type="client"/>
+    <export function="getSelectorDataList" type="client"/>
     <export function="clearSelectorText" type="client"/>
     <export function="setSelectorText" type="client"/>
     <export function="getSelectorText" type="client"/>

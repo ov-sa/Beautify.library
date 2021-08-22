@@ -111,7 +111,7 @@ function renderSelector(element, isFetchingInput, mouseReference)
                 elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endX = selector_startX + selector_width - selector_content_padding
                 elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endY = selector_startY + selector_height - selector_arrow_size - selector_content_padding
             end
-            local slider_text = "Something Here" --TODO: CHANGE LATER
+            local slider_text = (elementReference.selectorDataList.selection and elementReference.selectorDataList.list[elementReference.selectorDataList.selection]) or "-"
             elementReference.gui["__UI_CACHE__"]["Selector"].text.text = ((elementReference.gui.text and elementReference.gui.text.." | ") or "")..slider_text
             elementReference.gui["__UI_CACHE__"]["Selector"].text.isToBeRendered = ((elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endX - elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startX) > 0) and ((elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endY - elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startY) > 0)
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Previous"].startX = elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.startX

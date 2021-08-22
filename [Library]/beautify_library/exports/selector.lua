@@ -32,6 +32,10 @@ function createSelector(...)
     if not elementTemplate then return false end
 
     elementReference.gui = cloneUIOutline(elementType)
+    elementReference.selectorDataList = {
+        list = {},
+        selection = 1
+    }
     for i, j in ipairs(availableElements[elementType].syntax.parameters) do
         if (j.name == "width") or (j.name == "height") then
             elementReference.gui[j.name] = math.max(0, math.max(availableElements[elementType].minimumSize, parameters[i]))
@@ -53,6 +57,40 @@ function createSelector(...)
 end
 
 
+---------------------------------------------------
+--[[ Functions: Sets/Gets Selector's Data List ]]--
+---------------------------------------------------
+
+function setSelectorDataList(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "setSelectorDataList") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementReference = createdElements[element]
+    elementReference.selectorDataList.list = parameters[2]
+    if not elementReference.selectorDataList.list[(elementReference.selectorDataList.selection)] then
+        elementReference.selectorDataList.selection = 1
+    end
+    triggerEvent("onClientUIAltered", element)
+    return true
+
+end
+
+function getSelectorDataList(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "getSelectorDataList") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementReference = createdElements[element]
+    return elementReference.selectorDataList.list
+
+end
+
+
 -----------------------------------------------------
 --[[ Functions: Clears/Sets/Gets Selector's Text ]]--
 -----------------------------------------------------
@@ -67,6 +105,7 @@ function clearSelectorText(...)
     local elementReference = createdElements[element]
     if not elementReference.gui.text then return false end
     elementReference.gui.text = nil
+    triggerEvent("onClientUIAltered", element)
     return true
 
 end
@@ -81,6 +120,7 @@ function setSelectorText(...)
     local elementReference = createdElements[element]
     if (elementReference.gui.text == parameters[2]) then return false end
     elementReference.gui.text = parameters[2]
+    triggerEvent("onClientUIAltered", element)
     return true
 
 end
@@ -113,6 +153,7 @@ function clearSelectorTextColor(...)
     local elementReference = createdElements[element]
     if not elementReference.gui.fontColor then return false end
     elementReference.gui.fontColor = nil
+    triggerEvent("onClientUIAltered", element)
     return true
 
 end
@@ -135,6 +176,7 @@ function setSelectorTextColor(...)
     local selectorTextColor = getSelectorTextColor(element)
     if not selectorTextColor or ((selectorTextColor[1] == parameters[2][1]) and (selectorTextColor[2] == parameters[2][2]) and (selectorTextColor[3] == parameters[2][3]) and (selectorTextColor[4] == parameters[2][4])) then return false end
     elementReference.gui.fontColor = {parameters[2][1], parameters[2][2], parameters[2][3], parameters[2][4]}
+    triggerEvent("onClientUIAltered", element)
     return true
 
 end

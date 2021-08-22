@@ -48,6 +48,17 @@ availableElements[elementType] = {
 }
 
 availableElements[elementType]["APIs"] = {
+    ["setSelectorDataList"] = {
+        parameters = {
+            {name = "selector", type = "userdata", userDataType = elementType},
+            {name = "data", type = "table"}
+        }
+    },
+    ["getSelectorDataList"] = {
+        parameters = {
+            {name = "selector", type = "userdata", userDataType = elementType}
+        }
+    },
     ["clearSelectorText"] = {
         parameters = {
             {name = "selector", type = "userdata", userDataType = elementType}
