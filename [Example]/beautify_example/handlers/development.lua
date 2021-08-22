@@ -153,10 +153,32 @@ local function devUI3()
     local createdSelector2 = beautify.selector.create(12.5, 42, 250, 28, "horizontal", createdWindow, false)
     local createdSelector3 = beautify.selector.create(12.5, 77, 250, 28, "horizontal", createdWindow, false)
     local createdSelector4 = beautify.selector.create(12.5, 112, 250, 28, "horizontal", createdWindow, false)
-    beautify.selector.setText(createdSelector, "Mask")
+    beautify.selector.setText(createdSelector, "Ethnicity")
     beautify.selector.setText(createdSelector2, "Torso")
-    beautify.selector.setText(createdSelector3, "Pant")
-    beautify.selector.setText(createdSelector4, "Shoes")
+    beautify.selector.setText(createdSelector3, "Trouser")
+    beautify.selector.setText(createdSelector4, "Feet")
+    beautify.selector.setDataList(createdSelector, {
+        "American",
+        "Asian",
+        "Arab",
+        "African"
+    })
+    beautify.selector.setDataList(createdSelector2, {
+        "Shirt",
+        "T-Shirt",
+        "Hoodie",
+        "Suit"
+    })
+    beautify.selector.setDataList(createdSelector3, {
+        "Jeans",
+        "Shorts",
+        "Trackers"
+    })
+    beautify.selector.setDataList(createdSelector4, {
+        "Slippers",
+        "Sneakers",
+        "Boots",
+    })
     beautify.setUIVisible(createdSelector, true)
     beautify.setUIVisible(createdSelector2, true)
     beautify.setUIVisible(createdSelector3, true)
@@ -181,6 +203,18 @@ local function devUI4()
     local createdSelector2 = beautify.selector.create(12.5, 77, 250, 70, "vertical", createdWindow, false)
     beautify.selector.setText(createdSelector, "Helmet")
     beautify.selector.setText(createdSelector2, "Vest")
+    beautify.selector.setDataList(createdSelector, {
+        "Assault",
+        "Ballistic",
+        "Combat",
+        "Tactical"
+    })
+    beautify.selector.setDataList(createdSelector2, {
+        "Assault",
+        "Ballistic",
+        "Hunter",
+        "Tactical"
+    })
     beautify.setUIVisible(createdSelector, true)
     beautify.setUIVisible(createdSelector2, true)
 
