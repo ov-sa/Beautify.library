@@ -23,8 +23,8 @@ row getSelection(gridlist)
 ## **Example:**
 
 ```lua
-local resultState = beautify.gridlist.getSelection(createdGridlist)
-print(resultState)
+local gridlistSelection = beautify.gridlist.getSelection(createdGridlist)
+print(gridlistSelection)
 ```
 
 ![](../../.gitbook/assets/getgridlistselection.png)

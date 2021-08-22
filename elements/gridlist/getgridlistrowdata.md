@@ -25,8 +25,8 @@ data getRowData(gridlist, row, column)
 ## **Example:**
 
 ```lua
-local rowData = beautify.gridlist.getRowData(createdGridlist, 1, 2)
-print(rowData)
+local gridlistRowData = beautify.gridlist.getRowData(createdGridlist, 1, 2)
+print(gridlistRowData)
 ```
 
 ![](../../.gitbook/assets/getgridlistrowdata.png)

@@ -24,7 +24,7 @@ name getColumnName(gridlist, column)
 ## **Example:**
 
 ```lua
-local columnName= beautify.gridlist.getColumnName(createdGridlist, 1)
+local columnName = beautify.gridlist.getColumnName(createdGridlist, 1)
 print(columnName)
 ```
 
