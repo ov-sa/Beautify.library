@@ -8,14 +8,15 @@
 
 ## APIs:
 
-* [create](createselector.md)
-* [setDataList](setselectordatalist.md)
-* [getDataList](getselectordatalist.md)
-* [clearText](clearselectortext.md)
-* [setText](setselectortext.md)
-* [getText](getselectortext.md)
-* [clearTextColor](clearselectortextcolor.md)
-* [setTextColor](setselectortextcolor.md)
-* [getTextColor](getselectortextcolor.md)
-* [setSelection](setselectorselection.md)
-* [getSelection](getselectorselection.md)
+* [create](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/99926b3c70617f047461a757dcd8bfd32b8d4c1f/elements/gridlist/createselector.md)
+* [setDataList](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/99926b3c70617f047461a757dcd8bfd32b8d4c1f/elements/gridlist/setselectordatalist.md)
+* [getDataList](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/99926b3c70617f047461a757dcd8bfd32b8d4c1f/elements/gridlist/getselectordatalist.md)
+* [clearText](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/99926b3c70617f047461a757dcd8bfd32b8d4c1f/elements/gridlist/clearselectortext.md)
+* [setText](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/99926b3c70617f047461a757dcd8bfd32b8d4c1f/elements/gridlist/setselectortext.md)
+* [getText](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/99926b3c70617f047461a757dcd8bfd32b8d4c1f/elements/gridlist/getselectortext.md)
+* [clearTextColor](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/99926b3c70617f047461a757dcd8bfd32b8d4c1f/elements/gridlist/clearselectortextcolor.md)
+* [setTextColor](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/99926b3c70617f047461a757dcd8bfd32b8d4c1f/elements/gridlist/setselectortextcolor.md)
+* [getTextColor](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/99926b3c70617f047461a757dcd8bfd32b8d4c1f/elements/gridlist/getselectortextcolor.md)
+* [setSelection](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/99926b3c70617f047461a757dcd8bfd32b8d4c1f/elements/gridlist/setselectorselection.md)
+* [getSelection](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/99926b3c70617f047461a757dcd8bfd32b8d4c1f/elements/gridlist/getselectorselection.md)
+
