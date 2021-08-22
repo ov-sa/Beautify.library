@@ -149,10 +149,10 @@ local function devUI3()
     local window_width, window_height = 275, 150
     local createdWindow = beautify.window.create(725 + 300 + 25, (CLIENT_MTA_RESOLUTION[2] - 350)/2, window_width, window_height, "Dev. UI #3", nil, false)
     
-    local createdSelector = beautify.selector.create(12.5, 7, 250, 28, "horizontal", createdWindow, false)
-    local createdSelector2 = beautify.selector.create(12.5, 42, 250, 28, "horizontal", createdWindow, false)
-    local createdSelector3 = beautify.selector.create(12.5, 77, 250, 28, "horizontal", createdWindow, false)
-    local createdSelector4 = beautify.selector.create(12.5, 112, 250, 28, "horizontal", createdWindow, false)
+    local createdSelector = beautify.selector.create(12.5, 12.5, 250, 20, "horizontal", createdWindow, false)
+    local createdSelector2 = beautify.selector.create(12.5, 47.5, 250, 20, "horizontal", createdWindow, false)
+    local createdSelector3 = beautify.selector.create(12.5, 82.5, 250, 20, "horizontal", createdWindow, false)
+    local createdSelector4 = beautify.selector.create(12.5, 117.5, 250, 20, "horizontal", createdWindow, false)
     beautify.selector.setText(createdSelector, "Ethnicity")
     beautify.selector.setText(createdSelector2, "Torso")
     beautify.selector.setText(createdSelector3, "Trouser")
@@ -199,8 +199,8 @@ local function devUI4()
     local window_width, window_height = 275, 150
     local createdWindow = beautify.window.create(725 + 300 + 25, (CLIENT_MTA_RESOLUTION[2] - 350)/2 + 150 + 25 + 25, window_width, window_height, "Dev. UI #4", nil, false)
     
-    local createdSelector = beautify.selector.create(12.5, 7, 250, 70, "vertical", createdWindow, false)
-    local createdSelector2 = beautify.selector.create(12.5, 77, 250, 70, "vertical", createdWindow, false)
+    local createdSelector = beautify.selector.create(12.5, 12, 250, 60, "vertical", createdWindow, false)
+    local createdSelector2 = beautify.selector.create(12.5, 77, 250, 60, "vertical", createdWindow, false)
     beautify.selector.setText(createdSelector, "Helmet")
     beautify.selector.setText(createdSelector2, "Vest")
     beautify.selector.setDataList(createdSelector, {
