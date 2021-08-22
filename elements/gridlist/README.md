@@ -8,17 +8,14 @@
 
 ## APIs:
 
-* [create](creategridlist.md)
-* [countColumns](countgridlistcolumns.md)
-* [addColumn](addgridlistcolumn.md)
-* [removeColumn](removegridlistcolumn.md)
-* [setColumnName](setgridlistcolumnname.md)
-* [getColumnName](getgridlistcolumnname.md)
-* [countRows](countgridlistrows.md)
-* [addRow](addgridlistrow.md)
-* [removeRow](removegridlistrow.md)
-* [setRowData](setgridlistrowdata.md)
-* [getRowData](getgridlistrowdata.md)
-* [setSelection](setgridlistselection.md)
-* [getSelection](getgridlistselection.md)
-
+* [create](createselector.md)
+* [setDataList](setselectordatalist.md)
+* [getDataList](getselectordatalist.md)
+* [clearText](clearselectortext.md)
+* [setText](setselectortext.md)
+* [getText](getselectortext.md)
+* [clearTextColor](clearselectortextcolor.md)
+* [setTextColor](setselectortextcolor.md)
+* [getTextColor](getselectortextcolor.md)
+* [setSelection](setselectorselection.md)
+* [getSelection](getselectorselection.md)
