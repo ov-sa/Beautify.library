@@ -9,6 +9,7 @@
   * `button`
   * `label`
   * `slider`
+  * `selector`
 
 ## APIs:
 
