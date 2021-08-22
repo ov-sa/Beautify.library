@@ -24,13 +24,13 @@ state setDataList(selector, datalist)
 ## **Example:**
 
 ```lua
-local dataList = {
+local selector_dataList = {
     "American",
     "Asian",
     "Arab",
     "African" 
 }
-local resultState = beautify.selector.setDataList(createdSelector, dataList)
+local resultState = beautify.selector.setDataList(createdSelector, selector_dataList)
 print(tostring(resultState))
 ```
 
