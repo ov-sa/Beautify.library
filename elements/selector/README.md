@@ -8,14 +8,15 @@
 
 ## ━ APIs:
 
-* [create](createSelector.md)
-* [setDataList](setSelectorDataList.md)
-* [getDataList](getSelectorDataList.md)
-* [clearText](clearSelectorText.md)
-* [setText](setSelectorText.md)
-* [getText](getSelectorText.md)
-* [clearTextColor](clearSelectorTextColor.md)
-* [setTextColor](setSelectorTextColor.md)
-* [getTextColor](getSelectorTextColor.md)
-* [setSelection](setSelectorSelection.md)
-* [getSelection](getSelectorSelection.md)
+* [create](createselector.md)
+* [setDataList](setselectordatalist.md)
+* [getDataList](getselectordatalist.md)
+* [clearText](clearselectortext.md)
+* [setText](setselectortext.md)
+* [getText](getselectortext.md)
+* [clearTextColor](clearselectortextcolor.md)
+* [setTextColor](setselectortextcolor.md)
+* [getTextColor](getselectortextcolor.md)
+* [setSelection](setselectorselection.md)
+* [getSelection](getselectorselection.md)
+
