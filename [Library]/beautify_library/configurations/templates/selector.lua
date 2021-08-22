@@ -14,7 +14,7 @@
 ------------------------
 
 availableTemplates["beautify_selector"] = {
-    fontPaddingY = 4,
+    fontPaddingY = 3,
     font = DxFont("files/assets/fonts/poppins_medium.ttf", 15),
     color = {50, 50, 50, 255},
     hoverColor = {125, 125, 255, 255},
