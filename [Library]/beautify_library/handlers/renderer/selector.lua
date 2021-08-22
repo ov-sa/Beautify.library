@@ -167,7 +167,17 @@ function renderSelector(element, isFetchingInput, mouseReference)
             end
         end
         if elementReference.gui["__UI_CACHE__"]["Selector"].text.isToBeRendered then
-            local selector_fontColor = (elementReference.gui.fontColor and tocolor(elementReference.gui.fontColor[1], elementReference.gui.fontColor[2], elementReference.gui.fontColor[3], elementReference.gui.fontColor[4])) or tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4])
+            if not elementReference.gui.animAlphaPercent then
+                elementReference.gui.animAlphaPercent = 0.8
+                elementReference.gui.hoverStatus = "backward"
+                elementReference.gui.hoverAnimTickCounter = getTickCount()
+            end
+            if elementReference.gui.hoverStatus == "forward" then
+                elementReference.gui.animAlphaPercent = interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
+            else
+                elementReference.gui.animAlphaPercent = interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 0.8, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
+            end
+            local selector_fontColor = (elementReference.gui.fontColor and tocolor(elementReference.gui.fontColor[1], elementReference.gui.fontColor[2], elementReference.gui.fontColor[3], elementReference.gui.fontColor[4]*elementReference.gui.animAlphaPercent)) or tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4]*elementReference.gui.animAlphaPercent)
             dxDrawText(elementReference.gui["__UI_CACHE__"]["Selector"].text.text, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endY, selector_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "center", "center", true, false, selector_postGUI, false)
         end
         renderElementChildren(element)
@@ -182,11 +192,24 @@ function renderSelector(element, isFetchingInput, mouseReference)
             local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
             renderElementChildren(element, true, mouseReference)
             local isElementHovered = CLIENT_HOVERED_ELEMENT == element
+            local isSelectorHovered = false
             local isArrowPreviousHovered, isArrowNextHovered = false, false
             if isElementHovered then
                 if not elementReference.isDisabled then
-                    isArrowPreviousHovered = isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Previous"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Previous"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Previous"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Previous"].height)
-                    isArrowNextHovered = isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Next"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Next"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Next"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Next"].height)
+                    isSelectorHovered = isElementHovered
+                end
+            end
+            if isSelectorHovered then
+                if elementReference.gui.hoverStatus ~= "forward" then
+                    elementReference.gui.hoverStatus = "forward"
+                    elementReference.gui.hoverAnimTickCounter = getTickCount()
+                end
+                isArrowPreviousHovered = isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Previous"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Previous"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Previous"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Previous"].height)
+                isArrowNextHovered = isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Next"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Next"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Next"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Next"].height)
+            else
+                if elementReference.gui.hoverStatus ~= "backward" then
+                    elementReference.gui.hoverStatus = "backward"
+                    elementReference.gui.hoverAnimTickCounter = getTickCount()
                 end
             end
             if isArrowPreviousHovered then
