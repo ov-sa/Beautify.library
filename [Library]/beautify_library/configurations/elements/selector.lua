@@ -51,7 +51,7 @@ availableElements[elementType]["APIs"] = {
     ["setSelectorDataList"] = {
         parameters = {
             {name = "selector", type = "userdata", userDataType = elementType},
-            {name = "data", type = "table"}
+            {name = "list", type = "table"}
         }
     },
     ["getSelectorDataList"] = {
@@ -94,7 +94,7 @@ availableElements[elementType]["APIs"] = {
     ["setSelectorSelection"] = {
         parameters = {
             {name = "selector", type = "userdata", userDataType = elementType},
-            {name = "index", type = "number"}
+            {name = "data", type = "number"}
         }
     },
     ["getSelectorSelection"] = {
