@@ -47,4 +47,37 @@ availableElements[elementType] = {
     }
 }
 
-availableElements[elementType]["APIs"] = {}
+availableElements[elementType]["APIs"] = {
+    ["clearSelectorText"] = {
+        parameters = {
+            {name = "selector", type = "userdata", userDataType = elementType}
+        }
+    },
+    ["setSelectorText"] = {
+        parameters = {
+            {name = "selector", type = "userdata", userDataType = elementType},
+            {name = "text", type = "string"}
+        }
+    },
+    ["getSelectorText"] = {
+        parameters = {
+            {name = "selector", type = "userdata", userDataType = elementType}
+        }
+    },
+    ["clearSelectorTextColor"] = {
+        parameters = {
+            {name = "selector", type = "userdata", userDataType = elementType}
+        }
+    },
+    ["setSelectorTextColor"] = {
+        parameters = {
+            {name = "selector", type = "userdata", userDataType = elementType},
+            {name = "color", type = "table"}
+        }
+    },
+    ["getSelectorTextColor"] = {
+        parameters = {
+            {name = "selector", type = "userdata", userDataType = elementType}
+        }
+    }
+}

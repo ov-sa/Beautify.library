@@ -84,7 +84,6 @@ function renderSelector(element, isFetchingInput, mouseReference)
                 elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.height = selector_arrow_icon_size
                 elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.startX = elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.startX + selector_arrow_icon_padding
                 elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.startY = elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.startY + selector_arrow_icon_padding
-                elementReference.gui["__UI_CACHE__"]["Selector"].text.text = "Horizontal - SELECTION #1" --TODO: CHANGE LATER
                 elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startX = selector_startX + selector_arrow_size + selector_content_padding
                 elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startY = selector_startY + selector_content_padding + elementTemplate.fontPaddingY
                 elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endX = selector_startX + selector_width - selector_arrow_size - selector_content_padding
@@ -107,12 +106,13 @@ function renderSelector(element, isFetchingInput, mouseReference)
                 elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.height = selector_arrow_icon_size
                 elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.startX = elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.startX + selector_arrow_icon_padding
                 elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.startY = elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.startY + selector_arrow_icon_padding
-                elementReference.gui["__UI_CACHE__"]["Selector"].text.text = "Vertical - SELECTION #2" --TODO: CHANGE LATER
                 elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startX = selector_startX + selector_content_padding
                 elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startY = selector_startY + selector_arrow_size + selector_content_padding + elementTemplate.fontPaddingY
                 elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endX = selector_startX + selector_width - selector_content_padding
                 elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endY = selector_startY + selector_height - selector_arrow_size - selector_content_padding
             end
+            local slider_text = "Something Here" --TODO: CHANGE LATER
+            elementReference.gui["__UI_CACHE__"]["Selector"].text.text = ((elementReference.gui.text and elementReference.gui.text.." | ") or "")..slider_text
             elementReference.gui["__UI_CACHE__"]["Selector"].text.isToBeRendered = ((elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endX - elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startX) > 0) and ((elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endY - elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startY) > 0)
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Previous"].startX = elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.startX
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Previous"].startY = elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.startY

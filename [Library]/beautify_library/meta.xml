@@ -174,5 +174,11 @@
 
     <!-- Exports: Element: Selector -->
     <export function="createSelector" type="client"/>
+    <export function="clearSelectorText" type="client"/>
+    <export function="setSelectorText" type="client"/>
+    <export function="getSelectorText" type="client"/>
+    <export function="clearSelectorTextColor" type="client"/>
+    <export function="setSelectorTextColor" type="client"/>
+    <export function="getSelectorTextColor" type="client"/>
 
 </meta>

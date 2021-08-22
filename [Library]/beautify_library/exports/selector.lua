@@ -51,3 +51,103 @@ function createSelector(...)
     return createdElement
 
 end
+
+
+-----------------------------------------------------
+--[[ Functions: Clears/Sets/Gets Selector's Text ]]--
+-----------------------------------------------------
+
+function clearSelectorText(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "clearSelectorText") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementReference = createdElements[element]
+    if not elementReference.gui.text then return false end
+    elementReference.gui.text = nil
+    return true
+
+end
+
+function setSelectorText(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "setSelectorText") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementReference = createdElements[element]
+    if (elementReference.gui.text == parameters[2]) then return false end
+    elementReference.gui.text = parameters[2]
+    return true
+
+end
+
+function getSelectorText(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "getSelectorText") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementReference = createdElements[element]
+    if not elementReference.gui.text then return false end
+    return elementReference.gui.text
+
+end
+
+
+-----------------------------------------------------------
+--[[ Functions: Clears/Sets/Gets Selector's Text Color ]]--
+-----------------------------------------------------------
+
+function clearSelectorTextColor(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "clearSelectorTextColor") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementReference = createdElements[element]
+    if not elementReference.gui.fontColor then return false end
+    elementReference.gui.fontColor = nil
+    return true
+
+end
+
+function setSelectorTextColor(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "setSelectorTextColor") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    parameters[2][1] = tonumber(parameters[2][1]); parameters[2][2] = tonumber(parameters[2][2]);
+    parameters[2][3] = tonumber(parameters[2][3]); parameters[2][4] = tonumber(parameters[2][4]);
+    for i = 1, 4, 1 do
+        if not parameters[2][i] or (parameters[2][i] < 0) or (parameters[2][i] > 255) then
+            return false
+        end
+    end
+    local elementReference = createdElements[element]
+    local selectorTextColor = getSelectorTextColor(element)
+    if not selectorTextColor or ((selectorTextColor[1] == parameters[2][1]) and (selectorTextColor[2] == parameters[2][2]) and (selectorTextColor[3] == parameters[2][3]) and (selectorTextColor[4] == parameters[2][4])) then return false end
+    elementReference.gui.fontColor = {parameters[2][1], parameters[2][2], parameters[2][3], parameters[2][4]}
+    return true
+
+end
+
+function getSelectorTextColor(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "getSelectorTextColor") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementReference = createdElements[element]
+    local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
+    return elementReference.gui.fontColor or elementTemplate.fontColor
+
+end
