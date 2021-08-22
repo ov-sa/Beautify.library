@@ -1,7 +1,7 @@
 ---
 description: >-
   Creates a new selector which can be further used to select a data from your
-  data-list.
+  list.
 ---
 
 # create

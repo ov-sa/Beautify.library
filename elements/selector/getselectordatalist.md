@@ -1,5 +1,5 @@
 ---
-description: Retrieves the data-list of the selector.
+description: Retrieves the list of the selector.
 ---
 
 # getDataList
@@ -7,18 +7,18 @@ description: Retrieves the data-list of the selector.
 ## **Syntax:**
 
 ```lua
-datalist getDataList(selector)
+list getDataList(selector)
 ```
 
 #### _**\#Counterpart:**_ [_**setDataList**_](setselectordatalist.md)
 
 ### **Parameters:**
 
-* **selector** \(element\) : Selector element you wish to retrieve the data-list of.
+* **selector** \(element\) : Selector element you wish to retrieve the list of.
 
 ### **Returns:**
 
-* **datalist** \(table\) : Table containing the datas of the selector.
+* **list** \(table\) : Table containing the datas of the selector.
 
 ## **Example:**
 
