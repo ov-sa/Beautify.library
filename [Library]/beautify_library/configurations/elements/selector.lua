@@ -36,9 +36,14 @@ availableElements[elementType] = {
     allowedChildren = false,
     isDraggable = false,
     minimumSize = 24,
+    minimumArrowSize = 11,
     validTypes = {
         ["horizontal"] = true,
         ["vertical"] = true
+    },
+    contentSection = {
+        padding = 1,
+        hoverAnimDuration = 1250
     }
 }
 

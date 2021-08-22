@@ -41,7 +41,7 @@ function createButton(...)
     for i, j in ipairs(templateReference) do
         local parameterIndex = #availableElements[elementType].syntax.parameters + i
         if (j.name == "width") or (j.name == "height") or (j.name == "size") then
-            local minRequirementIndex = "minimum"..j.name:sub(1,1):upper()..j.name:sub(2)
+            local minRequirementIndex = "minimum"..j.name:sub(1, 1):upper()..j.name:sub(2)
             if availableElements[elementType]["TEMPLATE_PROPERTIES"][templateReferenceName][minRequirementIndex] then
                 elementReference.gui[j.name] = math.max(availableElements[elementType]["TEMPLATE_PROPERTIES"][templateReferenceName][minRequirementIndex], parameters[parameterIndex])
             else

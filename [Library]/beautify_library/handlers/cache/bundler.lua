@@ -59,7 +59,7 @@ addEventHandler("onClientResourceStart", resource, function(resourceSource)
             end
         else
             if j.reference then
-                local elementName = j.reference:sub(1,1):upper()..j.reference:sub(2)
+                local elementName = j.reference:sub(1, 1):upper()..j.reference:sub(2)
                 bundlerData = bundlerData..[[["]]..j.reference..[["] = {]]
                 bundlerData = bundlerData..(j.syntax.functionName:gsub(elementName, "", 1))..[[ = BEAUTIFY_FUNC_INIT.]]..j.syntax.functionName..[[,]]
                 for k, v in pairs(j.APIs) do
