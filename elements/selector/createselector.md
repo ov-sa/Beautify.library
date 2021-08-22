@@ -12,6 +12,26 @@ description: >-
 selector create(x, y, width, height, type, [parent = nil], [postGUI = false])
 ```
 
+{% tabs %}
+{% tab title="Parameters" %}
+
+
+* **x** \(float\) : Absolute x coordinate of the selector within the container.
+* **y** \(float\) : Absolute y coordinate of the selector within the container.
+* **width** \(float\) : Absolute width of the selector.
+* **height** \(float\) : Absolute height of the selector.
+* **type** \(string\) : Type of selector \(horizontal\vertical\).
+* **parent** \(element\) : Supported parent element to use as a container for the selector. \(_Optional_\)
+* **postGUI** \(bool\) : State whether the UI will be drawn below/over CEGUI. \(_Optional_\)
+{% endtab %}
+
+{% tab title="Second Tab" %}
+
+
+* **selector** \(element\) : Created selector element.
+{% endtab %}
+{% endtabs %}
+
 ### **Parameters:**
 
 * **x** \(float\) : Absolute x coordinate of the selector within the container.
