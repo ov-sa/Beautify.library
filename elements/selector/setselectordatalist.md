@@ -34,5 +34,5 @@ local resultState = beautify.selector.setDataList(createdSelector, selector_data
 print(tostring(resultState))
 ```
 
-![](../../.gitbook/assets/setselectordatalist.png)
+![](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/63ce80a583f0a48548c507530434e109f236aef7/.gitbook/assets/setselectordatalist.png)
 

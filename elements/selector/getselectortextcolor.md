@@ -27,5 +27,5 @@ local selectorTextColor = beautify.selector.getTextColor(createdSelector)
 print(toJSON(selectorTextColor))
 ```
 
-![](../../.gitbook/assets/getselectortextcolor.png)
+![](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/dc68dea0ce4122d4b75970aa60f07f5277f6884f/.gitbook/assets/getselectortextcolor.png)
 

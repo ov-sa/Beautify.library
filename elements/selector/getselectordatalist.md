@@ -27,5 +27,5 @@ local selectorDataList = beautify.selector.getDataList(createdSelector)
 print(toJSON(selectorDataList))
 ```
 
-![](../../.gitbook/assets/getselectordatalist.png)
+![](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/63ce80a583f0a48548c507530434e109f236aef7/.gitbook/assets/getselectordatalist.png)
 

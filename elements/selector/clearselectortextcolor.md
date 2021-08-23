@@ -25,5 +25,5 @@ local resultState = beautify.selector.clearTextColor(createdSelector)
 print(tostring(resultState))
 ```
 
-![](../../.gitbook/assets/clearselectortextcolor.png)
+![](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/dc68dea0ce4122d4b75970aa60f07f5277f6884f/.gitbook/assets/clearselectortextcolor.png)
 

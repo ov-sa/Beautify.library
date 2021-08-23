@@ -28,5 +28,5 @@ local resultState = beautify.selector.setTextColor(createdSelector, {255, 0, 0, 
 print(tostring(resultState))
 ```
 
-![](../../.gitbook/assets/setselectortextcolor.png)
+![](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/dc68dea0ce4122d4b75970aa60f07f5277f6884f/.gitbook/assets/setselectortextcolor.png)
 

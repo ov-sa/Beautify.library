@@ -27,5 +27,5 @@ local selectorSelection = beautify.selector.getSelection(createdSelector)
 print(selectorSelection)
 ```
 
-![](../../.gitbook/assets/getselectorselection.png)
+![](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/6adf777fcae5634a6287a4566898e862fd33c352/.gitbook/assets/getselectorselection.png)
 

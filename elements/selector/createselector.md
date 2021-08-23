@@ -35,5 +35,5 @@ local createdSelector = beautify.selector.create((sX - selector_width)/2, (sY - 
 beautify.setUIVisible(createdSelector, true)
 ```
 
-![](../../.gitbook/assets/createselector.png)
+![](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/63ce80a583f0a48548c507530434e109f236aef7/.gitbook/assets/createselector.png)
 

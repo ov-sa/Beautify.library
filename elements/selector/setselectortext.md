@@ -28,5 +28,5 @@ local resultState = beautify.selector.setText(createdSelector, "Ethnicity")
 print(tostring(resultState))
 ```
 
-![](../../.gitbook/assets/setselectortext.png)
+![](https://github.com/OvileAmriam/MTA-Beautify-Library/tree/b2e36834261af71a665ec1a224f61083bd351509/.gitbook/assets/setselectortext.png)
 
