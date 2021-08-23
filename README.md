@@ -1,6 +1,6 @@
 # ━ S Y N O P S I S
 
-![](.gitbook/assets/beautify_banner.png)
+![](https://raw.githubusercontent.com/OvileAmriam/MTA-Beautify-Library/Documentation/assets/beautify_banner.png)
 
 **Beautify Library** is a open-source DX based powerful UI library made by **ᴏᴠ Team** for [Multi Theft Auto \(MTA\)](https://multitheftauto.com/).
 
