@@ -19,6 +19,7 @@ availableAssets["images"] = {
     "arrow/right.png",
     "arrow/top.png",
     "arrow/bottom.png",
+    "tick_box/regular.png",
     "right_triangle/default.png",
     "right_triangle/flipped.png",
     "right_triangle/inverted.png",

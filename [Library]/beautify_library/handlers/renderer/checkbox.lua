@@ -89,35 +89,24 @@ function renderCheckbox(element, isFetchingInput, mouseReference)
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Tick Box"].width = elementReference.gui["__UI_CACHE__"]["Tick Box"].offsets.width
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Tick Box"].height = elementReference.gui["__UI_CACHE__"]["Tick Box"].offsets.height
             if isElementToBeReloaded then
-                elementReference.gui["__UI_CACHE__"]["Tick Box"].color = tocolor(unpackColor(elementTemplate.color))
+                elementReference.gui["__UI_CACHE__"]["Tick Box"].color = tocolor(unpackColor(elementTemplate.tickBox.color))
+                elementReference.gui["__UI_CACHE__"]["Tick Box"].iconColor = tocolor(unpack(elementTemplate.tickBox.iconColor))
             end
             elementReference.gui["__UI_CACHE__"].reloadElement = nil
             elementReference.gui["__UI_CACHE__"].updateElement = nil
         end
 
-        dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.height, elementReference.gui["__UI_CACHE__"]["Tick Box"].color, checkbox_postGUI)
-        if checkbox_tickbox_prevIcon and checkbox_tickbox_nextIcon then
-            if not elementReference.gui.tickBox.animAlphaPercent then
-                elementReference.gui.tickBox.animAlphaPercent = 0
-                elementReference.gui.tickBox.hoverStatus = "backward"
-                elementReference.gui.tickBox.hoverAnimTickCounter = getTickCount()
-            end
-            if elementReference.gui.tickBox.hoverStatus == "forward" then
-                elementReference.gui.tickBox.animAlphaPercent = interpolateBetween(elementReference.gui.tickBox.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(elementReference.gui.tickBox.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
-            else
-                elementReference.gui.tickBox.animAlphaPercent = interpolateBetween(elementReference.gui.tickBox.animAlphaPercent, 0, 0, 0, 0, 0, getInterpolationProgress(elementReference.gui.tickBox.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
-            end
-            --dxDrawImage(elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.height, checkbox_tickbox_prevIcon, 0, 0, 0, elementReference.gui["__UI_CACHE__"]["Tick Box"].color, checkbox_postGUI)
-            --[[
-            dxDrawImage(elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.height, checkbox_tickbox_nextIcon, 0, 0, 0, elementReference.gui["__UI_CACHE__"]["Arrow_Next"].color, checkbox_postGUI)
-            if elementReference.gui.tickBox.animAlphaPercent > 0 then
-                dxDrawImage(elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.height, checkbox_tickbox_prevIcon, 0, 0, 0, tocolor(elementTemplate.hoverColor[1], elementTemplate.hoverColor[2], elementTemplate.hoverColor[3], elementTemplate.hoverColor[4]*elementReference.gui.tickBox.animAlphaPercent), checkbox_postGUI)
-            end
-            if elementReference.gui.tickBox.animAlphaPercent > 0 then
-                dxDrawImage(elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.height, checkbox_tickbox_nextIcon, 0, 0, 0, tocolor(elementTemplate.hoverColor[1], elementTemplate.hoverColor[2], elementTemplate.hoverColor[3], elementTemplate.hoverColor[4]*elementReference.gui.tickBox.animAlphaPercent), checkbox_postGUI)
-            end
-            ]]--
+        if not elementReference.gui.tickBox.animAlphaPercent then
+            elementReference.gui.tickBox.animAlphaPercent = 0
+            elementReference.gui.tickBox.hoverStatus = "backward"
+            elementReference.gui.tickBox.hoverAnimTickCounter = getTickCount()
         end
+        if elementReference.gui.tickBox.hoverStatus == "forward" then
+            elementReference.gui.tickBox.animAlphaPercent = interpolateBetween(elementReference.gui.tickBox.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(elementReference.gui.tickBox.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
+        else
+            elementReference.gui.tickBox.animAlphaPercent = interpolateBetween(elementReference.gui.tickBox.animAlphaPercent, 0, 0, 0, 0, 0, getInterpolationProgress(elementReference.gui.tickBox.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
+        end
+        dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.height, (not elementReference.gui.selection and elementReference.gui["__UI_CACHE__"]["Tick Box"].color) or elementReference.gui["__UI_CACHE__"]["Tick Box"].iconColor, checkbox_postGUI)
         if elementReference.gui["__UI_CACHE__"]["Checkbox"].text.isToBeRendered then
             if not elementReference.gui.animAlphaPercent then
                 elementReference.gui.animAlphaPercent = 0.8

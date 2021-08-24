@@ -120,35 +120,13 @@ function renderSlider(element, isFetchingInput, mouseReference)
                     elementReference.gui["__UI_CACHE__"]["Track"].unprogressedWidth = slider_track_unprogressed_length
                 end
             end
+            if isElementToBeReloaded then
+                elementReference.gui["__UI_CACHE__"]["Thumb"].color = tocolor(unpackColor(elementTemplate.thumb.color))
+            end
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].startX = elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].startY = elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].width = elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].height = elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.height
-            if isElementToBeReloaded or not elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture then
-                if not elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget then
-                    elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget = DxRenderTarget(slider_thumb_size, slider_thumb_size, true)
-                end
-                if elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture and isElement(elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture) then
-                    elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture:destroy()
-                    elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture = nil
-                end
-                dxSetRenderTarget(elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget, true)
-                dxSetBlendMode("modulate_add")
-                dxDrawRectangle(0, 0, slider_thumb_size, slider_thumb_size, tocolor(unpackColor(elementTemplate.thumb.color)), false)
-                dxSetBlendMode("blend")
-                if not elementParent then
-                    dxSetRenderTarget()
-                else
-                    dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
-                end
-                local renderPixels = dxGetTexturePixels(elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget)
-                if renderPixels then
-                    elementReference.gui["__UI_CACHE__"]["Thumb"].color = cloneTableDatas(elementTemplate.thumb.color, true)
-                    elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture = DxTexture(renderPixels, "argb", false, "clamp")
-                    elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget:destroy()
-                    elementReference.gui["__UI_CACHE__"]["Thumb"].renderTarget = nil
-                end
-            end
             elementReference.gui["__UI_CACHE__"].reloadElement = nil
             elementReference.gui["__UI_CACHE__"].updateElement = nil
         end
@@ -186,9 +164,7 @@ function renderSlider(element, isFetchingInput, mouseReference)
                     dxDrawText(elementReference.gui["__UI_CACHE__"]["Slider"].text.text, elementReference.gui["__UI_CACHE__"]["Slider"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Slider"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Slider"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Slider"].text.offsets.endY, slider_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "right", "bottom", true, false, slider_postGUI, false, false, 90, elementReference.gui["__UI_CACHE__"]["Slider"].text.offsets.rotX, elementReference.gui["__UI_CACHE__"]["Slider"].text.offsets.rotY)
                 end
             end
-            if elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture then
-                dxDrawImage(elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.height, elementReference.gui["__UI_CACHE__"]["Thumb"].renderTexture, 0, 0, 0, -1, slider_postGUI)
-            end
+            dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.height, elementReference.gui["__UI_CACHE__"]["Thumb"].color, slider_postGUI)
             renderElementChildren(element)
             dxSetBlendMode("blend")
             if not elementParent then
