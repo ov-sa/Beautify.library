@@ -176,9 +176,9 @@ addEventHandler("onClientKey", root, function(button, state)
 end, false, UI_PRIORITY_LEVEL.INPUT)
 
 
--------------------------------------------
---[[ Event: On Client Minimize/Restore ]]--
--------------------------------------------
+--------------------------------------------
+--[[ Events: On Client Minimize/Restore ]]--
+--------------------------------------------
 
 addEventHandler("onClientMinimize", root, function()
 

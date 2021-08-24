@@ -65,7 +65,7 @@ function renderButton(element, isFetchingInput, mouseReference)
                 elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY = elementReference.gui["__UI_CACHE__"]["Button"].offsets.startY
                 elementReference.gui["__UI_INPUT_FETCH_CACHE__"].width = elementReference.gui["__UI_CACHE__"]["Button"].offsets.width
                 elementReference.gui["__UI_INPUT_FETCH_CACHE__"].height = elementReference.gui["__UI_CACHE__"]["Button"].offsets.height
-                if isElementToBeReloaded or not elementReference.gui["__UI_CACHE__"]["Button"].renderTexture then
+                if not elementReference.gui["__UI_CACHE__"]["Button"].renderTexture then
                     if not elementReference.gui["__UI_CACHE__"]["Button"].renderTarget then
                         elementReference.gui["__UI_CACHE__"]["Button"].renderTarget = DxRenderTarget(button_width, button_height, true)
                     end
@@ -77,17 +77,16 @@ function renderButton(element, isFetchingInput, mouseReference)
                     dxSetBlendMode("modulate_add")
                     if button_type == "default" then
                         local button_borderSize = availableElements[elementType].minimumSize*0.5
-                        local button_color = tocolor(unpackColor(elementTemplate.color))
-                        dxDrawImage(0, 0, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/top_left.png"], 0, 0, 0, button_color, false)
-                        dxDrawImage(button_width - button_borderSize, 0, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/top_right.png"], 0, 0, 0, button_color, false)
-                        dxDrawImage(0, button_height - button_borderSize, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/bottom_left.png"], 0, 0, 0, button_color, false)
-                        dxDrawImage(button_width - button_borderSize, button_height - button_borderSize, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/bottom_right.png"], 0, 0, 0, button_color, false)
+                        dxDrawImage(0, 0, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/top_left.png"], 0, 0, 0, -1, false)
+                        dxDrawImage(button_width - button_borderSize, 0, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/top_right.png"], 0, 0, 0, -1, false)
+                        dxDrawImage(0, button_height - button_borderSize, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/bottom_left.png"], 0, 0, 0, -1, false)
+                        dxDrawImage(button_width - button_borderSize, button_height - button_borderSize, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/bottom_right.png"], 0, 0, 0, -1, false)
                         if button_width > availableElements[elementType].minimumSize then
-                            dxDrawRectangle(button_borderSize, 0, button_width - availableElements[elementType].minimumSize, button_height, button_color, false)
+                            dxDrawRectangle(button_borderSize, 0, button_width - availableElements[elementType].minimumSize, button_height, -1, false)
                         end
                         if button_height > availableElements[elementType].minimumSize then
-                            dxDrawRectangle(0, button_borderSize, button_borderSize, button_height - availableElements[elementType].minimumSize, button_color, false)
-                            dxDrawRectangle(button_width - button_borderSize, button_borderSize, button_borderSize, button_height - availableElements[elementType].minimumSize, button_color, false)
+                            dxDrawRectangle(0, button_borderSize, button_borderSize, button_height - availableElements[elementType].minimumSize, -1, false)
+                            dxDrawRectangle(button_width - button_borderSize, button_borderSize, button_borderSize, button_height - availableElements[elementType].minimumSize, -1, false)
                         end
                     end
                     dxSetBlendMode("blend")
@@ -121,7 +120,7 @@ function renderButton(element, isFetchingInput, mouseReference)
             end
             local button_fontColor = tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4]*elementReference.gui.animAlphaPercent)
             if elementReference.gui["__UI_CACHE__"]["Button"].renderTexture then
-                dxDrawImage(elementReference.gui["__UI_CACHE__"]["Button"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Button"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Button"].offsets.width, elementReference.gui["__UI_CACHE__"]["Button"].offsets.height, elementReference.gui["__UI_CACHE__"]["Button"].renderTexture, 0, 0, 0, tocolor(255, 255, 255, 255*math.max(0.3, elementReference.gui.animAlphaPercent)), button_postGUI)
+                dxDrawImage(elementReference.gui["__UI_CACHE__"]["Button"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Button"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Button"].offsets.width, elementReference.gui["__UI_CACHE__"]["Button"].offsets.height, elementReference.gui["__UI_CACHE__"]["Button"].renderTexture, 0, 0, 0, tocolor(elementTemplate.color[1], elementTemplate.color[2], elementTemplate.color[3], elementTemplate.color[4]*math.max(0.3, elementReference.gui.animAlphaPercent)), button_postGUI)
             end
             dxDrawText(elementReference.gui["__UI_CACHE__"]["Button"].text.text, elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.endY, button_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "center", "center", true, false, button_postGUI, false)
             renderElementChildren(element)
