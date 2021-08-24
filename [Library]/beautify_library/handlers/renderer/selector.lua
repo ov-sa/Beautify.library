@@ -45,20 +45,20 @@ function renderSelector(element, isFetchingInput, mouseReference)
                         offsets = {}
                     }
                 }
-                elementReference.gui["__UI_CACHE__"]["Arrow_Previous"] = {
+                elementReference.gui["__UI_CACHE__"]["Arrow Previous"] = {
                     offsets = {},
                     icon = {
                         offsets = {}
                     }
                 }
-                elementReference.gui["__UI_CACHE__"]["Arrow_Next"] = {
+                elementReference.gui["__UI_CACHE__"]["Arrow Next"] = {
                     offsets = {},
                     icon = {
                         offsets = {}
                     }
                 }
-                elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Previous"] = {}
-                elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Next"] = {}
+                elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Previous"] = {}
+                elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Next"] = {}
             end
             local selector_startX, selector_startY = elementReference.gui.x, elementReference.gui.y
             local selector_width, selector_height = elementReference.gui.width, elementReference.gui.height
@@ -68,44 +68,44 @@ function renderSelector(element, isFetchingInput, mouseReference)
             local selector_arrow_icon_padding = (selector_arrow_size - selector_arrow_icon_size)*0.5
             if selector_type == "horizontal" then
                 local selector_arrow_offsetY = selector_startY + ((selector_height - selector_arrow_size)*0.5)
-                elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.width = selector_arrow_size
-                elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.height = selector_arrow_size
-                elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.startX = selector_startX
-                elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.startY = selector_arrow_offsetY
-                elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].icon.offsets.width = selector_arrow_icon_size
-                elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].icon.offsets.height = selector_arrow_icon_size
-                elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].icon.offsets.startX = elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.startX + selector_arrow_icon_padding
-                elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].icon.offsets.startY = elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.startY + selector_arrow_icon_padding                
-                elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.width = selector_arrow_size
-                elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.height = selector_arrow_size
-                elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.startX = selector_startX + selector_width - elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.width
-                elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.startY = selector_arrow_offsetY
-                elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.width = selector_arrow_icon_size
-                elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.height = selector_arrow_icon_size
-                elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.startX = elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.startX + selector_arrow_icon_padding
-                elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.startY = elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.startY + selector_arrow_icon_padding
+                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.width = selector_arrow_size
+                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.height = selector_arrow_size
+                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startX = selector_startX
+                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startY = selector_arrow_offsetY
+                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.width = selector_arrow_icon_size
+                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.height = selector_arrow_icon_size
+                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.startX = elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startX + selector_arrow_icon_padding
+                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.startY = elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startY + selector_arrow_icon_padding
+                elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.width = selector_arrow_size
+                elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.height = selector_arrow_size
+                elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startX = selector_startX + selector_width - elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.width
+                elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startY = selector_arrow_offsetY
+                elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.width = selector_arrow_icon_size
+                elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.height = selector_arrow_icon_size
+                elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.startX = elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startX + selector_arrow_icon_padding
+                elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.startY = elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startY + selector_arrow_icon_padding
                 elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startX = selector_startX + selector_arrow_size + selector_content_padding
                 elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startY = selector_startY + selector_content_padding + elementTemplate.fontPaddingY
                 elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endX = selector_startX + selector_width - selector_arrow_size - selector_content_padding
                 elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endY = selector_startY + selector_height - selector_content_padding
             elseif selector_type == "vertical" then
                 local selector_arrow_offsetX = selector_startX + ((selector_width - selector_arrow_size)*0.5)
-                elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.width = selector_arrow_size
-                elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.height = selector_arrow_size
-                elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.startX = selector_arrow_offsetX
-                elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.startY = selector_startY
-                elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].icon.offsets.width = selector_arrow_icon_size
-                elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].icon.offsets.height = selector_arrow_icon_size
-                elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].icon.offsets.startX = elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.startX + selector_arrow_icon_padding
-                elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].icon.offsets.startY = elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.startY + selector_arrow_icon_padding
-                elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.width = selector_arrow_size
-                elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.height = selector_arrow_size
-                elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.startX = selector_arrow_offsetX
-                elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.startY = selector_startY + selector_height - elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.height
-                elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.width = selector_arrow_icon_size
-                elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.height = selector_arrow_icon_size
-                elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.startX = elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.startX + selector_arrow_icon_padding
-                elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.startY = elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.startY + selector_arrow_icon_padding
+                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.width = selector_arrow_size
+                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.height = selector_arrow_size
+                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startX = selector_arrow_offsetX
+                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startY = selector_startY
+                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.width = selector_arrow_icon_size
+                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.height = selector_arrow_icon_size
+                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.startX = elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startX + selector_arrow_icon_padding
+                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.startY = elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startY + selector_arrow_icon_padding
+                elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.width = selector_arrow_size
+                elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.height = selector_arrow_size
+                elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startX = selector_arrow_offsetX
+                elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startY = selector_startY + selector_height - elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.height
+                elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.width = selector_arrow_icon_size
+                elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.height = selector_arrow_icon_size
+                elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.startX = elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startX + selector_arrow_icon_padding
+                elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.startY = elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startY + selector_arrow_icon_padding
                 elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startX = selector_startX + selector_content_padding
                 elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startY = selector_startY + selector_arrow_size + selector_content_padding + elementTemplate.fontPaddingY
                 elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endX = selector_startX + selector_width - selector_content_padding
@@ -114,17 +114,17 @@ function renderSelector(element, isFetchingInput, mouseReference)
             local slider_text = (elementReference.selectorDataList.selection and elementReference.selectorDataList.list[elementReference.selectorDataList.selection]) or "-"
             elementReference.gui["__UI_CACHE__"]["Selector"].text.text = ((elementReference.gui.text and elementReference.gui.text.." | ") or "")..slider_text
             elementReference.gui["__UI_CACHE__"]["Selector"].text.isToBeRendered = ((elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endX - elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startX) > 0) and ((elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endY - elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startY) > 0)
-            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Previous"].startX = elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.startX
-            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Previous"].startY = elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.startY
-            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Previous"].width = elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.width
-            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Previous"].height = elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.height
-            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Next"].startX = elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.startX
-            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Next"].startY = elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.startY
-            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Next"].width = elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.width
-            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Next"].height = elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.height
+            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Previous"].startX = elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startX
+            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Previous"].startY = elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startY
+            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Previous"].width = elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.width
+            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Previous"].height = elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.height
+            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Next"].startX = elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startX
+            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Next"].startY = elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startY
+            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Next"].width = elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.width
+            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Next"].height = elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.height
             if isElementToBeReloaded then
-                elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].color = tocolor(unpackColor(elementTemplate.color))
-                elementReference.gui["__UI_CACHE__"]["Arrow_Next"].color = elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].color
+                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].color = tocolor(unpackColor(elementTemplate.color))
+                elementReference.gui["__UI_CACHE__"]["Arrow Next"].color = elementReference.gui["__UI_CACHE__"]["Arrow Previous"].color
             end
             elementReference.gui["__UI_CACHE__"].reloadElement = nil
             elementReference.gui["__UI_CACHE__"].updateElement = nil
@@ -157,13 +157,13 @@ function renderSelector(element, isFetchingInput, mouseReference)
             else
                 elementReference.gui.arrow_Next.animAlphaPercent = interpolateBetween(elementReference.gui.arrow_Next.animAlphaPercent, 0, 0, 0, 0, 0, getInterpolationProgress(elementReference.gui.arrow_Next.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
             end
-            dxDrawImage(elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].icon.offsets.height, selector_arrow_prevIcon, 0, 0, 0, elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].color, slider_postGUI)
-            dxDrawImage(elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.height, selector_arrow_nextIcon, 0, 0, 0, elementReference.gui["__UI_CACHE__"]["Arrow_Next"].color, slider_postGUI)
+            dxDrawImage(elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.height, selector_arrow_prevIcon, 0, 0, 0, elementReference.gui["__UI_CACHE__"]["Arrow Previous"].color, slider_postGUI)
+            dxDrawImage(elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.height, selector_arrow_nextIcon, 0, 0, 0, elementReference.gui["__UI_CACHE__"]["Arrow Next"].color, slider_postGUI)
             if elementReference.gui.arrow_Previous.animAlphaPercent > 0 then
-                dxDrawImage(elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].icon.offsets.height, selector_arrow_prevIcon, 0, 0, 0, tocolor(elementTemplate.hoverColor[1], elementTemplate.hoverColor[2], elementTemplate.hoverColor[3], elementTemplate.hoverColor[4]*elementReference.gui.arrow_Previous.animAlphaPercent), slider_postGUI)
+                dxDrawImage(elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.height, selector_arrow_prevIcon, 0, 0, 0, tocolor(elementTemplate.hoverColor[1], elementTemplate.hoverColor[2], elementTemplate.hoverColor[3], elementTemplate.hoverColor[4]*elementReference.gui.arrow_Previous.animAlphaPercent), slider_postGUI)
             end
             if elementReference.gui.arrow_Next.animAlphaPercent > 0 then
-                dxDrawImage(elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Arrow_Next"].icon.offsets.height, selector_arrow_nextIcon, 0, 0, 0, tocolor(elementTemplate.hoverColor[1], elementTemplate.hoverColor[2], elementTemplate.hoverColor[3], elementTemplate.hoverColor[4]*elementReference.gui.arrow_Next.animAlphaPercent), slider_postGUI)
+                dxDrawImage(elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.height, selector_arrow_nextIcon, 0, 0, 0, tocolor(elementTemplate.hoverColor[1], elementTemplate.hoverColor[2], elementTemplate.hoverColor[3], elementTemplate.hoverColor[4]*elementReference.gui.arrow_Next.animAlphaPercent), slider_postGUI)
             end
         end
         if elementReference.gui["__UI_CACHE__"]["Selector"].text.isToBeRendered then
@@ -188,7 +188,7 @@ function renderSelector(element, isFetchingInput, mouseReference)
             dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
         end
     else
-        if elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.startX and elementReference.gui["__UI_CACHE__"]["Arrow_Previous"].offsets.startY and elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.startX and elementReference.gui["__UI_CACHE__"]["Arrow_Next"].offsets.startY then
+        if elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startX and elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startY and elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startX and elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startY then
             local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
             renderElementChildren(element, true, mouseReference)
             local isElementHovered = CLIENT_HOVERED_ELEMENT == element
@@ -204,8 +204,8 @@ function renderSelector(element, isFetchingInput, mouseReference)
                     elementReference.gui.hoverStatus = "forward"
                     elementReference.gui.hoverAnimTickCounter = getTickCount()
                 end
-                isArrowPreviousHovered = isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Previous"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Previous"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Previous"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Previous"].height)
-                isArrowNextHovered = isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Next"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Next"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Next"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow_Next"].height)
+                isArrowPreviousHovered = isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Previous"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Previous"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Previous"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Previous"].height)
+                isArrowNextHovered = isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Next"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Next"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Next"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Next"].height)
             else
                 if elementReference.gui.hoverStatus ~= "backward" then
                     elementReference.gui.hoverStatus = "backward"

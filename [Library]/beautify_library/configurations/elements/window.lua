@@ -38,7 +38,8 @@ availableElements[elementType] = {
         ["beautify_button"] = true,
         ["beautify_label"] = true,
         ["beautify_slider"] = true,
-        ["beautify_selector"] = true
+        ["beautify_selector"] = true,
+        ["beautify_checkbox"] = true
     },
     isDraggable = true,
     minimumSize = 56,
