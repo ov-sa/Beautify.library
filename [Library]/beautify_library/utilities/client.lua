@@ -151,7 +151,7 @@ function areUIParametersValid(parameters, elementType, apiName)
     local functionName = (not apiName and availableElements[elementType].syntax.functionName) or apiName
     local functionParemeters, additionParameters = functionReference.parameters, false
     for i, j in ipairs(functionParemeters) do
-        if not parameters[i] or (type(parameters[i]) ~= (((j.type == "float") and "number") or j.type)) then
+        if (parameters[i] == nil) or (type(parameters[i]) ~= (((j.type == "float") and "number") or j.type)) then
             areParametersValid = false
             break
         else

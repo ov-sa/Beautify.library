@@ -32,6 +32,7 @@ function createCheckbox(...)
     if not elementTemplate then return false end
 
     elementReference.gui = cloneUIOutline(elementType)
+    elementReference.gui.selection = false
     for i, j in ipairs(availableElements[elementType].syntax.parameters) do
         if (j.name == "width") or (j.name == "height") then
             elementReference.gui[j.name] = math.max(0, math.max(availableElements[elementType].minimumSize, parameters[i]))

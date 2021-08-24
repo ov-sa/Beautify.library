@@ -35,9 +35,10 @@ availableElements[elementType] = {
     allowedChildren = false,
     isDraggable = false,
     minimumSize = 20,
-    tickboxSize = 12,
+    tickboxSize = 11,
     contentSection = {
         padding = 1,
+        paddingLeft = 2,
         hoverAnimDuration = 1250
     }
 }
