@@ -1,6 +1,6 @@
 <meta>
 
-    <info author="OvileAmriam" name="Beautify Library (Example)" type="Library (Example)" version="1.0.0"/>
+    <info author="OvileAmriam" name="Beautify Library (Example)" type="Example (Library)" version="1.0.0"/>
     <oop>true</oop>
 
     <include resource="beautify_library"/>

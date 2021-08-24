@@ -27,8 +27,7 @@ local function devUI1()
     local createdWindow = beautify.window.create(25, (CLIENT_MTA_RESOLUTION[2] - window_height)/2, window_width, window_height, "Dev. UI #1", nil, false)
     local createdLabel = beautify.label.create("DISCLAIMER: THIS IS JUST A DEVELOPMENT UI!", 0, 0, window_width, 20, createdWindow, false)
     local createdGridlist = beautify.gridlist.create(0, 20, window_width, window_height - 20 - 30, createdWindow, false)
-    local createdButton = beautify.button.create("Button #1", 0, window_height - 30 + 5, "default", 175, 24, createdWindow, false)
-    local createdButton2 = beautify.button.create("Button #2", 180, window_height - 30 + 5, "default", 175, 23, createdWindow, false)
+    
     beautify.label.setHorizontalAlignment(createdLabel, "center")
     beautify.label.setVerticalAlignment(createdLabel, "center")
     beautify.setUIDisabled(createdLabel, true)
@@ -38,11 +37,6 @@ local function devUI1()
     beautify.gridlist.addColumn(createdGridlist, "Country", 100)
     beautify.gridlist.addColumn(createdGridlist, "Rank", 250)
     beautify.setUIVisible(createdGridlist, true)
-    beautify.setUIVisible(createdButton, true)
-    beautify.setUIVisible(createdButton2, true)
-
-    beautify.setUIVisible(createdWindow, true)
-    beautify.setUIDraggable(createdWindow, true)
 
     local rowDatas = {
         {
@@ -73,6 +67,19 @@ local function devUI1()
         end
     end
     beautify.gridlist.setSelection(createdGridlist, 1)
+
+    local createdButton = beautify.button.create("Button #1", 0, window_height - 30 + 5, "default", 175, 24, createdWindow, false)
+    local createdButton2 = beautify.button.create("Button #2", 180, window_height - 30 + 5, "default", 175, 24, createdWindow, false)
+    beautify.setUIVisible(createdButton, true)
+    beautify.setUIVisible(createdButton2, true)
+
+    local createdCheckbox = beautify.checkbox.create(window_width - 150, window_height - 20 - 2, 150, 20, createdWindow, false)
+    beautify.checkbox.setText(createdCheckbox, "Enable Light Mode")
+    beautify.checkbox.setTextColor(createdCheckbox, {255, 255, 255, 255})
+    beautify.setUIVisible(createdCheckbox, true)
+
+    beautify.setUIVisible(createdWindow, true)
+    beautify.setUIDraggable(createdWindow, true)
 
     addEventHandler("onClientUIScroll", createdGridlist, function(state)
         outputChatBox("Scrolled: "..state)
@@ -195,7 +202,7 @@ local function devUI4()
 
     local window_width, window_height = 275, 150
     local createdWindow = beautify.window.create(725 + 300 + 25, (CLIENT_MTA_RESOLUTION[2] - 350)/2 + 150 + 25 + 25, window_width, window_height, "Dev. UI #4", nil, false)
-    
+
     local createdSelector = beautify.selector.create(12.5, 12, 250, 60, "vertical", createdWindow, false)
     local createdSelector2 = beautify.selector.create(12.5, 77, 250, 60, "vertical", createdWindow, false)
     beautify.selector.setText(createdSelector, "Helmet")
