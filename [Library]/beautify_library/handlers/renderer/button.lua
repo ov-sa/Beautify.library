@@ -32,7 +32,7 @@ function renderButton(element, isFetchingInput, mouseReference)
     if not isFetchingInput then
         local elementParent = __getUIParent(element)
         if not elementParent then dxSetRenderTarget() end
-        local isElementToBeReloaded = elementReference.gui["__UI_CACHE__"].reloadElement
+        local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (__reloadResourceTemplates[(elementReference.sourceResource)] and __reloadResourceTemplates[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
         local button_width, button_height = elementReference.gui.size or elementReference.gui.width, elementReference.gui.size or elementReference.gui.height
 
@@ -103,7 +103,9 @@ function renderButton(element, isFetchingInput, mouseReference)
                         elementReference.gui["__UI_CACHE__"]["Button"].renderTarget = nil
                     end
                 end
-                elementReference.gui["__UI_CACHE__"].reloadElement = nil
+                if not CLIENT_MTA_MINIMIZED then
+                    elementReference.gui["__UI_CACHE__"].reloadElement = nil
+                end
                 elementReference.gui["__UI_CACHE__"].updateElement = nil
             end
 

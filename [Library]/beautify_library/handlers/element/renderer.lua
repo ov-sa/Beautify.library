@@ -140,6 +140,17 @@ addEventHandler("onClientRender", root, function()
         clickedMouseKey = false
     end
 
+    if not CLIENT_MTA_MINIMIZED and not __reloadResourceTemplates.__cache.loaded then
+        if __reloadResourceTemplates.__cache.loadStatus == "initialized" then
+            __reloadResourceTemplates.__cache.loadStatus = "reload"
+        elseif __reloadResourceTemplates.__cache.loadStatus == "reload" then
+            __reloadResourceTemplates = {
+                __cache = cloneTableDatas(__reloadResourceTemplates.__cache, false)
+            }
+            __reloadResourceTemplates.__cache.loaded = true
+            __reloadResourceTemplates.__cache.loadStatus = false
+        end
+    end
     CLIENT_MTA_RESTORED = false
     CLIENT_HOVERED_ELEMENT = false
     resetKeyClickCache()

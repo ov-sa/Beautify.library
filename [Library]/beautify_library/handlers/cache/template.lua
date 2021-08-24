@@ -13,6 +13,12 @@
 --[[ Variables ]]--
 -------------------
 
+__reloadResourceTemplates = {
+    __cache = {
+        loaded = true,
+        loadStatus = false
+    }
+}
 local createdTemplates = {}
 
 
@@ -60,8 +66,12 @@ function __setUITemplate(elementType, elementTemplate)
 
     if not elementType or not elementTemplate or not availableTemplates[elementType] or not sourceResource then return false end
 
+    if not __reloadResourceTemplates[sourceResource] then __reloadResourceTemplates[sourceResource] = {} end
     if not createdTemplates[elementType] then createdTemplates[elementType] = {} end
     createdTemplates[elementType][sourceResource] = elementTemplate
+    __reloadResourceTemplates[sourceResource][elementType] = true
+    __reloadResourceTemplates.__cache.loadStatus = "initialized"
+    __reloadResourceTemplates.__cache.loaded = false
     return true
 
 end

@@ -32,7 +32,7 @@ function renderSlider(element, isFetchingInput, mouseReference)
     if not isFetchingInput then
         local elementParent = __getUIParent(element)
         if not elementParent then dxSetRenderTarget() end
-        local isElementToBeReloaded = elementReference.gui["__UI_CACHE__"].reloadElement
+        local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (__reloadResourceTemplates[(elementReference.sourceResource)] and __reloadResourceTemplates[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
         local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
         local slider_type = elementReference.gui.type
@@ -127,7 +127,9 @@ function renderSlider(element, isFetchingInput, mouseReference)
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].startY = elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].width = elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].height = elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.height
-            elementReference.gui["__UI_CACHE__"].reloadElement = nil
+            if not CLIENT_MTA_MINIMIZED then
+                elementReference.gui["__UI_CACHE__"].reloadElement = nil
+            end
             elementReference.gui["__UI_CACHE__"].updateElement = nil
         end
 

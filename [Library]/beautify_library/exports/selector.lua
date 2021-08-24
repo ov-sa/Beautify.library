@@ -72,6 +72,7 @@ function setSelectorDataList(...)
     elementReference.selectorDataList.list = parameters[2]
     if not elementReference.selectorDataList.list[(elementReference.selectorDataList.selection)] then
         elementReference.selectorDataList.selection = 1
+        triggerEvent("onClientUISelectionAltered", element, false)
     end
     elementReference.gui["__UI_CACHE__"].updateElement = true
     triggerEvent("onClientUIAltered", element)
@@ -215,6 +216,7 @@ function setSelectorSelection(...)
     parameters[2] = math.max(1, math.min(#elementReference.selectorDataList.list, parameters[2]))
     if not elementReference.selectorDataList.list[(parameters[2])] or (elementReference.selectorDataList.selection and elementReference.selectorDataList.selection == parameters[2]) then return false end
     elementReference.selectorDataList.selection = parameters[2]
+    triggerEvent("onClientUISelectionAltered", element, elementReference.selectorDataList.selection)
     elementReference.gui["__UI_CACHE__"].updateElement = true
     return true
 

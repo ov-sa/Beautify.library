@@ -109,6 +109,7 @@ function removeGridlistColumn(...)
     end
     if #elementReference.gridData.columns <= 0 then
         elementReference.gridData.selection = false
+        triggerEvent("onClientUISelectionAltered", element, elementReference.gridData.selection)
     end
     elementReference.gui["__UI_CACHE__"].reloadElement = true
     triggerEvent("onClientUIAltered", element)
@@ -192,6 +193,7 @@ function removeGridlistRow(...)
     table.remove(elementReference.gridData.rows, parameters[2])
     if elementReference.gridData.selection and elementReference.gridData.selection == parameters[2] then
         elementReference.gridData.selection = false
+        triggerEvent("onClientUISelectionAltered", element, elementReference.gridData.selection)
     end
     triggerEvent("onClientUIAltered", element)
     return true
@@ -246,6 +248,7 @@ function setGridlistSelection(...)
     local elementReference = createdElements[element]
     if not elementReference.gridData.rows[(parameters[2])] or (elementReference.gridData.selection and elementReference.gridData.selection == parameters[2]) then return false end
     elementReference.gridData.selection = parameters[2]
+    triggerEvent("onClientUISelectionAltered", element, elementReference.gridData.selection)
     return true
 
 end

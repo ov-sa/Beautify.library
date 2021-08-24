@@ -14,6 +14,7 @@
 -------------------
 
 CLIENT_MTA_RESOLUTION = {GuiElement.getScreenSize()}
+CLIENT_MTA_MINIMIZED = false
 CLIENT_MTA_RESTORED = false
 CLIENT_HOVERED_ELEMENT = false
 INPUT_CACHE = {
@@ -175,12 +176,19 @@ addEventHandler("onClientKey", root, function(button, state)
 end, false, UI_PRIORITY_LEVEL.INPUT)
 
 
-----------------------------------
---[[ Event: On Client Restore ]]--
-----------------------------------
+-------------------------------------------
+--[[ Event: On Client Minimize/Restore ]]--
+-------------------------------------------
+
+addEventHandler("onClientMinimize", root, function()
+
+    CLIENT_MTA_MINIMIZED = true
+
+end, false, UI_PRIORITY_LEVEL.INPUT)
 
 addEventHandler("onClientRestore", root, function(clearedRTs)
 
+    CLIENT_MTA_MINIMIZED = false
     if clearedRTs then
         CLIENT_MTA_RESTORED = true
     end

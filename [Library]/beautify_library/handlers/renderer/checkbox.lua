@@ -32,7 +32,7 @@ function renderCheckbox(element, isFetchingInput, mouseReference)
     if not isFetchingInput then
         local elementParent = __getUIParent(element)
         if not elementParent then dxSetRenderTarget() end
-        local isElementToBeReloaded = elementReference.gui["__UI_CACHE__"].reloadElement
+        local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (__reloadResourceTemplates[(elementReference.sourceResource)] and __reloadResourceTemplates[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
         local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
         local checkbox_type = elementReference.gui.type
@@ -92,7 +92,9 @@ function renderCheckbox(element, isFetchingInput, mouseReference)
                 elementReference.gui["__UI_CACHE__"]["Tick Box"].color = tocolor(unpackColor(elementTemplate.tickBox.color))
                 elementReference.gui["__UI_CACHE__"]["Tick Box"].iconColor = tocolor(unpack(elementTemplate.tickBox.iconColor))
             end
-            elementReference.gui["__UI_CACHE__"].reloadElement = nil
+            if not CLIENT_MTA_MINIMIZED then
+                elementReference.gui["__UI_CACHE__"].reloadElement = nil
+            end
             elementReference.gui["__UI_CACHE__"].updateElement = nil
         end
 

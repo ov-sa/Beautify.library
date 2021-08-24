@@ -62,6 +62,7 @@ function setCheckboxSelection(...)
     if (elementReference.gui.selection == parameters[2]) then return false end
     elementReference.gui.selection = parameters[2]
     elementReference.gui["__UI_CACHE__"].updateElement = true
+    triggerEvent("onClientUISelectionAltered", element, elementReference.gui.selection)
     return true
 
 end
