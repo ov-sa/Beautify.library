@@ -1,5 +1,5 @@
 ----------------------------------------------------------------
---[[ Resource: Beautify Library
+--[[ Resource: Beautify Library (Example) 
      Script: configurations: templates: window.lua
      Server: -
      Author: OvileAmriam

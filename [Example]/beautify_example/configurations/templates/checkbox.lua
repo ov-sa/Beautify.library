@@ -1,5 +1,5 @@
 ----------------------------------------------------------------
---[[ Resource: Beautify Library
+--[[ Resource: Beautify Library (Example) 
      Script: configurations: templates: checkbox.lua
      Server: -
      Author: OvileAmriam

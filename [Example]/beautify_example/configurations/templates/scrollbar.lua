@@ -1,5 +1,5 @@
 ----------------------------------------------------------------
---[[ Resource: Beautify Library
+--[[ Resource: Beautify Library (Example) 
      Script: configurations: templates: scrollbar.lua
      Server: -
      Author: OvileAmriam
