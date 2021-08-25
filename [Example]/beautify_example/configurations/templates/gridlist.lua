@@ -49,6 +49,24 @@ availableTemplates["beautify_gridlist"] = {
             hoverFontColor = {0, 0, 0, 255},
             hoverColor = {255, 100, 100, 255}
         }
+    },
+
+    ["dark-green-theme"] = {
+        color = {5, 5, 5, 253},
+        columnBar = {
+            fontColor = {0, 0, 0, 255},
+            color = {125, 255, 125, 255},
+            divider = {
+                size = 2,
+                color = {5, 5, 5, 253}
+            }
+        },
+        rowBar = {
+            fontColor = {100, 255, 100, 255},
+            color = {0, 0, 0, 255},
+            hoverFontColor = {0, 0, 0, 255},
+            hoverColor = {100, 255, 100, 255}
+        }
     }
 
 }

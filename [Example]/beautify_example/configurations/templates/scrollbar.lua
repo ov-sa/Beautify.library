@@ -17,6 +17,8 @@ availableTemplates["beautify_scrollbar"] = {
 
     ["dark-blue-theme"] = {},
 
-    ["dark-red-theme"] = {}
+    ["dark-red-theme"] = {},
+
+    ["dark-green-theme"] = {}
 
 }

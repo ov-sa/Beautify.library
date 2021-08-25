@@ -16,7 +16,7 @@
 function createExampleUI3()
 
     local window_width, window_height = 275, 150
-    local createdWindow = beautify.window.create(725 + 300 + 25, (CLIENT_MTA_RESOLUTION[2] - 350)/2, window_width, window_height, "Dev. UI #3", nil, false)
+    local createdWindow = beautify.window.create(725 + 300 + 25, (CLIENT_MTA_RESOLUTION[2] - 350)/2 + 50, window_width, window_height, "Dev. UI #3", nil, false)
     
     local createdSelector = beautify.selector.create(12.5, 12.5, 250, 20, "horizontal", createdWindow, false)
     local createdSelector2 = beautify.selector.create(12.5, 47.5, 250, 20, "horizontal", createdWindow, false)
@@ -26,6 +26,7 @@ function createExampleUI3()
     beautify.selector.setText(createdSelector2, "Torso")
     beautify.selector.setText(createdSelector3, "Trouser")
     beautify.selector.setText(createdSelector4, "Feet")
+
     beautify.selector.setDataList(createdSelector, {
         "American",
         "Asian",

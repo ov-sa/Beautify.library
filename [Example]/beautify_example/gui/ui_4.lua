@@ -16,7 +16,7 @@
 function createExampleUI4()
 
     local window_width, window_height = 275, 150
-    local createdWindow = beautify.window.create(725 + 300 + 25, (CLIENT_MTA_RESOLUTION[2] - 350)/2 + 150 + 25 + 25, window_width, window_height, "Dev. UI #4", nil, false)
+    local createdWindow = beautify.window.create(725 + 300 + 25, (CLIENT_MTA_RESOLUTION[2] - 350)/2 + 150 + 50 + 50, window_width, window_height, "Dev. UI #4", nil, false)
 
     local createdSelector = beautify.selector.create(12.5, 12, 250, 60, "vertical", createdWindow, false)
     local createdSelector2 = beautify.selector.create(12.5, 77, 250, 60, "vertical", createdWindow, false)

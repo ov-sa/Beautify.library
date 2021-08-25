@@ -29,6 +29,14 @@ availableTemplates["beautify_checkbox"] = {
             color = {50, 50, 50, 255},
             iconColor = {255, 125, 125, 255}
         }
+    },
+
+    ["dark-green-theme"] = {
+        fontColor = {200, 200, 200, 255},
+        tickBox = {
+            color = {50, 50, 50, 255},
+            iconColor = {125, 255, 125, 255}
+        }
     }
 
 }
