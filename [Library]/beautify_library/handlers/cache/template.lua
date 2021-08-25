@@ -13,30 +13,86 @@
 --[[ Variables ]]--
 -------------------
 
-__reloadResourceTemplates = {
+reloadResourceTemplates = {
     __cache = {
         loaded = true,
         loadStatus = false
     }
 }
-local createdTemplates = {}
+local createdResourceTemplates = {}
 
 
 --------------------------------------------------
 --[[ Function: Clears Resource's UI Templates ]]--
 --------------------------------------------------
 
-function __clearResourceUITemplates(sourceResource)
+function __clearResourceUITemplates(resetElementTypeAssets)
 
     if not sourceResource then return false end
 
-    for i, j in pairs(createdTemplates) do
-        if j and j[sourceResource] then
+    if resetElementTypeAssets then
+        if createdResourceTemplates[resetElementTypeAssets] and createdResourceTemplates[resetElementTypeAssets][sourceResource] then
+            for i, j in ipairs(createdResourceTemplates[resetElementTypeAssets][sourceResource].assets) do
+                if j and isElement(j) then
+                    j:destroy()
+                end
+            end
+            createdResourceTemplates[resetElementTypeAssets][sourceResource].assets = nil
+        end
+    else
+        for i, j in pairs(createdResourceTemplates) do
+            if j[sourceResource] then
+                __clearResourceUITemplates(i)
+            end
             j[sourceResource] = nil
         end
     end
     collectgarbage()
     return true
+
+end
+
+
+-----------------------------------------
+--[[ Function: Creates UI's Template ]]--
+-----------------------------------------
+
+local function __createTemplate(elementType, defaultTemplate, customTemplate)
+
+    if not elementType or not defaultTemplate or not customTemplate then return false end
+
+    for i, j in pairs(defaultTemplate) do
+        if customTemplate[i] then
+            local defaultDataType, currentDataType = type(j), type(customTemplate[i])
+            if defaultDataType == "table" then
+                if currentDataType == defaultDataType then
+                    defaultTemplate[i] = __createTemplate(elementType, j, customTemplate[i])
+                end
+            else
+                if i == "font" then
+                    if currentDataType == "table" and (#customTemplate[i] >= 2) then
+                        local resourceName = sourceResource:getName()
+                        local fontPath = ":"..resourceName.."/"..customTemplate[i][1]
+                        if File.exists(fontPath) then
+                            local fontScale = tonumber(customTemplate[i][2]) or 0
+                            if fontScale > 0 then
+                                local createdFont = DxFont(fontPath, fontScale)
+                                if createdFont then
+                                    defaultTemplate[i] = createdFont
+                                    table.insert(createdResourceTemplates[elementType][sourceResource].assets, createdFont)
+                                end
+                            end
+                        end
+                    end
+                else
+                    if (currentDataType == defaultDataType) then
+                        defaultTemplate[i] = customTemplate[i]
+                    end
+                end
+            end
+        end
+    end
+    return defaultTemplate
 
 end
 
@@ -50,12 +106,12 @@ function __getUITemplate(elementType, elementSourceResource)
     if not elementType or not availableTemplates[elementType] then return false end
     
     if elementSourceResource then
-        if createdTemplates[elementType] and createdTemplates[elementType][elementSourceResource] then
-            return createdTemplates[elementType][elementSourceResource]
+        if createdResourceTemplates[elementType] and createdResourceTemplates[elementType][elementSourceResource] then
+            return createdResourceTemplates[elementType][elementSourceResource].template
         end
     else
-        if sourceResource and createdTemplates[elementType] and createdTemplates[elementType][sourceResource] then
-            return createdTemplates[elementType][sourceResource]
+        if sourceResource and createdResourceTemplates[elementType] and createdResourceTemplates[elementType][sourceResource] then
+            return createdResourceTemplates[elementType][sourceResource].template
         end
     end
     return availableTemplates[elementType]
@@ -64,14 +120,19 @@ end
 
 function __setUITemplate(elementType, elementTemplate)
 
-    if not elementType or not elementTemplate or not availableTemplates[elementType] or not sourceResource then return false end
+    if not sourceResource or not elementType or not elementTemplate or not availableTemplates[elementType] or type(elementTemplate) ~= "table" then return false end
 
-    if not __reloadResourceTemplates[sourceResource] then __reloadResourceTemplates[sourceResource] = {} end
-    if not createdTemplates[elementType] then createdTemplates[elementType] = {} end
-    createdTemplates[elementType][sourceResource] = elementTemplate
-    __reloadResourceTemplates[sourceResource][elementType] = true
-    __reloadResourceTemplates.__cache.loadStatus = "initialized"
-    __reloadResourceTemplates.__cache.loaded = false
+    if not reloadResourceTemplates[sourceResource] then reloadResourceTemplates[sourceResource] = {} end
+    if not createdResourceTemplates[elementType] then createdResourceTemplates[elementType] = {} end
+    __clearResourceUITemplates(elementType)
+    createdResourceTemplates[elementType][sourceResource] = {
+        assets = {},
+        template = false
+    }
+    createdResourceTemplates[elementType][sourceResource].template = __createTemplate(elementType, cloneTableDatas(availableTemplates[elementType], true), elementTemplate)
+    reloadResourceTemplates[sourceResource][elementType] = true
+    reloadResourceTemplates.__cache.loadStatus = "initialized"
+    reloadResourceTemplates.__cache.loaded = false
     return true
 
 end

@@ -32,7 +32,7 @@ function renderGridlist(element, isFetchingInput, mouseReference)
     if not isFetchingInput then
         local elementParent = __getUIParent(element)
         if not elementParent then dxSetRenderTarget() end
-        local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (__reloadResourceTemplates[(elementReference.sourceResource)] and __reloadResourceTemplates[(elementReference.sourceResource)][elementType]))
+        local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (reloadResourceTemplates[(elementReference.sourceResource)] and reloadResourceTemplates[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
         local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
         local gridlist_postGUI = elementReference.gui.postGUI

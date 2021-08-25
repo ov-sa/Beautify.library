@@ -26,13 +26,13 @@ end
 
 function clearResourceUITemplates()
 
-    return __clearResourceUITemplates(sourceResource)
+    return __clearResourceUITemplates()
 
 end
 
 function clearResourceUIElements()
 
-    return __clearResourceUIElements(sourceResource)
+    return __clearResourceUIElements()
 
 end
 
