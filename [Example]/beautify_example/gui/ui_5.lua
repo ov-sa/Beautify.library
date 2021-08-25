@@ -52,7 +52,7 @@ local function switchTemplate(state)
 
     if isTemplateToBeReloaded then
         for i, j in pairs(availableTemplates) do
-            exports.beautify_library:setUITemplate(i, j[(loadedTemplates[currentTemplateIndex].template)])
+            beautify.setUITemplate(i, j[(loadedTemplates[currentTemplateIndex].template)])
         end
     end
 
