@@ -31,6 +31,12 @@ availableTemplates["beautify_selector"] = {
         color = {50, 50, 50, 255},
         hoverColor = {125, 255, 125, 255},
         fontColor = {200, 200, 200, 255}
+    },
+
+    ["dark-yellow-theme"] = {
+        color = {50, 50, 50, 255},
+        hoverColor = {255, 255, 125, 255},
+        fontColor = {200, 200, 200, 255}
     }
 
 }

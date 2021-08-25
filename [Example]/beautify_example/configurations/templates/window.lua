@@ -64,6 +64,23 @@ availableTemplates["beautify_window"] = {
                 hoverColor = {125, 255, 125, 255}
             }
         }
+    },
+
+    ["dark-yellow-theme"] = {
+        color = {0, 0, 0, 253},
+        titleBar = {
+            fontColor = {255, 255, 125, 255},
+            color = {0, 0, 0, 255},
+            divider = {
+                size = 1,
+                color = {255, 255, 125, 150}
+            },
+            closeButton = {
+                fontColor = {255, 255, 125, 255},
+                hoverFontColor = {0, 0, 0, 255},
+                hoverColor = {255, 255, 125, 255}
+            }
+        }
     }
 
 }

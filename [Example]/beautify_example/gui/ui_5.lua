@@ -17,7 +17,8 @@ local currentTemplateIndex = false
 local loadedTemplates = {
     {template = "dark-blue-theme", label = "Enable Dark (Blue) Mode", labelColor = {125, 125, 255, 255}},
     {template = "dark-red-theme", label = "Enable Dark (Red) Mode", labelColor = {255, 125, 125, 255}},
-    {template = "dark-green-theme", label = "Enable Dark (Green) Mode", labelColor = {125, 255, 125, 255}}
+    {template = "dark-green-theme", label = "Enable Dark (Green) Mode", labelColor = {125, 255, 125, 255}},
+    {template = "dark-yellow-theme", label = "Enable Dark (Yellow) Mode", labelColor = {255, 255, 125, 255}}
 }
 
 local function switchTemplate(state)

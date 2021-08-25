@@ -52,6 +52,19 @@ availableTemplates["beautify_slider"] = {
             size = 9.2,
             color = {125, 255, 125, 255}
         }
+    },
+
+    ["dark-yellow-theme"] = {
+        fontColor = {200, 200, 200, 255},
+        track = {
+            size = 3,
+            progressedColor = {255, 255, 125, 255},
+            unprogressedColor = {15, 15, 15, 255}
+        },
+        thumb = {
+            size = 9.2,
+            color = {255, 255, 125, 255}
+        }
     }
 
 }

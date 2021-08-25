@@ -19,6 +19,8 @@ availableTemplates["beautify_label"] = {
 
     ["dark-red-theme"] = {},
 
-    ["dark-green-theme"] = {}
+    ["dark-green-theme"] = {},
+
+    ["dark-yellow-theme"] = {}
 
 }
