@@ -87,6 +87,16 @@ local function devUI1()
     addEventHandler("onClientUIAltered", createdGridlist, function()
         outputChatBox("Altered")
     end)
+    addEventHandler("onClientUISelectionAltered", createdCheckbox, function(state)
+        exports.beautify_library:setUITemplate("beautify_scrollbar", (not state and availableTemplates["beautify_scrollbar"]["dark-blue-theme"]) or availableTemplates["beautify_scrollbar"]["dark-red-theme"])
+        exports.beautify_library:setUITemplate("beautify_window", (not state and availableTemplates["beautify_window"]["dark-blue-theme"]) or availableTemplates["beautify_window"]["dark-red-theme"])
+        exports.beautify_library:setUITemplate("beautify_gridlist", (not state and availableTemplates["beautify_gridlist"]["dark-blue-theme"]) or availableTemplates["beautify_gridlist"]["dark-red-theme"])
+        exports.beautify_library:setUITemplate("beautify_button", (not state and availableTemplates["beautify_button"]["dark-blue-theme"]) or availableTemplates["beautify_button"]["dark-red-theme"])
+        exports.beautify_library:setUITemplate("beautify_label", (not state and availableTemplates["beautify_label"]["dark-blue-theme"]) or availableTemplates["beautify_label"]["dark-red-theme"])
+        exports.beautify_library:setUITemplate("beautify_slider", (not state and availableTemplates["beautify_slider"]["dark-blue-theme"]) or availableTemplates["beautify_slider"]["dark-red-theme"])
+        exports.beautify_library:setUITemplate("beautify_selector", (not state and availableTemplates["beautify_selector"]["dark-blue-theme"]) or availableTemplates["beautify_selector"]["dark-red-theme"])
+        exports.beautify_library:setUITemplate("beautify_checkbox", (not state and availableTemplates["beautify_checkbox"]["dark-blue-theme"]) or availableTemplates["beautify_checkbox"]["dark-red-theme"])
+    end)
 
 end
 

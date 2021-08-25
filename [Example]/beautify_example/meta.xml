@@ -3,7 +3,19 @@
     <info author="OvileAmriam" name="Beautify Library (Example)" type="Example (Library)" version="1.0.0"/>
     <oop>true</oop>
 
+    <!-- Imports -->
     <include resource="beautify_library"/>
+
+    <!-- Configurations -->
+    <script src="configurations/templates/initial.lua" type="client" cache="false"/>
+    <script src="configurations/templates/scrollbar.lua" type="client" cache="false"/>
+    <script src="configurations/templates/window.lua" type="client" cache="false"/>
+    <script src="configurations/templates/gridlist.lua" type="client" cache="false"/>
+    <script src="configurations/templates/button.lua" type="client" cache="false"/>
+    <script src="configurations/templates/label.lua" type="client" cache="false"/>
+    <script src="configurations/templates/slider.lua" type="client" cache="false"/>
+    <script src="configurations/templates/selector.lua" type="client" cache="false"/>
+    <script src="configurations/templates/checkbox.lua" type="client" cache="false"/>
 
     <!-- Handlers -->
     <script src="handlers/development.lua" type="client" cache="false"/>
