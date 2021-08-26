@@ -217,7 +217,7 @@ function renderWindow(element, isFetchingInput, mouseReference)
     else
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
         imports.renderElementChildren(element, true, mouseReference)
-        local isElementHovered = CLIENT_HOVERED_ELEMENT == element
+        local isElementHovered = CLIENT_HOVERED_ELEMENT.element == element
         local isCloseButtonHovered = false
         if isElementHovered then
             local isTitleBarClicked = false

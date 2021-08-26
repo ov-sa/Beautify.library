@@ -224,7 +224,7 @@ function renderSelector(element, isFetchingInput, mouseReference)
         if elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startX and elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startY and elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startX and elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startY then
             local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
             imports.renderElementChildren(element, true, mouseReference)
-            local isElementHovered = CLIENT_HOVERED_ELEMENT == element
+            local isElementHovered = CLIENT_HOVERED_ELEMENT.element == element
             local isSelectorHovered = false
             local isArrowPreviousHovered, isArrowNextHovered = false, false
             if isElementHovered then

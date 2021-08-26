@@ -100,13 +100,16 @@ function createUIElement(elementType, parentElement, sourceResource)
         if isChildElement then
             renderIndexReference = createdElements[parentElement].renderIndexReference[(createdElements[parentElement].renderIndex)].children
             createdElements[createdElement] = {
-                parentElement = parentElement
+                parentElement = parentElement,
+                elementRoot = createdElements[parentElement].elementRoot or parentElement
             }
             createdElements[parentElement].children[createdElement] = true
         else
             parentElement = nil
             renderIndexReference = createdRenderingPriority
-            createdElements[createdElement] = {}
+            createdElements[createdElement] = {
+                elementRoot = false
+            }
             createdNonParentElements[createdElement] = true
         end
         imports.table.insert(renderIndexReference, {

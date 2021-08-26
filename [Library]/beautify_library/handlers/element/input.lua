@@ -35,7 +35,10 @@ CLIENT_IS_CURSOR_SHOWING = imports.isCursorShowing()
 CLIENT_CURSOR_OFFSET = false
 CLIENT_MTA_MINIMIZED = false
 CLIENT_MTA_RESTORED = false
-CLIENT_HOVERED_ELEMENT = false
+CLIENT_HOVERED_ELEMENT = {
+    elementRoot = false,
+    element = false
+}
 INPUT_CACHE = {
     prevKeyClickStates = {},
     prevScrollState = {scrollState = false, streakState = false, streakCounter = 1, tickCounter = CLIENT_CURRENT_TICK}

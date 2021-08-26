@@ -220,7 +220,7 @@ function renderGridlist(element, isFetchingInput, mouseReference)
         imports.renderElementChildren(element, true, mouseReference)
         local gridlist_row_count = #elementReference.gridData.rows
         if gridlist_row_count > 0 then
-            local isElementHovered = CLIENT_HOVERED_ELEMENT == element
+            local isElementHovered = CLIENT_HOVERED_ELEMENT.element == element
             local isGridListHovered = false
             if isElementHovered then
                 local isGridViewAnimating = imports.math.round(elementReference.gui.scrollBar_Vertical.currentPercent, 0) ~= imports.math.round(elementReference.gui.scrollBar_Vertical.finalPercent or 0, 0)

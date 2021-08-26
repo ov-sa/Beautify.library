@@ -169,7 +169,7 @@ function renderCheckbox(element, isFetchingInput, mouseReference)
         if elementReference.gui["__UI_CACHE__"]["Tick Box"].offsets.startX and elementReference.gui["__UI_CACHE__"]["Tick Box"].offsets.startY then
             local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
             imports.renderElementChildren(element, true, mouseReference)
-            local isElementHovered = CLIENT_HOVERED_ELEMENT == element
+            local isElementHovered = CLIENT_HOVERED_ELEMENT.element == element
             local isCheckBoxHovered, isTickBoxHovered = false, false
             local isTickBoxSelected = elementReference.gui.selection
             if isElementHovered then

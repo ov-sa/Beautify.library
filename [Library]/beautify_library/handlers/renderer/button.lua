@@ -161,7 +161,7 @@ function renderButton(element, isFetchingInput, mouseReference)
         if elementReference.gui["__UI_CACHE__"]["Button"].offsets.width and elementReference.gui["__UI_CACHE__"]["Button"].offsets.height then
             local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
             imports.renderElementChildren(element, true, mouseReference)
-            local isElementHovered = CLIENT_HOVERED_ELEMENT == element
+            local isElementHovered = CLIENT_HOVERED_ELEMENT.element == element
             local isButtonHovered = false
             if isElementHovered then
                 if not elementReference.isDisabled then

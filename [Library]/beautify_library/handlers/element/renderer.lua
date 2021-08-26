@@ -47,6 +47,7 @@ local imports = {
 -------------------
 
 local clickedMouseKey = false
+CLIENT_ELEMENT_FORCE_RENDERED = {}
 
 
 --------------------------------------------------------
@@ -70,13 +71,21 @@ local function renderElements()
     for i = #validatedRenderingPriority, 1, -1 do
         local element = validatedRenderingPriority[i].element
         local elementType = validatedRenderingPriority[i].type
-        if not CLIENT_HOVERED_ELEMENT and not imports.isUIDisabled(element) then
+        if not CLIENT_HOVERED_ELEMENT.element and not imports.isUIDisabled(element) then
             local elementReference = createdElements[element]
             if imports.isMouseOnPosition(elementReference.gui.x, elementReference.gui.y, elementReference.gui.width, elementReference.gui.height) then
-                CLIENT_HOVERED_ELEMENT = element
+                CLIENT_HOVERED_ELEMENT.elementRoot = element
+                CLIENT_HOVERED_ELEMENT.element = element
+                availableElements[elementType].renderFunction(element, true, {x = 0, y = 0, element = element})
+                break
             end
         end
-        --TODO: MAYBE THIS SHOULD BE RESTRICTED AFTER ALL ANIMATIONS ARE DONE SO IT DOESN'T LOOP OVER UNNECESSARY ONES && ^ BREAK THE ABOVE LOOP
+        --TODO: RENDER SOME ELEMENTS THAT ARE ANIMATING YET :)
+    end
+    for element, j in pairs(CLIENT_ELEMENT_FORCE_RENDERED) do
+        --TODO: ...
+        local elementType = createdElements[element].elementType
+        availableElements[elementType].renderFunction(element, false, {x = 0, y = 0, element = element})
         availableElements[elementType].renderFunction(element, true, {x = 0, y = 0, element = element})
     end
     return true
@@ -84,6 +93,19 @@ local function renderElements()
 end
 
 function renderElementChildren(element, isFetchingInput, mouseReference)
+
+    local elementRoot = createdElements[element].elementRoot
+    if not CLIENT_MTA_RESTORED then
+        if not elementRoot then
+            if CLIENT_HOVERED_ELEMENT.elementRoot ~= element then
+                return false
+            end
+        else
+            if CLIENT_HOVERED_ELEMENT.elementRoot ~= elementRoot then
+                return false
+            end
+        end
+    end
 
     local elementReference = createdElements[element]
     local elementChildrenCount = #elementReference.renderIndexReference[(elementReference.renderIndex)].children
@@ -120,10 +142,10 @@ function renderElementChildren(element, isFetchingInput, mouseReference)
             local childElement = elementReference.renderIndexReference[(elementReference.renderIndex)].children[i].element
             if imports.isUIValid(childElement) and imports.isUIVisible(childElement) then
                 local childElementType = createdElements[childElement].elementType
-                if (CLIENT_HOVERED_ELEMENT == element) and not imports.isUIDisabled(childElement) then
+                if (CLIENT_HOVERED_ELEMENT.element == element) and not imports.isUIDisabled(childElement) then
                     local childReference = createdElements[childElement]
                     if imports.isMouseOnPosition(propagatedMouseReference.x + childReference.gui.x, propagatedMouseReference.y + childReference.gui.y, childReference.gui.width, childReference.gui.height, childReference.gui.height) then
-                        CLIENT_HOVERED_ELEMENT = childElement
+                        CLIENT_HOVERED_ELEMENT.element = childElement
                     end
                 end
                 availableElements[childElementType].renderFunction(childElement, true, propagatedMouseReference)
@@ -142,12 +164,24 @@ end
 imports.addEventHandler("onClientRender", root, function()
 
     if CLIENT_ATTACHED_ELEMENT then
+        local elementRoot = createdElements[(CLIENT_ATTACHED_ELEMENT.element)].elementRoot
         if not CLIENT_ATTACHED_ELEMENT.element or not imports.isElement(CLIENT_ATTACHED_ELEMENT.element) or not createdElements[CLIENT_ATTACHED_ELEMENT.element] then
+            if elementRoot then
+                CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] = false
+            end
             imports.detachUIElement()
         elseif CLIENT_MTA_WINDOW_ACTIVE or not CLIENT_IS_CURSOR_SHOWING or not imports.isKeyOnHold("mouse1") or not imports.isUIValid(CLIENT_ATTACHED_ELEMENT.element) or not imports.isUIVisible(CLIENT_ATTACHED_ELEMENT.element) then
+            if elementRoot then
+                CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] = false
+            end
             createdElements[(CLIENT_ATTACHED_ELEMENT.element)].gui["__UI_CACHE__"].updateElement = true
             imports.detachUIElement()
         else
+            --outputChatBox("TEST 3")
+            if elementRoot then
+                --outputChatBox("YES//")
+                CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] = true
+            end
             if not CLIENT_ATTACHED_ELEMENT.isInternal then
                 local cursor_offsetX, cursor_offsetY = imports.getAbsoluteCursorPosition()
                 if cursor_offsetX and cursor_offsetY then
@@ -161,9 +195,9 @@ imports.addEventHandler("onClientRender", root, function()
 
     clickedMouseKey = (not CLIENT_ATTACHED_ELEMENT and imports.isMouseClicked())
     renderElements()
-    if clickedMouseKey and CLIENT_HOVERED_ELEMENT then
+    if clickedMouseKey and CLIENT_HOVERED_ELEMENT.element then
         imports.resetKeyClickCache(clickedMouseKey)
-        imports.triggerEvent("onClientUIClick", CLIENT_HOVERED_ELEMENT, (clickedMouseKey == "mouse1" and "left") or "right")
+        imports.triggerEvent("onClientUIClick", CLIENT_HOVERED_ELEMENT.element, (clickedMouseKey == "mouse1" and "left") or "right")
         clickedMouseKey = false
     end
 
@@ -179,7 +213,10 @@ imports.addEventHandler("onClientRender", root, function()
         end
     end
     CLIENT_MTA_RESTORED = false
-    CLIENT_HOVERED_ELEMENT = false
+    if not CLIENT_HOVERED_ELEMENT.element then
+        CLIENT_HOVERED_ELEMENT.elementRoot = false
+    end
+    CLIENT_HOVERED_ELEMENT.element = false
     imports.resetKeyClickCache()
     imports.resetScrollCache()
 
