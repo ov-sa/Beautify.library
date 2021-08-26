@@ -138,6 +138,7 @@ end
 
 function isMouseOnPosition(x, y, width, height)
 
+    if CLIENT_ATTACHED_ELEMENT then return false end
     local cursor_offsetX, cursor_offsetY = getAbsoluteCursorPosition()
     if not cursor_offsetX or not cursor_offsetY then return false end
 
