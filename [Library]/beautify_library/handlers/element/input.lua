@@ -18,7 +18,8 @@ local imports = {
     getTickCount = getTickCount,
     isMTAWindowActive = isMTAWindowActive,
     isCursorShowing = isCursorShowing,
-    getKeyState = getKeyState
+    getCursorPosition = getCursorPosition,
+    getKeyState = getKeyState,
 }
 
 
@@ -30,6 +31,7 @@ CLIENT_MTA_RESOLUTION = {imports.guiGetScreenSize()}
 CLIENT_CURRENT_TICK = imports.getTickCount()
 CLIENT_MTA_WINDOW_ACTIVE = imports.isMTAWindowActive()
 CLIENT_IS_CURSOR_SHOWING = imports.isCursorShowing()
+CLIENT_CURSOR_OFFSET = false
 CLIENT_MTA_MINIMIZED = false
 CLIENT_MTA_RESTORED = false
 CLIENT_HOVERED_ELEMENT = false
@@ -141,6 +143,15 @@ addEventHandler("onClientRender", root, function()
     CLIENT_CURRENT_TICK = imports.getTickCount()
     CLIENT_MTA_WINDOW_ACTIVE = imports.isMTAWindowActive()
     CLIENT_IS_CURSOR_SHOWING = imports.isCursorShowing()
+    if CLIENT_IS_CURSOR_SHOWING then
+        if not CLIENT_CURSOR_OFFSET then
+            CLIENT_CURSOR_OFFSET = {imports.getCursorPosition()}
+        else
+            CLIENT_CURSOR_OFFSET[1], CLIENT_CURSOR_OFFSET[2], CLIENT_CURSOR_OFFSET[3], CLIENT_CURSOR_OFFSET[4], CLIENT_CURSOR_OFFSET[5] = imports.getCursorPosition()
+        end
+    else
+        CLIENT_CURSOR_OFFSET = false
+    end
 
     if not isInputValid() then return false end
 
