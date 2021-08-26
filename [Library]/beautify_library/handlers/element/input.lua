@@ -19,6 +19,7 @@ local imports = {
     isMTAWindowActive = isMTAWindowActive,
     isCursorShowing = isCursorShowing,
     getCursorPosition = getCursorPosition,
+    addEventHandler = addEventHandler,
     getKeyState = getKeyState,
 }
 
@@ -138,7 +139,7 @@ end
 --[[ Event: On Client Render ]]--
 ---------------------------------
 
-addEventHandler("onClientRender", root, function()
+imports.addEventHandler("onClientRender", root, function()
 
     CLIENT_CURRENT_TICK = imports.getTickCount()
     CLIENT_MTA_WINDOW_ACTIVE = imports.isMTAWindowActive()
@@ -177,7 +178,7 @@ end, false, UI_PRIORITY_LEVEL.INPUT)
 --[[ Event: On Client Key ]]--
 ------------------------------
 
-addEventHandler("onClientKey", root, function(button, state)
+imports.addEventHandler("onClientKey", root, function(button, state)
 
     if not isInputValid() then return false end
 
@@ -211,13 +212,13 @@ end, false, UI_PRIORITY_LEVEL.INPUT)
 --[[ Events: On Client Minimize/Restore ]]--
 --------------------------------------------
 
-addEventHandler("onClientMinimize", root, function()
+imports.addEventHandler("onClientMinimize", root, function()
 
     CLIENT_MTA_MINIMIZED = true
 
 end, false, UI_PRIORITY_LEVEL.INPUT)
 
-addEventHandler("onClientRestore", root, function(clearedRTs)
+imports.addEventHandler("onClientRestore", root, function(clearedRTs)
 
     CLIENT_MTA_MINIMIZED = false
     if clearedRTs then
@@ -231,7 +232,7 @@ end, false, UI_PRIORITY_LEVEL.INPUT)
 --[[ Event: On Client Resource Start ]]--
 -----------------------------------------
 
-addEventHandler("onClientResourceStart", resource, function()
+imports.addEventHandler("onClientResourceStart", resource, function()
 
     for i, j in ipairs(DEFAULT_INPUT_KEYS) do
         addKeyClickCache(j)

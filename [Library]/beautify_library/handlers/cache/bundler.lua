@@ -17,6 +17,7 @@ local imports = {
     pairs = pairs,
     ipairs = ipairs,
     getResourceName = getResourceName,
+    addEventHandler = addEventHandler,
     string = {
         sub = string.sub,
         gsub = string.gsub,
@@ -49,7 +50,7 @@ end
 --[[ Event: On Client Resource Start ]]--
 -----------------------------------------
 
-addEventHandler("onClientResourceStart", resource, function(resourceSource)
+imports.addEventHandler("onClientResourceStart", resource, function(resourceSource)
 
     local resourceName = imports.getResourceName(resourceSource)
 

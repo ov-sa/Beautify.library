@@ -19,6 +19,7 @@ local imports = {
     tonumber = tonumber,
     pairs = pairs,
     ipairs = ipairs,
+    addEventHandler = addEventHandler,
     getElementType = getElementType,
     destroyElement = destroyElement,
     collectgarbage = collectgarbage,
@@ -231,7 +232,7 @@ end
 ----------------------------------------
 
 local isLibraryResourceStopping = false
-addEventHandler("onClientResourceStop", root, function()
+imports.addEventHandler("onClientResourceStop", root, function()
 
     if source == resource then
         isLibraryResourceStopping = true
@@ -248,7 +249,7 @@ end)
 --[[ Event: On Client Element Destroy ]]--
 ------------------------------------------
 
-addEventHandler("onClientElementDestroy", resourceRoot, function()
+imports.addEventHandler("onClientElementDestroy", resourceRoot, function()
 
     if not isLibraryResourceStopping then
         imports.destroyElement(source)

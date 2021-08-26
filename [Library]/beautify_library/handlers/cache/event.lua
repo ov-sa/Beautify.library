@@ -16,7 +16,8 @@
 local imports = {
     pairs = pairs,
     ipairs = ipairs,
-    addEvent = addEvent
+    addEvent = addEvent,
+    addEventHandler = addEventHandler
 }
 
 
@@ -24,7 +25,7 @@ local imports = {
 --[[ Event: On Client Resource Start ]]--
 -----------------------------------------
 
-addEventHandler("onClientResourceStart", resource, function()
+imports.addEventHandler("onClientResourceStart", resource, function()
 
     for i, j in imports.pairs(availableEvents) do
         for k, v in imports.ipairs(j) do

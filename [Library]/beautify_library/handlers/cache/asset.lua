@@ -16,6 +16,7 @@
 local imports = {
     pairs = pairs,
     ipairs = ipairs,
+    addEventHandler = addEventHandler,
     fileExists = fileExists,
     dxCreateTexture = dxCreateTexture
 }
@@ -32,7 +33,7 @@ createdAssets = {}
 --[[ Event: On Client Resource Start ]]--
 -----------------------------------------
 
-addEventHandler("onClientResourceStart", resource, function()
+imports.addEventHandler("onClientResourceStart", resource, function()
 
     for i, j in imports.pairs(availableAssets) do
         createdAssets[i] = {}
