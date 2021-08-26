@@ -141,7 +141,7 @@ function __getUITemplate(elementType, elementSourceResource)
 
 end
 
-function __setUITemplate(elementType, elementTemplate)
+function setUITemplate(elementType, elementTemplate)
 
     if not sourceResource or not elementType or not elementTemplate or not availableTemplates[elementType] or imports.type(elementTemplate) ~= "table" then return false end
 
@@ -157,5 +157,12 @@ function __setUITemplate(elementType, elementTemplate)
     reloadResourceTemplates.__cache.loadStatus = "initialized"
     reloadResourceTemplates.__cache.loaded = false
     return true
+
+end
+
+function getUITemplate(...)
+
+    local parameters = {...}
+    return __getUITemplate(parameters[1])
 
 end

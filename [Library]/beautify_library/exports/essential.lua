@@ -9,24 +9,6 @@
 ----------------------------------------------------------------
 
 
--------------------------------------------------
---[[ Functions: Retrieves/Sets UI's Template ]]--
--------------------------------------------------
-
-function getUITemplate(...)
-
-    local parameters = {...}
-    return __getUITemplate(parameters[1])
-
-end
-
-function setUITemplate(...)
-
-    return __setUITemplate(...)
-
-end
-
-
 ------------------------------------------
 --[[ Function: Verifies UI's Validity ]]--
 ------------------------------------------

@@ -32,7 +32,7 @@ local imports = {
     isMouseOnPosition = isMouseOnPosition,
     detachUIElement = detachUIElement,
     dxSetRenderTarget = dxSetRenderTarget,
-    dxSetBlendMode = dxSetRenderTarget,
+    dxSetBlendMode = dxSetBlendMode,
     table = {
         insert = table.insert
     },
