@@ -34,7 +34,7 @@ function __clearResourceUITemplates(resetElementTypeAssets)
         if createdResourceTemplates[resetElementTypeAssets] and createdResourceTemplates[resetElementTypeAssets][sourceResource] then
             for i, j in ipairs(createdResourceTemplates[resetElementTypeAssets][sourceResource].assets) do
                 if j and isElement(j) then
-                    j:destroy()
+                    destroyElement(j)
                 end
             end
             createdResourceTemplates[resetElementTypeAssets][sourceResource].assets = nil
@@ -71,12 +71,12 @@ local function __createTemplate(elementType, defaultTemplate, customTemplate)
             else
                 if i == "font" then
                     if currentDataType == "table" and (#customTemplate[i] >= 2) then
-                        local resourceName = sourceResource:getName()
+                        local resourceName = getResourceName(sourceResource)
                         local fontPath = ":"..resourceName.."/"..customTemplate[i][1]
-                        if File.exists(fontPath) then
+                        if fileExists(fontPath) then
                             local fontScale = tonumber(customTemplate[i][2]) or 0
                             if fontScale > 0 then
-                                local createdFont = DxFont(fontPath, fontScale)
+                                local createdFont = dxCreateFont(fontPath, fontScale)
                                 if createdFont then
                                     defaultTemplate[i] = createdFont
                                     table.insert(createdResourceTemplates[elementType][sourceResource].assets, createdFont)

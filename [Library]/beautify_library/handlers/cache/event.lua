@@ -9,15 +9,26 @@
 ----------------------------------------------------------------
 
 
+-----------------
+--[[ Imports ]]--
+-----------------
+
+local imports = {
+    pairs = pairs,
+    ipairs = ipairs,
+    addEvent = addEvent
+}
+
+
 -----------------------------------------
 --[[ Event: On Client Resource Start ]]--
 -----------------------------------------
 
 addEventHandler("onClientResourceStart", resource, function()
 
-    for i, j in pairs(availableEvents) do
-        for k, v in ipairs(j) do
-            addEvent(v, false)
+    for i, j in imports.pairs(availableEvents) do
+        for k, v in imports.ipairs(j) do
+            imports.addEvent(v, false)
         end
     end
 

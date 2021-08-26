@@ -9,6 +9,22 @@
 ----------------------------------------------------------------
 
 
+-----------------
+--[[ Imports ]]--
+-----------------
+
+local imports = {
+    pairs = pairs,
+    ipairs = ipairs,
+    getResourceName = getResourceName,
+    string = {
+        sub = string.sub,
+        gsub = string.gsub,
+        upper = string.upper
+    }
+}
+
+
 -------------------
 --[[ Variables ]]--
 -------------------
@@ -35,7 +51,7 @@ end
 
 addEventHandler("onClientResourceStart", resource, function(resourceSource)
 
-    local resourceName = resourceSource:getName()
+    local resourceName = imports.getResourceName(resourceSource)
 
     bundlerData = [[
     local BEAUTIFY_LIBRARY = {
@@ -52,18 +68,18 @@ addEventHandler("onClientResourceStart", resource, function(resourceSource)
     local BEAUTIFY_FUNC_INIT = setmetatable({}, BEAUTIFY_LIBRARY.functionClass)
     beautify = {]]
 
-    for i, j in pairs(availableElements) do
+    for i, j in imports.pairs(availableElements) do
         if i == "__ELEMENT_ESSENTIALS__" then
-            for k, v in ipairs(j) do
+            for k, v in imports.ipairs(j) do
                 bundlerData = bundlerData..v..[[ = BEAUTIFY_FUNC_INIT.]]..v..[[,]]
             end
         else
             if j.reference then
-                local elementName = j.reference:sub(1, 1):upper()..j.reference:sub(2)
+                local elementName = imports.string.upper(imports.string.sub(j.reference, 1, 1))..imports.string.sub(j.reference, 2)
                 bundlerData = bundlerData..[[["]]..j.reference..[["] = {]]
-                bundlerData = bundlerData..(j.syntax.functionName:gsub(elementName, "", 1))..[[ = BEAUTIFY_FUNC_INIT.]]..j.syntax.functionName..[[,]]
-                for k, v in pairs(j.APIs) do
-                    bundlerData = bundlerData..(k:gsub(elementName, "", 1))..[[ = BEAUTIFY_FUNC_INIT.]]..k..[[,]]
+                bundlerData = bundlerData..(imports.string.gsub(j.syntax.functionName, elementName, "", 1))..[[ = BEAUTIFY_FUNC_INIT.]]..j.syntax.functionName..[[,]]
+                for k, v in imports.pairs(j.APIs) do
+                    bundlerData = bundlerData..(imports.string.gsub(k, elementName, "", 1))..[[ = BEAUTIFY_FUNC_INIT.]]..k..[[,]]
                 end
                 bundlerData = bundlerData..[[},]]
             end
