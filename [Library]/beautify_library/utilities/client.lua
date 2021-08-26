@@ -129,7 +129,7 @@ end
 
 function getAbsoluteCursorPosition()
 
-    if not CLIENT_IS_CURSOR_SHOWING then return false end
+    if not CLIENT_IS_CURSOR_SHOWING or not CLIENT_CURSOR_OFFSET then return false end
 
     return CLIENT_CURSOR_OFFSET[1]*CLIENT_MTA_RESOLUTION[1], CLIENT_CURSOR_OFFSET[2]*CLIENT_MTA_RESOLUTION[2]
 
