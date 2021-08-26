@@ -21,7 +21,6 @@ local imports = {
     ipairs = ipairs,
     addEventHandler = addEventHandler,
     getElementType = getElementType,
-    destroyElement = destroyElement,
     collectgarbage = collectgarbage,
     clearResourceUITemplates = clearResourceUITemplates
 }
@@ -252,7 +251,7 @@ end)
 imports.addEventHandler("onClientElementDestroy", resourceRoot, function()
 
     if not isLibraryResourceStopping then
-        imports.destroyElement(source)
+        destroyElement(source)
     end
 
 end)

@@ -9,6 +9,25 @@
 ----------------------------------------------------------------
 
 
+-----------------
+--[[ Imports ]]--
+-----------------
+
+local imports = {
+    pairs = pairs,
+    ipairs = ipairs,
+    isElement = isElement,
+    getElementType = getElementType,
+    createElement = createElement,
+    destroyElement = destroyElement,
+    collectgarbage = collectgarbage,
+    table = {
+        insert = table.insert,
+        remove = table.remove
+    }
+}
+
+
 -------------------
 --[[ Variables ]]--
 -------------------
@@ -27,13 +46,13 @@ function __clearResourceUIElements(sourceResource)
 
     if not sourceResource or not createdResourceElements[sourceResource] then return false end
 
-    for i, j in ipairs(createdResourceElements[sourceResource]) do
-        if j and isElement(j) then
-            destroyElement(j)
+    for i, j in imports.ipairs(createdResourceElements[sourceResource]) do
+        if j and imports.isElement(j) then
+            imports.destroyElement(j)
         end
     end
     createdResourceElements[sourceResource] = nil
-    collectgarbage()
+    imports.collectgarbage()
     return true
 
 end
@@ -45,8 +64,8 @@ end
 
 function __getUIParent(element)
 
-    if element and isElement(element) and not createdNonParentElements[element] and createdElements[element] then
-        if createdElements[element].parentElement and isElement(createdElements[element].parentElement) then
+    if element and imports.isElement(element) and not createdNonParentElements[element] and createdElements[element] then
+        if createdElements[element].parentElement and imports.isElement(createdElements[element].parentElement) then
             return createdElements[element].parentElement, createdElements[element].parentReference
         end
     end
@@ -59,20 +78,19 @@ end
 --[[ Function: Creates/Destroys Element ]]--
 --------------------------------------------
 
-local _createElement = createElement
 function createElement(elementType, parentElement, sourceResource)
 
     if not elementType or not availableElements[elementType] or not sourceResource or (sourceResource == resource) then return false end
 
-    local createdElement = _createElement(elementType)
-    if createdElement and isElement(createdElement) then 
+    local createdElement = imports.createElement(elementType)
+    if createdElement and imports.isElement(createdElement) then 
         local isChildElement = false
-        if parentElement and isElement(parentElement) then
-            local parentType = parentElement:getType()
+        if parentElement and imports.isElement(parentElement) then
+            local parentType = imports.getElementType(parentElement)
             if availableElements[parentType] and availableElements[parentType].allowedChildren and availableElements[parentType].allowedChildren[elementType] and (createdElements[parentElement].sourceResource == sourceResource) then
                 isChildElement = true
             else
-                destroyElement(createdElement)
+                imports.destroyElement(createdElement)
                 return false
             end
         end
@@ -89,7 +107,7 @@ function createElement(elementType, parentElement, sourceResource)
             createdElements[createdElement] = {}
             createdNonParentElements[createdElement] = true
         end
-        table.insert(renderIndexReference, {
+        imports.table.insert(renderIndexReference, {
             element = createdElement,
             children = {}
         })
@@ -97,7 +115,7 @@ function createElement(elementType, parentElement, sourceResource)
             createdResourceElements[sourceResource] = {}
         end
         createdElements[createdElement].sourceResource = sourceResource
-        table.insert(createdResourceElements[sourceResource], createdElement)
+        imports.table.insert(createdResourceElements[sourceResource], createdElement)
         createdElements[createdElement].renderIndex = #renderIndexReference
         createdElements[createdElement].renderIndexReference = renderIndexReference
         createdElements[createdElement].isValid = false
@@ -113,29 +131,29 @@ end
 
 function destroyElement(element)
 
-    if not element or not isElement(element) or not createdElements[element] then return false end
+    if not element or not imports.isElement(element) or not createdElements[element] then return false end
 
     local parentElement = createdElements[element].parentElement
     createdElements[element].isValid = false
-    for i, j in pairs(createdElements[element].children) do
-        destroyElement(i)
+    for i, j in imports.pairs(createdElements[element].children) do
+        imports.destroyElement(i)
     end
     if createdElements[element].gui then
-        for i, j in pairs(createdElements[element].gui) do
-            if i and isElement(i) then
-                destroyElement(i)
+        for i, j in imports.pairs(createdElements[element].gui) do
+            if i and imports.isElement(i) then
+                imports.destroyElement(i)
             end
         end
     end
-    table.remove(createdElements[element].renderIndexReference, createdElements[element].renderIndex)
+    imports.table.remove(createdElements[element].renderIndexReference, createdElements[element].renderIndex)
     createdNonParentElements[element] = nil
     if parentElement and createdElements[parentElement] then
         createdElements[parentElement].renderIndexReference[(createdElements[parentElement].renderIndex)].children[element] = nil
         createdElements[parentElement].children[element] = nil
     end
     createdElements[element] = nil
-    destroyElement(element)
-    collectgarbage()
+    imports.destroyElement(element)
+    imports.collectgarbage()
     return true
 
 end
