@@ -9,6 +9,16 @@
 ----------------------------------------------------------------
 
 
+-----------------
+--[[ Imports ]]--
+-----------------
+
+local imports = {
+    unpack = unpack,
+    outputDebugString = outputDebugString
+}
+
+
 -------------------
 --[[ Variables ]]--
 -------------------
@@ -34,7 +44,7 @@ function outputUILog(logMessage, logType)
 
     if not logMessage or not logType or not logTypes[logType] then return false end
 
-    outputDebugString("[Beautify Library] | "..logMessage, 4, unpack(logTypes[logType].color))
+    imports.outputDebugString("[Beautify Library] | "..logMessage, 4, imports.unpack(logTypes[logType].color))
     return true
     
 end

@@ -31,7 +31,7 @@ CLIENT_ATTACHED_ELEMENT = false
 --[[ Functions: Retrieves Attached Element ]]--
 -----------------------------------------------
 
-function getAttachedElement()
+function getAttachedUIElement()
 
     return CLIENT_ATTACHED_ELEMENT
 
@@ -42,7 +42,7 @@ end
 --[[ Functions: Attaches/Detaches Element ]]--
 ----------------------------------------------
 
-function attachElement(element, isInternal)
+function attachUIElement(element, isInternal)
 
     if CLIENT_MTA_WINDOW_ACTIVE or not CLIENT_IS_CURSOR_SHOWING or not imports.isKeyOnHold("mouse1") then return false end
     if CLIENT_ATTACHED_ELEMENT and CLIENT_ATTACHED_ELEMENT.element and imports.isElement(CLIENT_ATTACHED_ELEMENT.element) and (CLIENT_ATTACHED_ELEMENT.element == element) then return false end
@@ -59,7 +59,7 @@ function attachElement(element, isInternal)
 
 end
 
-function detachElement()
+function detachUIElement()
 
     if not CLIENT_ATTACHED_ELEMENT then return false end
 

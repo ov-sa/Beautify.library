@@ -44,6 +44,7 @@ function __fetchImports()
     return bundlerData
 
 end
+function fetchImports() return __fetchImports() end
 
 
 -----------------------------------------

@@ -48,7 +48,7 @@ local createdResourceTemplates = {}
 --[[ Function: Clears Resource's UI Templates ]]--
 --------------------------------------------------
 
-function __clearResourceUITemplates(resetElementTypeAssets)
+local function __clearResourceUITemplates(resetElementTypeAssets)
 
     if not sourceResource then return false end
 
@@ -73,6 +73,7 @@ function __clearResourceUITemplates(resetElementTypeAssets)
     return true
 
 end
+function clearResourceUITemplates() return __clearResourceUITemplates() end
 
 
 -----------------------------------------

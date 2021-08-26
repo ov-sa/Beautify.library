@@ -19,7 +19,6 @@
 
     <!-- Handlers -->
     <script src="handlers/logger/client.lua" type="client" cache="false"/>
-    <script src="handlers/cache/native.lua" type="client" cache="false"/>
     <script src="handlers/cache/asset.lua" type="client" cache="false"/>
     <script src="handlers/cache/event.lua" type="client" cache="false"/>
     <script src="handlers/cache/template.lua" type="client" cache="false"/>

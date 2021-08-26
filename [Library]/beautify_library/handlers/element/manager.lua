@@ -18,6 +18,7 @@ local imports = {
     ipairs = ipairs,
     isElement = isElement,
     getElementType = getElementType,
+    addEventHandler = addEventHandler,
     createElement = createElement,
     destroyElement = destroyElement,
     collectgarbage = collectgarbage,
@@ -42,7 +43,7 @@ local createdNonParentElements = {}
 --[[ Function: Clears Resource's UI Elements ]]--
 -------------------------------------------------
 
-function __clearResourceUIElements(sourceResource)
+local function __clearResourceUIElements(sourceResource)
 
     if not sourceResource or not createdResourceElements[sourceResource] then return false end
 
@@ -56,13 +57,14 @@ function __clearResourceUIElements(sourceResource)
     return true
 
 end
+function clearResourceUIElements() return __clearResourceUIElements() end
 
 
 -----------------------------------------
 --[[ Function: Retrieves UI's Parent ]]--
 -----------------------------------------
 
-function __getUIParent(element)
+function getUIParent(element)
 
     if element and imports.isElement(element) and not createdNonParentElements[element] and createdElements[element] then
         if createdElements[element].parentElement and imports.isElement(createdElements[element].parentElement) then
@@ -74,11 +76,11 @@ function __getUIParent(element)
 end
 
 
---------------------------------------------
---[[ Function: Creates/Destroys Element ]]--
---------------------------------------------
+-----------------------------------------------
+--[[ Function: Creates/Destroys UI Element ]]--
+-----------------------------------------------
 
-function createElement(elementType, parentElement, sourceResource)
+function createUIElement(elementType, parentElement, sourceResource)
 
     if not elementType or not availableElements[elementType] or not sourceResource or (sourceResource == resource) then return false end
 
@@ -122,6 +124,7 @@ function createElement(elementType, parentElement, sourceResource)
         createdElements[createdElement].isVisible = false
         createdElements[createdElement].isDraggable = false
         createdElements[createdElement].isDisabled = false
+        createdElements[createdElement].elementType = elementType
         createdElements[createdElement].children = {}
         return createdElement, parentElement
     end
@@ -129,7 +132,7 @@ function createElement(elementType, parentElement, sourceResource)
 
 end
 
-function destroyElement(element)
+local function destroyUIElement(element)
 
     if not element or not imports.isElement(element) or not createdElements[element] then return false end
 
@@ -157,3 +160,29 @@ function destroyElement(element)
     return true
 
 end
+
+
+----------------------------------------
+--[[ Event: On Client Resource Stop ]]--
+----------------------------------------
+
+local isLibraryResourceStopping = false
+imports.addEventHandler("onClientResourceStop", root, function()
+
+    if source == resource then
+        isLibraryResourceStopping = true
+        imports.collectgarbage()
+    else
+        __clearResourceUIElements(source)
+        clearResourceUITemplates(source)
+    end
+
+end)
+
+imports.addEventHandler("onClientElementDestroy", resourceRoot, function()
+
+    if not isLibraryResourceStopping then
+        destroyUIElement(source)
+    end
+
+end)
