@@ -20,7 +20,7 @@ local imports = {
     getUIParent = getUIParent,
     __getUITemplate = __getUITemplate,
     renderElementChildren = renderElementChildren,
-    attachElement = attachUIElement,
+    attachUIElement = attachUIElement,
     destroyElement = destroyElement,
     setUIVisible = setUIVisible,
     unpackColor = unpackColor,
@@ -226,7 +226,7 @@ function renderWindow(element, isFetchingInput, mouseReference)
             end
             if isTitleBarClicked then
                 if not elementReference.isDisabled and elementReference.isDraggable then
-                    imports.attachElement(element)
+                    imports.attachUIElement(element)
                 end
             else
                 isCloseButtonHovered = imports.isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].height)
