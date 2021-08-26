@@ -17,6 +17,7 @@ local imports = {
     guiGetScreenSize = guiGetScreenSize,
     getTickCount = getTickCount,
     isMTAWindowActive = isMTAWindowActive,
+    isCursorShowing = isCursorShowing,
     getKeyState = getKeyState
 }
 
@@ -28,6 +29,7 @@ local imports = {
 CLIENT_MTA_RESOLUTION = {imports.guiGetScreenSize()}
 CLIENT_CURRENT_TICK = imports.getTickCount()
 CLIENT_MTA_WINDOW_ACTIVE = imports.isMTAWindowActive()
+CLIENT_IS_CURSOR_SHOWING = imports.isCursorShowing()
 CLIENT_MTA_MINIMIZED = false
 CLIENT_MTA_RESTORED = false
 CLIENT_HOVERED_ELEMENT = false
@@ -138,6 +140,7 @@ addEventHandler("onClientRender", root, function()
 
     CLIENT_CURRENT_TICK = imports.getTickCount()
     CLIENT_MTA_WINDOW_ACTIVE = imports.isMTAWindowActive()
+    CLIENT_IS_CURSOR_SHOWING = imports.isCursorShowing()
 
     if not isInputValid() then return false end
 
