@@ -10,6 +10,24 @@
 ----------------------------------------------------------------
 
 
+-----------------
+--[[ Imports ]]--
+-----------------
+
+local imports = {
+    type = type,
+    tonumber = tonumber,
+    pairs = pairs,
+    ipairs = ipairs,
+    getElementType = getElementType,
+    destroyElement = destroyElement,
+    collectgarbage = collectgarbage,
+    outputUILog = outputUILog,
+    __clearResourceUIElements = __clearResourceUIElements,
+    clearResourceUITemplates = clearResourceUITemplates
+}
+
+
 -----------------------------------
 --[[ Function: Rounds A Number ]]--
 -----------------------------------
@@ -17,7 +35,7 @@
 function math.round(number, decimals)
     
     decimals = decimals or 0
-    return tonumber(("%."..decimals.."f"):format(number))
+    return imports.tonumber(("%."..decimals.."f"):format(number))
 
 end
 
@@ -28,11 +46,11 @@ end
 
 function cloneTableDatas(recievedTable, isRecursiveMode)
 
-    if not recievedTable or type(recievedTable) ~= "table" then return false end
+    if not recievedTable or imports.type(recievedTable) ~= "table" then return false end
 
     local clonedTable = {}
-    for i, j in pairs(recievedTable) do
-        if type(j) == "table" and isRecursiveMode then
+    for i, j in imports.pairs(recievedTable) do
+        if imports.type(j) == "table" and isRecursiveMode then
             clonedTable[i] = cloneTableDatas(j, true)
         else
             clonedTable[i] = j
@@ -53,8 +71,8 @@ function cloneUIOutline(elementType, nestedOutline)
         }
         clonedOutline["__UI_INPUT_FETCH_CACHE__"] = {}
     end
-    for i, j in pairs(nestedOutline or availableTemplates[elementType]) do
-        if type(j) == "table" then
+    for i, j in imports.pairs(nestedOutline or availableTemplates[elementType]) do
+        if imports.type(j) == "table" then
             if j.isOutLine then
                 clonedOutline[i] = cloneUIOutline(elementType, j)
                 if (i == "scrollBar_Horizontal") or (i == "scrollBar_Vertical") then
@@ -83,7 +101,7 @@ end
 
 function unpackColor(color)
 
-    if color and color[1] and color[2] and color[3] and color[4] then
+    if color and #color >= 4 then
         return color[1], color[2], color[3], color[4]
     end
     return false
@@ -97,11 +115,8 @@ end
 
 function getInterpolationProgress(tickCount, delay)
 
-    if not tickCount or not delay then return false end
-
-    local now = getTickCount()
     local endTime = tickCount + delay
-    local elapsedTime = now - tickCount
+    local elapsedTime = CLIENT_CURRENT_TICK - tickCount
     local duration = endTime - tickCount
     local progress = elapsedTime / duration
     return progress
@@ -115,10 +130,9 @@ end
 
 function getAbsoluteCursorPosition()
 
-    if not isCursorShowing() then return false end
+    if not CLIENT_IS_CURSOR_SHOWING then return false end
 
-    local cursorOffset = {getCursorPosition()}
-    return cursorOffset[1]*CLIENT_MTA_RESOLUTION[1], cursorOffset[2]*CLIENT_MTA_RESOLUTION[2]
+    return CLIENT_CURSOR_OFFSET[1]*CLIENT_MTA_RESOLUTION[1], CLIENT_CURSOR_OFFSET[2]*CLIENT_MTA_RESOLUTION[2]
 
 end
 
@@ -127,13 +141,12 @@ end
 --[[ Function: Verifies Mouse's Position ]]--
 ---------------------------------------------
 
-function isMouseOnPosition(x, y, w, h)
+function isMouseOnPosition(x, y, width, height)
 
-    if attachedElement or not isCursorShowing() then return false end
-    if not x or not y or not w or not h then return false end
+    if not CLIENT_IS_CURSOR_SHOWING or CLIENT_ATTACHED_ELEMENT then return false end
 
-    local cursorOffset = {getAbsoluteCursorPosition()}
-    return (cursorOffset[1] >= x) and (cursorOffset[1] <= (x + w)) and (cursorOffset[2] >= y) and (cursorOffset[2] <= (y + h))
+    local cursor_offsetX, cursor_offsetY = getAbsoluteCursorPosition()
+    return (cursor_offsetX >= x) and (cursor_offsetX <= (x + width)) and (cursor_offsetY >= y) and (cursor_offsetY <= (y + height))
 
 end
 
@@ -144,14 +157,14 @@ end
 
 function areUIParametersValid(parameters, elementType, apiName)
 
-    if not parameters or type(parameters) ~= "table" or not elementType or not availableElements[elementType] or (apiName and not availableElements[elementType].APIs[apiName]) then return false end
+    if not parameters or imports.type(parameters) ~= "table" or not elementType or not availableElements[elementType] or (apiName and not availableElements[elementType].APIs[apiName]) then return false end
 
     local areParametersValid, templateReferenceIndex = true, false
     local functionReference = (not apiName and availableElements[elementType].syntax) or availableElements[elementType].APIs[apiName]
     local functionName = (not apiName and availableElements[elementType].syntax.functionName) or apiName
     local functionParemeters, additionParameters = functionReference.parameters, false
-    for i, j in ipairs(functionParemeters) do
-        if (parameters[i] == nil) or (type(parameters[i]) ~= (((j.type == "float") and "number") or j.type)) then
+    for i, j in imports.ipairs(functionParemeters) do
+        if (parameters[i] == nil) or (imports.type(parameters[i]) ~= (((j.type == "float") and "number") or j.type)) then
             areParametersValid = false
             break
         else
@@ -166,7 +179,7 @@ function areUIParametersValid(parameters, elementType, apiName)
                     end                    
                 end
             elseif j.type == "userdata" then
-                local elementType = parameters[i]:getType()
+                local elementType = imports.getElementType(parameters[i])
                 if elementType ~= j.userDataType then
                     areParametersValid = false
                     break
@@ -176,9 +189,9 @@ function areUIParametersValid(parameters, elementType, apiName)
     end
     if additionParameters then
         if areParametersValid then
-            for i, j in ipairs(additionParameters) do
+            for i, j in imports.ipairs(additionParameters) do
                 local parameterIndex = #functionParemeters + i
-                if not parameters[parameterIndex] or (type(parameters[parameterIndex]) ~= (((j.type == "float") and "number") or j.type)) then
+                if not parameters[parameterIndex] or (imports.type(parameters[parameterIndex]) ~= (((j.type == "float") and "number") or j.type)) then
                     areParametersValid = false
                     break
                 end
@@ -199,7 +212,7 @@ function areUIParametersValid(parameters, elementType, apiName)
             end
         end
         if additionParameters then
-            for i, j in ipairs(additionParameters) do
+            for i, j in imports.ipairs(additionParameters) do
                 syntaxMessage = syntaxMessage..j.name.." : "..(((j.type == "userdata") and "element") or j.type)
                 if i ~= #additionParameters then
                     syntaxMessage = syntaxMessage..", "
@@ -207,7 +220,7 @@ function areUIParametersValid(parameters, elementType, apiName)
             end
         end
         syntaxMessage = syntaxMessage..")"
-        outputUILog(syntaxMessage, "error")
+        imports.outputUILog(syntaxMessage, "error")
         return false
     end
     return true, templateReferenceIndex
@@ -224,10 +237,10 @@ addEventHandler("onClientResourceStop", root, function()
 
     if source == resource then
         isLibraryResourceStopping = true
-        collectgarbage()
+        imports.collectgarbage()
     else
-        __clearResourceUIElements(source)
-        clearResourceUITemplates(source)
+        imports.__clearResourceUIElements(source)
+        imports.clearResourceUITemplates(source)
     end
 
 end)
@@ -240,7 +253,7 @@ end)
 addEventHandler("onClientElementDestroy", resourceRoot, function()
 
     if not isLibraryResourceStopping then
-        destroyElement(source)
+        imports.destroyElement(source)
     end
 
 end)
