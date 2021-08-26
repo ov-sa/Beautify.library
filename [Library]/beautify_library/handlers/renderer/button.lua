@@ -21,6 +21,7 @@ local imports = {
     renderElementChildren = renderElementChildren,
     destroyElement = destroyElement,
     isMouseOnPosition = isMouseOnPosition,
+    getInterpolationProgress = getInterpolationProgress,
     interpolateBetween = interpolateBetween,
     dxCreateRenderTarget = dxCreateRenderTarget,
     dxSetRenderTarget = dxSetRenderTarget,
@@ -136,11 +137,11 @@ function renderButton(element, isFetchingInput, mouseReference)
             end
             if elementReference.gui.hoverStatus == "forward" then
                 if elementReference.gui.animAlphaPercent < 1 then
-                    elementReference.gui.animAlphaPercent = imports.interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
+                    elementReference.gui.animAlphaPercent = imports.interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, imports.getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
                 end
             else
                 if elementReference.gui.animAlphaPercent > 0.25 then
-                    elementReference.gui.animAlphaPercent = imports.interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 0.25, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
+                    elementReference.gui.animAlphaPercent = imports.interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 0.25, 0, 0, imports.getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
                 end
             end
             local button_fontColor = imports.tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4]*elementReference.gui.animAlphaPercent)

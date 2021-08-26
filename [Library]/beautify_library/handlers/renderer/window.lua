@@ -25,6 +25,7 @@ local imports = {
     setUIVisible = setUIVisible,
     unpackColor = unpackColor,
     isMouseOnPosition = isMouseOnPosition,
+    getInterpolationProgress = getInterpolationProgress,
     interpolateBetween = interpolateBetween,
     dxCreateRenderTarget = dxCreateRenderTarget,
     dxSetRenderTarget = dxSetRenderTarget,
@@ -182,11 +183,11 @@ function renderWindow(element, isFetchingInput, mouseReference)
         end
         if elementReference.gui.titleBar.closeButton.hoverStatus == "forward" then
             if elementReference.gui.titleBar.closeButton.animAlphaPercent < 1 then
-                elementReference.gui.titleBar.closeButton.animAlphaPercent = imports.interpolateBetween(elementReference.gui.titleBar.closeButton.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(elementReference.gui.titleBar.closeButton.hoverAnimTickCounter, availableElements[elementType].titleBar.closeButton.hoverAnimDuration), "InQuad")
+                elementReference.gui.titleBar.closeButton.animAlphaPercent = imports.interpolateBetween(elementReference.gui.titleBar.closeButton.animAlphaPercent, 0, 0, 1, 0, 0, imports.getInterpolationProgress(elementReference.gui.titleBar.closeButton.hoverAnimTickCounter, availableElements[elementType].titleBar.closeButton.hoverAnimDuration), "InQuad")
             end
         else
             if elementReference.gui.titleBar.closeButton.animAlphaPercent > 0 then
-                elementReference.gui.titleBar.closeButton.animAlphaPercent = imports.interpolateBetween(elementReference.gui.titleBar.closeButton.animAlphaPercent, 0, 0, 0, 0, 0, getInterpolationProgress(elementReference.gui.titleBar.closeButton.hoverAnimTickCounter, availableElements[elementType].titleBar.closeButton.hoverAnimDuration), "InQuad")
+                elementReference.gui.titleBar.closeButton.animAlphaPercent = imports.interpolateBetween(elementReference.gui.titleBar.closeButton.animAlphaPercent, 0, 0, 0, 0, 0, imports.getInterpolationProgress(elementReference.gui.titleBar.closeButton.hoverAnimTickCounter, availableElements[elementType].titleBar.closeButton.hoverAnimDuration), "InQuad")
             end
         end
         if elementReference.gui["__UI_CACHE__"]["Window"].renderTexture then
