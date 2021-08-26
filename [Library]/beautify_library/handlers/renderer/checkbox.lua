@@ -9,6 +9,31 @@
 ----------------------------------------------------------------
 
 
+-----------------
+--[[ Imports ]]--
+-----------------
+
+local imports = {
+    unpack = unpack,
+    tocolor = tocolor,
+    isKeyClicked = isKeyClicked,
+    getUIParent = getUIParent,
+    __getUITemplate = __getUITemplate,
+    renderElementChildren = renderElementChildren,
+    setCheckboxSelection = setCheckboxSelection
+    unpackColor = unpackColor,
+    isMouseOnPosition = isMouseOnPosition,
+    interpolateBetween = interpolateBetween,
+    dxSetRenderTarget = dxSetRenderTarget,
+    dxSetBlendMode = dxSetBlendMode,
+    dxDrawRectangle = dxDrawRectangle,
+    dxDrawText = dxDrawText,
+    math = {
+        min = math.max
+    }
+}
+
+
 -------------------
 --[[ Variables ]]--
 -------------------
@@ -22,19 +47,13 @@ local elementType = "beautify_checkbox"
 
 function renderCheckbox(element, isFetchingInput, mouseReference)
 
-    if not isFetchingInput then
-        if not isUIValid(element) or (element:getType() ~= elementType) then return false end
-    else
-        if not mouseReference then return false end
-    end
-
     local elementReference = createdElements[element]
     if not isFetchingInput then
-        local elementParent = __getUIParent(element)
-        if not elementParent then dxSetRenderTarget() end
+        local elementParent = imports.getUIParent(element)
+        if not elementParent then imports.dxSetRenderTarget() end
         local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (reloadResourceTemplates[(elementReference.sourceResource)] and reloadResourceTemplates[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
-        local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
+        local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
         local checkbox_type = elementReference.gui.type
         local checkbox_postGUI = elementReference.gui.postGUI
 
@@ -57,7 +76,7 @@ function renderCheckbox(element, isFetchingInput, mouseReference)
             local checkbox_startX, checkbox_startY = elementReference.gui.x, elementReference.gui.y
             local checkbox_width, checkbox_height = elementReference.gui.width, elementReference.gui.height
             local checkbox_tickbox_size = availableElements[elementType].minimumSize
-            local checkbox_tickbox_icon_size = math.min(checkbox_tickbox_size, availableElements[elementType].tickboxSize)
+            local checkbox_tickbox_icon_size = imports.math.min(checkbox_tickbox_size, availableElements[elementType].tickboxSize)
             local checkbox_content_padding, checkbox_content_paddingLeft = availableElements[elementType].contentSection.padding, availableElements[elementType].contentSection.paddingLeft
             local checkbox_tickbox_icon_padding = (checkbox_tickbox_size - checkbox_tickbox_icon_size)*0.5
             local checkbox_tickbox_offsetY = checkbox_startY + ((checkbox_height - checkbox_tickbox_size)*0.5)
@@ -89,8 +108,8 @@ function renderCheckbox(element, isFetchingInput, mouseReference)
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Tick Box"].width = elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.width
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Tick Box"].height = elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.height
             if isElementToBeReloaded then
-                elementReference.gui["__UI_CACHE__"]["Tick Box"].color = tocolor(unpackColor(elementTemplate.tickBox.color))
-                elementReference.gui["__UI_CACHE__"]["Tick Box"].iconColor = tocolor(unpack(elementTemplate.tickBox.iconColor))
+                elementReference.gui["__UI_CACHE__"]["Tick Box"].color = imports.tocolor(imports.unpackColor(elementTemplate.tickBox.color))
+                elementReference.gui["__UI_CACHE__"]["Tick Box"].iconColor = imports.tocolor(imports.unpack(elementTemplate.tickBox.iconColor))
             end
             if not CLIENT_MTA_MINIMIZED then
                 elementReference.gui["__UI_CACHE__"].reloadElement = nil
@@ -101,46 +120,54 @@ function renderCheckbox(element, isFetchingInput, mouseReference)
         if not elementReference.gui.tickBox.animAlphaPercent then
             elementReference.gui.tickBox.animAlphaPercent = 0
             elementReference.gui.tickBox.hoverStatus = "backward"
-            elementReference.gui.tickBox.hoverAnimTickCounter = getTickCount()
+            elementReference.gui.tickBox.hoverAnimTickCounter = CLIENT_CURRENT_TICK
         end
         if elementReference.gui.tickBox.hoverStatus == "forward" then
-            elementReference.gui.tickBox.animAlphaPercent = interpolateBetween(elementReference.gui.tickBox.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(elementReference.gui.tickBox.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
-        else
-            elementReference.gui.tickBox.animAlphaPercent = interpolateBetween(elementReference.gui.tickBox.animAlphaPercent, 0, 0, 0, 0, 0, getInterpolationProgress(elementReference.gui.tickBox.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
-        end
-        if elementReference.gui.tickBox.animAlphaPercent < 1 then
-            dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.height, elementReference.gui["__UI_CACHE__"]["Tick Box"].color, checkbox_postGUI)
-            if elementReference.gui.tickBox.animAlphaPercent > 0 then
-                dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.height, tocolor(elementTemplate.tickBox.iconColor[1], elementTemplate.tickBox.iconColor[2], elementTemplate.tickBox.iconColor[3], elementTemplate.tickBox.iconColor[4]*elementReference.gui.tickBox.animAlphaPercent), checkbox_postGUI)
+            if elementReference.gui.tickBox.animAlphaPercent < 1 then
+                elementReference.gui.tickBox.animAlphaPercent = imports.interpolateBetween(elementReference.gui.tickBox.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(elementReference.gui.tickBox.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
             end
         else
-            dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.height, elementReference.gui["__UI_CACHE__"]["Tick Box"].iconColor, checkbox_postGUI)
+            if elementReference.gui.tickBox.animAlphaPercent > 0 then
+                elementReference.gui.tickBox.animAlphaPercent = imports.interpolateBetween(elementReference.gui.tickBox.animAlphaPercent, 0, 0, 0, 0, 0, getInterpolationProgress(elementReference.gui.tickBox.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
+            end
+        end
+        if elementReference.gui.tickBox.animAlphaPercent < 1 then
+            imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.height, elementReference.gui["__UI_CACHE__"]["Tick Box"].color, checkbox_postGUI)
+            if elementReference.gui.tickBox.animAlphaPercent > 0 then
+                imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.height, imports.tocolor(elementTemplate.tickBox.iconColor[1], elementTemplate.tickBox.iconColor[2], elementTemplate.tickBox.iconColor[3], elementTemplate.tickBox.iconColor[4]*elementReference.gui.tickBox.animAlphaPercent), checkbox_postGUI)
+            end
+        else
+            imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.height, elementReference.gui["__UI_CACHE__"]["Tick Box"].iconColor, checkbox_postGUI)
         end
         if elementReference.gui["__UI_CACHE__"]["Checkbox"].text.isToBeRendered then
             if not elementReference.gui.animAlphaPercent then
                 elementReference.gui.animAlphaPercent = 0.8
                 elementReference.gui.hoverStatus = "backward"
-                elementReference.gui.hoverAnimTickCounter = getTickCount()
+                elementReference.gui.hoverAnimTickCounter = CLIENT_CURRENT_TICK
             end
             if elementReference.gui.hoverStatus == "forward" then
-                elementReference.gui.animAlphaPercent = interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
+                if elementReference.gui.animAlphaPercent < 1 then
+                    elementReference.gui.animAlphaPercent = imports.interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
+                end
             else
-                elementReference.gui.animAlphaPercent = interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 0.8, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
+                if elementReference.gui.animAlphaPercent > 0.8 then
+                    elementReference.gui.animAlphaPercent = imports.interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 0.8, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
+                end
             end
-            local checkbox_fontColor = (elementReference.gui.fontColor and tocolor(elementReference.gui.fontColor[1], elementReference.gui.fontColor[2], elementReference.gui.fontColor[3], elementReference.gui.fontColor[4]*elementReference.gui.animAlphaPercent)) or tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4]*elementReference.gui.animAlphaPercent)
-            dxDrawText(elementReference.gui["__UI_CACHE__"]["Checkbox"].text.text, elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.endY, checkbox_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "left", "center", true, false, checkbox_postGUI, false)
+            local checkbox_fontColor = (elementReference.gui.fontColor and imports.tocolor(elementReference.gui.fontColor[1], elementReference.gui.fontColor[2], elementReference.gui.fontColor[3], elementReference.gui.fontColor[4]*elementReference.gui.animAlphaPercent)) or imports.tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4]*elementReference.gui.animAlphaPercent)
+            imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Checkbox"].text.text, elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.endY, checkbox_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "left", "center", true, false, checkbox_postGUI, false)
         end
-        renderElementChildren(element)
-        dxSetBlendMode("blend")
+        imports.renderElementChildren(element)
+        imports.dxSetBlendMode("blend")
         if not elementParent then
-            dxSetRenderTarget()
+            imports.dxSetRenderTarget()
         else
-            dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
+            imports.dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
         end
     else
         if elementReference.gui["__UI_CACHE__"]["Tick Box"].offsets.startX and elementReference.gui["__UI_CACHE__"]["Tick Box"].offsets.startY then
             local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
-            renderElementChildren(element, true, mouseReference)
+            imports.renderElementChildren(element, true, mouseReference)
             local isElementHovered = CLIENT_HOVERED_ELEMENT == element
             local isCheckBoxHovered, isTickBoxHovered = false, false
             local isTickBoxSelected = elementReference.gui.selection
@@ -152,27 +179,27 @@ function renderCheckbox(element, isFetchingInput, mouseReference)
             if isCheckBoxHovered then
                 if elementReference.gui.hoverStatus ~= "forward" then
                     elementReference.gui.hoverStatus = "forward"
-                    elementReference.gui.hoverAnimTickCounter = getTickCount()
+                    elementReference.gui.hoverAnimTickCounter = CLIENT_CURRENT_TICK
                 end
-                isTickBoxHovered = isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Tick Box"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Tick Box"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Tick Box"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Tick Box"].height)
+                isTickBoxHovered = imports.isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Tick Box"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Tick Box"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Tick Box"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Tick Box"].height)
             else
                 if elementReference.gui.hoverStatus ~= "backward" then
                     elementReference.gui.hoverStatus = "backward"
-                    elementReference.gui.hoverAnimTickCounter = getTickCount()
+                    elementReference.gui.hoverAnimTickCounter = CLIENT_CURRENT_TICK
                 end
             end
             if isTickBoxHovered or isTickBoxSelected then
-                if isTickBoxHovered and isKeyClicked("mouse1") then
-                    setCheckboxSelection(element, not isTickBoxSelected)
+                if isTickBoxHovered and imports.isKeyClicked("mouse1") then
+                    imports.setCheckboxSelection(element, not isTickBoxSelected)
                 end
                 if elementReference.gui.tickBox.hoverStatus ~= "forward" then
                     elementReference.gui.tickBox.hoverStatus = "forward"
-                    elementReference.gui.tickBox.hoverAnimTickCounter = getTickCount()
+                    elementReference.gui.tickBox.hoverAnimTickCounter = CLIENT_CURRENT_TICK
                 end
             else
                 if elementReference.gui.tickBox.hoverStatus ~= "backward" then
                     elementReference.gui.tickBox.hoverStatus = "backward"
-                    elementReference.gui.tickBox.hoverAnimTickCounter = getTickCount()
+                    elementReference.gui.tickBox.hoverAnimTickCounter = CLIENT_CURRENT_TICK
                 end
             end
         end
