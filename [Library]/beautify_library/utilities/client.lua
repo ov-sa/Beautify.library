@@ -141,9 +141,9 @@ end
 
 function isMouseOnPosition(x, y, width, height)
 
-    if not CLIENT_IS_CURSOR_SHOWING or CLIENT_ATTACHED_ELEMENT then return false end
-
     local cursor_offsetX, cursor_offsetY = getAbsoluteCursorPosition()
+    if not cursor_offsetX or not cursor_offsetY then return false end
+
     return (cursor_offsetX >= x) and (cursor_offsetX <= (x + width)) and (cursor_offsetY >= y) and (cursor_offsetY <= (y + height))
 
 end
@@ -251,7 +251,7 @@ end)
 imports.addEventHandler("onClientElementDestroy", resourceRoot, function()
 
     if not isLibraryResourceStopping then
-        destroyElement(source)
+        destroyUIElement(source)
     end
 
 end)
