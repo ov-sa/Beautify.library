@@ -15,7 +15,7 @@
 
 availableTemplates["beautify_slider"] = {
     fontScale = 0.5,
-    font = DxFont("files/assets/fonts/signika_semibold.ttf", 20),
+    font = dxCreateFont("files/assets/fonts/signika_semibold.ttf", 20),
     fontColor = {200, 200, 200, 255},
     track = {
         size = 3,

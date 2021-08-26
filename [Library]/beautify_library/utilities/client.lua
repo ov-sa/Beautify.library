@@ -19,10 +19,7 @@ local imports = {
     tonumber = tonumber,
     pairs = pairs,
     ipairs = ipairs,
-    addEventHandler = addEventHandler,
-    getElementType = getElementType,
-    collectgarbage = collectgarbage,
-    clearResourceUITemplates = clearResourceUITemplates
+    getElementType = getElementType
 }
 
 
@@ -224,34 +221,3 @@ function areUIParametersValid(parameters, elementType, apiName)
     return true, templateReferenceIndex
 
 end
-
-
-----------------------------------------
---[[ Event: On Client Resource Stop ]]--
-----------------------------------------
-
-local isLibraryResourceStopping = false
-imports.addEventHandler("onClientResourceStop", root, function()
-
-    if source == resource then
-        isLibraryResourceStopping = true
-        imports.collectgarbage()
-    else
-        __clearResourceUIElements(source)
-        imports.clearResourceUITemplates(source)
-    end
-
-end)
-
-
-------------------------------------------
---[[ Event: On Client Element Destroy ]]--
-------------------------------------------
-
-imports.addEventHandler("onClientElementDestroy", resourceRoot, function()
-
-    if not isLibraryResourceStopping then
-        destroyUIElement(source)
-    end
-
-end)

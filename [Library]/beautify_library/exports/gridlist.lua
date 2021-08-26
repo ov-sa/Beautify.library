@@ -24,7 +24,7 @@ function createGridlist(...)
 
     local parameters = {...}
     if not areUIParametersValid(parameters, elementType) then return false end
-    local createdElement, elementParent = createElement(elementType, parameters[(#availableElements[elementType].syntax.parameters + 1)], sourceResource)
+    local createdElement, elementParent = createUIElement(elementType, parameters[(#availableElements[elementType].syntax.parameters + 1)], sourceResource)
     if not createdElement then return false end
 
     local elementReference = createdElements[createdElement]
@@ -55,7 +55,7 @@ function createGridlist(...)
         height = elementReference.gui.height - availableElements[elementType].columnBar.height
     }
     if elementReference.gui.contentSection.width > 0 and elementReference.gui.contentSection.height > 0 then
-        elementReference.gui.renderTarget = DxRenderTarget(elementReference.gui.contentSection.width, elementReference.gui.contentSection.height, true)
+        elementReference.gui.renderTarget = dxCreateRenderTarget(elementReference.gui.contentSection.width, elementReference.gui.contentSection.height, true)
     end
     elementReference.isValid = true
     return createdElement

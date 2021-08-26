@@ -24,7 +24,7 @@ function createWindow(...)
 
     local parameters = {...}
     if not areUIParametersValid(parameters, elementType) then return false end
-    local createdElement = createElement(elementType, parameters[(#availableElements[elementType].syntax.parameters + 1)], sourceResource)
+    local createdElement = createUIElement(elementType, parameters[(#availableElements[elementType].syntax.parameters + 1)], sourceResource)
     if not createdElement then return false end
 
     local elementReference = createdElements[createdElement]
@@ -50,7 +50,7 @@ function createWindow(...)
         height = elementReference.gui.height - (availableElements[elementType].minimumSize*0.5) - (availableElements[elementType].contentSection.padding*2)
     }
     if (elementReference.gui.contentSection.width > math.max(0, availableElements[elementType].minimumSize*0.5)) and (elementReference.gui.contentSection.height > math.max(0, availableElements[elementType].minimumSize*0.5)) then
-        elementReference.gui.renderTarget = DxRenderTarget(elementReference.gui.contentSection.width, elementReference.gui.contentSection.height, true)
+        elementReference.gui.renderTarget = dxCreateRenderTarget(elementReference.gui.contentSection.width, elementReference.gui.contentSection.height, true)
     end
     elementReference.isValid = true
     return createdElement

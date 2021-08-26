@@ -24,7 +24,7 @@ function createSelector(...)
 
     local parameters = {...}
     if not areUIParametersValid(parameters, elementType) then return false end
-    local createdElement = createElement(elementType, parameters[(#availableElements[elementType].syntax.parameters + 1)], sourceResource)
+    local createdElement = createUIElement(elementType, parameters[(#availableElements[elementType].syntax.parameters + 1)], sourceResource)
     if not createdElement then return false end
 
     local elementReference = createdElements[createdElement]

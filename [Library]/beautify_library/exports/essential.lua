@@ -9,34 +9,6 @@
 ----------------------------------------------------------------
 
 
------------------------------------
---[[ Function: Fetches Imports ]]--
------------------------------------
-
-function fetchImports()
-
-    return __fetchImports()
-
-end
-
-
-------------------------------------------------------------
---[[ Functions: Clears Resource's UI Templates/Elements ]]--
-------------------------------------------------------------
-
-function clearResourceUITemplates()
-
-    return __clearResourceUITemplates()
-
-end
-
-function clearResourceUIElements()
-
-    return __clearResourceUIElements()
-
-end
-
-
 -------------------------------------------------
 --[[ Functions: Retrieves/Sets UI's Template ]]--
 -------------------------------------------------
@@ -55,17 +27,6 @@ function setUITemplate(...)
 end
 
 
------------------------------------------
---[[ Function: Retrieves UI's Parent ]]--
------------------------------------------
-
-function getUIParent(...)
-
-    return __getUIParent(...)
-
-end
-
-
 ------------------------------------------
 --[[ Function: Verifies UI's Validity ]]--
 ------------------------------------------
@@ -73,7 +34,7 @@ end
 function isUIValid(element)
 
     if element and isElement(element) then
-        local elementParent = __getUIParent(element)
+        local elementParent = getUIParent(element)
         if elementParent then
             if createdElements[elementParent].isValid then
                 return createdElements[element].isValid
@@ -94,7 +55,7 @@ end
 function isUIVisible(element)
 
     if isUIValid(element) then
-        local elementParent = __getUIParent(element)
+        local elementParent = getUIParent(element)
         if elementParent then
             if createdElements[elementParent].isVisible then
                 return createdElements[element].isVisible
@@ -135,7 +96,7 @@ end
 
 function setUIDraggable(element, state)
 
-    if isUIValid(element) and availableElements[element:getType()].isDraggable and (state == true or state == false) then
+    if isUIValid(element) and availableElements[getElementType(element)].isDraggable and (state == true or state == false) then
         if createdElements[element].isDraggable ~= state then
             createdElements[element].isDraggable = state
             return true

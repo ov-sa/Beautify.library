@@ -27,7 +27,7 @@ function createButton(...)
     if not parameterValidity[1] then return false end
     local templateReferenceName = parameters[(parameterValidity[2])]
     local templateReference = availableElements[elementType].syntax.parameters["TEMPLATE_PARAMETERS"][templateReferenceName]
-    local createdElement = createElement(elementType, parameters[(#availableElements[elementType].syntax.parameters + #templateReference + 1)], sourceResource)
+    local createdElement = createUIElement(elementType, parameters[(#availableElements[elementType].syntax.parameters + #templateReference + 1)], sourceResource)
     if not createdElement then return false end
 
     local elementReference = createdElements[createdElement]
