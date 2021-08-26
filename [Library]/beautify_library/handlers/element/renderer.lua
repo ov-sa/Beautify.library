@@ -29,7 +29,7 @@ local function renderElements()
     for i = 1, renderingPriorityCount, 1 do
         local element = createdRenderingPriority[i].element
         if isUIValid(element) and isUIVisible(element) then
-            local elementType = element:getType()
+            local elementType = getElementType(element)
             if availableElements[elementType] and availableElements[elementType].renderFunction and type(availableElements[elementType].renderFunction) == "function" then
                 table.insert(validatedRenderingPriority, {index = i, element = element, type = elementType})
                 availableElements[elementType].renderFunction(element)
@@ -114,25 +114,25 @@ end
 
 addEventHandler("onClientRender", root, function()
 
-    if attachedElement then
-        if not attachedElement.element or not isElement(attachedElement.element) or not createdElements[attachedElement.element] then
+    if CLIENT_ATTACHED_ELEMENT then
+        if not CLIENT_ATTACHED_ELEMENT.element or not isElement(CLIENT_ATTACHED_ELEMENT.element) or not createdElements[CLIENT_ATTACHED_ELEMENT.element] then
             detachElement()
-        elseif GuiElement.isMTAWindowActive() or not isCursorShowing() or not getKeyState("mouse1") or not isUIValid(attachedElement.element) or not isUIVisible(attachedElement.element) then
-            createdElements[(attachedElement.element)].gui["__UI_CACHE__"].updateElement = true
+        elseif CLIENT_MTA_WINDOW_ACTIVE or not CLIENT_IS_CURSOR_SHOWING or not getKeyState("mouse1") or not isUIValid(CLIENT_ATTACHED_ELEMENT.element) or not isUIVisible(CLIENT_ATTACHED_ELEMENT.element) then
+            createdElements[(CLIENT_ATTACHED_ELEMENT.element)].gui["__UI_CACHE__"].updateElement = true
             detachElement()
         else
-            if not attachedElement.isInternal then
+            if not CLIENT_ATTACHED_ELEMENT.isInternal then
                 local cursorOffset = {getAbsoluteCursorPosition()}
                 if cursorOffset[1] and cursorOffset[2] then
-                    local attached_offsetX, attached_offsetY = interpolateBetween(createdElements[(attachedElement.element)].gui.x, createdElements[(attachedElement.element)].gui.y, 0, cursorOffset[1] - attachedElement.offsetX, cursorOffset[2] - attachedElement.offsetY, 0, 0.45, "InQuad")
-                    createdElements[(attachedElement.element)].gui.x, createdElements[(attachedElement.element)].gui.y = math.ceil(attached_offsetX), math.ceil(attached_offsetY)
-                    createdElements[(attachedElement.element)].gui["__UI_CACHE__"].updateElement = true
+                    local attached_offsetX, attached_offsetY = interpolateBetween(createdElements[(CLIENT_ATTACHED_ELEMENT.element)].gui.x, createdElements[(CLIENT_ATTACHED_ELEMENT.element)].gui.y, 0, cursorOffset[1] - CLIENT_ATTACHED_ELEMENT.offsetX, cursorOffset[2] - CLIENT_ATTACHED_ELEMENT.offsetY, 0, 0.45, "InQuad")
+                    createdElements[(CLIENT_ATTACHED_ELEMENT.element)].gui.x, createdElements[(CLIENT_ATTACHED_ELEMENT.element)].gui.y = math.ceil(attached_offsetX), math.ceil(attached_offsetY)
+                    createdElements[(CLIENT_ATTACHED_ELEMENT.element)].gui["__UI_CACHE__"].updateElement = true
                 end
             end
         end
     end
 
-    clickedMouseKey = (not attachedElement and isMouseClicked())
+    clickedMouseKey = (not CLIENT_ATTACHED_ELEMENT and isMouseClicked())
     renderElements()
     if clickedMouseKey and CLIENT_HOVERED_ELEMENT then
         resetKeyClickCache(clickedMouseKey)

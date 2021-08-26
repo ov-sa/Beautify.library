@@ -29,7 +29,7 @@ function __clearResourceUIElements(sourceResource)
 
     for i, j in ipairs(createdResourceElements[sourceResource]) do
         if j and isElement(j) then
-            j:destroy()
+            destroyElement(j)
         end
     end
     createdResourceElements[sourceResource] = nil
@@ -59,11 +59,12 @@ end
 --[[ Function: Creates/Destroys Element ]]--
 --------------------------------------------
 
+local _createElement = createElement
 function createElement(elementType, parentElement, sourceResource)
 
     if not elementType or not availableElements[elementType] or not sourceResource or (sourceResource == resource) then return false end
 
-    local createdElement = Element(elementType)
+    local createdElement = _createElement(elementType)
     if createdElement and isElement(createdElement) then 
         local isChildElement = false
         if parentElement and isElement(parentElement) then
@@ -71,7 +72,7 @@ function createElement(elementType, parentElement, sourceResource)
             if availableElements[parentType] and availableElements[parentType].allowedChildren and availableElements[parentType].allowedChildren[elementType] and (createdElements[parentElement].sourceResource == sourceResource) then
                 isChildElement = true
             else
-                createdElement:destroy()
+                destroyElement(createdElement)
                 return false
             end
         end
@@ -122,7 +123,7 @@ function destroyElement(element)
     if createdElements[element].gui then
         for i, j in pairs(createdElements[element].gui) do
             if i and isElement(i) then
-                i:destroy()
+                destroyElement(i)
             end
         end
     end
@@ -133,7 +134,7 @@ function destroyElement(element)
         createdElements[parentElement].children[element] = nil
     end
     createdElements[element] = nil
-    element:destroy()
+    destroyElement(element)
     collectgarbage()
     return true
 

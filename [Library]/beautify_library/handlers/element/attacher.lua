@@ -9,11 +9,22 @@
 ----------------------------------------------------------------
 
 
+-----------------
+--[[ Imports ]]--
+-----------------
+
+local imports = {
+    isElement = isElement,
+    isKeyOnHold = isKeyOnHold,
+    getAbsoluteCursorPosition = getAbsoluteCursorPosition
+}
+
+
 -------------------
 --[[ Variables ]]--
 -------------------
 
-attachedElement = false
+CLIENT_ATTACHED_ELEMENT = false
 
 
 -----------------------------------------------
@@ -22,7 +33,7 @@ attachedElement = false
 
 function getAttachedElement()
 
-    return attachedElement
+    return CLIENT_ATTACHED_ELEMENT
 
 end
 
@@ -33,15 +44,15 @@ end
 
 function attachElement(element, isInternal)
 
-    if GuiElement.isMTAWindowActive() or not isCursorShowing() or not getKeyState("mouse1") or not isUIValid(element) or not isUIVisible(element) then return false end
-    if attachedElement and attachedElement.element and isElement(attachedElement.element) and (attachedElement.element == element) then return false end
-    local cursorOffset = {getAbsoluteCursorPosition()}
-    if not cursorOffset[1] or not cursorOffset[2] then return false end
+    if CLIENT_MTA_WINDOW_ACTIVE or not CLIENT_IS_CURSOR_SHOWING or not imports.isKeyOnHold("mouse1") then return false end
+    if CLIENT_ATTACHED_ELEMENT and CLIENT_ATTACHED_ELEMENT.element and imports.isElement(CLIENT_ATTACHED_ELEMENT.element) and (CLIENT_ATTACHED_ELEMENT.element == element) then return false end
+    local cursor_offsetX, cursor_offsetY = imports.getAbsoluteCursorPosition()
+    if not cursor_offsetX or not cursor_offsetY then return false end
 
-    attachedElement = {
+    CLIENT_ATTACHED_ELEMENT = {
         element = element,
-        offsetX = cursorOffset[1] - createdElements[element].gui.x,
-        offsetY = cursorOffset[2] - createdElements[element].gui.y,
+        offsetX = cursor_offsetX - createdElements[element].gui.x,
+        offsetY = cursor_offsetY - createdElements[element].gui.y,
         isInternal = (isInternal and true) or false
     }
     return true
@@ -50,9 +61,9 @@ end
 
 function detachElement()
 
-    if not attachedElement then return false end
+    if not CLIENT_ATTACHED_ELEMENT then return false end
 
-    attachedElement = false
+    CLIENT_ATTACHED_ELEMENT = false
     return true
 
 end
