@@ -9,17 +9,31 @@
 ----------------------------------------------------------------
 
 
+-----------------
+--[[ Imports ]]--
+-----------------
+
+local imports = {
+    guiGetScreenSize = guiGetScreenSize,
+    getTickCount = getTickCount,
+    isMTAWindowActive = isMTAWindowActive,
+    getKeyState = getKeyState
+}
+
+
 -------------------
 --[[ Variables ]]--
 -------------------
 
-CLIENT_MTA_RESOLUTION = {GuiElement.getScreenSize()}
+CLIENT_MTA_RESOLUTION = {imports.guiGetScreenSize()}
+CLIENT_CURRENT_TICK = imports.getTickCount()
+CLIENT_MTA_WINDOW_ACTIVE = imports.isMTAWindowActive()
 CLIENT_MTA_MINIMIZED = false
 CLIENT_MTA_RESTORED = false
 CLIENT_HOVERED_ELEMENT = false
 INPUT_CACHE = {
     prevKeyClickStates = {},
-    prevScrollState = {scrollState = false, streakState = false, streakCounter = 1, tickCounter = getTickCount()}
+    prevScrollState = {scrollState = false, streakState = false, streakCounter = 1, tickCounter = CLIENT_CURRENT_TICK}
 }
 local DEFAULT_INPUT_KEYS = {
     "mouse1", "mouse2", "lshift"
@@ -32,7 +46,7 @@ local DEFAULT_INPUT_KEYS = {
 
 local function isInputValid()
 
-    if GuiElement.isMTAWindowActive() then
+    if imports.isMTAWindowActive() then
         resetKeyClickCache(nil, true)
         resetScrollCache(true)
         return false
@@ -50,7 +64,7 @@ function addKeyClickCache(key)
 
     if not key or INPUT_CACHE.prevKeyClickStates[key] then return false end
 
-    INPUT_CACHE.prevKeyClickStates[key] = {holdState = false, clickState = false, tickCounter = getTickCount()}
+    INPUT_CACHE.prevKeyClickStates[key] = {holdState = false, clickState = false, tickCounter = CLIENT_CURRENT_TICK}
     return true
 
 end
@@ -108,7 +122,7 @@ function resetScrollCache(resetStreak)
 
     if resetStreak and INPUT_CACHE.prevScrollState.scrollState then
         INPUT_CACHE.prevScrollState.streakCounter = 1
-        INPUT_CACHE.prevScrollState.tickCounter = getTickCount()
+        INPUT_CACHE.prevScrollState.tickCounter = CLIENT_CURRENT_TICK
     end
     INPUT_CACHE.prevScrollState.scrollState = false
     return true
@@ -122,19 +136,22 @@ end
 
 addEventHandler("onClientRender", root, function()
 
+    CLIENT_CURRENT_TICK = imports.getTickCount()
+    CLIENT_MTA_WINDOW_ACTIVE = imports.isMTAWindowActive()
+
     if not isInputValid() then return false end
 
     for i, j in pairs(INPUT_CACHE.prevKeyClickStates) do
         if not j.holdState then
-            if getKeyState(i) then
+            if imports.getKeyState(i) then
                 j.clickState = true
                 j.holdState = true
-                j.tickCounter = getTickCount()
+                j.tickCounter = CLIENT_CURRENT_TICK
             end
         else
-            if not getKeyState(i) then
+            if not imports.getKeyState(i) then
                 j.holdState = false
-                j.tickCounter = getTickCount()
+                j.tickCounter = CLIENT_CURRENT_TICK
             end
         end
     end
@@ -161,14 +178,14 @@ addEventHandler("onClientKey", root, function(button, state)
         if not INPUT_CACHE.prevScrollState.streakCounterState or INPUT_CACHE.prevScrollState.streakCounterState ~= isScrolled then
             INPUT_CACHE.prevScrollState.streakCounterState = isScrolled
             INPUT_CACHE.prevScrollState.streakCounter = 1
-            INPUT_CACHE.prevScrollState.tickCounter = getTickCount()
+            INPUT_CACHE.prevScrollState.tickCounter = CLIENT_CURRENT_TICK
         else
-            if (getTickCount() - INPUT_CACHE.prevScrollState.tickCounter) < UI_INPUT_FRAME.SCROLL_DELAY then
+            if (CLIENT_CURRENT_TICK - INPUT_CACHE.prevScrollState.tickCounter) < UI_INPUT_FRAME.SCROLL_DELAY then
                 INPUT_CACHE.prevScrollState.streakCounter = INPUT_CACHE.prevScrollState.streakCounter + 1 + (INPUT_CACHE.prevScrollState.streakCounter*0.1)
             else
                 INPUT_CACHE.prevScrollState.streakCounter = 1
             end
-            INPUT_CACHE.prevScrollState.tickCounter = getTickCount()
+            INPUT_CACHE.prevScrollState.tickCounter = CLIENT_CURRENT_TICK
         end
         INPUT_CACHE.prevScrollState.scrollState = isScrolled
     end
