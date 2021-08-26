@@ -22,8 +22,6 @@ local imports = {
     getElementType = getElementType,
     destroyElement = destroyElement,
     collectgarbage = collectgarbage,
-    outputUILog = outputUILog,
-    __clearResourceUIElements = __clearResourceUIElements,
     clearResourceUITemplates = clearResourceUITemplates
 }
 
@@ -220,7 +218,7 @@ function areUIParametersValid(parameters, elementType, apiName)
             end
         end
         syntaxMessage = syntaxMessage..")"
-        imports.outputUILog(syntaxMessage, "error")
+        outputUILog(syntaxMessage, "error")
         return false
     end
     return true, templateReferenceIndex
@@ -239,7 +237,7 @@ addEventHandler("onClientResourceStop", root, function()
         isLibraryResourceStopping = true
         imports.collectgarbage()
     else
-        imports.__clearResourceUIElements(source)
+        __clearResourceUIElements(source)
         imports.clearResourceUITemplates(source)
     end
 
