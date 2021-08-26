@@ -9,6 +9,30 @@
 ----------------------------------------------------------------
 
 
+-----------------
+--[[ Imports ]]--
+-----------------
+
+local imports = {
+    tocolor = tocolor,
+    isKeyClicked = isKeyClicked,
+    getUIParent = getUIParent,
+    __getUITemplate = __getUITemplate,
+    renderElementChildren = renderElementChildren,
+    unpackColor = unpackColor,
+    isMouseOnPosition = isMouseOnPosition,
+    getInterpolationProgress = getInterpolationProgress,
+    interpolateBetween = interpolateBetween,
+    dxSetRenderTarget = dxSetRenderTarget,
+    dxSetBlendMode = dxSetBlendMode,
+    dxDrawImage = dxDrawImage,
+    dxDrawText = dxDrawText,
+    math = {
+        min = math.min
+    }
+}
+
+
 -------------------
 --[[ Variables ]]--
 -------------------
@@ -22,19 +46,13 @@ local elementType = "beautify_selector"
 
 function renderSelector(element, isFetchingInput, mouseReference)
 
-    if not isFetchingInput then
-        if not isUIValid(element) or (element:getType() ~= elementType) then return false end
-    else
-        if not mouseReference then return false end
-    end
-
     local elementReference = createdElements[element]
     if not isFetchingInput then
-        local elementParent = __getUIParent(element)
-        if not elementParent then dxSetRenderTarget() end
+        local elementParent = imports.getUIParent(element)
+        if not elementParent then imports.dxSetRenderTarget() end
         local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (reloadResourceTemplates[(elementReference.sourceResource)] and reloadResourceTemplates[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
-        local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
+        local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
         local selector_type = elementReference.gui.type
         local selector_postGUI = elementReference.gui.postGUI
 
@@ -63,7 +81,7 @@ function renderSelector(element, isFetchingInput, mouseReference)
             local selector_startX, selector_startY = elementReference.gui.x, elementReference.gui.y
             local selector_width, selector_height = elementReference.gui.width, elementReference.gui.height
             local selector_arrow_size = availableElements[elementType].minimumSize
-            local selector_arrow_icon_size = math.min(selector_arrow_size, availableElements[elementType].arrowIconSize)
+            local selector_arrow_icon_size = imports.math.min(selector_arrow_size, availableElements[elementType].arrowIconSize)
             local selector_content_padding = availableElements[elementType].contentSection.padding
             local selector_arrow_icon_padding = (selector_arrow_size - selector_arrow_icon_size)*0.5
             if selector_type == "horizontal" then
@@ -123,7 +141,7 @@ function renderSelector(element, isFetchingInput, mouseReference)
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Next"].width = elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.width
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Next"].height = elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.height
             if isElementToBeReloaded then
-                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].color = tocolor(unpackColor(elementTemplate.color))
+                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].color = imports.tocolor(imports.unpackColor(elementTemplate.color))
                 elementReference.gui["__UI_CACHE__"]["Arrow Next"].color = elementReference.gui["__UI_CACHE__"]["Arrow Previous"].color
             end
             if not CLIENT_MTA_MINIMIZED then
@@ -142,57 +160,57 @@ function renderSelector(element, isFetchingInput, mouseReference)
             if not elementReference.gui.arrow_Previous.animAlphaPercent then
                 elementReference.gui.arrow_Previous.animAlphaPercent = 0
                 elementReference.gui.arrow_Previous.hoverStatus = "backward"
-                elementReference.gui.arrow_Previous.hoverAnimTickCounter = getTickCount()
+                elementReference.gui.arrow_Previous.hoverAnimTickCounter = CLIENT_CURRENT_TICK
             end
             if not elementReference.gui.arrow_Next.animAlphaPercent then
                 elementReference.gui.arrow_Next.animAlphaPercent = 0
                 elementReference.gui.arrow_Next.hoverStatus = "backward"
-                elementReference.gui.arrow_Next.hoverAnimTickCounter = getTickCount()
+                elementReference.gui.arrow_Next.hoverAnimTickCounter = CLIENT_CURRENT_TICK
             end
             if elementReference.gui.arrow_Previous.hoverStatus == "forward" then
-                elementReference.gui.arrow_Previous.animAlphaPercent = interpolateBetween(elementReference.gui.arrow_Previous.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(elementReference.gui.arrow_Previous.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
+                elementReference.gui.arrow_Previous.animAlphaPercent = imports.interpolateBetween(elementReference.gui.arrow_Previous.animAlphaPercent, 0, 0, 1, 0, 0, imports.getInterpolationProgress(elementReference.gui.arrow_Previous.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
             else
-                elementReference.gui.arrow_Previous.animAlphaPercent = interpolateBetween(elementReference.gui.arrow_Previous.animAlphaPercent, 0, 0, 0, 0, 0, getInterpolationProgress(elementReference.gui.arrow_Previous.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
+                elementReference.gui.arrow_Previous.animAlphaPercent = imports.interpolateBetween(elementReference.gui.arrow_Previous.animAlphaPercent, 0, 0, 0, 0, 0, imports.getInterpolationProgress(elementReference.gui.arrow_Previous.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
             end
             if elementReference.gui.arrow_Next.hoverStatus == "forward" then
-                elementReference.gui.arrow_Next.animAlphaPercent = interpolateBetween(elementReference.gui.arrow_Next.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(elementReference.gui.arrow_Next.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
+                elementReference.gui.arrow_Next.animAlphaPercent = imports.interpolateBetween(elementReference.gui.arrow_Next.animAlphaPercent, 0, 0, 1, 0, 0, imports.getInterpolationProgress(elementReference.gui.arrow_Next.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
             else
-                elementReference.gui.arrow_Next.animAlphaPercent = interpolateBetween(elementReference.gui.arrow_Next.animAlphaPercent, 0, 0, 0, 0, 0, getInterpolationProgress(elementReference.gui.arrow_Next.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
+                elementReference.gui.arrow_Next.animAlphaPercent = imports.interpolateBetween(elementReference.gui.arrow_Next.animAlphaPercent, 0, 0, 0, 0, 0, imports.getInterpolationProgress(elementReference.gui.arrow_Next.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
             end
-            dxDrawImage(elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.height, selector_arrow_prevIcon, 0, 0, 0, elementReference.gui["__UI_CACHE__"]["Arrow Previous"].color, slider_postGUI)
-            dxDrawImage(elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.height, selector_arrow_nextIcon, 0, 0, 0, elementReference.gui["__UI_CACHE__"]["Arrow Next"].color, slider_postGUI)
+            imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.height, selector_arrow_prevIcon, 0, 0, 0, elementReference.gui["__UI_CACHE__"]["Arrow Previous"].color, slider_postGUI)
+            imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.height, selector_arrow_nextIcon, 0, 0, 0, elementReference.gui["__UI_CACHE__"]["Arrow Next"].color, slider_postGUI)
             if elementReference.gui.arrow_Previous.animAlphaPercent > 0 then
-                dxDrawImage(elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.height, selector_arrow_prevIcon, 0, 0, 0, tocolor(elementTemplate.hoverColor[1], elementTemplate.hoverColor[2], elementTemplate.hoverColor[3], elementTemplate.hoverColor[4]*elementReference.gui.arrow_Previous.animAlphaPercent), slider_postGUI)
+                imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.height, selector_arrow_prevIcon, 0, 0, 0, imports.tocolor(elementTemplate.hoverColor[1], elementTemplate.hoverColor[2], elementTemplate.hoverColor[3], elementTemplate.hoverColor[4]*elementReference.gui.arrow_Previous.animAlphaPercent), slider_postGUI)
             end
             if elementReference.gui.arrow_Next.animAlphaPercent > 0 then
-                dxDrawImage(elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.height, selector_arrow_nextIcon, 0, 0, 0, tocolor(elementTemplate.hoverColor[1], elementTemplate.hoverColor[2], elementTemplate.hoverColor[3], elementTemplate.hoverColor[4]*elementReference.gui.arrow_Next.animAlphaPercent), slider_postGUI)
+                imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.height, selector_arrow_nextIcon, 0, 0, 0, imports.tocolor(elementTemplate.hoverColor[1], elementTemplate.hoverColor[2], elementTemplate.hoverColor[3], elementTemplate.hoverColor[4]*elementReference.gui.arrow_Next.animAlphaPercent), slider_postGUI)
             end
         end
         if elementReference.gui["__UI_CACHE__"]["Selector"].text.isToBeRendered then
             if not elementReference.gui.animAlphaPercent then
                 elementReference.gui.animAlphaPercent = 0.8
                 elementReference.gui.hoverStatus = "backward"
-                elementReference.gui.hoverAnimTickCounter = getTickCount()
+                elementReference.gui.hoverAnimTickCounter = CLIENT_CURRENT_TICK
             end
             if elementReference.gui.hoverStatus == "forward" then
-                elementReference.gui.animAlphaPercent = interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
+                elementReference.gui.animAlphaPercent = imports.interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, imports.getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
             else
-                elementReference.gui.animAlphaPercent = interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 0.8, 0, 0, getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
+                elementReference.gui.animAlphaPercent = imports.interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 0.8, 0, 0, imports.getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration), "InQuad")
             end
-            local selector_fontColor = (elementReference.gui.fontColor and tocolor(elementReference.gui.fontColor[1], elementReference.gui.fontColor[2], elementReference.gui.fontColor[3], elementReference.gui.fontColor[4]*elementReference.gui.animAlphaPercent)) or tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4]*elementReference.gui.animAlphaPercent)
-            dxDrawText(elementReference.gui["__UI_CACHE__"]["Selector"].text.text, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endY, selector_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "center", "center", true, false, selector_postGUI, false)
+            local selector_fontColor = (elementReference.gui.fontColor and imports.tocolor(elementReference.gui.fontColor[1], elementReference.gui.fontColor[2], elementReference.gui.fontColor[3], elementReference.gui.fontColor[4]*elementReference.gui.animAlphaPercent)) or imports.tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4]*elementReference.gui.animAlphaPercent)
+            imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Selector"].text.text, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endY, selector_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "center", "center", true, false, selector_postGUI, false)
         end
-        renderElementChildren(element)
-        dxSetBlendMode("blend")
+        imports.renderElementChildren(element)
+        imports.dxSetBlendMode("blend")
         if not elementParent then
-            dxSetRenderTarget()
+            imports.dxSetRenderTarget()
         else
-            dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
+            imports.dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
         end
     else
         if elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startX and elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startY and elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startX and elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startY then
             local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
-            renderElementChildren(element, true, mouseReference)
+            imports.renderElementChildren(element, true, mouseReference)
             local isElementHovered = CLIENT_HOVERED_ELEMENT == element
             local isSelectorHovered = false
             local isArrowPreviousHovered, isArrowNextHovered = false, false
@@ -204,48 +222,52 @@ function renderSelector(element, isFetchingInput, mouseReference)
             if isSelectorHovered then
                 if elementReference.gui.hoverStatus ~= "forward" then
                     elementReference.gui.hoverStatus = "forward"
-                    elementReference.gui.hoverAnimTickCounter = getTickCount()
+                    elementReference.gui.hoverAnimTickCounter = CLIENT_CURRENT_TICK
                 end
-                isArrowPreviousHovered = isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Previous"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Previous"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Previous"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Previous"].height)
-                isArrowNextHovered = isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Next"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Next"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Next"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Next"].height)
+                isArrowPreviousHovered = imports.isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Previous"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Previous"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Previous"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Previous"].height)
+                isArrowNextHovered = imports.isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Next"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Next"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Next"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Next"].height)
             else
                 if elementReference.gui.hoverStatus ~= "backward" then
                     elementReference.gui.hoverStatus = "backward"
-                    elementReference.gui.hoverAnimTickCounter = getTickCount()
+                    elementReference.gui.hoverAnimTickCounter = CLIENT_CURRENT_TICK
                 end
             end
             if isArrowPreviousHovered then
-                if isKeyClicked("mouse1") then
+                if imports.isKeyClicked("mouse1") then
+                    --TODO: USE LOCAL REFERENCE + CACHE
                     local currentSelection = getSelectorSelection(element)
                     if currentSelection then
+                        --TODO: CACHE...
                         setSelectorSelection(element, currentSelection - 1)
                     end
                 end
                 if elementReference.gui.arrow_Previous.hoverStatus ~= "forward" then
                     elementReference.gui.arrow_Previous.hoverStatus = "forward"
-                    elementReference.gui.arrow_Previous.hoverAnimTickCounter = getTickCount()
+                    elementReference.gui.arrow_Previous.hoverAnimTickCounter = CLIENT_CURRENT_TICK
                 end
             else
                 if elementReference.gui.arrow_Previous.hoverStatus ~= "backward" then
                     elementReference.gui.arrow_Previous.hoverStatus = "backward"
-                    elementReference.gui.arrow_Previous.hoverAnimTickCounter = getTickCount()
+                    elementReference.gui.arrow_Previous.hoverAnimTickCounter = CLIENT_CURRENT_TICK
                 end
             end
             if isArrowNextHovered then
-                if isKeyClicked("mouse1") then
+                if imports.isKeyClicked("mouse1") then
+                    --TODO: USE LOCAL REFERENCE + CACHE
                     local currentSelection = getSelectorSelection(element)
                     if currentSelection then
+                        --TODO: CACHE...
                         setSelectorSelection(element, currentSelection + 1)
                     end
                 end
                 if elementReference.gui.arrow_Next.hoverStatus ~= "forward" then
                     elementReference.gui.arrow_Next.hoverStatus = "forward"
-                    elementReference.gui.arrow_Next.hoverAnimTickCounter = getTickCount()
+                    elementReference.gui.arrow_Next.hoverAnimTickCounter = CLIENT_CURRENT_TICK
                 end
             else
                 if elementReference.gui.arrow_Next.hoverStatus ~= "backward" then
                     elementReference.gui.arrow_Next.hoverStatus = "backward"
-                    elementReference.gui.arrow_Next.hoverAnimTickCounter = getTickCount()
+                    elementReference.gui.arrow_Next.hoverAnimTickCounter = CLIENT_CURRENT_TICK
                 end
             end
         end
