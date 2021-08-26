@@ -59,6 +59,7 @@ local function renderElements()
     local renderingPriorityCount = #createdRenderingPriority
     if renderingPriorityCount <= 0 then return false end
 
+    local preRenderedElements = {}
     local validatedRenderingPriority = {}
     for i = 1, renderingPriorityCount, 1 do
         local element = createdRenderingPriority[i].element
@@ -77,16 +78,17 @@ local function renderElements()
                 CLIENT_HOVERED_ELEMENT.elementRoot = element
                 CLIENT_HOVERED_ELEMENT.element = element
                 availableElements[elementType].renderFunction(element, true, {x = 0, y = 0, element = element})
+                preRenderedElements[element] = true
                 break
             end
         end
-        --TODO: RENDER SOME ELEMENTS THAT ARE ANIMATING YET :)
     end
     for element, j in pairs(CLIENT_ELEMENT_FORCE_RENDERED) do
-        --TODO: ...
-        local elementType = createdElements[element].elementType
-        availableElements[elementType].renderFunction(element, false, {x = 0, y = 0, element = element})
-        availableElements[elementType].renderFunction(element, true, {x = 0, y = 0, element = element})
+        if not preRenderedElements[element] then
+            local elementType = createdElements[element].elementType
+            availableElements[elementType].renderFunction(element)
+            availableElements[elementType].renderFunction(element, true, {x = 0, y = 0, element = element})
+        end
     end
     return true
 
@@ -94,15 +96,18 @@ end
 
 function renderElementChildren(element, isFetchingInput, mouseReference)
 
-    local elementRoot = createdElements[element].elementRoot
     if not CLIENT_MTA_RESTORED then
-        if not elementRoot then
-            if CLIENT_HOVERED_ELEMENT.elementRoot ~= element then
-                return false
-            end
-        else
-            if CLIENT_HOVERED_ELEMENT.elementRoot ~= elementRoot then
-                return false
+        local elementRoot = createdElements[element].elementRoot
+        local isElementForceRendered = (elementRoot and CLIENT_ELEMENT_FORCE_RENDERED[elementRoot]) or CLIENT_ELEMENT_FORCE_RENDERED[element]
+        if not isElementForceRendered then
+            if not elementRoot then
+                if CLIENT_HOVERED_ELEMENT.elementRoot ~= element then
+                    return false
+                end
+            else
+                if CLIENT_HOVERED_ELEMENT.elementRoot ~= elementRoot then
+                    return false
+                end
             end
         end
     end
@@ -167,19 +172,17 @@ imports.addEventHandler("onClientRender", root, function()
         local elementRoot = createdElements[(CLIENT_ATTACHED_ELEMENT.element)].elementRoot
         if not CLIENT_ATTACHED_ELEMENT.element or not imports.isElement(CLIENT_ATTACHED_ELEMENT.element) or not createdElements[CLIENT_ATTACHED_ELEMENT.element] then
             if elementRoot then
-                CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] = false
+                CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] = nil
             end
             imports.detachUIElement()
         elseif CLIENT_MTA_WINDOW_ACTIVE or not CLIENT_IS_CURSOR_SHOWING or not imports.isKeyOnHold("mouse1") or not imports.isUIValid(CLIENT_ATTACHED_ELEMENT.element) or not imports.isUIVisible(CLIENT_ATTACHED_ELEMENT.element) then
             if elementRoot then
-                CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] = false
+                CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] = nil
             end
             createdElements[(CLIENT_ATTACHED_ELEMENT.element)].gui["__UI_CACHE__"].updateElement = true
             imports.detachUIElement()
         else
-            --outputChatBox("TEST 3")
             if elementRoot then
-                --outputChatBox("YES//")
                 CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] = true
             end
             if not CLIENT_ATTACHED_ELEMENT.isInternal then
