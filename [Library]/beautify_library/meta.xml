@@ -1,7 +1,6 @@
 <meta>
 
     <info author="OvileAmriam" name="Beautify Library" type="Library" version="1.0.0"/>
-    <oop>true</oop>
 
     <!-- Exports -->
     <script src="exports/essential.lua" type="client" cache="false"/>
