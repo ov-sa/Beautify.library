@@ -65,7 +65,7 @@ function renderLabel(element, isFetchingInput, mouseReference)
                 elementReference.gui["__UI_CACHE__"]["Label"].offsets.height = label_height
                 elementReference.gui["__UI_CACHE__"]["Label"].text.text = elementReference.gui.text
                 if isElementToBeReloaded then
-                    elementReference.gui["__UI_CACHE__"]["Label"].text.fontColor = imports.tocolor(imports.unpackColor((elementReference.gui.fontColor or elementTemplate.fontColor))
+                    elementReference.gui["__UI_CACHE__"]["Label"].text.fontColor = imports.tocolor(imports.unpackColor(elementReference.gui.fontColor or elementTemplate.fontColor))
                 end
                 elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.startX = elementReference.gui["__UI_CACHE__"]["Label"].offsets.startX
                 elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.startY = elementReference.gui["__UI_CACHE__"]["Label"].offsets.startY + (elementTemplate.fontPaddingY or 0)

@@ -20,7 +20,7 @@ local imports = {
     getUIParent = getUIParent,
     __getUITemplate = __getUITemplate,
     renderElementChildren = renderElementChildren,
-    setCheckboxSelection = setCheckboxSelection
+    setCheckboxSelection = setCheckboxSelection,
     unpackColor = unpackColor,
     isMouseOnPosition = isMouseOnPosition,
     interpolateBetween = interpolateBetween,
@@ -29,7 +29,7 @@ local imports = {
     dxDrawRectangle = dxDrawRectangle,
     dxDrawText = dxDrawText,
     math = {
-        min = math.max
+        min = math.min
     }
 }
 
