@@ -42,7 +42,7 @@ function renderLabel(element, isFetchingInput, mouseReference)
     if not isFetchingInput then
         local elementParent = imports.getUIParent(element)
         if not elementParent then imports.dxSetRenderTarget() end
-        local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (reloadResourceTemplates[(elementReference.sourceResource)] and reloadResourceTemplates[(elementReference.sourceResource)][elementType]))
+        local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)] and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
         local label_width, label_height = elementReference.gui.width, elementReference.gui.height
 

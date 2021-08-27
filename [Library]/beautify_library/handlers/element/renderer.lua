@@ -46,8 +46,8 @@ local imports = {
 --[[ Variables ]]--
 -------------------
 
+local CLIENT_ELEMENT_FORCE_RENDERED = {}
 local clickedMouseKey = false
-CLIENT_ELEMENT_FORCE_RENDERED = {}
 
 
 --------------------------------------------------------
@@ -96,10 +96,15 @@ end
 
 function renderElementChildren(element, isFetchingInput, mouseReference)
 
-    if not CLIENT_MTA_RESTORED then
-        local elementRoot = createdElements[element].elementRoot
-        local isElementForceRendered = (elementRoot and CLIENT_ELEMENT_FORCE_RENDERED[elementRoot]) or CLIENT_ELEMENT_FORCE_RENDERED[element]
-        if not isElementForceRendered then
+    local elementReference = createdElements[element]
+    local elementChildrenCount = #elementReference.renderIndexReference[(elementReference.renderIndex)].children
+    if elementChildrenCount <= 0 then return false end
+
+    local isChildrenToBeRendered = CLIENT_MTA_RESTORED or (not CLIENT_RESOURCE_TEMPLATE_RELOAD.__cache.loaded and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)])
+    if not isChildrenToBeRendered then
+        local elementRoot = elementReference.elementRoot
+        local isChildrenToBeForceRendered = (elementRoot and CLIENT_ELEMENT_FORCE_RENDERED[elementRoot]) or CLIENT_ELEMENT_FORCE_RENDERED[element]
+        if not isChildrenToBeForceRendered then
             if not elementRoot then
                 if CLIENT_HOVERED_ELEMENT.elementRoot ~= element then
                     return false
@@ -111,10 +116,6 @@ function renderElementChildren(element, isFetchingInput, mouseReference)
             end
         end
     end
-
-    local elementReference = createdElements[element]
-    local elementChildrenCount = #elementReference.renderIndexReference[(elementReference.renderIndex)].children
-    if elementChildrenCount <= 0 then return false end
 
     if not isFetchingInput then
         local element_renderTarget = elementReference.gui.renderTarget
@@ -204,15 +205,15 @@ imports.addEventHandler("onClientRender", root, function()
         clickedMouseKey = false
     end
 
-    if not CLIENT_MTA_MINIMIZED and not reloadResourceTemplates.__cache.loaded then
-        if reloadResourceTemplates.__cache.loadStatus == "initialized" then
-            reloadResourceTemplates.__cache.loadStatus = "reload"
-        elseif reloadResourceTemplates.__cache.loadStatus == "reload" then
-            reloadResourceTemplates = {
-                __cache = imports.cloneTableDatas(reloadResourceTemplates.__cache, false)
+    if not CLIENT_MTA_MINIMIZED and not CLIENT_RESOURCE_TEMPLATE_RELOAD.__cache.loaded then
+        if CLIENT_RESOURCE_TEMPLATE_RELOAD.__cache.loadStatus == "initialized" then
+            CLIENT_RESOURCE_TEMPLATE_RELOAD.__cache.loadStatus = "reload"
+        elseif CLIENT_RESOURCE_TEMPLATE_RELOAD.__cache.loadStatus == "reload" then
+            CLIENT_RESOURCE_TEMPLATE_RELOAD = {
+                __cache = imports.cloneTableDatas(CLIENT_RESOURCE_TEMPLATE_RELOAD.__cache, false)
             }
-            reloadResourceTemplates.__cache.loaded = true
-            reloadResourceTemplates.__cache.loadStatus = false
+            CLIENT_RESOURCE_TEMPLATE_RELOAD.__cache.loaded = true
+            CLIENT_RESOURCE_TEMPLATE_RELOAD.__cache.loadStatus = false
         end
     end
     CLIENT_MTA_RESTORED = false

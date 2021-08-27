@@ -35,7 +35,7 @@ local imports = {
 --[[ Variables ]]--
 -------------------
 
-reloadResourceTemplates = {
+CLIENT_RESOURCE_TEMPLATE_RELOAD = {
     __cache = {
         loaded = true,
         loadStatus = false
@@ -145,7 +145,7 @@ function setUITemplate(elementType, elementTemplate)
 
     if not sourceResource or not elementType or not elementTemplate or not availableTemplates[elementType] or imports.type(elementTemplate) ~= "table" then return false end
 
-    if not reloadResourceTemplates[sourceResource] then reloadResourceTemplates[sourceResource] = {} end
+    if not CLIENT_RESOURCE_TEMPLATE_RELOAD[sourceResource] then CLIENT_RESOURCE_TEMPLATE_RELOAD[sourceResource] = {} end
     if not createdResourceTemplates[elementType] then createdResourceTemplates[elementType] = {} end
     __clearResourceUITemplates(elementType)
     createdResourceTemplates[elementType][sourceResource] = {
@@ -153,9 +153,9 @@ function setUITemplate(elementType, elementTemplate)
         template = false
     }
     createdResourceTemplates[elementType][sourceResource].template = __createTemplate(elementType, imports.cloneTableDatas(availableTemplates[elementType], true), elementTemplate)
-    reloadResourceTemplates[sourceResource][elementType] = true
-    reloadResourceTemplates.__cache.loadStatus = "initialized"
-    reloadResourceTemplates.__cache.loaded = false
+    CLIENT_RESOURCE_TEMPLATE_RELOAD[sourceResource][elementType] = true
+    CLIENT_RESOURCE_TEMPLATE_RELOAD.__cache.loadStatus = "initialized"
+    CLIENT_RESOURCE_TEMPLATE_RELOAD.__cache.loaded = false
     return true
 
 end
