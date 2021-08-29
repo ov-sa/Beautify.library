@@ -42,13 +42,14 @@ local componentType = "beautify_scrollbar"
 --[[ Function: Renders Scroll Bar ]]--
 --------------------------------------
 
-function renderScrollbar(elementParent, isComponentToBeReloaded, isComonentToBeUpdated, renderData, referenceData, isFetchingInput)
+function renderScrollbar(elementParent, isComponentInterpolationToBeRefreshed, isComponentToBeReloaded, isComonentToBeUpdated, renderData, referenceData, isFetchingInput)
 
     local elementReference = renderData.elementReference
     local scrollbar_isHorizontal = referenceData.isHorizontal
     local scrollbar_overflownSize = renderData.overflownSize
     if not isFetchingInput then
         local isComponentRootToBeForceRendered = false
+        local isComponentInterpolationToBeRefreshed = CLIENT_MTA_RESTORED
         local scrollbar_postGUI = renderData.postGUI
 
         if isComonentToBeUpdated then
@@ -99,13 +100,13 @@ function renderScrollbar(elementParent, isComponentToBeReloaded, isComonentToBeU
         end
 
         local isScrollThumbInterpolationDone = imports.math.round(referenceData.currentThumbSize, 0) == imports.math.round(referenceData.finalThumbSize, 0)
-        if not isScrollThumbInterpolationDone then
-            isComponentRootToBeForceRendered = true
+        if isComponentInterpolationToBeRefreshed or (not isScrollThumbInterpolationDone) then
+            isComponentRootToBeForceRendered = not isComponentInterpolationToBeRefreshed and true
             referenceData.currentThumbSize = imports.interpolateBetween(referenceData.currentThumbSize, 0, 0, referenceData.finalThumbSize, 0, 0, 0.25, "InQuad")
         end
         local isScrollInterpolationDone = imports.math.round(referenceData.currentPercent, 2) == imports.math.round(referenceData.finalPercent, 2)
-        if not isScrollInterpolationDone then
-            isComponentRootToBeForceRendered = true
+        if isComponentInterpolationToBeRefreshed or (not isScrollInterpolationDone) then
+            isComponentRootToBeForceRendered = not isComponentInterpolationToBeRefreshed and true
             referenceData.currentPercent = imports.interpolateBetween(referenceData.currentPercent, 0, 0, referenceData.finalPercent, 0, 0, 0.25, "InQuad")
             if scrollbar_isHorizontal then
                 referenceData["__UI_CACHE__"]["Thumb"].offsets.startX = imports.math.max(referenceData["__UI_CACHE__"]["Track"].offsets.startX, referenceData["__UI_CACHE__"]["Track"].offsets.startX + (referenceData["__UI_CACHE__"]["Track"].offsets.width - referenceData["__UI_CACHE__"]["Thumb"].offsets.width)*(referenceData.currentPercent*0.01))
