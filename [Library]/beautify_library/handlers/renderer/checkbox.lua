@@ -179,12 +179,12 @@ function renderCheckbox(element, isFetchingInput, mouseReference)
                     isCheckBoxHovered = isElementHovered
                 end
             end
-            if isCheckBoxHovered then
+            if isCheckBoxHovered or isTickBoxSelected then
                 if elementReference.gui.hoverStatus ~= "forward" then
                     elementReference.gui.hoverStatus = "forward"
                     elementReference.gui.hoverAnimTickCounter = CLIENT_CURRENT_TICK
                 end
-                isTickBoxHovered = imports.isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Tick Box"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Tick Box"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Tick Box"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Tick Box"].height)
+                isTickBoxHovered = isCheckBoxHovered and imports.isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Tick Box"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Tick Box"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Tick Box"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Tick Box"].height)
             else
                 if elementReference.gui.hoverStatus ~= "backward" then
                     elementReference.gui.hoverStatus = "backward"
