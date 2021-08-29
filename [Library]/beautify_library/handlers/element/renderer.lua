@@ -14,7 +14,6 @@
 -----------------
 
 local imports = {
-    type = type,
     pairs = pairs,
     isElement = isElement,
     addEventHandler = addEventHandler,
@@ -48,6 +47,43 @@ local imports = {
 
 local CLIENT_ELEMENT_FORCE_RENDERED = {}
 local clickedMouseKey = false
+
+
+----------------------------------------------
+--[[ Function: Force Renders Element Root ]]--
+----------------------------------------------
+
+local function disableElementForceRender(element)
+
+    CLIENT_ELEMENT_FORCE_RENDERED[element] = nil
+    return true
+
+end
+
+function forceRenderElementRoot(elementRoot, liableElement, renderState)
+
+    local elementReference = createdElements[liableElement]
+    if renderState then
+        if not CLIENT_ELEMENT_FORCE_RENDERED[elementReference.elementRoot] then
+            CLIENT_ELEMENT_FORCE_RENDERED[elementReference.elementRoot] = {
+                liableElement = liableElement
+            }
+            return true
+        else
+            if not CLIENT_ELEMENT_FORCE_RENDERED[elementReference.elementRoot].isAttached then
+                CLIENT_ELEMENT_FORCE_RENDERED[elementReference.elementRoot].liableElement = liableElement
+                return true
+            end
+        end
+    else
+        if CLIENT_ELEMENT_FORCE_RENDERED[elementReference.elementRoot] and (not CLIENT_ELEMENT_FORCE_RENDERED[elementReference.elementRoot].isAttached) and (CLIENT_ELEMENT_FORCE_RENDERED[elementReference.elementRoot].liableElement == liableElement) then
+            disableElementForceRender(elementReference.elementRoot)
+            return true
+        end
+    end
+    return false
+
+end
 
 
 --------------------------------------------------------
@@ -85,9 +121,13 @@ local function renderElements()
     end
     for element, j in pairs(CLIENT_ELEMENT_FORCE_RENDERED) do
         if not preRenderedElements[element] then
-            local elementType = createdElements[element].elementType
-            availableElements[elementType].renderFunction(element)
-            availableElements[elementType].renderFunction(element, true, {x = 0, y = 0, element = element})
+            if imports.isUIValid(element) and imports.isUIVisible(element) then
+                local elementType = createdElements[element].elementType
+                availableElements[elementType].renderFunction(element)
+                availableElements[elementType].renderFunction(element, true, {x = 0, y = 0, element = element})
+            else
+                disableElementForceRender(element)
+            end
         end
     end
     return true
@@ -173,18 +213,20 @@ imports.addEventHandler("onClientRender", root, function()
         local elementRoot = createdElements[(CLIENT_ATTACHED_ELEMENT.element)].elementRoot
         if not CLIENT_ATTACHED_ELEMENT.element or not imports.isElement(CLIENT_ATTACHED_ELEMENT.element) or not createdElements[CLIENT_ATTACHED_ELEMENT.element] then
             if elementRoot then
-                CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] = nil
+                disableElementForceRender(elementRoot)
             end
             imports.detachUIElement()
         elseif CLIENT_MTA_WINDOW_ACTIVE or not CLIENT_IS_CURSOR_SHOWING or not imports.isKeyOnHold("mouse1") or not imports.isUIValid(CLIENT_ATTACHED_ELEMENT.element) or not imports.isUIVisible(CLIENT_ATTACHED_ELEMENT.element) then
             if elementRoot then
-                CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] = nil
+                disableElementForceRender(elementRoot)
             end
             createdElements[(CLIENT_ATTACHED_ELEMENT.element)].gui["__UI_CACHE__"].updateElement = true
             imports.detachUIElement()
         else
             if elementRoot then
-                CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] = true
+                CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] = {
+                    isAttached = true
+                }
             end
             if not CLIENT_ATTACHED_ELEMENT.isInternal then
                 local cursor_offsetX, cursor_offsetY = imports.getAbsoluteCursorPosition()

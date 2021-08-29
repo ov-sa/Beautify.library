@@ -55,6 +55,7 @@ function setUIVisible(element, state)
     if isUIValid(element) and (state == true or state == false) then
         if createdElements[element].isVisible ~= state then
             createdElements[element].isVisible = state
+            triggerEvent("onClientUIVisibilityAltered", element, state)
             return true
         end
     end

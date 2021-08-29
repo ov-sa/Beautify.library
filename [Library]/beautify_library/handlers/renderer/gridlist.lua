@@ -56,6 +56,7 @@ function renderGridlist(element, isFetchingInput, mouseReference)
     if not isFetchingInput then
         local elementParent = imports.getUIParent(element)
         if not elementParent then imports.dxSetRenderTarget() end
+        local isElementRootToBeForceRendered = false
         local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)] and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
         local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
@@ -158,10 +159,12 @@ function renderGridlist(element, isFetchingInput, mouseReference)
                     end
                     if j.hoverStatus == "forward" then
                         if j.animAlphaPercent < 1 then
+                            isElementRootToBeForceRendered = true
                             j.animAlphaPercent = imports.interpolateBetween(j.animAlphaPercent, 0, 0, 1, 0, 0, imports.getInterpolationProgress(j.hoverAnimTickCounter, availableElements[elementType].rowBar.hoverAnimDuration), "OutBounce")
                         end
                     else
                         if j.animAlphaPercent > 0 then
+                            isElementRootToBeForceRendered = true
                             j.animAlphaPercent = imports.interpolateBetween(j.animAlphaPercent, 0, 0, 0, 0, 0, imports.getInterpolationProgress(j.hoverAnimTickCounter, availableElements[elementType].rowBar.hoverAnimDuration), "OutBounce")
                         end
                     end
@@ -197,6 +200,7 @@ function renderGridlist(element, isFetchingInput, mouseReference)
                     renderScrollbar(element, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][1], elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][2])
                 end
             end
+            forceRenderElementRoot(elementReference.elementRoot, element, isElementRootToBeForceRendered)
             imports.renderElementChildren(element)
             imports.dxSetBlendMode("blend")
             if not elementParent then
