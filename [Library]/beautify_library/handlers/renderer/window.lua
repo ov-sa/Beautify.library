@@ -182,15 +182,14 @@ function renderWindow(element, isFetchingInput, mouseReference)
             elementReference.gui.titleBar.closeButton.hoverStatus = "backward"
             elementReference.gui.titleBar.closeButton.hoverAnimTickCounter = CLIENT_CURRENT_TICK
         end
-        if elementReference.gui.titleBar.closeButton.hoverStatus == "forward" then
-            if elementReference.gui.titleBar.closeButton.animAlphaPercent < 1 then
-                isElementRootToBeForceRendered = true
-                elementReference.gui.titleBar.closeButton.animAlphaPercent = imports.interpolateBetween(elementReference.gui.titleBar.closeButton.animAlphaPercent, 0, 0, 1, 0, 0, imports.getInterpolationProgress(elementReference.gui.titleBar.closeButton.hoverAnimTickCounter, availableElements[elementType].titleBar.closeButton.hoverAnimDuration), "InQuad")
-            end
-        else
-            if elementReference.gui.titleBar.closeButton.animAlphaPercent > 0 then
-                isElementRootToBeForceRendered = true
-                elementReference.gui.titleBar.closeButton.animAlphaPercent = imports.interpolateBetween(elementReference.gui.titleBar.closeButton.animAlphaPercent, 0, 0, 0, 0, 0, imports.getInterpolationProgress(elementReference.gui.titleBar.closeButton.hoverAnimTickCounter, availableElements[elementType].titleBar.closeButton.hoverAnimDuration), "InQuad")
+
+        elementReference.gui["__UI_CACHE__"]["Close Button"].interpolationProgress = imports.getInterpolationProgress(elementReference.gui.titleBar.closeButton.hoverAnimTickCounter, availableElements[elementType].titleBar.closeButton.hoverAnimDuration)
+        if elementReference.gui["__UI_CACHE__"]["Close Button"].interpolationProgress < 1 then
+            isElementRootToBeForceRendered = true
+            if elementReference.gui.titleBar.closeButton.hoverStatus == "forward" then
+                elementReference.gui.titleBar.closeButton.animAlphaPercent = imports.interpolateBetween(elementReference.gui.titleBar.closeButton.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui["__UI_CACHE__"]["Close Button"].interpolationProgress, "InQuad")
+            else
+                elementReference.gui.titleBar.closeButton.animAlphaPercent = imports.interpolateBetween(elementReference.gui.titleBar.closeButton.animAlphaPercent, 0, 0, 0, 0, 0, elementReference.gui["__UI_CACHE__"]["Close Button"].interpolationProgress, "InQuad")
             end
         end
         if elementReference.gui["__UI_CACHE__"]["Window"].renderTexture then
