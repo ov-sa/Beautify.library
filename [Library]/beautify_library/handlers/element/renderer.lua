@@ -54,9 +54,9 @@ local clickedMouseKey = false
 --[[ Function: Force Renders Element Root ]]--
 ----------------------------------------------
 
-local function disableElementForceRender(element, nextTick)
+local function disableElementForceRender(element, addToRemovalList)
 
-    if nextTick and CLIENT_ELEMENT_FORCE_RENDERED[element] then
+    if addToRemovalList and CLIENT_ELEMENT_FORCE_RENDERED[element] then
         if not CLIENT_ELEMENT_PENDING_RENDER_REMOVAL[element] then
             CLIENT_ELEMENT_PENDING_RENDER_REMOVAL[element] = true
             return true
