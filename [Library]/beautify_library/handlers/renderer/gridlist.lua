@@ -196,7 +196,10 @@ function renderGridlist(element, isFetchingInput, mouseReference)
                         },
                         elementReference.gui.scrollBar_Vertical
                     }
-                    renderScrollbar(element, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][1], elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][2])
+                    local _, isComponentRootToBeForceRendered = renderScrollbar(element, isElementToBeReloaded, isElementToBeUpdated, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][1], elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][2])
+                    if isComponentRootToBeForceRendered then
+                        isElementRootToBeForceRendered = isElementRootToBeForceRendered or isComponentRootToBeForceRendered
+                    end
                 end
             end
             forceRenderElementRoot(elementReference.elementRoot or element, element, isElementRootToBeForceRendered)
@@ -257,7 +260,7 @@ function renderGridlist(element, isFetchingInput, mouseReference)
             end
             if elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"] then
                 elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][1].isDisabled = elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][1].isDisabled or not isGridListHovered
-                renderScrollbar(element, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][1], elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][2], true)
+                renderScrollbar(element, false, false, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][1], elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][2], true)
             end
         end
     end
