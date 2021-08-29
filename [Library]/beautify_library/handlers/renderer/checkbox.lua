@@ -53,6 +53,7 @@ function renderCheckbox(element, isFetchingInput, mouseReference)
         local elementParent = imports.getUIParent(element)
         if not elementParent then imports.dxSetRenderTarget() end
         local isElementRootToBeForceRendered = false
+        local isElementInterpolationToBeRefreshed = CLIENT_MTA_RESTORED
         local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)] and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
         local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
@@ -125,8 +126,8 @@ function renderCheckbox(element, isFetchingInput, mouseReference)
             elementReference.gui.tickBox.hoverAnimTickCounter = CLIENT_CURRENT_TICK
         end
         elementReference.gui.tickBox.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.tickBox.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
-        if CLIENT_MTA_RESTORED or (elementReference.gui.tickBox.interpolationProgress < 1) then
-            isElementRootToBeForceRendered = true
+        if isElementInterpolationToBeRefreshed or (elementReference.gui.tickBox.interpolationProgress < 1) then
+            isElementRootToBeForceRendered = not isElementInterpolationToBeRefreshed and true
             if elementReference.gui.tickBox.hoverStatus == "forward" then
                 elementReference.gui.tickBox.animAlphaPercent = imports.interpolateBetween(elementReference.gui.tickBox.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui.tickBox.interpolationProgress, "InQuad")
             else
@@ -148,8 +149,8 @@ function renderCheckbox(element, isFetchingInput, mouseReference)
                 elementReference.gui.hoverAnimTickCounter = CLIENT_CURRENT_TICK
             end
             elementReference.gui.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
-            if CLIENT_MTA_RESTORED or (elementReference.gui.interpolationProgress < 1) then
-                isElementRootToBeForceRendered = true
+            if isElementInterpolationToBeRefreshed or (elementReference.gui.interpolationProgress < 1) then
+                isElementRootToBeForceRendered = not isElementInterpolationToBeRefreshed and true
                 if elementReference.gui.hoverStatus == "forward" then
                     elementReference.gui.animAlphaPercent = imports.interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui.interpolationProgress, "InQuad")
                 else

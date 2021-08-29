@@ -57,6 +57,7 @@ function renderWindow(element, isFetchingInput, mouseReference)
         local elementParent = imports.getUIParent(element)
         if not elementParent then imports.dxSetRenderTarget() end
         local isElementRootToBeForceRendered = false
+        local isElementInterpolationToBeRefreshed = CLIENT_MTA_RESTORED
         local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)] and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
         local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
@@ -184,8 +185,8 @@ function renderWindow(element, isFetchingInput, mouseReference)
         end
 
         elementReference.gui.titleBar.closeButton.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.titleBar.closeButton.hoverAnimTickCounter, availableElements[elementType].titleBar.closeButton.hoverAnimDuration)
-        if CLIENT_MTA_RESTORED or (elementReference.gui.titleBar.closeButton.interpolationProgress < 1) then
-            isElementRootToBeForceRendered = true
+        if isElementInterpolationToBeRefreshed or (elementReference.gui.titleBar.closeButton.interpolationProgress < 1) then
+            isElementRootToBeForceRendered = not isElementInterpolationToBeRefreshed and true
             if elementReference.gui.titleBar.closeButton.hoverStatus == "forward" then
                 elementReference.gui.titleBar.closeButton.animAlphaPercent = imports.interpolateBetween(elementReference.gui.titleBar.closeButton.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui.titleBar.closeButton.interpolationProgress, "InQuad")
             else

@@ -57,6 +57,7 @@ function renderGridlist(element, isFetchingInput, mouseReference)
         local elementParent = imports.getUIParent(element)
         if not elementParent then imports.dxSetRenderTarget() end
         local isElementRootToBeForceRendered = false
+        local isElementInterpolationToBeRefreshed = CLIENT_MTA_RESTORED
         local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)] and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
         local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
@@ -158,8 +159,8 @@ function renderGridlist(element, isFetchingInput, mouseReference)
                         j.hoverAnimTickCounter = CLIENT_CURRENT_TICK
                     end
                     j.interpolationProgress = imports.getInterpolationProgress(j.hoverAnimTickCounter, availableElements[elementType].rowBar.hoverAnimDuration)
-                    if CLIENT_MTA_RESTORED or (j.interpolationProgress < 1) then
-                        isElementRootToBeForceRendered = true
+                    if isElementInterpolationToBeRefreshed or (j.interpolationProgress < 1) then
+                        isElementRootToBeForceRendered = not isElementInterpolationToBeRefreshed and true
                         if j.hoverStatus == "forward" then
                             j.animAlphaPercent = imports.interpolateBetween(j.animAlphaPercent, 0, 0, 1, 0, 0, j.interpolationProgress, "OutBounce")
                         else
