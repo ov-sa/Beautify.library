@@ -124,13 +124,13 @@ function renderCheckbox(element, isFetchingInput, mouseReference)
             elementReference.gui.tickBox.hoverStatus = "backward"
             elementReference.gui.tickBox.hoverAnimTickCounter = CLIENT_CURRENT_TICK
         end
-        elementReference.gui["__UI_CACHE__"]["Tick Box"].interpolationProgress = imports.getInterpolationProgress(elementReference.gui.tickBox.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
-        if elementReference.gui["__UI_CACHE__"]["Tick Box"].interpolationProgress < 1 then
+        elementReference.gui.tickBox.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.tickBox.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
+        if elementReference.gui.tickBox.interpolationProgress < 1 then
             isElementRootToBeForceRendered = true
             if elementReference.gui.tickBox.hoverStatus == "forward" then
-                elementReference.gui.tickBox.animAlphaPercent = imports.interpolateBetween(elementReference.gui.tickBox.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui["__UI_CACHE__"]["Tick Box"].interpolationProgress, "InQuad")
+                elementReference.gui.tickBox.animAlphaPercent = imports.interpolateBetween(elementReference.gui.tickBox.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui.tickBox.interpolationProgress, "InQuad")
             else
-                elementReference.gui.tickBox.animAlphaPercent = imports.interpolateBetween(elementReference.gui.tickBox.animAlphaPercent, 0, 0, 0, 0, 0, elementReference.gui["__UI_CACHE__"]["Tick Box"].interpolationProgress, "InQuad")
+                elementReference.gui.tickBox.animAlphaPercent = imports.interpolateBetween(elementReference.gui.tickBox.animAlphaPercent, 0, 0, 0, 0, 0, elementReference.gui.tickBox.interpolationProgress, "InQuad")
             end
         end
         if elementReference.gui.tickBox.animAlphaPercent < 1 then
@@ -147,13 +147,13 @@ function renderCheckbox(element, isFetchingInput, mouseReference)
                 elementReference.gui.hoverStatus = "backward"
                 elementReference.gui.hoverAnimTickCounter = CLIENT_CURRENT_TICK
             end
-            elementReference.gui["__UI_CACHE__"]["Checkbox"].interpolationProgress = imports.getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
-            if elementReference.gui["__UI_CACHE__"]["Checkbox"].interpolationProgress < 1 then
+            elementReference.gui.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
+            if elementReference.gui.interpolationProgress < 1 then
                 isElementRootToBeForceRendered = true
                 if elementReference.gui.hoverStatus == "forward" then
-                    elementReference.gui.animAlphaPercent = imports.interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui["__UI_CACHE__"]["Checkbox"].interpolationProgress, "InQuad")
+                    elementReference.gui.animAlphaPercent = imports.interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui.interpolationProgress, "InQuad")
                 else
-                    elementReference.gui.animAlphaPercent = imports.interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 0.8, 0, 0, elementReference.gui["__UI_CACHE__"]["Checkbox"].interpolationProgress, "InQuad")
+                    elementReference.gui.animAlphaPercent = imports.interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 0.8, 0, 0, elementReference.gui.interpolationProgress, "InQuad")
                 end
             end
             local checkbox_fontColor = (elementReference.gui.fontColor and imports.tocolor(elementReference.gui.fontColor[1], elementReference.gui.fontColor[2], elementReference.gui.fontColor[3], elementReference.gui.fontColor[4]*elementReference.gui.animAlphaPercent)) or imports.tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4]*elementReference.gui.animAlphaPercent)

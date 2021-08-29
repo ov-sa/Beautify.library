@@ -157,15 +157,13 @@ function renderGridlist(element, isFetchingInput, mouseReference)
                         j.hoverStatus = "backward"
                         j.hoverAnimTickCounter = CLIENT_CURRENT_TICK
                     end
-                    if j.hoverStatus == "forward" then
-                        if j.animAlphaPercent < 1 then
-                            isElementRootToBeForceRendered = true
-                            j.animAlphaPercent = imports.interpolateBetween(j.animAlphaPercent, 0, 0, 1, 0, 0, imports.getInterpolationProgress(j.hoverAnimTickCounter, availableElements[elementType].rowBar.hoverAnimDuration), "OutBounce")
-                        end
-                    else
-                        if j.animAlphaPercent > 0 then
-                            isElementRootToBeForceRendered = true
-                            j.animAlphaPercent = imports.interpolateBetween(j.animAlphaPercent, 0, 0, 0, 0, 0, imports.getInterpolationProgress(j.hoverAnimTickCounter, availableElements[elementType].rowBar.hoverAnimDuration), "OutBounce")
+                    j.interpolationProgress = imports.getInterpolationProgress(j.hoverAnimTickCounter, availableElements[elementType].rowBar.hoverAnimDuration)
+                    if j.interpolationProgress < 1 then
+                        isElementRootToBeForceRendered = true
+                        if j.hoverStatus == "forward" then
+                            j.animAlphaPercent = imports.interpolateBetween(j.animAlphaPercent, 0, 0, 1, 0, 0, j.interpolationProgress, "OutBounce")
+                        else
+                            j.animAlphaPercent = imports.interpolateBetween(j.animAlphaPercent, 0, 0, 0, 0, 0, j.interpolationProgress, "OutBounce")
                         end
                     end
                     imports.dxDrawRectangle(row_offsetX, row_offsetY, elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Grid Rows"].height, elementReference.gui["__UI_CACHE__"]["Grid Rows"].color, false)
