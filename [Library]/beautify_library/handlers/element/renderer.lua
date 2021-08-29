@@ -118,11 +118,10 @@ local function renderElements()
             end
         end
     end
-    for element, j in pairs(CLIENT_ELEMENT_FORCE_RENDERED) do
+    for element, _ in pairs(CLIENT_ELEMENT_FORCE_RENDERED) do
         if not preRenderedElements[element] then
             if imports.isUIValid(element) and imports.isUIVisible(element) then
                 local elementType = createdElements[element].elementType
-                availableElements[elementType].renderFunction(element)
                 availableElements[elementType].renderFunction(element, true, {x = 0, y = 0, element = element})
             else
                 disableElementForceRender(element)
