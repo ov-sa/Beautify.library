@@ -64,19 +64,19 @@ function renderSlider(element, isFetchingInput, mouseReference)
         local slider_postGUI = elementReference.gui.postGUI
 
         if slider_type == "horizontal" then
-            --TODO: CHANGE THIS BASED ON TICKS, BUGGY RN FOR INTERPOLATION CACHE...
-            if elementReference.gui.slideBar_Horizontal.currentPercent ~= elementReference.gui.slideBar_Horizontal.finalPercent then
-                isElementRootToBeForceRendered = imports.math.round(elementReference.gui.slideBar_Horizontal.currentPercent, 0) ~= imports.math.round(elementReference.gui.slideBar_Horizontal.finalPercent, 0)
+            local isSlideInterpolationDone = imports.math.round(elementReference.gui.slideBar_Horizontal.currentPercent, 0) == imports.math.round(elementReference.gui.slideBar_Horizontal.finalPercent, 0)
+            if not isSlideInterpolationDone then
+                isElementRootToBeForceRendered = true
                 elementReference.gui.slideBar_Horizontal.currentPercent = imports.interpolateBetween(elementReference.gui.slideBar_Horizontal.currentPercent, 0, 0, elementReference.gui.slideBar_Horizontal.finalPercent, 0, 0, 0.25, "InQuad")
             end
-            isElementToBeUpdated = isElementToBeUpdated or (imports.math.round(elementReference.gui.slideBar_Horizontal.currentPercent, 0) ~= imports.math.round(elementReference.gui.slideBar_Horizontal.finalPercent, 0))
+            isElementToBeUpdated = isElementToBeUpdated or (not isSlideInterpolationDone)
         elseif slider_type == "vertical" then
-                        --TODO: CHANGE THIS BASED ON TICKS, BUGGY RN FOR INTERPOLATION CACHE...
-            if elementReference.gui.slideBar_Vertical.currentPercent ~= elementReference.gui.slideBar_Vertical.finalPercent then
-                isElementRootToBeForceRendered = imports.math.round(elementReference.gui.slideBar_Vertical.currentPercent, 0) ~= imports.math.round(elementReference.gui.slideBar_Vertical.finalPercent, 0)
+            local isSlideInterpolationDone = imports.math.round(elementReference.gui.slideBar_Vertical.currentPercent, 0) == imports.math.round(elementReference.gui.slideBar_Vertical.finalPercent, 0)
+            if not isSlideInterpolationDone then
+                isElementRootToBeForceRendered = true
                 elementReference.gui.slideBar_Vertical.currentPercent = imports.interpolateBetween(elementReference.gui.slideBar_Vertical.currentPercent, 0, 0, elementReference.gui.slideBar_Vertical.finalPercent, 0, 0, 0.25, "InQuad")
             end
-            isElementToBeUpdated = isElementToBeUpdated or (imports.math.round(elementReference.gui.slideBar_Vertical.currentPercent, 0) ~= imports.math.round(elementReference.gui.slideBar_Vertical.finalPercent, 0))
+            isElementToBeUpdated = isElementToBeUpdated or (not isSlideInterpolationDone)
         end
         if isElementToBeUpdated then
             if not elementReference.gui["__UI_CACHE__"]["Slider"] then
@@ -112,7 +112,7 @@ function renderSlider(element, isFetchingInput, mouseReference)
                     elementReference.gui["__UI_CACHE__"]["Track"].offsets.startY = imports.math.max(slider_startY, slider_track_startY - slider_exceeded_height)
                     elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY = imports.math.max(slider_startY, slider_thumb_startY - slider_exceeded_height)
                     elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX = slider_thumb_startX
-                    elementReference.gui["__UI_CACHE__"]["Slider"].text.text = (elementReference.gui.text and elementReference.gui.text..": "..imports.math.ceil(elementReference.gui.slideBar_Horizontal.currentPercent).."%") or nil
+                    elementReference.gui["__UI_CACHE__"]["Slider"].text.text = (elementReference.gui.text and elementReference.gui.text..": "..imports.math.round(elementReference.gui.slideBar_Horizontal.currentPercent, 0).."%") or nil
                     elementReference.gui["__UI_CACHE__"]["Slider"].text.offsets.startX = elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX
                     elementReference.gui["__UI_CACHE__"]["Slider"].text.offsets.startY = slider_startY + (elementTemplate.fontPaddingY or 0)
                     elementReference.gui["__UI_CACHE__"]["Slider"].text.offsets.endX = elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX + elementReference.gui["__UI_CACHE__"]["Track"].offsets.width
@@ -140,7 +140,7 @@ function renderSlider(element, isFetchingInput, mouseReference)
                     elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY = slider_thumb_startY
                     elementReference.gui["__UI_CACHE__"]["Slider"].text.offsets.rotValue = slider_width*0.5
                     local slider_text_offsetY = slider_width - (imports.math.max(elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX + elementReference.gui["__UI_CACHE__"]["Track"].offsets.width, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX + (elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width*0.5)) - slider_startX) - 2
-                    elementReference.gui["__UI_CACHE__"]["Slider"].text.text = (elementReference.gui.text and elementReference.gui.text..": "..imports.math.ceil(elementReference.gui.slideBar_Vertical.currentPercent).."%") or nil
+                    elementReference.gui["__UI_CACHE__"]["Slider"].text.text = (elementReference.gui.text and elementReference.gui.text..": "..imports.math.round(elementReference.gui.slideBar_Vertical.currentPercent, 0).."%") or nil
                     elementReference.gui["__UI_CACHE__"]["Slider"].text.offsets.startX = slider_startX + slider_content_padding
                     elementReference.gui["__UI_CACHE__"]["Slider"].text.offsets.startY = slider_startY + (elementTemplate.fontPaddingY or 0)
                     elementReference.gui["__UI_CACHE__"]["Slider"].text.offsets.endX = slider_startX + slider_height - slider_content_padding
