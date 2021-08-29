@@ -19,7 +19,10 @@ local imports = {
     tonumber = tonumber,
     pairs = pairs,
     ipairs = ipairs,
-    getElementType = getElementType
+    getElementType = getElementType,
+    string = {
+        format = string.format
+    }
 }
 
 
@@ -30,7 +33,7 @@ local imports = {
 function math.round(number, decimals)
     
     decimals = decimals or 0
-    return imports.tonumber(("%."..decimals.."f"):format(number))
+    return imports.tonumber(imports.string.format(("%."..decimals.."f"), number))
 
 end
 

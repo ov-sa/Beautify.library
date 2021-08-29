@@ -103,7 +103,7 @@ function renderScrollbar(elementParent, isComponentToBeReloaded, isComonentToBeU
             isComponentRootToBeForceRendered = true
             referenceData.currentThumbSize = imports.interpolateBetween(referenceData.currentThumbSize, 0, 0, referenceData.finalThumbSize, 0, 0, 0.25, "InQuad")
         end
-        local isScrollInterpolationDone = imports.math.round(referenceData.currentPercent, 0) == imports.math.round(referenceData.finalPercent, 0)
+        local isScrollInterpolationDone = imports.math.round(referenceData.currentPercent, 2) == imports.math.round(referenceData.finalPercent, 2)
         if not isScrollInterpolationDone then
             isComponentRootToBeForceRendered = true
             referenceData.currentPercent = imports.interpolateBetween(referenceData.currentPercent, 0, 0, referenceData.finalPercent, 0, 0, 0.25, "InQuad")

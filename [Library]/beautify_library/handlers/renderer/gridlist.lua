@@ -197,9 +197,7 @@ function renderGridlist(element, isFetchingInput, mouseReference)
                         elementReference.gui.scrollBar_Vertical
                     }
                     local _, isComponentRootToBeForceRendered = renderScrollbar(element, isElementToBeReloaded, isElementToBeUpdated, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][1], elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][2])
-                    if isComponentRootToBeForceRendered then
-                        isElementRootToBeForceRendered = isElementRootToBeForceRendered or isComponentRootToBeForceRendered
-                    end
+                    isElementRootToBeForceRendered = isElementRootToBeForceRendered or isComponentRootToBeForceRendered
                 end
             end
             forceRenderElementRoot(elementReference.elementRoot or element, element, isElementRootToBeForceRendered)
@@ -229,7 +227,7 @@ function renderGridlist(element, isFetchingInput, mouseReference)
             local isElementHovered = CLIENT_HOVERED_ELEMENT.element == element
             local isGridListHovered = false
             if isElementHovered then
-                local isGridViewAnimating = imports.math.round(elementReference.gui.scrollBar_Vertical.currentPercent, 0) ~= imports.math.round(elementReference.gui.scrollBar_Vertical.finalPercent or 0, 0)
+                local isGridViewAnimating = imports.math.round(elementReference.gui.scrollBar_Vertical.currentPercent, 2) ~= imports.math.round(elementReference.gui.scrollBar_Vertical.finalPercent or 0, 2)
                 if not elementReference.isDisabled and not isGridViewAnimating then
                     isGridListHovered = true
                 end

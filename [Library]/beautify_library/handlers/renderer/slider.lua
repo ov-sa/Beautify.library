@@ -64,14 +64,14 @@ function renderSlider(element, isFetchingInput, mouseReference)
         local slider_postGUI = elementReference.gui.postGUI
 
         if slider_type == "horizontal" then
-            local isSlideInterpolationDone = imports.math.round(elementReference.gui.slideBar_Horizontal.currentPercent, 0) == imports.math.round(elementReference.gui.slideBar_Horizontal.finalPercent, 0)
+            local isSlideInterpolationDone = imports.math.round(elementReference.gui.slideBar_Horizontal.currentPercent, 2) == imports.math.round(elementReference.gui.slideBar_Horizontal.finalPercent, 2)
             if not isSlideInterpolationDone then
                 isElementRootToBeForceRendered = true
                 elementReference.gui.slideBar_Horizontal.currentPercent = imports.interpolateBetween(elementReference.gui.slideBar_Horizontal.currentPercent, 0, 0, elementReference.gui.slideBar_Horizontal.finalPercent, 0, 0, 0.25, "InQuad")
             end
             isElementToBeUpdated = isElementToBeUpdated or (not isSlideInterpolationDone)
         elseif slider_type == "vertical" then
-            local isSlideInterpolationDone = imports.math.round(elementReference.gui.slideBar_Vertical.currentPercent, 0) == imports.math.round(elementReference.gui.slideBar_Vertical.finalPercent, 0)
+            local isSlideInterpolationDone = imports.math.round(elementReference.gui.slideBar_Vertical.currentPercent, 2) == imports.math.round(elementReference.gui.slideBar_Vertical.finalPercent, 2)
             if not isSlideInterpolationDone then
                 isElementRootToBeForceRendered = true
                 elementReference.gui.slideBar_Vertical.currentPercent = imports.interpolateBetween(elementReference.gui.slideBar_Vertical.currentPercent, 0, 0, elementReference.gui.slideBar_Vertical.finalPercent, 0, 0, 0.25, "InQuad")
