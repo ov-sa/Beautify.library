@@ -62,22 +62,21 @@ end
 
 function forceRenderElementRoot(elementRoot, liableElement, renderState)
 
-    local elementReference = createdElements[liableElement]
     if renderState then
-        if not CLIENT_ELEMENT_FORCE_RENDERED[elementReference.elementRoot] then
-            CLIENT_ELEMENT_FORCE_RENDERED[elementReference.elementRoot] = {
+        if not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] then
+            CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] = {
                 liableElement = liableElement
             }
             return true
         else
-            if not CLIENT_ELEMENT_FORCE_RENDERED[elementReference.elementRoot].isAttached then
-                CLIENT_ELEMENT_FORCE_RENDERED[elementReference.elementRoot].liableElement = liableElement
+            if not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].isAttached then
+                CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].liableElement = liableElement
                 return true
             end
         end
     else
-        if CLIENT_ELEMENT_FORCE_RENDERED[elementReference.elementRoot] and (not CLIENT_ELEMENT_FORCE_RENDERED[elementReference.elementRoot].isAttached) and (CLIENT_ELEMENT_FORCE_RENDERED[elementReference.elementRoot].liableElement == liableElement) then
-            disableElementForceRender(elementReference.elementRoot)
+        if CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] and (not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].isAttached) and (CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].liableElement == liableElement) then
+            disableElementForceRender(elementRoot)
             return true
         end
     end

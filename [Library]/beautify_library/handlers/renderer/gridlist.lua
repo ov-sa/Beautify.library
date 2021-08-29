@@ -200,7 +200,7 @@ function renderGridlist(element, isFetchingInput, mouseReference)
                     renderScrollbar(element, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][1], elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][2])
                 end
             end
-            forceRenderElementRoot(elementReference.elementRoot, element, isElementRootToBeForceRendered)
+            forceRenderElementRoot(elementReference.elementRoot or element, element, isElementRootToBeForceRendered)
             imports.renderElementChildren(element)
             imports.dxSetBlendMode("blend")
             if not elementParent then
