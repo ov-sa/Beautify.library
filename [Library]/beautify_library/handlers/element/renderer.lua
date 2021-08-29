@@ -46,6 +46,7 @@ local imports = {
 -------------------
 
 local CLIENT_ELEMENT_FORCE_RENDERED = {}
+local CLIENT_ELEMENT_PENDING_RENDER_REMOVAL = {}
 local clickedMouseKey = false
 
 
@@ -53,8 +54,15 @@ local clickedMouseKey = false
 --[[ Function: Force Renders Element Root ]]--
 ----------------------------------------------
 
-local function disableElementForceRender(element)
+local function disableElementForceRender(element, nextTick)
 
+    if nextTick and CLIENT_ELEMENT_FORCE_RENDERED[element] then
+        if not CLIENT_ELEMENT_PENDING_RENDER_REMOVAL[element] then
+            CLIENT_ELEMENT_PENDING_RENDER_REMOVAL[element] = true
+            return true
+        end
+    end
+    CLIENT_ELEMENT_PENDING_RENDER_REMOVAL[element] = nil
     CLIENT_ELEMENT_FORCE_RENDERED[element] = nil
     return true
 
@@ -69,10 +77,12 @@ function forceRenderElementRoot(elementRoot, liableElement, renderState)
             }
             return true
         else
-            if not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].isAttached then
-                CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].liableElement = liableElement
-                return true
+            if CLIENT_ELEMENT_PENDING_RENDER_REMOVAL[elementRoot] then
+                CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].isAttached = nil
+                CLIENT_ELEMENT_PENDING_RENDER_REMOVAL[elementRoot] = nil
             end
+            CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].liableElement = liableElement
+            return true
         end
     else
         if CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] and (not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].isAttached) and (CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].liableElement == liableElement) then
@@ -120,7 +130,7 @@ local function renderElements()
     end
     for element, _ in pairs(CLIENT_ELEMENT_FORCE_RENDERED) do
         if not preRenderedElements[element] then
-            if imports.isUIValid(element) and imports.isUIVisible(element) then
+            if not CLIENT_ELEMENT_PENDING_RENDER_REMOVAL[element] and imports.isUIValid(element) and imports.isUIVisible(element) then
                 local elementType = createdElements[element].elementType
                 availableElements[elementType].renderFunction(element, true, {x = 0, y = 0, element = element})
             else
@@ -216,7 +226,7 @@ imports.addEventHandler("onClientRender", root, function()
             imports.detachUIElement()
         elseif CLIENT_MTA_WINDOW_ACTIVE or not CLIENT_IS_CURSOR_SHOWING or not imports.isKeyOnHold("mouse1") or not imports.isUIValid(CLIENT_ATTACHED_ELEMENT.element) or not imports.isUIVisible(CLIENT_ATTACHED_ELEMENT.element) then
             if elementRoot then
-                disableElementForceRender(elementRoot)
+                disableElementForceRender(elementRoot, true)
             end
             createdElements[(CLIENT_ATTACHED_ELEMENT.element)].gui["__UI_CACHE__"].updateElement = true
             imports.detachUIElement()
