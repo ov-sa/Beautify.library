@@ -1,11 +1,11 @@
 ----------------------------------------------------------------
 --[[ Resource: Beautify Library
-     Script: handlers: renderer: window.lua
+     Script: handlers: renderer: deck.lua
      Server: -
      Author: OvileAmriam
      Developer: -
      DOC: 01/02/2021 (OvileAmriam)
-     Desc: Window's Renderer ]]--
+     Desc: Deck's Renderer ]]--
 ----------------------------------------------------------------
 
 
@@ -43,14 +43,14 @@ local imports = {
 --[[ Variables ]]--
 -------------------
 
-local elementType = "beautify_window"
+local elementType = "beautify_deck"
 
 
-----------------------------------
---[[ Function: Renders Window ]]--
-----------------------------------
+--------------------------------
+--[[ Function: Renders Deck ]]--
+--------------------------------
 
-function renderWindow(element, isFetchingInput, mouseReference)
+function renderDeck(element, isFetchingInput, mouseReference)
 
     local elementReference = createdElements[element]
     if not isFetchingInput then
@@ -61,11 +61,11 @@ function renderWindow(element, isFetchingInput, mouseReference)
         local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)] and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
         local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
-        local window_postGUI = elementReference.gui.postGUI
+        local deck_postGUI = elementReference.gui.postGUI
 
         if isElementToBeUpdated then
-            if not elementReference.gui["__UI_CACHE__"]["Window"] then
-                elementReference.gui["__UI_CACHE__"]["Window"] = {
+            if not elementReference.gui["__UI_CACHE__"]["Deck"] then
+                elementReference.gui["__UI_CACHE__"]["Deck"] = {
                     offsets = {},
                     divider = {},
                     view = {
@@ -87,37 +87,37 @@ function renderWindow(element, isFetchingInput, mouseReference)
                 elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Title Bar"] = {}
                 elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"] = {}
             end
-            local window_startX, window_startY = elementReference.gui.x, elementReference.gui.y
-            local window_width, window_height = elementReference.gui.width, elementReference.gui.height
-            local window_view_width, window_view_height = elementReference.gui.contentSection.width, elementReference.gui.contentSection.height
-            local window_borderSize = availableElements[elementType].minimumSize*0.5
-            elementReference.gui["__UI_CACHE__"]["Window"].offsets.startX = window_startX
-            elementReference.gui["__UI_CACHE__"]["Window"].offsets.startY = window_startY
-            elementReference.gui["__UI_CACHE__"]["Window"].offsets.width = window_width
-            elementReference.gui["__UI_CACHE__"]["Window"].offsets.height = window_height
-            elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startX = elementReference.gui["__UI_CACHE__"]["Window"].offsets.startX + elementReference.gui.contentSection.startX
-            elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startY = elementReference.gui["__UI_CACHE__"]["Window"].offsets.startY + elementReference.gui.contentSection.startY
-            elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.width = window_view_width
-            elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.height = window_view_height
-            local window_titleBar_paddingX = availableElements[elementType].titleBar.paddingX
-            elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.startX = elementReference.gui["__UI_CACHE__"]["Window"].offsets.startX
-            elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.startY = elementReference.gui["__UI_CACHE__"]["Window"].offsets.startY
-            elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.width = elementReference.gui["__UI_CACHE__"]["Window"].offsets.width
-            elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.height = window_borderSize
-            elementReference.gui["__UI_CACHE__"]["Window"].divider.size = elementTemplate.titleBar.divider.size
+            local deck_startX, deck_startY = elementReference.gui.x, elementReference.gui.y
+            local deck_width, deck_height = elementReference.gui.width, elementReference.gui.height
+            local deck_view_width, deck_view_height = elementReference.gui.contentSection.width, elementReference.gui.contentSection.height
+            local deck_borderSize = availableElements[elementType].minimumSize*0.5
+            elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startX = deck_startX
+            elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startY = deck_startY
+            elementReference.gui["__UI_CACHE__"]["Deck"].offsets.width = deck_width
+            elementReference.gui["__UI_CACHE__"]["Deck"].offsets.height = deck_height
+            elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.startX = elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startX + elementReference.gui.contentSection.startX
+            elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.startY = elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startY + elementReference.gui.contentSection.startY
+            elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.width = deck_view_width
+            elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.height = deck_view_height
+            local deck_titleBar_paddingX = availableElements[elementType].titleBar.paddingX
+            elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.startX = elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startX
+            elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.startY = elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startY
+            elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.width = elementReference.gui["__UI_CACHE__"]["Deck"].offsets.width
+            elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.height = deck_borderSize
+            elementReference.gui["__UI_CACHE__"]["Deck"].divider.size = elementTemplate.titleBar.divider.size
             if isElementToBeReloaded then
-                elementReference.gui["__UI_CACHE__"]["Window"].divider.color = imports.tocolor(imports.unpackColor(elementTemplate.titleBar.divider.color))
+                elementReference.gui["__UI_CACHE__"]["Deck"].divider.color = imports.tocolor(imports.unpackColor(elementTemplate.titleBar.divider.color))
                 elementReference.gui["__UI_CACHE__"]["Title Bar"].text.fontColor = imports.tocolor(imports.unpackColor(elementTemplate.titleBar.fontColor))
                 elementReference.gui["__UI_CACHE__"]["Title Bar"].text.padding = ""
-                while imports.dxGetTextWidth(elementReference.gui["__UI_CACHE__"]["Title Bar"].text.padding, 1, elementTemplate.titleBar.font) < window_borderSize do
+                while imports.dxGetTextWidth(elementReference.gui["__UI_CACHE__"]["Title Bar"].text.padding, 1, elementTemplate.titleBar.font) < deck_borderSize do
                     elementReference.gui["__UI_CACHE__"]["Title Bar"].text.padding = elementReference.gui["__UI_CACHE__"]["Title Bar"].text.padding.." "
                 end
                 elementReference.gui["__UI_CACHE__"]["Close Button"].text.fontColor = imports.tocolor(imports.unpackColor(elementTemplate.titleBar.closeButton.fontColor))
             end
             elementReference.gui["__UI_CACHE__"]["Title Bar"].text.text = elementReference.gui["__UI_CACHE__"]["Title Bar"].text.padding..elementReference.gui.title
-            elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startX = elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.startX + window_titleBar_paddingX
+            elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startX = elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.startX + deck_titleBar_paddingX
             elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startY = elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.startY + (elementTemplate.titleBar.fontPaddingY or 0)
-            elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endX = elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.startX + elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.width - elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.height - window_titleBar_paddingX
+            elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endX = elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.startX + elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.width - elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.height - deck_titleBar_paddingX
             elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endY = elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.startY + elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.height
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Title Bar"].startX = elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.startX
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Title Bar"].startY = elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.startY
@@ -136,40 +136,40 @@ function renderWindow(element, isFetchingInput, mouseReference)
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].startY = elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startY
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].width = elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.width
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].height = elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.height
-            if isElementToBeReloaded or not elementReference.gui["__UI_CACHE__"]["Window"].renderTexture then
-                if not elementReference.gui["__UI_CACHE__"]["Window"].renderTarget then
-                    elementReference.gui["__UI_CACHE__"]["Window"].renderTarget = imports.dxCreateRenderTarget(window_width, window_height, true)
+            if isElementToBeReloaded or not elementReference.gui["__UI_CACHE__"]["Deck"].renderTexture then
+                if not elementReference.gui["__UI_CACHE__"]["Deck"].renderTarget then
+                    elementReference.gui["__UI_CACHE__"]["Deck"].renderTarget = imports.dxCreateRenderTarget(deck_width, deck_height, true)
                 end
-                if elementReference.gui["__UI_CACHE__"]["Window"].renderTexture and imports.isElement(elementReference.gui["__UI_CACHE__"]["Window"].renderTexture) then
-                    imports.destroyElement(elementReference.gui["__UI_CACHE__"]["Window"].renderTexture)
-                    elementReference.gui["__UI_CACHE__"]["Window"].renderTexture = nil
+                if elementReference.gui["__UI_CACHE__"]["Deck"].renderTexture and imports.isElement(elementReference.gui["__UI_CACHE__"]["Deck"].renderTexture) then
+                    imports.destroyElement(elementReference.gui["__UI_CACHE__"]["Deck"].renderTexture)
+                    elementReference.gui["__UI_CACHE__"]["Deck"].renderTexture = nil
                 end
-                imports.dxSetRenderTarget(elementReference.gui["__UI_CACHE__"]["Window"].renderTarget, true)
+                imports.dxSetRenderTarget(elementReference.gui["__UI_CACHE__"]["Deck"].renderTarget, true)
                 imports.dxSetBlendMode("modulate_add")
-                local window_color, window_titleBar_color = imports.tocolor(imports.unpackColor(elementTemplate.color)), imports.tocolor(imports.unpackColor(elementTemplate.titleBar.color))
-                imports.dxDrawImage(0, 0, window_borderSize, window_borderSize, createdAssets["images"]["curved_square/regular/top_left.png"], 0, 0, 0, window_titleBar_color, false)
-                imports.dxDrawImage(window_width - window_borderSize, 0, window_borderSize, window_borderSize, createdAssets["images"]["curved_square/regular/top_right.png"], 0, 0, 0, window_titleBar_color, false)
-                imports.dxDrawImage(0, window_height - window_borderSize, window_borderSize, window_borderSize, createdAssets["images"]["curved_square/regular/bottom_left.png"], 0, 0, 0, window_color, false)
-                imports.dxDrawImage(window_width - window_borderSize, window_height - window_borderSize, window_borderSize, window_borderSize, createdAssets["images"]["curved_square/regular/bottom_right.png"], 0, 0, 0, window_color, false)
-                if window_width > availableElements[elementType].minimumSize then
-                    imports.dxDrawRectangle(window_borderSize, 0, window_width - availableElements[elementType].minimumSize, window_borderSize, window_titleBar_color, false)
-                    imports.dxDrawRectangle(window_borderSize, window_height - window_borderSize, window_width - availableElements[elementType].minimumSize, window_borderSize, window_color, false)
+                local deck_color, deck_titleBar_color = imports.tocolor(imports.unpackColor(elementTemplate.color)), imports.tocolor(imports.unpackColor(elementTemplate.titleBar.color))
+                imports.dxDrawImage(0, 0, deck_borderSize, deck_borderSize, createdAssets["images"]["curved_square/regular/top_left.png"], 0, 0, 0, deck_titleBar_color, false)
+                imports.dxDrawImage(deck_width - deck_borderSize, 0, deck_borderSize, deck_borderSize, createdAssets["images"]["curved_square/regular/top_right.png"], 0, 0, 0, deck_titleBar_color, false)
+                imports.dxDrawImage(0, deck_height - deck_borderSize, deck_borderSize, deck_borderSize, createdAssets["images"]["curved_square/regular/bottom_left.png"], 0, 0, 0, deck_color, false)
+                imports.dxDrawImage(deck_width - deck_borderSize, deck_height - deck_borderSize, deck_borderSize, deck_borderSize, createdAssets["images"]["curved_square/regular/bottom_right.png"], 0, 0, 0, deck_color, false)
+                if deck_width > availableElements[elementType].minimumSize then
+                    imports.dxDrawRectangle(deck_borderSize, 0, deck_width - availableElements[elementType].minimumSize, deck_borderSize, deck_titleBar_color, false)
+                    imports.dxDrawRectangle(deck_borderSize, deck_height - deck_borderSize, deck_width - availableElements[elementType].minimumSize, deck_borderSize, deck_color, false)
                 end
-                if window_height > availableElements[elementType].minimumSize then
-                    imports.dxDrawRectangle(0, window_borderSize, window_borderSize, window_height - availableElements[elementType].minimumSize, window_color, false)
-                    imports.dxDrawRectangle(window_width - window_borderSize, window_borderSize, window_borderSize, window_height - availableElements[elementType].minimumSize, window_color, false)
+                if deck_height > availableElements[elementType].minimumSize then
+                    imports.dxDrawRectangle(0, deck_borderSize, deck_borderSize, deck_height - availableElements[elementType].minimumSize, deck_color, false)
+                    imports.dxDrawRectangle(deck_width - deck_borderSize, deck_borderSize, deck_borderSize, deck_height - availableElements[elementType].minimumSize, deck_color, false)
                 end
-                if window_width > availableElements[elementType].minimumSize and window_height > availableElements[elementType].minimumSize then
-                    imports.dxDrawRectangle(window_borderSize, window_borderSize, window_width - availableElements[elementType].minimumSize, window_height - availableElements[elementType].minimumSize, window_color, false)
+                if deck_width > availableElements[elementType].minimumSize and deck_height > availableElements[elementType].minimumSize then
+                    imports.dxDrawRectangle(deck_borderSize, deck_borderSize, deck_width - availableElements[elementType].minimumSize, deck_height - availableElements[elementType].minimumSize, deck_color, false)
                 end
-                imports.dxDrawRectangle(0, window_borderSize, window_width, elementReference.gui["__UI_CACHE__"]["Window"].divider.size, elementReference.gui["__UI_CACHE__"]["Window"].divider.color, false)    
+                imports.dxDrawRectangle(0, deck_borderSize, deck_width, elementReference.gui["__UI_CACHE__"]["Deck"].divider.size, elementReference.gui["__UI_CACHE__"]["Deck"].divider.color, false)    
                 imports.dxSetBlendMode("blend")
                 imports.dxSetRenderTarget()
-                local renderPixels = imports.dxGetTexturePixels(elementReference.gui["__UI_CACHE__"]["Window"].renderTarget)
+                local renderPixels = imports.dxGetTexturePixels(elementReference.gui["__UI_CACHE__"]["Deck"].renderTarget)
                 if renderPixels then
-                    elementReference.gui["__UI_CACHE__"]["Window"].renderTexture = imports.dxCreateTexture(renderPixels, "argb", false, "clamp")
-                    imports.destroyElement(elementReference.gui["__UI_CACHE__"]["Window"].renderTarget)
-                    elementReference.gui["__UI_CACHE__"]["Window"].renderTarget = nil
+                    elementReference.gui["__UI_CACHE__"]["Deck"].renderTexture = imports.dxCreateTexture(renderPixels, "argb", false, "clamp")
+                    imports.destroyElement(elementReference.gui["__UI_CACHE__"]["Deck"].renderTarget)
+                    elementReference.gui["__UI_CACHE__"]["Deck"].renderTarget = nil
                 end
             end
             if not CLIENT_MTA_MINIMIZED then
@@ -193,19 +193,19 @@ function renderWindow(element, isFetchingInput, mouseReference)
                 elementReference.gui.titleBar.closeButton.animAlphaPercent = imports.interpolateBetween(elementReference.gui.titleBar.closeButton.animAlphaPercent, 0, 0, 0, 0, 0, elementReference.gui.titleBar.closeButton.interpolationProgress, "InQuad")
             end
         end
-        if elementReference.gui["__UI_CACHE__"]["Window"].renderTexture then
-            imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Window"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Window"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Window"].offsets.width, elementReference.gui["__UI_CACHE__"]["Window"].offsets.height, elementReference.gui["__UI_CACHE__"]["Window"].renderTexture, 0, 0, 0, -1, window_postGUI)
+        if elementReference.gui["__UI_CACHE__"]["Deck"].renderTexture then
+            imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.width, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.height, elementReference.gui["__UI_CACHE__"]["Deck"].renderTexture, 0, 0, 0, -1, deck_postGUI)
         end
         local isRenderCloseButtonHover = elementReference.gui.titleBar.closeButton.animAlphaPercent > 0
-        imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Title Bar"].text.text, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.fontColor, elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "center", "center", true, false, window_postGUI, false)
+        imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Title Bar"].text.text, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.fontColor, elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "center", "center", true, false, deck_postGUI, false)
         if isRenderCloseButtonHover then    
-            imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.width, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.height, createdAssets["images"]["curved_square/regular/top_right.png"], 0, 0, 0, imports.tocolor(elementTemplate.titleBar.closeButton.hoverColor[1], elementTemplate.titleBar.closeButton.hoverColor[2], elementTemplate.titleBar.closeButton.hoverColor[3], elementTemplate.titleBar.closeButton.hoverColor[4]*elementReference.gui.titleBar.closeButton.animAlphaPercent), window_postGUI)
+            imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.width, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.height, createdAssets["images"]["curved_square/regular/top_right.png"], 0, 0, 0, imports.tocolor(elementTemplate.titleBar.closeButton.hoverColor[1], elementTemplate.titleBar.closeButton.hoverColor[2], elementTemplate.titleBar.closeButton.hoverColor[3], elementTemplate.titleBar.closeButton.hoverColor[4]*elementReference.gui.titleBar.closeButton.animAlphaPercent), deck_postGUI)
         end
-        imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Close Button"].text.text, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Close Button"].text.fontColor, elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "center", "center", true, false, window_postGUI, false)
+        imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Close Button"].text.text, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Close Button"].text.fontColor, elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "center", "center", true, false, deck_postGUI, false)
         if isRenderCloseButtonHover then    
-            imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Close Button"].text.text, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.endY, imports.tocolor(elementTemplate.titleBar.closeButton.hoverFontColor[1], elementTemplate.titleBar.closeButton.hoverFontColor[2], elementTemplate.titleBar.closeButton.hoverFontColor[3], elementTemplate.titleBar.closeButton.hoverFontColor[4]*elementReference.gui.titleBar.closeButton.animAlphaPercent), elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "center", "center", true, false, window_postGUI, false)
+            imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Close Button"].text.text, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.endY, imports.tocolor(elementTemplate.titleBar.closeButton.hoverFontColor[1], elementTemplate.titleBar.closeButton.hoverFontColor[2], elementTemplate.titleBar.closeButton.hoverFontColor[3], elementTemplate.titleBar.closeButton.hoverFontColor[4]*elementReference.gui.titleBar.closeButton.animAlphaPercent), elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "center", "center", true, false, deck_postGUI, false)
         end
-        imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Window"].divider.size, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.height, elementReference.gui["__UI_CACHE__"]["Window"].divider.color, window_postGUI)
+        imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Deck"].divider.size, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.height, elementReference.gui["__UI_CACHE__"]["Deck"].divider.color, deck_postGUI)
         forceRenderElementRoot(elementReference.elementRoot or element, element, isElementRootToBeForceRendered)
         imports.renderElementChildren(element)
         imports.dxSetBlendMode("blend")
@@ -214,9 +214,9 @@ function renderWindow(element, isFetchingInput, mouseReference)
         else
             imports.dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
         end
-        local window_renderTarget = elementReference.gui.renderTarget
-        if window_renderTarget and imports.isElement(window_renderTarget) then
-            imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startX, elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startY, elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.height, window_renderTarget, 0, 0, 0, -1, window_postGUI)
+        local deck_renderTarget = elementReference.gui.renderTarget
+        if deck_renderTarget and imports.isElement(deck_renderTarget) then
+            imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.startX, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.startY, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.height, deck_renderTarget, 0, 0, 0, -1, deck_postGUI)
         end
     else
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
