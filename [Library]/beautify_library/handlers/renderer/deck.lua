@@ -171,7 +171,7 @@ function renderDeck(element, isFetchingInput, mouseReference)
         if isElementInterpolationToBeRefreshed or (elementReference.gui.titleBar.toggleButton.interpolationProgress < 1) then
             isElementRootToBeForceRendered = not isElementInterpolationToBeRefreshed and true
             if elementReference.gui.titleBar.toggleButton.hoverStatus == "forward" then
-                elementReference.gui.titleBar.toggleButton.animRotationPercent = imports.interpolateBetween(elementReference.gui.titleBar.toggleButton.animRotationPercent, 0, 0, 1, 0, 0, elementReference.gui.titleBar.toggleButton.interpolationProgress, "InQuad")
+                elementReference.gui.titleBar.toggleButton.animRotationPercent = imports.interpolateBetween(elementReference.gui.titleBar.toggleButton.animRotationPercent, 0, 0, 0.5, 0, 0, elementReference.gui.titleBar.toggleButton.interpolationProgress, "InQuad")
             else
                 elementReference.gui.titleBar.toggleButton.animRotationPercent = imports.interpolateBetween(elementReference.gui.titleBar.toggleButton.animRotationPercent, 0, 0, 0, 0, 0, elementReference.gui.titleBar.toggleButton.interpolationProgress, "InQuad")
             end

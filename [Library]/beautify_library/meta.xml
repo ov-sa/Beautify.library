@@ -11,6 +11,7 @@
     <script src="exports/slider.lua" type="client" cache="false"/>
     <script src="exports/selector.lua" type="client" cache="false"/>
     <script src="exports/checkbox.lua" type="client" cache="false"/>
+    <script src="exports/deckpane.lua" type="client" cache="false"/>
     <script src="exports/deck.lua" type="client" cache="false"/>
 
     <!-- Settings & Utilities -->
@@ -35,6 +36,7 @@
     <script src="handlers/renderer/slider.lua" type="client" cache="false"/>
     <script src="handlers/renderer/selector.lua" type="client" cache="false"/>
     <script src="handlers/renderer/checkbox.lua" type="client" cache="false"/>
+    <script src="handlers/renderer/deckpane.lua" type="client" cache="false"/>
     <script src="handlers/renderer/deck.lua" type="client" cache="false"/>
 
     <!-- Configurations -->
@@ -48,6 +50,7 @@
     <script src="configurations/elements/slider.lua" type="client" cache="false"/>
     <script src="configurations/elements/selector.lua" type="client" cache="false"/>
     <script src="configurations/elements/checkbox.lua" type="client" cache="false"/>
+    <script src="configurations/elements/deckpane.lua" type="client" cache="false"/>
     <script src="configurations/elements/deck.lua" type="client" cache="false"/>
     <script src="configurations/events/initial.lua" type="client" cache="false"/>
     <script src="configurations/events/generic.lua" type="client" cache="false"/>
@@ -60,6 +63,7 @@
     <script src="configurations/templates/slider.lua" type="client" cache="false"/>
     <script src="configurations/templates/selector.lua" type="client" cache="false"/>
     <script src="configurations/templates/checkbox.lua" type="client" cache="false"/>
+    <script src="configurations/templates/deckpane.lua" type="client" cache="false"/>
     <script src="configurations/templates/deck.lua" type="client" cache="false"/>
 
     <!-- Files: Assets: Fonts -->
@@ -206,6 +210,9 @@
     <export function="clearCheckboxTextColor" type="client"/>
     <export function="setCheckboxTextColor" type="client"/>
     <export function="getCheckboxTextColor" type="client"/>
+
+    <!-- Exports: Element: Deckpane -->
+    <export function="createDeckPane" type="client"/>
 
     <!-- Exports: Element: Deck -->
     <export function="createDeck" type="client"/>

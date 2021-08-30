@@ -27,7 +27,6 @@ availableElements[elementType] = {
         parameters = {
             {name = "x", type = "float"},
             {name = "y", type = "float"},
-            {name = "width", type = "float"},
             {name = "height", type = "float"},
             {name = "title", type = "string"}
         }
