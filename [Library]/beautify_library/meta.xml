@@ -75,6 +75,10 @@
     <file src="files/assets/images/arrow/top.png"/>
     <file src="files/assets/images/arrow/bottom.png"/>
     <file src="files/assets/images/tick_box/regular.png"/>
+    <file src="files/assets/images/collar/left.png"/>
+    <file src="files/assets/images/collar/right.png"/>
+    <file src="files/assets/images/collar/top.png"/>
+    <file src="files/assets/images/collar/bottom.png"/>
     <file src="files/assets/images/right_triangle/default.png"/>
     <file src="files/assets/images/right_triangle/flipped.png"/>
     <file src="files/assets/images/right_triangle/inverted.png"/>

@@ -46,7 +46,7 @@ availableElements[elementType] = {
     titleBar = {
         paddingX = 5,
         toggleButton = {
-            arrowIconSize = 14,
+            arrowIconSize = 12,
             hoverAnimDuration = 1000
         }
     },
