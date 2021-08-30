@@ -14,21 +14,21 @@
 ------------------------
 
 availableTemplates["beautify_deck"] = {
-    color = {0, 0, 0, 253},
+    color = {2, 2, 2, 255},
     titleBar = {
         isOutLine = true,
-        font = dxCreateFont("files/assets/fonts/poppins_medium.ttf", 15),
-        fontColor = {125, 125, 255, 255},
-        color = {0, 0, 0, 255},
+        font = dxCreateFont("files/assets/fonts/signika_semibold.ttf", 11),
+        fontColor = {0, 0, 0, 255},
+        color = {200, 200, 200, 255},
         divider = {
             size = 1,
-            color = {125, 125, 255, 150}
+            color = {0, 0, 0, 255},
         },
         toggleButton = {
             isOutLine = true,
-            fontColor = {125, 125, 255, 255},
+            fontColor = {200, 200, 200, 255},
             hoverFontColor = {0, 0, 0, 255},
-            hoverColor = {125, 125, 255, 255}
+            hoverColor = {125, 125, 255, 0}
         }
     }
 }

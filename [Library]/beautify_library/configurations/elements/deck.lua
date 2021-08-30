@@ -33,9 +33,16 @@ availableElements[elementType] = {
         }
     },
     renderFunction = renderDeck,
-    allowedChildren = availableElements["beautify_window"].allowedChildren,
-    isDraggable = true,
-    minimumSize = 56,
+    allowedChildren = {
+        ["beautify_gridlist"] = true,
+        ["beautify_button"] = true,
+        ["beautify_label"] = true,
+        ["beautify_slider"] = true,
+        ["beautify_selector"] = true,
+        ["beautify_checkbox"] = true
+    },
+    isDraggable = false,
+    minimumSize = 44,
     titleBar = {
         paddingX = 5,
         toggleButton = {

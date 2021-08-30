@@ -183,7 +183,6 @@ function renderWindow(element, isFetchingInput, mouseReference)
             elementReference.gui.titleBar.closeButton.hoverStatus = "backward"
             elementReference.gui.titleBar.closeButton.hoverAnimTickCounter = CLIENT_CURRENT_TICK
         end
-
         elementReference.gui.titleBar.closeButton.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.titleBar.closeButton.hoverAnimTickCounter, availableElements[elementType].titleBar.closeButton.hoverAnimDuration)
         if isElementInterpolationToBeRefreshed or (elementReference.gui.titleBar.closeButton.interpolationProgress < 1) then
             isElementRootToBeForceRendered = not isElementInterpolationToBeRefreshed and true
