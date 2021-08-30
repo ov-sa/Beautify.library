@@ -23,7 +23,7 @@ local elementType = "beautify_deckpane"
 availableElements[elementType] = {
     reference = "deckpane",
     syntax = {
-        functionName = "createDeckPane",
+        functionName = "createDeckpane",
         parameters = {
             {name = "x", type = "float"},
             {name = "y", type = "float"},

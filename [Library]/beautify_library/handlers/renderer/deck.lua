@@ -142,7 +142,7 @@ function renderDeck(element, isFetchingInput, mouseReference)
                 local deck_color, deck_titleBar_color = imports.tocolor(imports.unpackColor(elementTemplate.color)), imports.tocolor(imports.unpackColor(elementTemplate.titleBar.color))
                 imports.dxDrawRectangle(0, 0, deck_width, deck_titleBar_size, deck_titleBar_color, false)
                 imports.dxDrawRectangle(0, deck_titleBar_size, deck_width, deck_height - deck_titleBar_size, deck_color, false)
-                imports.dxDrawRectangle(0, deck_titleBar_size, deck_width, elementReference.gui["__UI_CACHE__"]["Deck"].divider.size, elementReference.gui["__UI_CACHE__"]["Deck"].divider.color, false)    
+                imports.dxDrawRectangle(0, deck_titleBar_size, deck_width, elementReference.gui["__UI_CACHE__"]["Deck"].divider.size, elementReference.gui["__UI_CACHE__"]["Deck"].divider.color, false)
                 imports.dxSetBlendMode("blend")
                 if not elementParent then
                     imports.dxSetRenderTarget()

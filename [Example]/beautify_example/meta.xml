@@ -19,6 +19,7 @@
     <script src="configurations/templates/slider.lua" type="client" cache="false"/>
     <script src="configurations/templates/selector.lua" type="client" cache="false"/>
     <script src="configurations/templates/checkbox.lua" type="client" cache="false"/>
+    <script src="configurations/templates/deck.lua" type="client" cache="false"/>
 
     <!-- GUIs -->
     <script src="gui/ui_1.lua" type="client" cache="false"/>
@@ -26,6 +27,7 @@
     <script src="gui/ui_3.lua" type="client" cache="false"/>
     <script src="gui/ui_4.lua" type="client" cache="false"/>
     <script src="gui/ui_5.lua" type="client" cache="false"/>
+    <script src="gui/ui_6.lua" type="client" cache="false"/>
 
     <!-- Handlers -->
     <script src="handlers/initial.lua" type="client" cache="false"/>

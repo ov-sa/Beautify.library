@@ -75,7 +75,7 @@ function createExampleUI5()
         currentTemplateIndex = 1
         beautify.checkbox.setSelection(loadedTemplates[1].checker, true)
     end
-
+    
     beautify.setUIVisible(createdWindow, true)
     beautify.setUIDraggable(createdWindow, true)
 

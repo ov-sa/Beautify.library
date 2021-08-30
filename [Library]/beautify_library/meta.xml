@@ -212,7 +212,7 @@
     <export function="getCheckboxTextColor" type="client"/>
 
     <!-- Exports: Element: Deckpane -->
-    <export function="createDeckPane" type="client"/>
+    <export function="createDeckpane" type="client"/>
 
     <!-- Exports: Element: Deck -->
     <export function="createDeck" type="client"/>

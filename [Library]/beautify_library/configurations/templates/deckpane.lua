@@ -13,4 +13,8 @@
 --[[ Configurations ]]--
 ------------------------
 
-availableTemplates["beautify_deckpane"] = {}
+availableTemplates["beautify_deckpane"] = {
+    scrollBar_Vertical = {
+        isOutLine = true
+    }
+}

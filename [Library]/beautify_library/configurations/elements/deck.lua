@@ -28,7 +28,8 @@ availableElements[elementType] = {
             {name = "x", type = "float"},
             {name = "y", type = "float"},
             {name = "height", type = "float"},
-            {name = "title", type = "string"}
+            {name = "title", type = "string"},
+            {name = "deckpane", type = "userdata", userDataType = "beautify_deckpane"}
         }
     },
     renderFunction = renderDeck,

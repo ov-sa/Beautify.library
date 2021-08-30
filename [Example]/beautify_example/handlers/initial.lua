@@ -20,6 +20,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function()
     createExampleUI3()
     createExampleUI4()
     createExampleUI5()
+    createExampleUI6()
     showCursor(true)
 
 end)
