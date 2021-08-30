@@ -89,9 +89,9 @@ function renderDeck(element, isFetchingInput, mouseReference)
             local deck_startX, deck_startY = elementReference.gui.x, elementReference.gui.y
             local deck_width, deck_height = elementReference.gui.width, elementReference.gui.height
             local deck_view_width, deck_view_height = elementReference.gui.contentSection.width, elementReference.gui.contentSection.height
-            local deck_titleBar_size = availableElements[elementType].minimumSize*0.5
-            local deck_toggle_arrow_icon_size = imports.math.min(deck_titleBar_size, availableElements[elementType].titleBar.toggleButton.arrowIconSize)
-            local deck_toggle_arrow_icon_padding = (deck_titleBar_size - deck_toggle_arrow_icon_size)*0.5
+            local deck_titleBar_height = availableElements[elementType].titleBar.height
+            local deck_toggle_arrow_icon_size = imports.math.min(deck_titleBar_height, availableElements[elementType].titleBar.toggleButton.arrowIconSize)
+            local deck_toggle_arrow_icon_padding = (deck_titleBar_height - deck_toggle_arrow_icon_size)*0.5
             elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startX = deck_startX
             elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startY = deck_startY
             elementReference.gui["__UI_CACHE__"]["Deck"].offsets.width = deck_width
@@ -104,7 +104,7 @@ function renderDeck(element, isFetchingInput, mouseReference)
             elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.startX = elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startX
             elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.startY = elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startY
             elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.width = elementReference.gui["__UI_CACHE__"]["Deck"].offsets.width
-            elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.height = deck_titleBar_size
+            elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.height = deck_titleBar_height
             elementReference.gui["__UI_CACHE__"]["Deck"].divider.size = elementTemplate.titleBar.divider.size
             if isElementToBeReloaded then
                 elementReference.gui["__UI_CACHE__"]["Deck"].divider.color = imports.tocolor(imports.unpackColor(elementTemplate.titleBar.divider.color))
@@ -140,9 +140,9 @@ function renderDeck(element, isFetchingInput, mouseReference)
                 imports.dxSetRenderTarget(elementReference.gui["__UI_CACHE__"]["Deck"].renderTarget, true)
                 imports.dxSetBlendMode("modulate_add")
                 local deck_color, deck_titleBar_color = imports.tocolor(imports.unpackColor(elementTemplate.color)), imports.tocolor(imports.unpackColor(elementTemplate.titleBar.color))
-                imports.dxDrawRectangle(0, 0, deck_width, deck_titleBar_size, deck_titleBar_color, false)
-                imports.dxDrawRectangle(0, deck_titleBar_size, deck_width, deck_height - deck_titleBar_size, deck_color, false)
-                imports.dxDrawRectangle(0, deck_titleBar_size, deck_width, elementReference.gui["__UI_CACHE__"]["Deck"].divider.size, elementReference.gui["__UI_CACHE__"]["Deck"].divider.color, false)
+                imports.dxDrawRectangle(0, 0, deck_width, deck_titleBar_height, deck_titleBar_color, false)
+                imports.dxDrawRectangle(0, deck_titleBar_height, deck_width, deck_height - deck_titleBar_height, deck_color, false)
+                imports.dxDrawRectangle(0, deck_titleBar_height, deck_width, elementReference.gui["__UI_CACHE__"]["Deck"].divider.size, elementReference.gui["__UI_CACHE__"]["Deck"].divider.color, false)
                 imports.dxSetBlendMode("blend")
                 if not elementParent then
                     imports.dxSetRenderTarget()

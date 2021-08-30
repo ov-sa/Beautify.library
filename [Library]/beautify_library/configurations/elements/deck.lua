@@ -42,9 +42,9 @@ availableElements[elementType] = {
         ["beautify_checkbox"] = true
     },
     isDraggable = false,
-    minimumSize = 44,
     titleBar = {
         paddingX = 5,
+        height = 22,
         toggleButton = {
             arrowIconSize = 12,
             hoverAnimDuration = 1000

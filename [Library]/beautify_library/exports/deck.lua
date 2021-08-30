@@ -35,7 +35,7 @@ function createDeck(...)
     elementReference.gui.width = math.max(0, createdElements[(parameters[5])].gui.width)
     for i, j in ipairs(availableElements[elementType].syntax.parameters) do
         if j.name == "height" then
-            elementReference.gui[j.name] = math.max(0, math.max(availableElements[elementType].minimumSize, parameters[i]) + (availableElements[elementType].contentSection.padding*2)) + (availableElements[elementType].minimumSize*0.5)
+            elementReference.gui[j.name] = math.max(0, math.max(availableElements[elementType].titleBar.height, parameters[i]) + (availableElements[elementType].contentSection.padding*2)) + availableElements[elementType].titleBar.height
         else
             elementReference.gui[j.name] = parameters[i]
         end
@@ -43,11 +43,11 @@ function createDeck(...)
     elementReference.gui.postGUI = (parameters[(#availableElements[elementType].syntax.parameters + 1)] and true) or false
     elementReference.gui.contentSection = {
         startX = availableElements[elementType].contentSection.padding,
-        startY = (availableElements[elementType].minimumSize*0.5) + availableElements[elementType].contentSection.padding,
+        startY = (availableElements[elementType].titleBar.height) + availableElements[elementType].contentSection.padding,
         width = elementReference.gui.width - (availableElements[elementType].contentSection.padding*2),
-        height = elementReference.gui.height - (availableElements[elementType].minimumSize*0.5) - (availableElements[elementType].contentSection.padding*2)
+        height = elementReference.gui.height - (availableElements[elementType].titleBar.height) - (availableElements[elementType].contentSection.padding*2)
     }
-    if (elementReference.gui.contentSection.width > 0) and (elementReference.gui.contentSection.height > math.max(0, availableElements[elementType].minimumSize*0.5)) then
+    if (elementReference.gui.contentSection.width > 0) and (elementReference.gui.contentSection.height > math.max(0, availableElements[elementType].titleBar.height)) then
         elementReference.gui.renderTarget = dxCreateRenderTarget(elementReference.gui.contentSection.width, elementReference.gui.contentSection.height, true)
     end
     elementReference.isValid = true
