@@ -33,6 +33,7 @@ function createDeck(...)
 
     elementReference.gui = cloneUIOutline(elementType)
     elementReference.gui.width = math.max(0, createdElements[(parameters[5])].gui.width)
+    elementReference.gui.maximized = false
     for i, j in ipairs(availableElements[elementType].syntax.parameters) do
         if j.name == "height" then
             elementReference.gui[j.name] = math.max(0, math.max(availableElements[elementType].titleBar.height, parameters[i]) + (availableElements[elementType].contentSection.padding*2)) + availableElements[elementType].titleBar.height
@@ -52,5 +53,37 @@ function createDeck(...)
     end
     elementReference.isValid = true
     return createdElement
+
+end
+
+
+-----------------------------------------------------
+--[[ Functions: Sets/Gets Deck's Maximized State ]]--
+-----------------------------------------------------
+
+function setDeckMaximized(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "setDeckMaximized") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementReference = createdElements[element]
+    if (elementReference.gui.selection == parameters[2]) then return false end
+    elementReference.gui.maximized = parameters[2]
+    --triggerEvent("onClientUISelectionAltered", element, elementReference.gui.selection) --TODO: ON UI M
+    return true
+
+end
+
+function isDeckMaximized(...)
+
+    local parameters = {...}
+    if not areUIParametersValid(parameters, elementType, "isDeckMaximized") then return false end
+    local element = parameters[1]
+    if not isUIValid(element) then return false end
+
+    local elementReference = createdElements[element]
+    return elementReference.gui.maximized
 
 end

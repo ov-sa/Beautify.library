@@ -216,5 +216,7 @@
 
     <!-- Exports: Element: Deck -->
     <export function="createDeck" type="client"/>
+    <export function="setDeckMaximized" type="client"/>
+    <export function="isDeckMaximized" type="client"/>
 
 </meta>

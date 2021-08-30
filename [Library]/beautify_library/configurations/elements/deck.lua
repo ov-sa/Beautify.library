@@ -55,4 +55,16 @@ availableElements[elementType] = {
     }
 }
 
-availableElements[elementType]["APIs"] = {}
+availableElements[elementType]["APIs"] = {
+    ["setDeckMaximized"] = {
+        parameters = {
+            {name = "deck", type = "userdata", userDataType = elementType},
+            {name = "state", type = "boolean"}
+        }
+    },
+    ["isDeckMaximized"] = {
+        parameters = {
+            {name = "deck", type = "userdata", userDataType = elementType}
+        }
+    }
+}

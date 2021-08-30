@@ -164,14 +164,18 @@ function renderDeck(element, isFetchingInput, mouseReference)
 
         if not elementReference.gui.titleBar.toggleButton.animRotationPercent then
             elementReference.gui.titleBar.toggleButton.animRotationPercent = 1
-            elementReference.gui.titleBar.toggleButton.hoverStatus = "backward"
-            elementReference.gui.titleBar.toggleButton.hoverAnimTickCounter = CLIENT_CURRENT_TICK
+            elementReference.gui.titleBar.toggleButton.animStatus = elementReference.gui.maximized
+            elementReference.gui.titleBar.toggleButton.animTickCounter = CLIENT_CURRENT_TICK
         end
-        elementReference.gui.titleBar.toggleButton.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.titleBar.toggleButton.hoverAnimTickCounter, availableElements[elementType].titleBar.toggleButton.hoverAnimDuration)
+        if elementReference.gui.titleBar.toggleButton.animStatus ~= elementReference.gui.maximized then
+            elementReference.gui.titleBar.toggleButton.animStatus = elementReference.gui.maximized
+            elementReference.gui.titleBar.toggleButton.animTickCounter = CLIENT_CURRENT_TICK
+        end
+        elementReference.gui.titleBar.toggleButton.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.titleBar.toggleButton.animTickCounter, availableElements[elementType].titleBar.toggleButton.hoverAnimDuration)
         local isToggleButtonInterpolationRendering = elementReference.gui.titleBar.toggleButton.interpolationProgress < 1
         if isElementInterpolationToBeRefreshed or isToggleButtonInterpolationRendering then
             isElementRootToBeForceRendered = isToggleButtonInterpolationRendering
-            if elementReference.gui.titleBar.toggleButton.hoverStatus == "forward" then
+            if elementReference.gui.titleBar.toggleButton.animStatus == true then
                 elementReference.gui.titleBar.toggleButton.animRotationPercent = imports.interpolateBetween(elementReference.gui.titleBar.toggleButton.animRotationPercent, 0, 0, 0.5, 0, 0, elementReference.gui.titleBar.toggleButton.interpolationProgress, "InQuad")
             else
                 elementReference.gui.titleBar.toggleButton.animRotationPercent = imports.interpolateBetween(elementReference.gui.titleBar.toggleButton.animRotationPercent, 0, 0, 0, 0, 0, elementReference.gui.titleBar.toggleButton.interpolationProgress, "InQuad")
@@ -180,7 +184,6 @@ function renderDeck(element, isFetchingInput, mouseReference)
         if elementReference.gui["__UI_CACHE__"]["Deck"].renderTexture then
             imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.width, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.height, elementReference.gui["__UI_CACHE__"]["Deck"].renderTexture, 0, 0, 0, -1, deck_postGUI)
         end
-        --local isRendertoggleButtonHover = elementReference.gui.titleBar.toggleButton.animRotationPercent > 0
         imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Title Bar"].text.text, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.fontColor, elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "left", "center", true, false, deck_postGUI, false)
         imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.offsets.height, createdAssets["images"]["collar/bottom.png"], 360*elementReference.gui.titleBar.toggleButton.animRotationPercent, 0, 0, elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.color, deck_postGUI)
         forceRenderElementRoot(elementReference.elementRoot or element, element, isElementRootToBeForceRendered)
@@ -199,22 +202,12 @@ function renderDeck(element, isFetchingInput, mouseReference)
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
         imports.renderElementChildren(element, true, mouseReference)
         local isElementHovered = CLIENT_HOVERED_ELEMENT.element == element
-        local isToggleButtonHovered = false
         if isElementHovered then
-            isToggleButtonHovered = imports.isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Toggle Button"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Toggle Button"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Toggle Button"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Toggle Button"].height)
-        end
-        if isToggleButtonHovered then
-            if imports.isKeyClicked("mouse1") then
-                --TODO: ADD FUNCTION TO TOGGLE OFF/ON THE DECK
-            end
-            if elementReference.gui.titleBar.toggleButton.hoverStatus ~= "forward" then
-                elementReference.gui.titleBar.toggleButton.hoverStatus = "forward"
-                elementReference.gui.titleBar.toggleButton.hoverAnimTickCounter = CLIENT_CURRENT_TICK
-            end
-        else
-            if elementReference.gui.titleBar.toggleButton.hoverStatus ~= "backward" then
-                elementReference.gui.titleBar.toggleButton.hoverStatus = "backward"
-                elementReference.gui.titleBar.toggleButton.hoverAnimTickCounter = CLIENT_CURRENT_TICK
+            local isToggleButtonHovered = imports.isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Toggle Button"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Toggle Button"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Toggle Button"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Toggle Button"].height)
+            if isToggleButtonHovered then
+                if imports.isKeyClicked("mouse1") then
+                    setDeckMaximized(element, not elementReference.gui.maximized)
+                end
             end
         end
     end
