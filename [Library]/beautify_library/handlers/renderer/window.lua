@@ -164,7 +164,11 @@ function renderWindow(element, isFetchingInput, mouseReference)
                 end
                 imports.dxDrawRectangle(0, window_borderSize, window_width, elementReference.gui["__UI_CACHE__"]["Window"].divider.size, elementReference.gui["__UI_CACHE__"]["Window"].divider.color, false)    
                 imports.dxSetBlendMode("blend")
-                imports.dxSetRenderTarget()
+                if not elementParent then
+                    imports.dxSetRenderTarget()
+                else
+                    imports.dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
+                end
                 local renderPixels = imports.dxGetTexturePixels(elementReference.gui["__UI_CACHE__"]["Window"].renderTarget)
                 if renderPixels then
                     elementReference.gui["__UI_CACHE__"]["Window"].renderTexture = imports.dxCreateTexture(renderPixels, "argb", false, "clamp")

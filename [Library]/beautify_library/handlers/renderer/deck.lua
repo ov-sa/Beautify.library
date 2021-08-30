@@ -144,7 +144,11 @@ function renderDeck(element, isFetchingInput, mouseReference)
                 imports.dxDrawRectangle(0, deck_titleBar_size, deck_width, deck_height - deck_titleBar_size, deck_color, false)
                 imports.dxDrawRectangle(0, deck_titleBar_size, deck_width, elementReference.gui["__UI_CACHE__"]["Deck"].divider.size, elementReference.gui["__UI_CACHE__"]["Deck"].divider.color, false)    
                 imports.dxSetBlendMode("blend")
-                imports.dxSetRenderTarget()
+                if not elementParent then
+                    imports.dxSetRenderTarget()
+                else
+                    imports.dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
+                end
                 local renderPixels = imports.dxGetTexturePixels(elementReference.gui["__UI_CACHE__"]["Deck"].renderTarget)
                 if renderPixels then
                     elementReference.gui["__UI_CACHE__"]["Deck"].renderTexture = imports.dxCreateTexture(renderPixels, "argb", false, "clamp")
