@@ -139,8 +139,9 @@ function renderButton(element, isFetchingInput, mouseReference)
             end
 
             elementReference.gui.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
-            if isElementInterpolationToBeRefreshed or (elementReference.gui.interpolationProgress < 1) then
-                isElementRootToBeForceRendered = not isElementInterpolationToBeRefreshed and true
+            local isButtonHoverInterpolationRendering = elementReference.gui.interpolationProgress < 1
+            if isElementInterpolationToBeRefreshed or isButtonHoverInterpolationRendering then
+                isElementRootToBeForceRendered = isButtonHoverInterpolationRendering
                 if elementReference.gui.hoverStatus == "forward" then
                     elementReference.gui.animAlphaPercent = imports.interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui.interpolationProgress, "InQuad")
                 else

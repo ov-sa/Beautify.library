@@ -159,8 +159,9 @@ function renderGridlist(element, isFetchingInput, mouseReference)
                         j.hoverAnimTickCounter = CLIENT_CURRENT_TICK
                     end
                     j.interpolationProgress = imports.getInterpolationProgress(j.hoverAnimTickCounter, availableElements[elementType].rowBar.hoverAnimDuration)
-                    if isElementInterpolationToBeRefreshed or (j.interpolationProgress < 1) then
-                        isElementRootToBeForceRendered = not isElementInterpolationToBeRefreshed and true
+                    local isRowHoverInterpolationRendering = j.interpolationProgress < 1
+                    if isElementInterpolationToBeRefreshed or isRowHoverInterpolationRendering then
+                        isElementRootToBeForceRendered = isRowHoverInterpolationRendering
                         if j.hoverStatus == "forward" then
                             j.animAlphaPercent = imports.interpolateBetween(j.animAlphaPercent, 0, 0, 1, 0, 0, j.interpolationProgress, "OutBounce")
                         else

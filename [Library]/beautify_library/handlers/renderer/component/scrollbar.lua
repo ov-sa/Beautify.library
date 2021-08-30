@@ -99,14 +99,14 @@ function renderScrollbar(elementParent, isComponentInterpolationToBeRefreshed, i
             end
         end
 
-        local isScrollThumbInterpolationDone = imports.math.round(referenceData.currentThumbSize, 0) == imports.math.round(referenceData.finalThumbSize, 0)
-        if isComponentInterpolationToBeRefreshed or (not isScrollThumbInterpolationDone) then
-            isComponentRootToBeForceRendered = not isComponentInterpolationToBeRefreshed and true
+        local isScrollThumbInterpolationRendering = imports.math.round(referenceData.currentThumbSize, 0) ~= imports.math.round(referenceData.finalThumbSize, 0)
+        if isComponentInterpolationToBeRefreshed or isScrollThumbInterpolationRendering then
+            isComponentRootToBeForceRendered = isScrollThumbInterpolationRendering
             referenceData.currentThumbSize = imports.interpolateBetween(referenceData.currentThumbSize, 0, 0, referenceData.finalThumbSize, 0, 0, 0.25, "InQuad")
         end
         local isScrollInterpolationDone = imports.math.round(referenceData.currentPercent, 2) == imports.math.round(referenceData.finalPercent, 2)
         if isComponentInterpolationToBeRefreshed or (not isScrollInterpolationDone) then
-            isComponentRootToBeForceRendered = not isComponentInterpolationToBeRefreshed and true
+            isComponentRootToBeForceRendered = isComponentRootToBeForceRendered or not isScrollInterpolationDone
             referenceData.currentPercent = imports.interpolateBetween(referenceData.currentPercent, 0, 0, referenceData.finalPercent, 0, 0, 0.25, "InQuad")
             if scrollbar_isHorizontal then
                 referenceData["__UI_CACHE__"]["Thumb"].offsets.startX = imports.math.max(referenceData["__UI_CACHE__"]["Track"].offsets.startX, referenceData["__UI_CACHE__"]["Track"].offsets.startX + (referenceData["__UI_CACHE__"]["Track"].offsets.width - referenceData["__UI_CACHE__"]["Thumb"].offsets.width)*(referenceData.currentPercent*0.01))

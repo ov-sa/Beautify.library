@@ -168,8 +168,9 @@ function renderDeck(element, isFetchingInput, mouseReference)
             elementReference.gui.titleBar.toggleButton.hoverAnimTickCounter = CLIENT_CURRENT_TICK
         end
         elementReference.gui.titleBar.toggleButton.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.titleBar.toggleButton.hoverAnimTickCounter, availableElements[elementType].titleBar.toggleButton.hoverAnimDuration)
-        if isElementInterpolationToBeRefreshed or (elementReference.gui.titleBar.toggleButton.interpolationProgress < 1) then
-            isElementRootToBeForceRendered = not isElementInterpolationToBeRefreshed and true
+        local isToggleButtonInterpolationRendering = elementReference.gui.titleBar.toggleButton.interpolationProgress < 1
+        if isElementInterpolationToBeRefreshed or isToggleButtonInterpolationRendering then
+            isElementRootToBeForceRendered = isToggleButtonInterpolationRendering
             if elementReference.gui.titleBar.toggleButton.hoverStatus == "forward" then
                 elementReference.gui.titleBar.toggleButton.animRotationPercent = imports.interpolateBetween(elementReference.gui.titleBar.toggleButton.animRotationPercent, 0, 0, 0.5, 0, 0, elementReference.gui.titleBar.toggleButton.interpolationProgress, "InQuad")
             else

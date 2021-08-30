@@ -188,8 +188,9 @@ function renderWindow(element, isFetchingInput, mouseReference)
             elementReference.gui.titleBar.closeButton.hoverAnimTickCounter = CLIENT_CURRENT_TICK
         end
         elementReference.gui.titleBar.closeButton.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.titleBar.closeButton.hoverAnimTickCounter, availableElements[elementType].titleBar.closeButton.hoverAnimDuration)
-        if isElementInterpolationToBeRefreshed or (elementReference.gui.titleBar.closeButton.interpolationProgress < 1) then
-            isElementRootToBeForceRendered = not isElementInterpolationToBeRefreshed and true
+        local isCloseButtonHoverInterpolationRendering = elementReference.gui.titleBar.closeButton.interpolationProgress < 1
+        if isElementInterpolationToBeRefreshed or isCloseButtonHoverInterpolationRendering then
+            isElementRootToBeForceRendered = isCloseButtonHoverInterpolationRendering
             if elementReference.gui.titleBar.closeButton.hoverStatus == "forward" then
                 elementReference.gui.titleBar.closeButton.animAlphaPercent = imports.interpolateBetween(elementReference.gui.titleBar.closeButton.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui.titleBar.closeButton.interpolationProgress, "InQuad")
             else
