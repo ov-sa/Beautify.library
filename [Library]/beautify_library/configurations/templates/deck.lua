@@ -26,9 +26,7 @@ availableTemplates["beautify_deck"] = {
         },
         toggleButton = {
             isOutLine = true,
-            fontColor = {200, 200, 200, 255},
-            hoverFontColor = {0, 0, 0, 255},
-            hoverColor = {125, 125, 255, 0}
+            color = {0, 0, 0, 255}
         }
     }
 }
