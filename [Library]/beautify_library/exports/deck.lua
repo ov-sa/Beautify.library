@@ -71,7 +71,7 @@ function setDeckMaximized(...)
     local elementReference = createdElements[element]
     if (elementReference.gui.maximized == parameters[2]) then return false end
     elementReference.gui.maximized = parameters[2]
-    --triggerEvent("onClientUISelectionAltered", element, elementReference.gui.selection) --TODO: ON UI M
+    triggerEvent("onClientUIMaximizationAltered", element, elementReference.gui.maximized)
     return true
 
 end
