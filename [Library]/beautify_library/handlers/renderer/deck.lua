@@ -177,15 +177,14 @@ function renderDeck(element, isFetchingInput, mouseReference)
         local isToggleButtonInterpolationRendering = elementReference.gui.titleBar.toggleButton.interpolationProgress < 1
         if isElementInterpolationToBeRefreshed or isToggleButtonInterpolationRendering then
             isElementRootToBeForceRendered = isToggleButtonInterpolationRendering
-            elementReference.gui.titleBar.toggleButton.alphaInterpolationProgress = imports.getInterpolationProgress(elementReference.gui.titleBar.toggleButton.animTickCounter, availableElements[elementType].titleBar.toggleButton.rollAnimDuration*0.5)
+            elementReference.gui.titleBar.toggleButton.rollInterpolationProgress = imports.getInterpolationProgress(elementReference.gui.titleBar.toggleButton.animTickCounter, availableElements[elementType].titleBar.toggleButton.rollAnimDuration*0.5)
             if elementReference.gui.titleBar.toggleButton.animStatus == true then
                 elementReference.gui.titleBar.toggleButton.animRotationPercent = imports.interpolateBetween(elementReference.gui.titleBar.toggleButton.animRotationPercent, 0, 0, 0.5, 0, 0, elementReference.gui.titleBar.toggleButton.interpolationProgress, "InQuad")
-                elementReference.gui.titleBar.toggleButton.animRollPercent = imports.interpolateBetween(elementReference.gui.titleBar.toggleButton.animRollPercent, 0, 0, 1, 0, 0, elementReference.gui.titleBar.toggleButton.alphaInterpolationProgress, "OutBounce")
+                elementReference.gui.titleBar.toggleButton.animRollPercent = imports.interpolateBetween(elementReference.gui.titleBar.toggleButton.animRollPercent, 0, 0, 1, 0, 0, elementReference.gui.titleBar.toggleButton.rollInterpolationProgress, "InOutQuad")
             else
                 elementReference.gui.titleBar.toggleButton.animRotationPercent = imports.interpolateBetween(elementReference.gui.titleBar.toggleButton.animRotationPercent, 0, 0, 0, 0, 0, elementReference.gui.titleBar.toggleButton.interpolationProgress, "InQuad")
-                elementReference.gui.titleBar.toggleButton.animRollPercent = imports.interpolateBetween(elementReference.gui.titleBar.toggleButton.animRollPercent, 0, 0, 0, 0, 0, elementReference.gui.titleBar.toggleButton.alphaInterpolationProgress, "OutBounce")
+                elementReference.gui.titleBar.toggleButton.animRollPercent = imports.interpolateBetween(elementReference.gui.titleBar.toggleButton.animRollPercent, 0, 0, 0, 0, 0, elementReference.gui.titleBar.toggleButton.rollInterpolationProgress, "InOutQuad")
             end
-            --elementReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight = elementReference.gui["__UI_CACHE__"]["Deck"].offsets.height
             elementReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight = elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.height + ((elementReference.gui["__UI_CACHE__"]["Deck"].offsets.height - elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.height)*elementReference.gui.titleBar.toggleButton.animRollPercent)
             elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.currentHeight = elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.height*elementReference.gui.titleBar.toggleButton.animRollPercent
             elementReference.gui["__UI_CACHE__"]["Deck"].view.color = imports.tocolor(255, 255, 255, 255*elementReference.gui.titleBar.toggleButton.animRollPercent)
