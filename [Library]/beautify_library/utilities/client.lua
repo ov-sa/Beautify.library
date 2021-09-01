@@ -20,20 +20,22 @@ local imports = {
     pairs = pairs,
     ipairs = ipairs,
     getElementType = getElementType,
+    dxSetBlendMode = dxSetBlendMode,
     string = {
         format = string.format
     }
 }
 
 
------------------------------------
---[[ Function: Rounds A Number ]]--
------------------------------------
+----------------------------------
+--[[ Function: Blends DX I/Ps ]]--
+----------------------------------
 
-function math.round(number, decimals)
-    
-    decimals = decimals or 0
-    return imports.tonumber(imports.string.format(("%."..decimals.."f"), number))
+function dxSetBlendMode(blendMode)
+
+    if blendMode and blendMode == "blend" then return false end
+
+    return imports.dxSetBlendMode(blendMode)
 
 end
 
@@ -146,6 +148,18 @@ function isMouseOnPosition(x, y, width, height)
     if not cursor_offsetX or not cursor_offsetY then return false end
 
     return (cursor_offsetX >= x) and (cursor_offsetX <= (x + width)) and (cursor_offsetY >= y) and (cursor_offsetY <= (y + height))
+
+end
+
+
+-----------------------------------
+--[[ Function: Rounds A Number ]]--
+-----------------------------------
+
+function math.round(number, decimals)
+    
+    decimals = decimals or 0
+    return imports.tonumber(imports.string.format(("%."..decimals.."f"), number))
 
 end
 
