@@ -15,6 +15,14 @@
 
 availableTemplates["beautify_checkbox"] = {
 
+    ["dark-silver-theme"] = {
+        fontColor = {225, 225, 225, 255},
+        tickBox = {
+            color = {50, 50, 50, 255},
+            iconColor = {225, 225, 225, 255}
+        }
+    },
+
     ["dark-blue-theme"] = {
         fontColor = {200, 200, 200, 255},
         tickBox = {

@@ -15,13 +15,28 @@
 
 availableTemplates["beautify_window"] = {
 
+    ["dark-silver-theme"] = {
+        color = {0, 0, 0, 253},
+        titleBar = {
+            fontColor = {225, 225, 225, 255},
+            color = {0, 0, 0, 255},
+            divider = {
+                color = {225, 225, 225, 150}
+            },
+            closeButton = {
+                fontColor = {225, 225, 225, 255},
+                hoverFontColor = {0, 0, 0, 255},
+                hoverColor = {225, 225, 225, 255}
+            }
+        }
+    },
+
     ["dark-blue-theme"] = {
         color = {0, 0, 0, 253},
         titleBar = {
             fontColor = {125, 125, 255, 255},
             color = {0, 0, 0, 255},
             divider = {
-                size = 1,
                 color = {125, 125, 255, 150}
             },
             closeButton = {
@@ -38,7 +53,6 @@ availableTemplates["beautify_window"] = {
             fontColor = {255, 125, 125, 255},
             color = {0, 0, 0, 255},
             divider = {
-                size = 1,
                 color = {255, 125, 125, 150}
             },
             closeButton = {
@@ -55,7 +69,6 @@ availableTemplates["beautify_window"] = {
             fontColor = {125, 255, 125, 255},
             color = {0, 0, 0, 255},
             divider = {
-                size = 1,
                 color = {125, 255, 125, 150}
             },
             closeButton = {
@@ -72,7 +85,6 @@ availableTemplates["beautify_window"] = {
             fontColor = {255, 255, 125, 255},
             color = {0, 0, 0, 255},
             divider = {
-                size = 1,
                 color = {255, 255, 125, 150}
             },
             closeButton = {

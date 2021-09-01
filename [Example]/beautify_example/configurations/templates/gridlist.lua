@@ -15,13 +15,29 @@
 
 availableTemplates["beautify_gridlist"] = {
 
+    ["dark-silver-theme"] = {
+        color = {5, 5, 5, 253},
+        columnBar = {
+            fontColor = {0, 0, 0, 255},
+            color = {225, 225, 225, 255},
+            divider = {
+                color = {5, 5, 5, 253}
+            }
+        },
+        rowBar = {
+            fontColor = {150, 150, 150, 255},
+            color = {0, 0, 0, 255},
+            hoverFontColor = {0, 0, 0, 255},
+            hoverColor = {150, 150, 150, 255}
+        }
+    },
+
     ["dark-blue-theme"] = {
         color = {5, 5, 5, 253},
         columnBar = {
             fontColor = {0, 0, 0, 255},
             color = {125, 125, 255, 255},
             divider = {
-                size = 2,
                 color = {5, 5, 5, 253}
             }
         },
@@ -39,7 +55,6 @@ availableTemplates["beautify_gridlist"] = {
             fontColor = {0, 0, 0, 255},
             color = {255, 125, 125, 255},
             divider = {
-                size = 2,
                 color = {5, 5, 5, 253}
             }
         },
@@ -57,7 +72,6 @@ availableTemplates["beautify_gridlist"] = {
             fontColor = {0, 0, 0, 255},
             color = {125, 255, 125, 255},
             divider = {
-                size = 2,
                 color = {5, 5, 5, 253}
             }
         },
@@ -75,7 +89,6 @@ availableTemplates["beautify_gridlist"] = {
             fontColor = {0, 0, 0, 255},
             color = {255, 255, 125, 255},
             divider = {
-                size = 2,
                 color = {5, 5, 5, 253}
             }
         },

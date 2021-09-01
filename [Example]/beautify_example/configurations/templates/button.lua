@@ -15,6 +15,13 @@
 
 availableTemplates["beautify_button"] = {
 
+    ["dark-silver-theme"] = {
+        ["default"] = {
+            color = {225, 225, 225, 255},
+            fontColor = {0, 0, 0, 255}
+        }
+    },
+
     ["dark-blue-theme"] = {},
 
     ["dark-red-theme"] = {},

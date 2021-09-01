@@ -15,6 +15,15 @@
 
 availableTemplates["beautify_scrollbar"] = {
 
+    ["dark-silver-theme"] = {
+        track = {
+            color = {2, 2, 2, 253}
+        },
+        thumb = {
+            color = {225, 225, 225, 255}
+        }
+    },
+
     ["dark-blue-theme"] = {},
 
     ["dark-red-theme"] = {},

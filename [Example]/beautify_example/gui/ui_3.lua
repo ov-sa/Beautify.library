@@ -15,6 +15,7 @@
 
 local currentTemplateIndex = false
 local loadedTemplates = {
+    {template = "dark-silver-theme", label = "Enable Dark (Silver) Mode", labelColor = {225, 225, 225, 255}},
     {template = "dark-blue-theme", label = "Enable Dark (Blue) Mode", labelColor = {125, 125, 255, 255}},
     {template = "dark-red-theme", label = "Enable Dark (Red) Mode", labelColor = {255, 125, 125, 255}},
     {template = "dark-green-theme", label = "Enable Dark (Green) Mode", labelColor = {125, 255, 125, 255}},
@@ -24,7 +25,7 @@ local loadedTemplates = {
 local function switchTemplate(state)
     
     local isTemplateToBeReloaded = false
-    local isToBeReverted = source == loadedTemplates[currentTemplateIndex].checker
+    local isToBeReverted = currentTemplateIndex and (source == loadedTemplates[currentTemplateIndex].checker)
     if not state then
         if isToBeReverted then
             beautify.checkbox.setSelection(source, true)
@@ -87,11 +88,10 @@ function createExampleUI3()
                 beautify.checkbox.setText(createdCheckbox, v.label)
                 beautify.checkbox.setTextColor(createdCheckbox, v.labelColor)
                 beautify.setUIVisible(createdCheckbox, true)
-                addEventHandler("onClientUISelectionAltered", createdCheckbox, switchTemplate)
                 v.checker = createdCheckbox
+                addEventHandler("onClientUISelectionAltered", createdCheckbox, switchTemplate)
             end
             if #loadedTemplates > 0 then
-                currentTemplateIndex = 1
                 beautify.checkbox.setSelection(loadedTemplates[1].checker, true)
             end
         elseif j.deckType == "character_customizer" then

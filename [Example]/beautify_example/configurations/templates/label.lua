@@ -15,6 +15,10 @@
 
 availableTemplates["beautify_label"] = {
 
+    ["dark-silver-theme"] = {
+        fontColor = {225, 225, 225, 255}
+    },
+
     ["dark-blue-theme"] = {},
 
     ["dark-red-theme"] = {},

@@ -15,6 +15,12 @@
 
 availableTemplates["beautify_selector"] = {
 
+    ["dark-silver-theme"] = {
+        color = {50, 50, 50, 255},
+        hoverColor = {225, 225, 225, 255},
+        fontColor = {225, 225, 225, 255}
+    },
+
     ["dark-blue-theme"] = {
         color = {50, 50, 50, 255},
         hoverColor = {125, 125, 255, 255},
