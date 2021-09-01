@@ -16,7 +16,7 @@
 availableTemplates["beautify_deck"] = {
 
     ["dark-blue-theme"] = {
-        color = {2, 2, 2, 255},
+        color = {5, 5, 5, 253},
         titleBar = {
             fontColor = {0, 0, 0, 255},
             color = {125, 125, 255, 255},
@@ -31,7 +31,7 @@ availableTemplates["beautify_deck"] = {
     },
 
     ["dark-red-theme"] = {
-        color = {2, 2, 2, 255},
+        color = {2, 2, 2, 253},
         titleBar = {
             fontColor = {0, 0, 0, 255},
             color = {255, 125, 125, 255},
@@ -46,7 +46,7 @@ availableTemplates["beautify_deck"] = {
     },
 
     ["dark-green-theme"] = {
-        color = {2, 2, 2, 255},
+        color = {2, 2, 2, 253},
         titleBar = {
             fontColor = {0, 0, 0, 255},
             color = {125, 255, 125, 255},
@@ -61,7 +61,7 @@ availableTemplates["beautify_deck"] = {
     },
 
     ["dark-yellow-theme"] = {
-        color = {2, 2, 2, 255},
+        color = {2, 2, 2, 253},
         titleBar = {
             fontColor = {0, 0, 0, 255},
             color = {255, 255, 125, 255},
