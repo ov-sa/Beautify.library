@@ -47,11 +47,8 @@ availableElements[elementType] = {
         height = 22,
         toggleButton = {
             arrowIconSize = 12,
-            hoverAnimDuration = 1000
+            rollAnimDuration = 1000
         }
-    },
-    contentSection = {
-        padding = 5
     }
 }
 
