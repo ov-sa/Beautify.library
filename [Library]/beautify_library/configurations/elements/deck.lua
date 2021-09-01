@@ -49,6 +49,9 @@ availableElements[elementType] = {
             arrowIconSize = 12,
             rollAnimDuration = 1000
         }
+    },
+    contentSection = {
+        padding = 5
     }
 }
 
