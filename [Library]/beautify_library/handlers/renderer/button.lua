@@ -133,7 +133,7 @@ function renderButton(element, isFetchingInput, mouseReference)
             end
 
             if not elementReference.gui.animAlphaPercent then
-                elementReference.gui.animAlphaPercent = 0.25
+                elementReference.gui.animAlphaPercent = 0
                 elementReference.gui.hoverStatus = "backward"
                 elementReference.gui.hoverAnimTickCounter = CLIENT_CURRENT_TICK
             end
@@ -145,14 +145,24 @@ function renderButton(element, isFetchingInput, mouseReference)
                 if elementReference.gui.hoverStatus == "forward" then
                     elementReference.gui.animAlphaPercent = imports.interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui.interpolationProgress, "InQuad")
                 else
-                    elementReference.gui.animAlphaPercent = imports.interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 0.25, 0, 0, elementReference.gui.interpolationProgress, "InQuad")
+                    elementReference.gui.animAlphaPercent = imports.interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 0, 0, 0, elementReference.gui.interpolationProgress, "InQuad")
+                end
+                elementReference.gui["__UI_CACHE__"]["Button"].color = imports.tocolor(elementTemplate.color[1], elementTemplate.color[2], elementTemplate.color[3], elementTemplate.color[4]*(1 - elementReference.gui.animAlphaPercent))
+                elementReference.gui["__UI_CACHE__"]["Button"].hoverColor = imports.tocolor(elementTemplate.hoverColor[1], elementTemplate.hoverColor[2], elementTemplate.hoverColor[3], elementTemplate.hoverColor[4]*elementReference.gui.animAlphaPercent)
+                elementReference.gui["__UI_CACHE__"]["Button"].fontColor = imports.tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4]*(1 - elementReference.gui.animAlphaPercent))
+                elementReference.gui["__UI_CACHE__"]["Button"].hoverFontColor = imports.tocolor(elementTemplate.hoverFontColor[1], elementTemplate.hoverFontColor[2], elementTemplate.hoverFontColor[3], elementTemplate.hoverFontColor[4]*elementReference.gui.animAlphaPercent)
+            end
+            local isButtonHoverToBeRendered = elementReference.gui.animAlphaPercent > 0
+            if elementReference.gui["__UI_CACHE__"]["Button"].renderTexture then
+                imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Button"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Button"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Button"].offsets.width, elementReference.gui["__UI_CACHE__"]["Button"].offsets.height, elementReference.gui["__UI_CACHE__"]["Button"].renderTexture, 0, 0, 0, elementReference.gui["__UI_CACHE__"]["Button"].color, button_postGUI)
+                if isButtonHoverToBeRendered then
+                    imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Button"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Button"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Button"].offsets.width, elementReference.gui["__UI_CACHE__"]["Button"].offsets.height, elementReference.gui["__UI_CACHE__"]["Button"].renderTexture, 0, 0, 0, elementReference.gui["__UI_CACHE__"]["Button"].hoverColor, button_postGUI)
                 end
             end
-            local button_fontColor = imports.tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4]*elementReference.gui.animAlphaPercent)
-            if elementReference.gui["__UI_CACHE__"]["Button"].renderTexture then
-                imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Button"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Button"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Button"].offsets.width, elementReference.gui["__UI_CACHE__"]["Button"].offsets.height, elementReference.gui["__UI_CACHE__"]["Button"].renderTexture, 0, 0, 0, imports.tocolor(elementTemplate.color[1], elementTemplate.color[2], elementTemplate.color[3], elementTemplate.color[4]*imports.math.max(0.3, elementReference.gui.animAlphaPercent)), button_postGUI)
+            imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Button"].text.text, elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Button"].fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "center", "center", true, false, button_postGUI, false)
+            if isButtonHoverToBeRendered then
+                imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Button"].text.text, elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Button"].hoverFontColor, elementTemplate.fontScale or 1, elementTemplate.font, "center", "center", true, false, button_postGUI, false)
             end
-            imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Button"].text.text, elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.endY, button_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "center", "center", true, false, button_postGUI, false)
             forceRenderElementRoot(elementReference.elementRoot or element, element, isElementRootToBeForceRendered)
             imports.renderElementChildren(element)
             imports.dxSetBlendMode("blend")
