@@ -15,21 +15,7 @@
 
 availableTemplates["beautify_window"] = {
 
-    ["dark-silver-theme"] = {
-        color = {0, 0, 0, 253},
-        titleBar = {
-            fontColor = {225, 225, 225, 255},
-            color = {0, 0, 0, 255},
-            divider = {
-                color = {225, 225, 225, 150}
-            },
-            closeButton = {
-                fontColor = {225, 225, 225, 255},
-                hoverFontColor = {0, 0, 0, 255},
-                hoverColor = {225, 225, 225, 255}
-            }
-        }
-    },
+    ["dark-silver-theme"] = {},
 
     ["dark-blue-theme"] = {
         color = {0, 0, 0, 253},
@@ -41,8 +27,8 @@ availableTemplates["beautify_window"] = {
             },
             closeButton = {
                 fontColor = {125, 125, 255, 255},
-                hoverFontColor = {0, 0, 0, 255},
-                hoverColor = {125, 125, 255, 255}
+                hoverColor = {125, 125, 255, 255},
+                hoverFontColor = {0, 0, 0, 255}
             }
         }
     },
@@ -57,8 +43,8 @@ availableTemplates["beautify_window"] = {
             },
             closeButton = {
                 fontColor = {255, 125, 125, 255},
-                hoverFontColor = {0, 0, 0, 255},
-                hoverColor = {255, 125, 125, 255}
+                hoverColor = {255, 125, 125, 255},
+                hoverFontColor = {0, 0, 0, 255}
             }
         }
     },
@@ -73,8 +59,8 @@ availableTemplates["beautify_window"] = {
             },
             closeButton = {
                 fontColor = {125, 255, 125, 255},
-                hoverFontColor = {0, 0, 0, 255},
-                hoverColor = {125, 255, 125, 255}
+                hoverColor = {125, 255, 125, 255},
+                hoverFontColor = {0, 0, 0, 255}
             }
         }
     },
@@ -89,8 +75,8 @@ availableTemplates["beautify_window"] = {
             },
             closeButton = {
                 fontColor = {255, 255, 125, 255},
-                hoverFontColor = {0, 0, 0, 255},
-                hoverColor = {255, 255, 125, 255}
+                hoverColor = {255, 255, 125, 255},
+                hoverFontColor = {0, 0, 0, 255}
             }
         }
     }

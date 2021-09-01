@@ -15,16 +15,22 @@
 
 availableTemplates["beautify_label"] = {
 
-    ["dark-silver-theme"] = {
-        fontColor = {225, 225, 225, 255}
+    ["dark-silver-theme"] = {},
+
+    ["dark-blue-theme"] = {
+        fontColor = {150, 150, 150, 255}
     },
 
-    ["dark-blue-theme"] = {},
+    ["dark-red-theme"] = {
+        fontColor = {150, 150, 150, 255}
+    },
 
-    ["dark-red-theme"] = {},
+    ["dark-green-theme"] = {
+        fontColor = {150, 150, 150, 255}
+    },
 
-    ["dark-green-theme"] = {},
-
-    ["dark-yellow-theme"] = {}
+    ["dark-yellow-theme"] = {
+        fontColor = {150, 150, 150, 255}
+    }
 
 }

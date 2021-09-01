@@ -15,25 +15,13 @@
 
 availableTemplates["beautify_deck"] = {
 
-    ["dark-silver-theme"] = {
-        color = {2, 2, 2, 253},
-        titleBar = {
-            fontColor = {0, 0, 0, 255},
-            color = {225, 225, 225, 255},
-            divider = {
-                color = {0, 0, 0, 255},
-            },
-            toggleButton = {
-                color = {0, 0, 0, 255}
-            }
-        }
-    },
+    ["dark-silver-theme"] = {},
 
     ["dark-blue-theme"] = {
         color = {2, 2, 2, 253},
         titleBar = {
-            fontColor = {0, 0, 0, 255},
             color = {125, 125, 255, 255},
+            fontColor = {0, 0, 0, 255},
             divider = {
                 color = {0, 0, 0, 255},
             },
@@ -46,8 +34,8 @@ availableTemplates["beautify_deck"] = {
     ["dark-red-theme"] = {
         color = {2, 2, 2, 253},
         titleBar = {
-            fontColor = {0, 0, 0, 255},
             color = {255, 125, 125, 255},
+            fontColor = {0, 0, 0, 255},
             divider = {
                 color = {0, 0, 0, 255},
             },
@@ -60,8 +48,8 @@ availableTemplates["beautify_deck"] = {
     ["dark-green-theme"] = {
         color = {2, 2, 2, 253},
         titleBar = {
-            fontColor = {0, 0, 0, 255},
             color = {125, 255, 125, 255},
+            fontColor = {0, 0, 0, 255},
             divider = {
                 color = {0, 0, 0, 255},
             },
@@ -74,8 +62,8 @@ availableTemplates["beautify_deck"] = {
     ["dark-yellow-theme"] = {
         color = {2, 2, 2, 253},
         titleBar = {
-            fontColor = {0, 0, 0, 255},
             color = {255, 255, 125, 255},
+            fontColor = {0, 0, 0, 255},
             divider = {
                 color = {0, 0, 0, 255},
             },

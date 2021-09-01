@@ -15,16 +15,7 @@
 
 availableTemplates["beautify_slider"] = {
 
-    ["dark-silver-theme"] = {
-        fontColor = {225, 225, 225, 255},
-        track = {
-            progressedColor = {225, 225, 225, 255},
-            unprogressedColor = {15, 15, 15, 255}
-        },
-        thumb = {
-            color = {225, 225, 225, 255}
-        }
-    },
+    ["dark-silver-theme"] = {},
 
     ["dark-blue-theme"] = {
         fontColor = {200, 200, 200, 255},
