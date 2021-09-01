@@ -14,7 +14,7 @@
 ------------------------
 
 availableTemplates["beautify_deck"] = {
-    color = {0, 0, 0, 253},
+    color = {5, 5, 5, 253},
     titleBar = {
         isOutLine = true,
         font = dxCreateFont("files/assets/fonts/signika_semibold.ttf", 11),
