@@ -33,8 +33,11 @@ local imports = {
 
 function dxSetBlendMode(blendMode)
 
-    if blendMode and blendMode == "blend" then return false end
-
+    if blendMode then
+        if blendMode == "blend" then
+            return false
+        end
+    end
     return imports.dxSetBlendMode(blendMode)
 
 end
