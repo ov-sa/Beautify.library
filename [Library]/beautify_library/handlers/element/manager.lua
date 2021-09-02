@@ -77,8 +77,33 @@ end
 
 
 -----------------------------------------------
---[[ Function: Creates/Destroys UI Element ]]--
+--[[ Functions: Updates/Reloads UI Element ]]--
 -----------------------------------------------
+
+function updateElement(element)
+
+    if not element or not imports.isElement(element) or not createdElements[element] then return false end
+    
+    createdElements[element].updateElement = true
+    imports.forceRenderElementRoot(createdElements[element].elementRoot or element, element, true)
+    return true
+
+end
+
+function reloadElement(element)
+
+    if not element or not imports.isElement(element) or not createdElements[element] then return false end
+
+    createdElements[element].reloadElement = true
+    imports.forceRenderElementRoot(createdElements[element].elementRoot or element, element, true)
+    return true
+
+end
+
+
+------------------------------------------------
+--[[ Functions: Creates/Destroys UI Element ]]--
+------------------------------------------------
 
 function createUIElement(elementType, parentElement, sourceResource)
 
@@ -165,9 +190,13 @@ local function destroyUIElement(element)
 end
 
 
-----------------------------------------
---[[ Event: On Client Resource Stop ]]--
-----------------------------------------
+-----------------------------------------------
+--[[ Events: On Client Resource Start/Stop ]]--
+-----------------------------------------------
+
+imports.addEventHandler("onClientResourceStart", root, function()
+    imports.forceRenderElementRoot = forceRenderElementRoot
+end)
 
 local isLibraryResourceStopping = false
 imports.addEventHandler("onClientResourceStop", root, function()

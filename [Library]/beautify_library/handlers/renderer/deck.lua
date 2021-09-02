@@ -19,6 +19,7 @@ local imports = {
     isKeyClicked = isKeyClicked,
     getUIParent = getUIParent,
     __getUITemplate = __getUITemplate,
+    forceRenderElementRoot = forceRenderElementRoot,
     renderElementChildren = renderElementChildren,
     destroyElement = destroyElement,
     unpackColor = unpackColor,
@@ -194,7 +195,7 @@ function renderDeck(element, isFetchingInput, mouseReference)
         end
         imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Title Bar"].text.text, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.fontColor, elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "left", "center", true, false, deck_postGUI, false)
         imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.offsets.height, createdAssets["images"]["collar/bottom.png"], 360*elementReference.gui.titleBar.toggleButton.animRotationPercent, 0, 0, elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.color, deck_postGUI)
-        forceRenderElementRoot(elementReference.elementRoot or element, element, isElementRootToBeForceRendered)
+        imports.forceRenderElementRoot(elementReference.elementRoot or element, element, isElementRootToBeForceRendered)
         imports.renderElementChildren(element)
         imports.dxSetBlendMode("blend")
         if not elementParent then

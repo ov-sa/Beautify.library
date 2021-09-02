@@ -19,6 +19,7 @@ local imports = {
     isKeyClicked = isKeyClicked,
     getUIParent = getUIParent,
     __getUITemplate = __getUITemplate,
+    forceRenderElementRoot = forceRenderElementRoot,
     renderElementChildren = renderElementChildren,
     attachUIElement = attachUIElement,
     destroyElement = destroyElement,
@@ -210,7 +211,7 @@ function renderWindow(element, isFetchingInput, mouseReference)
             imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Close Button"].text.text, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.endY, imports.tocolor(elementTemplate.titleBar.closeButton.hoverFontColor[1], elementTemplate.titleBar.closeButton.hoverFontColor[2], elementTemplate.titleBar.closeButton.hoverFontColor[3], elementTemplate.titleBar.closeButton.hoverFontColor[4]*elementReference.gui.titleBar.closeButton.animAlphaPercent), elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "center", "center", true, false, window_postGUI, false)
         end
         imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Window"].divider.size, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.height, elementReference.gui["__UI_CACHE__"]["Window"].divider.color, window_postGUI)
-        forceRenderElementRoot(elementReference.elementRoot or element, element, isElementRootToBeForceRendered)
+        imports.forceRenderElementRoot(elementReference.elementRoot or element, element, isElementRootToBeForceRendered)
         imports.renderElementChildren(element)
         imports.dxSetBlendMode("blend")
         if not elementParent then

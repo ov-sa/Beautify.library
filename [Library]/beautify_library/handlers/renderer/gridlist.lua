@@ -19,6 +19,7 @@ local imports = {
     isKeyClicked = isKeyClicked,
     getUIParent = getUIParent,
     __getUITemplate = __getUITemplate,
+    forceRenderElementRoot = forceRenderElementRoot,
     renderElementChildren = renderElementChildren,
     setGridlistSelection = setGridlistSelection,
     unpackColor = unpackColor,
@@ -201,7 +202,7 @@ function renderGridlist(element, isFetchingInput, mouseReference)
                     isElementRootToBeForceRendered = isElementRootToBeForceRendered or isComponentRootToBeForceRendered
                 end
             end
-            forceRenderElementRoot(elementReference.elementRoot or element, element, isElementRootToBeForceRendered)
+            imports.forceRenderElementRoot(elementReference.elementRoot or element, element, isElementRootToBeForceRendered)
             imports.renderElementChildren(element)
             imports.dxSetBlendMode("blend")
             if not elementParent then

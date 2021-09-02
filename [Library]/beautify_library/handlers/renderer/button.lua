@@ -18,6 +18,7 @@ local imports = {
     isElement = isElement,
     getUIParent = getUIParent,
     __getUITemplate = __getUITemplate,
+    forceRenderElementRoot = forceRenderElementRoot,
     renderElementChildren = renderElementChildren,
     destroyElement = destroyElement,
     isMouseOnPosition = isMouseOnPosition,
@@ -163,7 +164,7 @@ function renderButton(element, isFetchingInput, mouseReference)
             if isButtonHoverToBeRendered then
                 imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Button"].text.text, elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Button"].hoverFontColor, elementTemplate.fontScale or 1, elementTemplate.font, "center", "center", true, false, button_postGUI, false)
             end
-            forceRenderElementRoot(elementReference.elementRoot or element, element, isElementRootToBeForceRendered)
+            imports.forceRenderElementRoot(elementReference.elementRoot or element, element, isElementRootToBeForceRendered)
             imports.renderElementChildren(element)
             imports.dxSetBlendMode("blend")
             if not elementParent then
