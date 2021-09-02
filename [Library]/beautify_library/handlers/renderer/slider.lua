@@ -18,7 +18,7 @@ local imports = {
     isKeyClicked = isKeyClicked,
     getUIParent = getUIParent,
     __getUITemplate = __getUITemplate,
-    forceRenderElement = forceRenderElement,
+    manageElementForceRender = manageElementForceRender,
     renderElementChildren = renderElementChildren,
     attachUIElement = attachUIElement,
     unpackColor = unpackColor,
@@ -206,7 +206,7 @@ function renderSlider(element, isFetchingInput, mouseReference)
                 end
             end
             imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.height, elementReference.gui["__UI_CACHE__"]["Thumb"].color, slider_postGUI)
-            imports.forceRenderElement(element, isElementRootToBeForceRendered)
+            imports.manageElementForceRender(element, isElementRootToBeForceRendered)
             imports.renderElementChildren(element)
             imports.dxSetBlendMode("blend")
             if not elementParent then

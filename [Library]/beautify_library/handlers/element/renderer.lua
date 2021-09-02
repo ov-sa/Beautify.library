@@ -55,11 +55,11 @@ CLIENT_ELEMENT_FORCE_RENDERED = {
 local clickedMouseKey = false
 
 
------------------------------------------
---[[ Function: Force Renders Element ]]--
------------------------------------------
+---------------------------------------------------------
+--[[ Functions: Manages Element's Force Render State ]]--
+---------------------------------------------------------
 
-local function disableElementForceRender(element, onNextTick)
+function destroyElementForceRender(element, onNextTick)
 
     if onNextTick and CLIENT_ELEMENT_FORCE_RENDERED[element] then
         if not CLIENT_ELEMENT_FORCE_RENDERED.__cache.nextTickRemoval[element] then
@@ -73,7 +73,7 @@ local function disableElementForceRender(element, onNextTick)
 
 end
 
-function forceRenderElement(element, renderState)
+function manageElementForceRender(element, renderState)
 
     local elementAncestors = imports.getUIAncestors(element)
     if not elementAncestors then return false end
@@ -108,7 +108,7 @@ function forceRenderElement(element, renderState)
                 CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[element] = nil
                 CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalChildren = CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalChildren - 1
                 if CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalChildren <= 1 then
-                    disableElementForceRender(elementRoot)
+                    destroyElementForceRender(elementRoot)
                 end
                 return true
             end
@@ -123,6 +123,7 @@ end
 --[[ Functions: Renders Elements/Element's Children ]]--
 --------------------------------------------------------
 
+--TODO: NEEDS TO BE BETTER CODED
 local function renderElements()
 
     local renderingPriorityCount = #createdRenderingPriority
@@ -158,7 +159,7 @@ local function renderElements()
                 local elementType = createdElements[element].elementType
                 availableElements[elementType].renderFunction(element, true, {x = 0, y = 0, element = element})
             else
-                disableElementForceRender(element)
+                destroyElementForceRender(element)
             end
         end
     end
@@ -166,6 +167,7 @@ local function renderElements()
 
 end
 
+--TODO: NEEDS TO BE BETTER CODED
 function renderElementChildren(element, isFetchingInput, mouseReference)
 
     local elementReference = createdElements[element]
@@ -245,16 +247,18 @@ imports.addEventHandler("onClientRender", root, function()
         local elementRoot = createdElements[(CLIENT_ATTACHED_ELEMENT.element)].elementRoot
         if not CLIENT_ATTACHED_ELEMENT.element or not imports.isElement(CLIENT_ATTACHED_ELEMENT.element) or not createdElements[CLIENT_ATTACHED_ELEMENT.element] then
             if elementRoot then
-                disableElementForceRender(elementRoot)
+                destroyElementForceRender(elementRoot)
             end
             imports.detachUIElement()
         elseif CLIENT_MTA_WINDOW_ACTIVE or not CLIENT_IS_CURSOR_SHOWING or not imports.isKeyOnHold("mouse1") or not imports.isUIValid(CLIENT_ATTACHED_ELEMENT.element) or not imports.isUIVisible(CLIENT_ATTACHED_ELEMENT.element) then
             if elementRoot then
-                disableElementForceRender(elementRoot, true)
+                destroyElementForceRender(elementRoot, true)
             end
             createdElements[(CLIENT_ATTACHED_ELEMENT.element)].gui["__UI_CACHE__"].updateElement = true
             imports.detachUIElement()
         else
+            -------
+            --TODO: NEEDS TO BE BETTER CODED
             if elementRoot then
                 if CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] then
                     CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] = {
@@ -264,6 +268,7 @@ imports.addEventHandler("onClientRender", root, function()
                 end
                 CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].isAttached = true
             end
+            -------
             if not CLIENT_ATTACHED_ELEMENT.isInternal then
                 local cursor_offsetX, cursor_offsetY = imports.getAbsoluteCursorPosition()
                 if cursor_offsetX and cursor_offsetY then

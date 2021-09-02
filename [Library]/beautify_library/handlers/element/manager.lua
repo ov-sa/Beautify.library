@@ -99,7 +99,7 @@ function updateElement(element)
     if not element or not imports.isElement(element) or not createdElements[element] then return false end
     
     createdElements[element].gui["__UI_CACHE__"].updateElement = true
-    imports.forceRenderElement(element, true)
+    imports.manageElementForceRender(element, true)
     return true
 
 end
@@ -109,7 +109,7 @@ function reloadElement(element)
     if not element or not imports.isElement(element) or not createdElements[element] then return false end
 
     createdElements[element].gui["__UI_CACHE__"].reloadElement = true
-    imports.forceRenderElement(element, true)
+    imports.manageElementForceRender(element, true)
     return true
 
 end
@@ -193,8 +193,7 @@ local function destroyUIElement(element)
 
     if not element or not imports.isElement(element) or not createdElements[element] then return false end
 
-    CLIENT_ELEMENT_FORCE_RENDERED[element] = nil
-    CLIENT_ELEMENT_FORCE_RENDERED.__cache.nextTickRemoval[element] = nil
+    imports.destroyElementForceRender(element)
     local parentElement = createdElements[element].parentElement
     createdElements[element].isValid = false
     for i, j in imports.pairs(createdElements[element].children) do
@@ -226,7 +225,8 @@ end
 -----------------------------------------------
 
 imports.addEventHandler("onClientResourceStart", root, function()
-    imports.forceRenderElement = forceRenderElement
+    imports.destroyElementForceRender = destroyElementForceRender
+    imports.manageElementForceRender = manageElementForceRender
 end)
 
 local isLibraryResourceStopping = false
