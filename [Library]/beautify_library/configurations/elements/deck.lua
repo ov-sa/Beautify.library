@@ -25,10 +25,8 @@ availableElements[elementType] = {
     syntax = {
         functionName = "createDeck",
         parameters = {
-            {name = "x", type = "float"},
-            {name = "y", type = "float"},
-            {name = "height", type = "float"},
             {name = "title", type = "string"},
+            {name = "height", type = "float"},
             {name = "deckpane", type = "userdata", userDataType = "beautify_deckpane"}
         }
     },

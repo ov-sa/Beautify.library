@@ -64,7 +64,6 @@ function renderGridlist(element, isFetchingInput, mouseReference)
         local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
         local gridlist_postGUI = elementReference.gui.postGUI
 
-        elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"] = {}
         if isElementToBeUpdated then
             if not elementReference.gui["__UI_CACHE__"]["Gridlist"] then
                 elementReference.gui["__UI_CACHE__"]["Gridlist"] = {
@@ -129,6 +128,7 @@ function renderGridlist(element, isFetchingInput, mouseReference)
             end
             elementReference.gui["__UI_CACHE__"].updateElement = nil
         end
+        elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"] = {}
 
         elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Grid Rows"] = {}
         imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Gridlist"].startX, elementReference.gui["__UI_CACHE__"]["Gridlist"].startY, elementReference.gui["__UI_CACHE__"]["Gridlist"].width, elementReference.gui["__UI_CACHE__"]["Gridlist"].height, elementReference.gui["__UI_CACHE__"]["Gridlist"].color, gridlist_postGUI)

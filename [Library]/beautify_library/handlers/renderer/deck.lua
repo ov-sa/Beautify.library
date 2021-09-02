@@ -88,7 +88,7 @@ function renderDeck(element, isFetchingInput, mouseReference)
                 }
                 elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Toggle Button"] = {}
             end
-            local deck_startX, deck_startY = elementReference.gui.x, elementReference.gui.y
+            local deck_startX, deck_startY = 0, 0
             local deck_width, deck_height = elementReference.gui.width, elementReference.gui.height
             local deck_view_width, deck_view_height = elementReference.gui.contentSection.width, elementReference.gui.contentSection.height
             local deck_titleBar_height = availableElements[elementType].titleBar.height
@@ -105,6 +105,8 @@ function renderDeck(element, isFetchingInput, mouseReference)
                 --TODO: ...
             end
             elementReference.gui["__UI_CACHE__"]["Deck"].startY = deck_startY + (elementReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight or 0)
+            elementReference.gui.x = deck_startX
+            elementReference.gui.y = deck_startY
             -----------
             
             elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startX = deck_startX
