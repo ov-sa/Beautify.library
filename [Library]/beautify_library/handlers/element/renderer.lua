@@ -18,6 +18,7 @@ local imports = {
     isElement = isElement,
     addEventHandler = addEventHandler,
     triggerEvent = triggerEvent,
+    updateElement = updateElement,
     isUIValid = isUIValid,
     isUIVisible = isUIVisible,
     isUIDisabled = isUIDisabled,
@@ -241,7 +242,7 @@ imports.addEventHandler("onClientRender", root, function()
                 if cursor_offsetX and cursor_offsetY then
                     local attached_offsetX, attached_offsetY = imports.interpolateBetween(createdElements[(CLIENT_ATTACHED_ELEMENT.element)].gui.x, createdElements[(CLIENT_ATTACHED_ELEMENT.element)].gui.y, 0, cursor_offsetX - CLIENT_ATTACHED_ELEMENT.offsetX, cursor_offsetY - CLIENT_ATTACHED_ELEMENT.offsetY, 0, 0.45, "InQuad")
                     createdElements[(CLIENT_ATTACHED_ELEMENT.element)].gui.x, createdElements[(CLIENT_ATTACHED_ELEMENT.element)].gui.y = imports.math.ceil(attached_offsetX), imports.math.ceil(attached_offsetY)
-                    createdElements[(CLIENT_ATTACHED_ELEMENT.element)].gui["__UI_CACHE__"].updateElement = true
+                    imports.updateElement(CLIENT_ATTACHED_ELEMENT.element)
                 end
             end
         end

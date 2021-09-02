@@ -74,7 +74,7 @@ function setSelectorDataList(...)
         elementReference.selectorDataList.selection = 1
         triggerEvent("onClientUISelectionAltered", element, false)
     end
-    elementReference.gui["__UI_CACHE__"].updateElement = true
+    updateElement(element)
     triggerEvent("onClientUIAltered", element)
     return true
 
@@ -107,7 +107,7 @@ function clearSelectorText(...)
     local elementReference = createdElements[element]
     if not elementReference.gui.text then return false end
     elementReference.gui.text = nil
-    elementReference.gui["__UI_CACHE__"].updateElement = true
+    updateElement(element)
     triggerEvent("onClientUIAltered", element)
     return true
 
@@ -123,7 +123,7 @@ function setSelectorText(...)
     local elementReference = createdElements[element]
     if (elementReference.gui.text == parameters[2]) then return false end
     elementReference.gui.text = parameters[2]
-    elementReference.gui["__UI_CACHE__"].updateElement = true
+    updateElement(element)
     triggerEvent("onClientUIAltered", element)
     return true
 
@@ -216,8 +216,8 @@ function setSelectorSelection(...)
     parameters[2] = math.max(1, math.min(#elementReference.selectorDataList.list, parameters[2]))
     if not elementReference.selectorDataList.list[(parameters[2])] or (elementReference.selectorDataList.selection and elementReference.selectorDataList.selection == parameters[2]) then return false end
     elementReference.selectorDataList.selection = parameters[2]
+    updateElement(element)
     triggerEvent("onClientUISelectionAltered", element, elementReference.selectorDataList.selection)
-    elementReference.gui["__UI_CACHE__"].updateElement = true
     return true
 
 end

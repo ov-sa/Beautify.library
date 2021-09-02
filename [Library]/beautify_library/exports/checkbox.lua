@@ -93,7 +93,7 @@ function clearCheckboxText(...)
     local elementReference = createdElements[element]
     if not elementReference.gui.text then return false end
     elementReference.gui.text = nil
-    elementReference.gui["__UI_CACHE__"].updateElement = true
+    updateElement(element)
     triggerEvent("onClientUIAltered", element)
     return true
 
@@ -109,7 +109,7 @@ function setCheckboxText(...)
     local elementReference = createdElements[element]
     if (elementReference.gui.text == parameters[2]) then return false end
     elementReference.gui.text = parameters[2]
-    elementReference.gui["__UI_CACHE__"].updateElement = true
+    updateElement(element)
     triggerEvent("onClientUIAltered", element)
     return true
 
