@@ -26,6 +26,7 @@ local imports = {
     isMouseClicked = isMouseClicked,
     resetKeyClickCache = resetKeyClickCache,
     resetScrollCache = resetScrollCache,
+    getUIAncestors = getUIAncestors,
     cloneTableDatas = cloneTableDatas,
     getAbsoluteCursorPosition = getAbsoluteCursorPosition,
     interpolateBetween = interpolateBetween,
@@ -48,56 +49,69 @@ local imports = {
 
 CLIENT_ELEMENT_FORCE_RENDERED = {
     __cache = {
-        pendingRemovalList = {}
+        nextTickRemoval = {}
     }
 }
 local clickedMouseKey = false
 
 
-----------------------------------------------
---[[ Function: Force Renders Element Root ]]--
-----------------------------------------------
+-----------------------------------------
+--[[ Function: Force Renders Element ]]--
+-----------------------------------------
 
-local function disableElementForceRender(element, addToRemovalList)
+local function disableElementForceRender(element, onNextTick)
 
-    if addToRemovalList and CLIENT_ELEMENT_FORCE_RENDERED[element] then
-        if not CLIENT_ELEMENT_FORCE_RENDERED.__cache.pendingRemovalList[element] then
-            CLIENT_ELEMENT_FORCE_RENDERED.__cache.pendingRemovalList[element] = true
+    if onNextTick and CLIENT_ELEMENT_FORCE_RENDERED[element] then
+        if not CLIENT_ELEMENT_FORCE_RENDERED.__cache.nextTickRemoval[element] then
+            CLIENT_ELEMENT_FORCE_RENDERED.__cache.nextTickRemoval[element] = true
             return true
         end
     end
-    CLIENT_ELEMENT_FORCE_RENDERED.__cache.pendingRemovalList[element] = nil
+    CLIENT_ELEMENT_FORCE_RENDERED.__cache.nextTickRemoval[element] = nil
     CLIENT_ELEMENT_FORCE_RENDERED[element] = nil
     return true
 
 end
 
-function forceRenderElementRoot(elementRoot, liableElement, renderState)
+function forceRenderElement(element, renderState)
 
+    local elementAncestors = imports.getUIAncestors(element)
+    if not elementAncestors then return false end
+
+    local totalAncestorsToBeRendered = #elementAncestors.ancestorIndex
+    local elementRoot = elementAncestors.ancestorIndex[totalAncestorsToBeRendered]
     if renderState then
+        if CLIENT_ELEMENT_FORCE_RENDERED.__cache.nextTickRemoval[elementRoot] then
+            CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].isAttached = nil
+            CLIENT_ELEMENT_FORCE_RENDERED.__cache.nextTickRemoval[elementRoot] = nil
+        end
         if not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] then
             CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] = {
-                totalLiableElements = 0,
-                liableElements = {}
+                totalChildren = 0,
+                renderChildren = {}
             }
         end
-        if CLIENT_ELEMENT_FORCE_RENDERED.__cache.pendingRemovalList[elementRoot] then
-            CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].isAttached = nil
-            CLIENT_ELEMENT_FORCE_RENDERED.__cache.pendingRemovalList[elementRoot] = nil
+        if not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[element] then
+            CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[element] = true
+            CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalChildren = CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalChildren + 1
         end
-        if not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].liableElements[liableElement] then
-            CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].liableElements[liableElement] = true
-            CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalLiableElements = CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalLiableElements + 1
+        for i, j in imports.pairs(elementAncestors.ancestors) do
+            if (i ~= elementRoot) and not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[i] then
+                CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[i] = true
+                CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalChildren = CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalChildren + 1
+            end
         end
         return true
     else
-        if CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] and (not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].isAttached) and CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].liableElements[liableElement] then
-            CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].liableElements[liableElement] = nil
-            CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalLiableElements = CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalLiableElements - 1
-            if CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalLiableElements <= 0 then
-                disableElementForceRender(elementRoot)
+        if CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] and not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].isAttached then
+            if CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[element] then
+                CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[element] = nil
+                CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalChildren = CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalChildren - 1
+                if CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalChildren <= 1 then
+                    disableElementForceRender(elementRoot)
+                end
+                return true
             end
-            return true
         end
     end
     return false
@@ -140,7 +154,7 @@ local function renderElements()
     end
     for element, _ in imports.pairs(CLIENT_ELEMENT_FORCE_RENDERED) do
         if (element ~= "__cache") and not preRenderedElements[element] then
-            if not CLIENT_ELEMENT_FORCE_RENDERED.__cache.pendingRemovalList[element] and imports.isUIValid(element) and imports.isUIVisible(element) then
+            if not CLIENT_ELEMENT_FORCE_RENDERED.__cache.nextTickRemoval[element] and imports.isUIValid(element) and imports.isUIVisible(element) then
                 local elementType = createdElements[element].elementType
                 availableElements[elementType].renderFunction(element, true, {x = 0, y = 0, element = element})
             else
@@ -244,8 +258,8 @@ imports.addEventHandler("onClientRender", root, function()
             if elementRoot then
                 if CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] then
                     CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] = {
-                        totalLiableElements = 0,
-                        liableElements = {}
+                        totalChildren = 0,
+                        renderChildren = {}
                     }
                 end
                 CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].isAttached = true

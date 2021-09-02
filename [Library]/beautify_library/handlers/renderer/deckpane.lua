@@ -17,7 +17,7 @@ local imports = {
     isElement = isElement,
     getUIParent = getUIParent,
     __getUITemplate = __getUITemplate,
-    forceRenderElementRoot = forceRenderElementRoot,
+    forceRenderElement = forceRenderElement,
     renderElementChildren = renderElementChildren,
     isMouseOnPosition = isMouseOnPosition,
     dxSetRenderTarget = dxSetRenderTarget,
@@ -77,7 +77,7 @@ function renderDeckPane(element, isFetchingInput, mouseReference)
             elementReference.gui["__UI_CACHE__"].updateElement = nil
         end
 
-        imports.forceRenderElementRoot(elementReference.elementRoot or element, element, isElementRootToBeForceRendered)
+        imports.forceRenderElement(element, isElementRootToBeForceRendered)
         imports.renderElementChildren(element)
         imports.dxSetBlendMode("blend")
         if not elementParent then
