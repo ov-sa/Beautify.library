@@ -51,8 +51,8 @@ function renderDeckPane(element, isFetchingInput, mouseReference)
         local deckpane_postGUI = elementReference.gui.postGUI
 
         if isElementToBeUpdated then
-            if not elementReference.gui["__UI_CACHE__"]["Deck Pane"] then
-                elementReference.gui["__UI_CACHE__"]["Deck Pane"] = {
+            if not elementReference.gui["__UI_CACHE__"]["Deckpane"] then
+                elementReference.gui["__UI_CACHE__"]["Deckpane"] = {
                     offsets = {},
                     view = {
                         offsets = {}
@@ -62,14 +62,14 @@ function renderDeckPane(element, isFetchingInput, mouseReference)
             local deckpane_startX, deckpane_startY = elementReference.gui.x, elementReference.gui.y
             local deckpane_width, deckpane_height = elementReference.gui.width, elementReference.gui.height
             local deckpane_view_width, deckpane_view_height = elementReference.gui.contentSection.width, elementReference.gui.contentSection.height
-            elementReference.gui["__UI_CACHE__"]["Deck Pane"].offsets.startX = deckpane_startX
-            elementReference.gui["__UI_CACHE__"]["Deck Pane"].offsets.startY = deckpane_startY
-            elementReference.gui["__UI_CACHE__"]["Deck Pane"].offsets.width = deckpane_width
-            elementReference.gui["__UI_CACHE__"]["Deck Pane"].offsets.height = deckpane_height
-            elementReference.gui["__UI_CACHE__"]["Deck Pane"].view.offsets.startX = elementReference.gui["__UI_CACHE__"]["Deck Pane"].offsets.startX
-            elementReference.gui["__UI_CACHE__"]["Deck Pane"].view.offsets.startY = elementReference.gui["__UI_CACHE__"]["Deck Pane"].offsets.startY
-            elementReference.gui["__UI_CACHE__"]["Deck Pane"].view.offsets.width = deckpane_view_width
-            elementReference.gui["__UI_CACHE__"]["Deck Pane"].view.offsets.height = deckpane_view_height
+            elementReference.gui["__UI_CACHE__"]["Deckpane"].offsets.startX = deckpane_startX
+            elementReference.gui["__UI_CACHE__"]["Deckpane"].offsets.startY = deckpane_startY
+            elementReference.gui["__UI_CACHE__"]["Deckpane"].offsets.width = deckpane_width
+            elementReference.gui["__UI_CACHE__"]["Deckpane"].offsets.height = deckpane_height
+            elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.startX = elementReference.gui["__UI_CACHE__"]["Deckpane"].offsets.startX
+            elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.startY = elementReference.gui["__UI_CACHE__"]["Deckpane"].offsets.startY
+            elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.width = deckpane_view_width
+            elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.height = deckpane_view_height
 
             if not CLIENT_MTA_MINIMIZED then
                 elementReference.gui["__UI_CACHE__"].reloadElement = nil
@@ -87,7 +87,7 @@ function renderDeckPane(element, isFetchingInput, mouseReference)
         end
         local deckpane_renderTarget = elementReference.gui.renderTarget
         if deckpane_renderTarget and imports.isElement(deckpane_renderTarget) then
-            imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Deck Pane"].view.offsets.startX, elementReference.gui["__UI_CACHE__"]["Deck Pane"].view.offsets.startY, elementReference.gui["__UI_CACHE__"]["Deck Pane"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Deck Pane"].view.offsets.height, deckpane_renderTarget, 0, 0, 0, -1, deckpane_postGUI)
+            imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.startX, elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.startY, elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.height, deckpane_renderTarget, 0, 0, 0, -1, deckpane_postGUI)
         end
     else
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}

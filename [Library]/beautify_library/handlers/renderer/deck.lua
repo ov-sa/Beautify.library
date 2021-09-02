@@ -65,7 +65,7 @@ function renderDeck(element, isFetchingInput, mouseReference)
         local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
         local deck_postGUI = elementReference.gui.postGUI
 
-        if isElementToBeUpdated then
+        --if isElementToBeUpdated then
             if not elementReference.gui["__UI_CACHE__"]["Deck"] then
                 elementReference.gui["__UI_CACHE__"]["Deck"] = {
                     offsets = {},
@@ -94,6 +94,19 @@ function renderDeck(element, isFetchingInput, mouseReference)
             local deck_titleBar_height = availableElements[elementType].titleBar.height
             local deck_toggle_arrow_icon_size = imports.math.min(deck_titleBar_height, availableElements[elementType].titleBar.toggleButton.arrowIconSize)
             local deck_toggle_arrow_icon_padding = (deck_titleBar_height - deck_toggle_arrow_icon_size)*0.5
+
+            ------
+            if elementReference.renderIndex > 1 then
+                local parentChildrenIndex = createdElements[elementParent].renderIndexReference[(createdElements[elementParent].renderIndex)].children
+                if parentChildrenIndex then
+                    local parentPreviousChildReference = createdElements[(parentChildrenIndex[(elementReference.renderIndex - 1)].element)]
+                    deck_startY = parentPreviousChildReference.gui["__UI_CACHE__"]["Deck"].startY
+                end
+                --TODO: ...
+            end
+            elementReference.gui["__UI_CACHE__"]["Deck"].startY = deck_startY + (elementReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight or 0)
+            -----------
+            
             elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startX = deck_startX
             elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startY = deck_startY
             elementReference.gui["__UI_CACHE__"]["Deck"].offsets.width = deck_width
@@ -162,7 +175,7 @@ function renderDeck(element, isFetchingInput, mouseReference)
                 elementReference.gui["__UI_CACHE__"].reloadElement = nil
             end
             elementReference.gui["__UI_CACHE__"].updateElement = nil
-        end
+        --end
 
         if not elementReference.gui.titleBar.toggleButton.animRotationPercent then
             elementReference.gui.titleBar.toggleButton.animRotationPercent = 0
