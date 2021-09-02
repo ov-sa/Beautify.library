@@ -65,7 +65,20 @@ function renderDeck(element, isFetchingInput, mouseReference)
         local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
         local deck_postGUI = elementReference.gui.postGUI
 
-        --if isElementToBeUpdated then
+        --TODO: ...
+        if not elementReference.gui.titleBar.toggleButton.animRotationPercent then
+            elementReference.gui.titleBar.toggleButton.animRotationPercent = 0
+            elementReference.gui.titleBar.toggleButton.animRollPercent = 0
+            elementReference.gui.titleBar.toggleButton.animStatus = elementReference.gui.maximized
+            elementReference.gui.titleBar.toggleButton.animTickCounter = CLIENT_CURRENT_TICK
+        end
+        if elementReference.gui.titleBar.toggleButton.animStatus ~= elementReference.gui.maximized then
+            elementReference.gui.titleBar.toggleButton.animStatus = elementReference.gui.maximized
+            elementReference.gui.titleBar.toggleButton.animTickCounter = CLIENT_CURRENT_TICK
+        end
+        elementReference.gui.titleBar.toggleButton.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.titleBar.toggleButton.animTickCounter, availableElements[elementType].titleBar.toggleButton.rollAnimDuration)
+        local isToggleButtonInterpolationRendering = elementReference.gui.titleBar.toggleButton.interpolationProgress < 1
+        --if isElementInterpolationToBeRefreshed or isToggleButtonInterpolationRendering or isElementToBeUpdated then
             if not elementReference.gui["__UI_CACHE__"]["Deck"] then
                 elementReference.gui["__UI_CACHE__"]["Deck"] = {
                     offsets = {},
@@ -94,21 +107,12 @@ function renderDeck(element, isFetchingInput, mouseReference)
             local deck_titleBar_height = availableElements[elementType].titleBar.height
             local deck_toggle_arrow_icon_size = imports.math.min(deck_titleBar_height, availableElements[elementType].titleBar.toggleButton.arrowIconSize)
             local deck_toggle_arrow_icon_padding = (deck_titleBar_height - deck_toggle_arrow_icon_size)*0.5
-
-            ------
-            if elementReference.renderIndex > 1 then
-                local parentChildrenIndex = createdElements[elementParent].renderIndexReference[(createdElements[elementParent].renderIndex)].children
-                if parentChildrenIndex then
-                    local parentPreviousChildReference = createdElements[(parentChildrenIndex[(elementReference.renderIndex - 1)].element)]
-                    deck_startY = parentPreviousChildReference.gui["__UI_CACHE__"]["Deck"].startY
-                end
-                --TODO: ...
+            if elementParent and (elementReference.renderIndex > 1) then
+                local parentChildrenReference = createdElements[elementParent].renderIndexReference[(createdElements[elementParent].renderIndex)].children
+                local prevChildElementReference = createdElements[(parentChildrenReference[(elementReference.renderIndex - 1)].element)]
+                deck_startY = (prevChildElementReference.gui["__UI_CACHE__"]["Deck"].offsets.startY or 0) + (prevChildElementReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight or 0)
             end
-            elementReference.gui["__UI_CACHE__"]["Deck"].startY = deck_startY + (elementReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight or 0)
-            elementReference.gui.x = deck_startX
-            elementReference.gui.y = deck_startY
-            -----------
-            
+            elementReference.gui.x, elementReference.gui.y = deck_startX, deck_startY
             elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startX = deck_startX
             elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startY = deck_startY
             elementReference.gui["__UI_CACHE__"]["Deck"].offsets.width = deck_width
@@ -123,6 +127,20 @@ function renderDeck(element, isFetchingInput, mouseReference)
             elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.width = elementReference.gui["__UI_CACHE__"]["Deck"].offsets.width
             elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.height = deck_titleBar_height
             elementReference.gui["__UI_CACHE__"]["Deck"].divider.size = elementTemplate.titleBar.divider.size
+            if isElementInterpolationToBeRefreshed or isToggleButtonInterpolationRendering then
+                isElementRootToBeForceRendered = isToggleButtonInterpolationRendering
+                elementReference.gui.titleBar.toggleButton.rollInterpolationProgress = imports.getInterpolationProgress(elementReference.gui.titleBar.toggleButton.animTickCounter, availableElements[elementType].titleBar.toggleButton.rollAnimDuration*0.5)
+                if elementReference.gui.titleBar.toggleButton.animStatus == true then
+                    elementReference.gui.titleBar.toggleButton.animRotationPercent = imports.interpolateBetween(elementReference.gui.titleBar.toggleButton.animRotationPercent, 0, 0, 0.5, 0, 0, elementReference.gui.titleBar.toggleButton.interpolationProgress, "InQuad")
+                    elementReference.gui.titleBar.toggleButton.animRollPercent = imports.interpolateBetween(elementReference.gui.titleBar.toggleButton.animRollPercent, 0, 0, 1, 0, 0, elementReference.gui.titleBar.toggleButton.rollInterpolationProgress, "InOutQuad")
+                else
+                    elementReference.gui.titleBar.toggleButton.animRotationPercent = imports.interpolateBetween(elementReference.gui.titleBar.toggleButton.animRotationPercent, 0, 0, 0, 0, 0, elementReference.gui.titleBar.toggleButton.interpolationProgress, "InQuad")
+                    elementReference.gui.titleBar.toggleButton.animRollPercent = imports.interpolateBetween(elementReference.gui.titleBar.toggleButton.animRollPercent, 0, 0, 0, 0, 0, elementReference.gui.titleBar.toggleButton.rollInterpolationProgress, "InOutQuad")
+                end
+                elementReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight = elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.height + ((elementReference.gui["__UI_CACHE__"]["Deck"].offsets.height - elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.height)*elementReference.gui.titleBar.toggleButton.animRollPercent)
+                elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.currentHeight = elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.height*elementReference.gui.titleBar.toggleButton.animRollPercent
+                elementReference.gui["__UI_CACHE__"]["Deck"].view.color = imports.tocolor(255, 255, 255, 255*elementReference.gui.titleBar.toggleButton.animRollPercent)
+            end
             if isElementToBeReloaded then
                 elementReference.gui["__UI_CACHE__"]["Deck"].divider.color = imports.tocolor(imports.unpackColor(elementTemplate.titleBar.divider.color))
                 elementReference.gui["__UI_CACHE__"]["Title Bar"].text.fontColor = imports.tocolor(imports.unpackColor(elementTemplate.titleBar.fontColor))
@@ -145,7 +163,6 @@ function renderDeck(element, isFetchingInput, mouseReference)
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Toggle Button"].startY = elementReference.gui["__UI_CACHE__"]["Toggle Button"].offsets.startY
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Toggle Button"].width = elementReference.gui["__UI_CACHE__"]["Toggle Button"].offsets.width
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Toggle Button"].height = elementReference.gui["__UI_CACHE__"]["Toggle Button"].offsets.height
-
             if isElementToBeReloaded or not elementReference.gui["__UI_CACHE__"]["Deck"].renderTexture then
                 if not elementReference.gui["__UI_CACHE__"]["Deck"].renderTarget then
                     elementReference.gui["__UI_CACHE__"]["Deck"].renderTarget = imports.dxCreateRenderTarget(deck_width, deck_height + 1, true)
@@ -173,38 +190,14 @@ function renderDeck(element, isFetchingInput, mouseReference)
                     elementReference.gui["__UI_CACHE__"]["Deck"].renderTarget = nil
                 end
             end
-            if not CLIENT_MTA_MINIMIZED then
-                elementReference.gui["__UI_CACHE__"].reloadElement = nil
+            if isElementToBeUpdated then
+                if not CLIENT_MTA_MINIMIZED then
+                    elementReference.gui["__UI_CACHE__"].reloadElement = nil
+                end
+                elementReference.gui["__UI_CACHE__"].updateElement = nil
             end
-            elementReference.gui["__UI_CACHE__"].updateElement = nil
         --end
 
-        if not elementReference.gui.titleBar.toggleButton.animRotationPercent then
-            elementReference.gui.titleBar.toggleButton.animRotationPercent = 0
-            elementReference.gui.titleBar.toggleButton.animRollPercent = 0
-            elementReference.gui.titleBar.toggleButton.animStatus = elementReference.gui.maximized
-            elementReference.gui.titleBar.toggleButton.animTickCounter = CLIENT_CURRENT_TICK
-        end
-        if elementReference.gui.titleBar.toggleButton.animStatus ~= elementReference.gui.maximized then
-            elementReference.gui.titleBar.toggleButton.animStatus = elementReference.gui.maximized
-            elementReference.gui.titleBar.toggleButton.animTickCounter = CLIENT_CURRENT_TICK
-        end
-        elementReference.gui.titleBar.toggleButton.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.titleBar.toggleButton.animTickCounter, availableElements[elementType].titleBar.toggleButton.rollAnimDuration)
-        local isToggleButtonInterpolationRendering = elementReference.gui.titleBar.toggleButton.interpolationProgress < 1
-        if isElementInterpolationToBeRefreshed or isToggleButtonInterpolationRendering then
-            isElementRootToBeForceRendered = isToggleButtonInterpolationRendering
-            elementReference.gui.titleBar.toggleButton.rollInterpolationProgress = imports.getInterpolationProgress(elementReference.gui.titleBar.toggleButton.animTickCounter, availableElements[elementType].titleBar.toggleButton.rollAnimDuration*0.5)
-            if elementReference.gui.titleBar.toggleButton.animStatus == true then
-                elementReference.gui.titleBar.toggleButton.animRotationPercent = imports.interpolateBetween(elementReference.gui.titleBar.toggleButton.animRotationPercent, 0, 0, 0.5, 0, 0, elementReference.gui.titleBar.toggleButton.interpolationProgress, "InQuad")
-                elementReference.gui.titleBar.toggleButton.animRollPercent = imports.interpolateBetween(elementReference.gui.titleBar.toggleButton.animRollPercent, 0, 0, 1, 0, 0, elementReference.gui.titleBar.toggleButton.rollInterpolationProgress, "InOutQuad")
-            else
-                elementReference.gui.titleBar.toggleButton.animRotationPercent = imports.interpolateBetween(elementReference.gui.titleBar.toggleButton.animRotationPercent, 0, 0, 0, 0, 0, elementReference.gui.titleBar.toggleButton.interpolationProgress, "InQuad")
-                elementReference.gui.titleBar.toggleButton.animRollPercent = imports.interpolateBetween(elementReference.gui.titleBar.toggleButton.animRollPercent, 0, 0, 0, 0, 0, elementReference.gui.titleBar.toggleButton.rollInterpolationProgress, "InOutQuad")
-            end
-            elementReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight = elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.height + ((elementReference.gui["__UI_CACHE__"]["Deck"].offsets.height - elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.height)*elementReference.gui.titleBar.toggleButton.animRollPercent)
-            elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.currentHeight = elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.height*elementReference.gui.titleBar.toggleButton.animRollPercent
-            elementReference.gui["__UI_CACHE__"]["Deck"].view.color = imports.tocolor(255, 255, 255, 255*elementReference.gui.titleBar.toggleButton.animRollPercent)
-        end
         if elementReference.gui["__UI_CACHE__"]["Deck"].renderTexture then
             imports.dxDrawImageSection(elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.width, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight, 0, 0, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.width, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight, elementReference.gui["__UI_CACHE__"]["Deck"].renderTexture, 0, 0, 0, -1, deck_postGUI)
         end
