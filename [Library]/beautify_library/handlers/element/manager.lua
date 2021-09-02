@@ -84,7 +84,7 @@ function updateElement(element)
 
     if not element or not imports.isElement(element) or not createdElements[element] then return false end
     
-    createdElements[element].updateElement = true
+    createdElements[element].gui["__UI_CACHE__"].updateElement = true
     imports.forceRenderElementRoot(createdElements[element].elementRoot or element, element, true)
     return true
 
@@ -94,7 +94,7 @@ function reloadElement(element)
 
     if not element or not imports.isElement(element) or not createdElements[element] then return false end
 
-    createdElements[element].reloadElement = true
+    createdElements[element].gui["__UI_CACHE__"].reloadElement = true
     imports.forceRenderElementRoot(createdElements[element].elementRoot or element, element, true)
     return true
 
