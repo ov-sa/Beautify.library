@@ -76,6 +76,20 @@ function getUIParent(element)
 end
 
 
+--------------------------------------------
+--[[ Function: Retrieves UI's Ancestors ]]--
+--------------------------------------------
+
+function getUIAncestors(element)
+
+    if element and imports.isElement(element) and not createdNonParentElements[element] and createdElements[element] then
+        return createdElements[element].renderIndexReference[(createdElements[element].renderIndex)].ancestors
+    end
+    return false
+    
+end
+
+
 -----------------------------------------------
 --[[ Functions: Updates/Reloads UI Element ]]--
 -----------------------------------------------
@@ -85,7 +99,7 @@ function updateElement(element)
     if not element or not imports.isElement(element) or not createdElements[element] then return false end
     
     createdElements[element].gui["__UI_CACHE__"].updateElement = true
-    imports.forceRenderElementRoot(createdElements[element].elementRoot or element, element, true)
+    imports.forceRenderElement(element, true)
     return true
 
 end
@@ -95,7 +109,7 @@ function reloadElement(element)
     if not element or not imports.isElement(element) or not createdElements[element] then return false end
 
     createdElements[element].gui["__UI_CACHE__"].reloadElement = true
-    imports.forceRenderElementRoot(createdElements[element].elementRoot or element, element, true)
+    imports.forceRenderElement(element, true)
     return true
 
 end
@@ -122,6 +136,7 @@ function createUIElement(elementType, parentElement, sourceResource)
             end
         end
         local renderIndexReference = false
+        local elementAncestorsReference = false
         if isChildElement then
             renderIndexReference = createdElements[parentElement].renderIndexReference[(createdElements[parentElement].renderIndex)].children
             createdElements[createdElement] = {
@@ -129,6 +144,19 @@ function createUIElement(elementType, parentElement, sourceResource)
                 elementRoot = createdElements[parentElement].elementRoot or parentElement
             }
             createdElements[parentElement].children[createdElement] = true
+            local elementAncestors = {
+                ancestorIndex = {},
+                ancestors = {}
+            }
+            local elementAncestor = parentElement
+            while (elementAncestor and imports.isElement(elementAncestor)) do
+                imports.table.insert(elementAncestors.ancestorIndex, elementAncestor)
+                elementAncestors.ancestors[elementAncestor] = {
+                    ancestorIndex = #elementAncestors.ancestorIndex
+                }
+                elementAncestor = createdElements[elementAncestor].parentElement
+            end
+            elementAncestorsReference = elementAncestors
         else
             parentElement = nil
             renderIndexReference = createdRenderingPriority
@@ -139,6 +167,7 @@ function createUIElement(elementType, parentElement, sourceResource)
         end
         imports.table.insert(renderIndexReference, {
             element = createdElement,
+            ancestors = elementAncestorsReference,
             children = {}
         })
         if not createdResourceElements[sourceResource] then
@@ -197,7 +226,7 @@ end
 -----------------------------------------------
 
 imports.addEventHandler("onClientResourceStart", root, function()
-    imports.forceRenderElementRoot = forceRenderElementRoot
+    imports.forceRenderElement = forceRenderElement
 end)
 
 local isLibraryResourceStopping = false
