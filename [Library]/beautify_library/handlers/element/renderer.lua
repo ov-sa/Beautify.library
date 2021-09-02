@@ -138,7 +138,7 @@ local function renderElements()
             end
         end
     end
-    for element, _ in import.pairs(CLIENT_ELEMENT_FORCE_RENDERED) do
+    for element, _ in imports.pairs(CLIENT_ELEMENT_FORCE_RENDERED) do
         if (element ~= "__cache") and not preRenderedElements[element] then
             if not CLIENT_ELEMENT_FORCE_RENDERED.__cache.pendingRemovalList[element] and imports.isUIValid(element) and imports.isUIVisible(element) then
                 local elementType = createdElements[element].elementType
