@@ -143,7 +143,7 @@ function clearCheckboxTextColor(...)
     local elementReference = createdElements[element]
     if not elementReference.gui.fontColor then return false end
     elementReference.gui.fontColor = nil
-    elementReference.gui["__UI_CACHE__"].reloadElement = true
+    reloadElement(element)
     triggerEvent("onClientUIAltered", element)
     return true
 
@@ -167,7 +167,7 @@ function setCheckboxTextColor(...)
     local checkboxTextColor = getCheckboxTextColor(element)
     if not checkboxTextColor or ((checkboxTextColor[1] == parameters[2][1]) and (checkboxTextColor[2] == parameters[2][2]) and (checkboxTextColor[3] == parameters[2][3]) and (checkboxTextColor[4] == parameters[2][4])) then return false end
     elementReference.gui.fontColor = {parameters[2][1], parameters[2][2], parameters[2][3], parameters[2][4]}
-    elementReference.gui["__UI_CACHE__"].reloadElement = true
+    reloadElement(element)
     triggerEvent("onClientUIAltered", element)
     return true
 

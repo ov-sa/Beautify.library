@@ -157,7 +157,7 @@ function clearSliderTextColor(...)
     local elementReference = createdElements[element]
     if not elementReference.gui.fontColor then return false end
     elementReference.gui.fontColor = nil
-    elementReference.gui["__UI_CACHE__"].reloadElement = true
+    reloadElement(element)
     triggerEvent("onClientUIAltered", element)
     return true
 
@@ -181,7 +181,7 @@ function setSliderTextColor(...)
     local sliderTextColor = getSliderTextColor(element)
     if not sliderTextColor or ((sliderTextColor[1] == parameters[2][1]) and (sliderTextColor[2] == parameters[2][2]) and (sliderTextColor[3] == parameters[2][3]) and (sliderTextColor[4] == parameters[2][4])) then return false end
     elementReference.gui.fontColor = {parameters[2][1], parameters[2][2], parameters[2][3], parameters[2][4]}
-    elementReference.gui["__UI_CACHE__"].reloadElement = true
+    reloadElement(element)
     triggerEvent("onClientUIAltered", element)
     return true
 
