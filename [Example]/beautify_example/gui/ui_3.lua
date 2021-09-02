@@ -65,7 +65,7 @@ function createExampleUI3()
     local createdWindow = beautify.window.create(725 + 300 + 25, (CLIENT_MTA_RESOLUTION[2] - window_height)/2 - 20, window_width, window_height, "Dev. UI #3", nil, false)
 
     local createdDeckpane = beautify.deckpane.create(0, 0, window_width, window_height, createdWindow, false)
-    local deck_width, deck_height = window_width - 10, 150
+    local deck_height = 150
     local createdDecks = {
         {
             title = "UI TEMPLATES",
@@ -81,10 +81,10 @@ function createExampleUI3()
         }
     }
     for i, j in ipairs(createdDecks) do
-        local createdDeck = beautify.deck.create(0, ((deck_height + 32 + 5)*(i - 1)), deck_height, j.title, createdDeckpane, false)
+        local createdDeck = beautify.deck.create(j.title, deck_height, createdDeckpane, false)
         if j.deckType == "ui_templates" then
             for k, v in ipairs(loadedTemplates) do
-                local createdCheckbox = beautify.checkbox.create(5, ((20 + 5)*(k - 1)) + 5, deck_width - 10, 20, createdDeck, false)
+                local createdCheckbox = beautify.checkbox.create(5, ((20 + 5)*(k - 1)) + 5, window_width - 20, 20, createdDeck, false)
                 beautify.checkbox.setText(createdCheckbox, v.label)
                 beautify.checkbox.setTextColor(createdCheckbox, v.labelColor)
                 beautify.setUIVisible(createdCheckbox, true)
@@ -132,7 +132,7 @@ function createExampleUI3()
                 }
             }
             for k, v in ipairs(createdSelectors) do
-                local createdSelector = beautify.selector.create(5, 12.5 + ((20 + 12.5)*(k - 1)), deck_width - 10, 20, "horizontal", createdDeck, false)
+                local createdSelector = beautify.selector.create(5, 12.5 + ((20 + 12.5)*(k - 1)), window_width - 20, 20, "horizontal", createdDeck, false)
                 beautify.selector.setText(createdSelector, v.text)
                 beautify.selector.setDataList(createdSelector, v.datasList)
                 beautify.setUIVisible(createdSelector, true)
@@ -160,7 +160,7 @@ function createExampleUI3()
                 }
             }
             for k, v in ipairs(createdSelectors) do
-                local createdSelector = beautify.selector.create(5, 12 + ((60 + 5)*(k - 1)), deck_width - 10, 60, "vertical", createdDeck, false)
+                local createdSelector = beautify.selector.create(5, 12 + ((60 + 5)*(k - 1)), window_width - 20, 60, "vertical", createdDeck, false)
                 beautify.selector.setText(createdSelector, v.text)
                 beautify.selector.setDataList(createdSelector, v.datasList)
                 beautify.setUIVisible(createdSelector, true)
