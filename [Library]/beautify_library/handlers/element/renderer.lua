@@ -46,8 +46,11 @@ local imports = {
 --[[ Variables ]]--
 -------------------
 
-local CLIENT_ELEMENT_FORCE_RENDERED = {}
-local CLIENT_ELEMENT_PENDING_RENDER_REMOVAL = {}
+CLIENT_ELEMENT_FORCE_RENDERED = {
+    __cache = {
+        pendingRemovalList = {}
+    }
+}
 local clickedMouseKey = false
 
 
@@ -58,12 +61,12 @@ local clickedMouseKey = false
 local function disableElementForceRender(element, addToRemovalList)
 
     if addToRemovalList and CLIENT_ELEMENT_FORCE_RENDERED[element] then
-        if not CLIENT_ELEMENT_PENDING_RENDER_REMOVAL[element] then
-            CLIENT_ELEMENT_PENDING_RENDER_REMOVAL[element] = true
+        if not CLIENT_ELEMENT_FORCE_RENDERED.__cache.pendingRemovalList[element] then
+            CLIENT_ELEMENT_FORCE_RENDERED.__cache.pendingRemovalList[element] = true
             return true
         end
     end
-    CLIENT_ELEMENT_PENDING_RENDER_REMOVAL[element] = nil
+    CLIENT_ELEMENT_FORCE_RENDERED.__cache.pendingRemovalList[element] = nil
     CLIENT_ELEMENT_FORCE_RENDERED[element] = nil
     return true
 
@@ -74,20 +77,26 @@ function forceRenderElementRoot(elementRoot, liableElement, renderState)
     if renderState then
         if not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] then
             CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] = {
-                liableElement = liableElement
+                totalLiableElements = 0,
+                liableElements = {}
             }
-            return true
-        else
-            if CLIENT_ELEMENT_PENDING_RENDER_REMOVAL[elementRoot] then
-                CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].isAttached = nil
-                CLIENT_ELEMENT_PENDING_RENDER_REMOVAL[elementRoot] = nil
-            end
-            CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].liableElement = liableElement
-            return true
         end
+        if CLIENT_ELEMENT_FORCE_RENDERED.__cache.pendingRemovalList[elementRoot] then
+            CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].isAttached = nil
+            CLIENT_ELEMENT_FORCE_RENDERED.__cache.pendingRemovalList[elementRoot] = nil
+        end
+        if not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].liableElements[liableElement] then
+            CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].liableElements[liableElement] = true
+            CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalLiableElements = CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalLiableElements + 1
+        end
+        return true
     else
-        if CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] and (not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].isAttached) and (CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].liableElement == liableElement) then
-            disableElementForceRender(elementRoot)
+        if CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] and (not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].isAttached) and CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].liableElements[liableElement] then
+            CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].liableElements[liableElement] = nil
+            CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalLiableElements = CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalLiableElements - 1
+            if CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalLiableElements <= 0 then
+                disableElementForceRender(elementRoot)
+            end
             return true
         end
     end
@@ -129,9 +138,9 @@ local function renderElements()
             end
         end
     end
-    for element, _ in pairs(CLIENT_ELEMENT_FORCE_RENDERED) do
-        if not preRenderedElements[element] then
-            if not CLIENT_ELEMENT_PENDING_RENDER_REMOVAL[element] and imports.isUIValid(element) and imports.isUIVisible(element) then
+    for element, _ in import.pairs(CLIENT_ELEMENT_FORCE_RENDERED) do
+        if (element ~= "__cache") and not preRenderedElements[element] then
+            if not CLIENT_ELEMENT_FORCE_RENDERED.__cache.pendingRemovalList[element] and imports.isUIValid(element) and imports.isUIVisible(element) then
                 local elementType = createdElements[element].elementType
                 availableElements[elementType].renderFunction(element, true, {x = 0, y = 0, element = element})
             else
@@ -233,9 +242,13 @@ imports.addEventHandler("onClientRender", root, function()
             imports.detachUIElement()
         else
             if elementRoot then
-                CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] = {
-                    isAttached = true
-                }
+                if CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] then
+                    CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] = {
+                        totalLiableElements = 0,
+                        liableElements = {}
+                    }
+                end
+                CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].isAttached = true
             end
             if not CLIENT_ATTACHED_ELEMENT.isInternal then
                 local cursor_offsetX, cursor_offsetY = imports.getAbsoluteCursorPosition()
