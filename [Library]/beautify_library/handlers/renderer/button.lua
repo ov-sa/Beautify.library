@@ -19,7 +19,6 @@ local imports = {
     getUIParent = getUIParent,
     __getUITemplate = __getUITemplate,
     manageElementForceRender = manageElementForceRender,
-    renderElementChildren = renderElementChildren,
     destroyElement = destroyElement,
     isMouseOnPosition = isMouseOnPosition,
     getInterpolationProgress = getInterpolationProgress,
@@ -171,18 +170,10 @@ function renderButton(element, isActiveMode, isFetchingInput, mouseReference)
         end
         if isActiveMode then
             imports.manageElementForceRender(element, isElementToBeForceRendered)
-            imports.renderElementChildren(element, isActiveMode)
-            imports.dxSetBlendMode("blend")
-            if not elementParent then
-                imports.dxSetRenderTarget()
-            else
-                imports.dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
-            end
         end
     else
         if elementReference.gui["__UI_CACHE__"]["Button"].offsets.width and elementReference.gui["__UI_CACHE__"]["Button"].offsets.height then
             local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
-            imports.renderElementChildren(element, isActiveMode, true, mouseReference)
             local isElementHovered = CLIENT_HOVERED_ELEMENT.element == element
             local isButtonHovered = false
             if isElementHovered then

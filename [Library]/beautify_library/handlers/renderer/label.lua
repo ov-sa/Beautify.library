@@ -18,7 +18,6 @@ local imports = {
     getUIParent = getUIParent,
     __getUITemplate = __getUITemplate,
     manageElementForceRender = manageElementForceRender,
-    renderElementChildren = renderElementChildren,
     unpackColor = unpackColor,
     dxSetRenderTarget = dxSetRenderTarget,
     dxSetBlendMode = dxSetBlendMode,
@@ -86,17 +85,9 @@ function renderLabel(element, isActiveMode, isFetchingInput, mouseReference)
         imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Label"].text.text, elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Label"].text.fontColor, elementTemplate.fontScale or 1, elementTemplate.font, elementReference.gui.alignment.horizontal, elementReference.gui.alignment.vertical, true, false, label_postGUI, false)
         if isActiveMode then
             imports.manageElementForceRender(element, isElementToBeForceRendered)
-            imports.renderElementChildren(element, isActiveMode)
-            imports.dxSetBlendMode("blend")
-            if not elementParent then
-                imports.dxSetRenderTarget()
-            else
-                imports.dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
-            end
         end
     else
         if elementReference.gui["__UI_CACHE__"]["Label"].offsets.width and elementReference.gui["__UI_CACHE__"]["Label"].offsets.height then
-            imports.renderElementChildren(element, isActiveMode, true, mouseReference)
         end
     end
     return true
