@@ -58,6 +58,7 @@ CLIENT_ELEMENT_FORCE_RENDERED = {
     }
 }
 local clickedMouseKey = false
+local resetHoverChecker = true
 
 
 ---------------------------------------------------------
@@ -138,6 +139,9 @@ local function renderElements()
             local elementType = createdElements[element].elementType
             availableElements[elementType].renderFunction(element, false)
             imports.table.insert(validatedRenderingPriority, {element = element, type = elementType})
+            if resetHoverChecker then
+                CLIENT_HOVERED_ELEMENT.traceMarks[element] = nil
+            end
         end
     end
     for i = #validatedRenderingPriority, 1, -1 do
@@ -175,7 +179,7 @@ function renderElementChildren(element, isPassiveMode, isFetchingInput, mouseRef
     local elementChildrenCount = #elementReference.renderIndexReference[(elementReference.renderIndex)].children
     if elementChildrenCount <= 0 then return false end
     local elementRoot = elementReference.elementRoot or element
-    local isElementHovered = CLIENT_HOVERED_ELEMENT.prevTraceMarks[element]
+    local isElementHovered = CLIENT_HOVERED_ELEMENT.traceMarks[element]
     local isChildrenToBeForceRendered = CLIENT_MTA_RESTORED or (not CLIENT_RESOURCE_TEMPLATE_RELOAD.__cache.loaded and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)])
     if not isElementHovered and not isChildrenToBeForceRendered and not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] then
         return false
@@ -194,7 +198,7 @@ function renderElementChildren(element, isPassiveMode, isFetchingInput, mouseRef
             local childElement = elementReference.renderIndexReference[(elementReference.renderIndex)].children[i].element
             if imports.isUIValid(childElement) and imports.isUIVisible(childElement) then
                 local childElementType = createdElements[childElement].elementType
-                local isChildActive = CLIENT_HOVERED_ELEMENT.prevTraceMarks[childElement] or isChildrenToBeForceRendered or (CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] and CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[childElement])
+                local isChildActive = CLIENT_HOVERED_ELEMENT.traceMarks[childElement] or isChildrenToBeForceRendered or (CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] and CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[childElement])
                 availableElements[childElementType].renderFunction(childElement, not isChildActive)
                 imports.dxSetRenderTarget(elementReference.gui.renderTarget)
                 imports.dxSetBlendMode("modulate_add")
@@ -222,6 +226,10 @@ function renderElementChildren(element, isPassiveMode, isFetchingInput, mouseRef
                     if imports.isMouseOnPosition(propagatedMouseReference.x + childReference.gui.x, propagatedMouseReference.y + childReference.gui.y, childReference.gui.width, childReference.gui.height, childReference.gui.height) then
                         CLIENT_HOVERED_ELEMENT.element = childElement
                         CLIENT_HOVERED_ELEMENT.traceMarks[childElement] = true
+                    else
+                        if resetHoverChecker then
+                            CLIENT_HOVERED_ELEMENT.traceMarks[childElement] = nil
+                        end
                     end
                     availableElements[childElementType].renderFunction(childElement, false, true, propagatedMouseReference)
                 --else
@@ -292,15 +300,9 @@ imports.addEventHandler("onClientRender", root, function()
         end
     end
     CLIENT_MTA_RESTORED = false
-    CLIENT_HOVERED_ELEMENT.prevTraceMarks = imports.cloneTableDatas(CLIENT_HOVERED_ELEMENT.traceMarks, false)
-    --CLIENT_HOVERED_ELEMENT.previous.elementRoot = CLIENT_HOVERED_ELEMENT.elementRoot
-    --CLIENT_HOVERED_ELEMENT.previous.element = CLIENT_HOVERED_ELEMENT.element
-    --if not CLIENT_HOVERED_ELEMENT.element then --TODO: IDK IF NEEDED?
-        CLIENT_HOVERED_ELEMENT.elementRoot = false
-    --end
+    resetHoverChecker = not resetHoverChecker
+    CLIENT_HOVERED_ELEMENT.elementRoot = false
     CLIENT_HOVERED_ELEMENT.element = false
-    CLIENT_HOVERED_ELEMENT.traceMarks = {}
-    --CLIENT_HOVERED_ELEMENT.traceMarks = {}
     imports.resetKeyClickCache()
     imports.resetScrollCache()
 
