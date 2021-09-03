@@ -167,20 +167,16 @@ local function renderElements()
 
 end
 
---TODO: NEEDS TO BE BETTER CODED
 function renderElementChildren(element, isFetchingInput, mouseReference)
 
     local elementReference = createdElements[element]
     local elementChildrenCount = #elementReference.renderIndexReference[(elementReference.renderIndex)].children
     if elementChildrenCount <= 0 then return false end
-
     local elementRoot = elementReference.elementRoot or element
     local isElementRootHovered = CLIENT_HOVERED_ELEMENT.elementRoot == elementRoot
     local isChildrenToBeForceRendered = CLIENT_MTA_RESTORED or (not CLIENT_RESOURCE_TEMPLATE_RELOAD.__cache.loaded and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)])
-    if not isChildrenToBeForceRendered then
-        if not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] and not isElementRootHovered then
-            return false
-        end
+    if not isChildrenToBeForceRendered and not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] and not isElementRootHovered then
+        return false
     end
 
     if not isFetchingInput then
@@ -190,13 +186,16 @@ function renderElementChildren(element, isFetchingInput, mouseReference)
         imports.dxSetRenderTarget(element_renderTarget, true)
         imports.dxSetBlendMode("modulate_add")
         for i = 1, elementChildrenCount, 1 do
-            local childElement = elementReference.renderIndexReference[(elementReference.renderIndex)].children[i].element
-            if imports.isUIValid(childElement) and imports.isUIVisible(childElement) then
-                local childElementType = createdElements[childElement].elementType
-                availableElements[childElementType].renderFunction(childElement)
-                imports.dxSetRenderTarget(element_renderTarget)
-                imports.dxSetBlendMode("modulate_add")
-            end
+            --TODO: NEEDS TO BE BETTER CODED, Add passive mode drawing feature...
+            --if isChildrenToBeForceRendered or not elementReference.elementRoot or isElementRootHovered then
+                local childElement = elementReference.renderIndexReference[(elementReference.renderIndex)].children[i].element
+                if imports.isUIValid(childElement) and imports.isUIVisible(childElement) then
+                    local childElementType = createdElements[childElement].elementType
+                    availableElements[childElementType].renderFunction(childElement)
+                    imports.dxSetRenderTarget(element_renderTarget)
+                    imports.dxSetBlendMode("modulate_add")
+                end
+            --end
         end
     else
         if not mouseReference then return false end
