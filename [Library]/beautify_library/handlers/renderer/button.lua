@@ -66,7 +66,7 @@ function renderButton(element, isActiveMode, isFetchingInput, mouseReference)
         elementTemplate = elementTemplate[button_type]
     
         if not isElementToBeRendered then return false end
-        if isActiveMode and isElementToBeUpdated then
+        if (isActiveMode or isElementToBeReloaded) and isElementToBeUpdated then
             if not elementReference.gui["__UI_CACHE__"]["Button"] then
                 elementReference.gui["__UI_CACHE__"]["Button"] = {
                     offsets = {},
@@ -142,7 +142,7 @@ function renderButton(element, isActiveMode, isFetchingInput, mouseReference)
                 end
                 elementReference.gui.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
             end
-            local isButtonHoverInterpolationRendering = elementReference.gui.interpolationProgress < 1
+            local isButtonHoverInterpolationRendering = (elementReference.gui.interpolationProgress < 1) or (elementReference.gui.hoverStatus ~= "backward")
             if isElementToBeReloaded or isElementInterpolationToBeRefreshed or isButtonHoverInterpolationRendering then
                 if isActiveMode then
                     isElementToBeForceRendered = isButtonHoverInterpolationRendering
@@ -170,7 +170,7 @@ function renderButton(element, isActiveMode, isFetchingInput, mouseReference)
             imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Button"].text.text, elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Button"].hoverFontColor, elementTemplate.fontScale or 1, elementTemplate.font, "center", "center", true, false, button_postGUI, false)
         end
         if isActiveMode then
-            imports.manageElementForceRender(element, isActiveMode and isElementToBeForceRendered)
+            imports.manageElementForceRender(element, isElementToBeForceRendered)
             imports.renderElementChildren(element, isActiveMode)
             imports.dxSetBlendMode("blend")
             if not elementParent then
