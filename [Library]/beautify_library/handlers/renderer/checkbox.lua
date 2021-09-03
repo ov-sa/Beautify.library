@@ -47,7 +47,7 @@ local elementType = "beautify_checkbox"
 --[[ Function: Renders Checkbox ]]--
 ------------------------------------
 
-function renderCheckbox(element, isFetchingInput, mouseReference)
+function renderCheckbox(element, isPassiveMode, isFetchingInput, mouseReference)
 
     local elementReference = createdElements[element]
     if not isFetchingInput then
@@ -164,7 +164,7 @@ function renderCheckbox(element, isFetchingInput, mouseReference)
             imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Checkbox"].text.text, elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.endY, checkbox_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "left", "center", true, false, checkbox_postGUI, false)
         end
         imports.manageElementForceRender(element, isElementRootToBeForceRendered)
-        imports.renderElementChildren(element)
+        imports.renderElementChildren(element, isPassiveMode)
         imports.dxSetBlendMode("blend")
         if not elementParent then
             imports.dxSetRenderTarget()
@@ -174,7 +174,7 @@ function renderCheckbox(element, isFetchingInput, mouseReference)
     else
         if elementReference.gui["__UI_CACHE__"]["Tick Box"].offsets.startX and elementReference.gui["__UI_CACHE__"]["Tick Box"].offsets.startY then
             local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
-            imports.renderElementChildren(element, true, mouseReference)
+            imports.renderElementChildren(element, isPassiveMode, true, mouseReference)
             local isElementHovered = CLIENT_HOVERED_ELEMENT.element == element
             local isCheckBoxHovered, isTickBoxHovered = false, false
             local isTickBoxSelected = elementReference.gui.selection

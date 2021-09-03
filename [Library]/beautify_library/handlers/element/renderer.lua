@@ -136,7 +136,7 @@ local function renderElements()
         local element = createdRenderingPriority[i].element
         if imports.isUIValid(element) and imports.isUIVisible(element) then
             local elementType = createdElements[element].elementType
-            availableElements[elementType].renderFunction(element)
+            availableElements[elementType].renderFunction(element, false)
             imports.table.insert(validatedRenderingPriority, {element = element, type = elementType})
         end
     end
@@ -148,7 +148,7 @@ local function renderElements()
                 local elementType = validatedRenderingPriority[i].type
                 CLIENT_HOVERED_ELEMENT.elementRoot = element
                 CLIENT_HOVERED_ELEMENT.element = element
-                availableElements[elementType].renderFunction(element, true, {x = 0, y = 0, element = element})
+                availableElements[elementType].renderFunction(element, false, true, {x = 0, y = 0, element = element})
                 CLIENT_ELEMENT_FORCE_RENDERED.__cache.preRenderedElements[element] = true
                 break
             end
@@ -158,7 +158,7 @@ local function renderElements()
         if (element ~= "__cache") and not CLIENT_ELEMENT_FORCE_RENDERED.__cache.preRenderedElements[element] then
             if not CLIENT_ELEMENT_FORCE_RENDERED.__cache.nextTickRemoval[element] and imports.isUIValid(element) and imports.isUIVisible(element) then
                 local elementType = createdElements[element].elementType
-                availableElements[elementType].renderFunction(element, true, {x = 0, y = 0, element = element})
+                availableElements[elementType].renderFunction(element, false, true, {x = 0, y = 0, element = element})
             else
                 destroyElementForceRender(element)
             end
@@ -168,7 +168,7 @@ local function renderElements()
 
 end
 
-function renderElementChildren(element, isFetchingInput, mouseReference)
+function renderElementChildren(element, isPassiveMode, isFetchingInput, mouseReference)
 
     local elementReference = createdElements[element]
     local elementChildrenCount = #elementReference.renderIndexReference[(elementReference.renderIndex)].children
@@ -192,7 +192,7 @@ function renderElementChildren(element, isFetchingInput, mouseReference)
                 local childElement = elementReference.renderIndexReference[(elementReference.renderIndex)].children[i].element
                 if imports.isUIValid(childElement) and imports.isUIVisible(childElement) then
                     local childElementType = createdElements[childElement].elementType
-                    availableElements[childElementType].renderFunction(childElement)
+                    availableElements[childElementType].renderFunction(childElement, isPassiveMode)
                     imports.dxSetRenderTarget(element_renderTarget)
                     imports.dxSetBlendMode("modulate_add")
                 end
@@ -219,7 +219,7 @@ function renderElementChildren(element, isFetchingInput, mouseReference)
                     if imports.isMouseOnPosition(propagatedMouseReference.x + childReference.gui.x, propagatedMouseReference.y + childReference.gui.y, childReference.gui.width, childReference.gui.height, childReference.gui.height) then
                         CLIENT_HOVERED_ELEMENT.element = childElement
                     end
-                    availableElements[childElementType].renderFunction(childElement, true, propagatedMouseReference)
+                    availableElements[childElementType].renderFunction(childElement, false, true, propagatedMouseReference)
                 end
             end
         end

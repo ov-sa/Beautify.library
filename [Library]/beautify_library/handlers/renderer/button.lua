@@ -49,7 +49,7 @@ local elementType = "beautify_button"
 --[[ Function: Renders Button ]]--
 ----------------------------------
 
-function renderButton(element, isFetchingInput, mouseReference)
+function renderButton(element, isPassiveMode, isFetchingInput, mouseReference)
 
     local elementReference = createdElements[element]
     if not isFetchingInput then
@@ -165,7 +165,7 @@ function renderButton(element, isFetchingInput, mouseReference)
                 imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Button"].text.text, elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Button"].hoverFontColor, elementTemplate.fontScale or 1, elementTemplate.font, "center", "center", true, false, button_postGUI, false)
             end
             imports.manageElementForceRender(element, isElementRootToBeForceRendered)
-            imports.renderElementChildren(element)
+            imports.renderElementChildren(element, isPassiveMode)
             imports.dxSetBlendMode("blend")
             if not elementParent then
                 imports.dxSetRenderTarget()
@@ -176,7 +176,7 @@ function renderButton(element, isFetchingInput, mouseReference)
     else
         if elementReference.gui["__UI_CACHE__"]["Button"].offsets.width and elementReference.gui["__UI_CACHE__"]["Button"].offsets.height then
             local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
-            imports.renderElementChildren(element, true, mouseReference)
+            imports.renderElementChildren(element, isPassiveMode, true, mouseReference)
             local isElementHovered = CLIENT_HOVERED_ELEMENT.element == element
             local isButtonHovered = false
             if isElementHovered then

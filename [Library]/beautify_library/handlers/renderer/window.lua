@@ -51,7 +51,7 @@ local elementType = "beautify_window"
 --[[ Function: Renders Window ]]--
 ----------------------------------
 
-function renderWindow(element, isFetchingInput, mouseReference)
+function renderWindow(element, isPassiveMode, isFetchingInput, mouseReference)
 
     local elementReference = createdElements[element]
     if not isFetchingInput then
@@ -206,7 +206,7 @@ function renderWindow(element, isFetchingInput, mouseReference)
         end
         imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Window"].divider.size, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.height, elementReference.gui["__UI_CACHE__"]["Window"].divider.color, window_postGUI)
         imports.manageElementForceRender(element, isElementRootToBeForceRendered)
-        imports.renderElementChildren(element)
+        imports.renderElementChildren(element, isPassiveMode)
         imports.dxSetBlendMode("blend")
         imports.dxSetRenderTarget()
         local window_renderTarget = elementReference.gui.renderTarget
@@ -215,7 +215,7 @@ function renderWindow(element, isFetchingInput, mouseReference)
         end
     else
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
-        imports.renderElementChildren(element, true, mouseReference)
+        imports.renderElementChildren(element, isPassiveMode, true, mouseReference)
         local isElementHovered = CLIENT_HOVERED_ELEMENT.element == element
         local isCloseButtonHovered = false
         if isElementHovered then

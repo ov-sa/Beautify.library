@@ -51,7 +51,7 @@ local elementType = "beautify_gridlist"
 --[[ Function: Renders Grid List ]]--
 -------------------------------------
 
-function renderGridlist(element, isFetchingInput, mouseReference)
+function renderGridlist(element, isPassiveMode, isFetchingInput, mouseReference)
 
     local elementReference = createdElements[element]
     if not isFetchingInput then
@@ -203,7 +203,7 @@ function renderGridlist(element, isFetchingInput, mouseReference)
                 end
             end
             imports.manageElementForceRender(element, isElementRootToBeForceRendered)
-            imports.renderElementChildren(element)
+            imports.renderElementChildren(element, isPassiveMode)
             imports.dxSetBlendMode("blend")
             if not elementParent then
                 imports.dxSetRenderTarget()
@@ -223,7 +223,7 @@ function renderGridlist(element, isFetchingInput, mouseReference)
         end
     else
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
-        imports.renderElementChildren(element, true, mouseReference)
+        imports.renderElementChildren(element, isPassiveMode, true, mouseReference)
         local gridlist_row_count = #elementReference.gridData.rows
         if gridlist_row_count > 0 then
             local isElementHovered = CLIENT_HOVERED_ELEMENT.element == element

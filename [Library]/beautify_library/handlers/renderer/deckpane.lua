@@ -37,7 +37,7 @@ local elementType = "beautify_deckpane"
 --[[ Function: Renders Deck Pane ]]--
 --------------------------------
 
-function renderDeckPane(element, isFetchingInput, mouseReference)
+function renderDeckPane(element, isPassiveMode, isFetchingInput, mouseReference)
 
     local elementReference = createdElements[element]
     if not isFetchingInput then
@@ -78,7 +78,7 @@ function renderDeckPane(element, isFetchingInput, mouseReference)
         end
 
         imports.manageElementForceRender(element, isElementRootToBeForceRendered)
-        imports.renderElementChildren(element)
+        imports.renderElementChildren(element, isPassiveMode)
         imports.dxSetBlendMode("blend")
         if not elementParent then
             imports.dxSetRenderTarget()
@@ -91,7 +91,7 @@ function renderDeckPane(element, isFetchingInput, mouseReference)
         end
     else
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
-        imports.renderElementChildren(element, true, mouseReference)
+        imports.renderElementChildren(element, isPassiveMode, true, mouseReference)
         local isElementHovered = CLIENT_HOVERED_ELEMENT.element == element
     end
     return true

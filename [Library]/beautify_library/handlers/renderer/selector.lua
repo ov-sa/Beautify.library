@@ -46,7 +46,7 @@ local elementType = "beautify_selector"
 --[[ Function: Renders Selector ]]--
 ------------------------------------
 
-function renderSelector(element, isFetchingInput, mouseReference)
+function renderSelector(element, isPassiveMode, isFetchingInput, mouseReference)
 
     local elementReference = createdElements[element]
     if not isFetchingInput then
@@ -221,7 +221,7 @@ function renderSelector(element, isFetchingInput, mouseReference)
             imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Selector"].text.text, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endY, selector_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "center", "center", true, false, selector_postGUI, false)
         end
         imports.manageElementForceRender(element, isElementRootToBeForceRendered)
-        imports.renderElementChildren(element)
+        imports.renderElementChildren(element, isPassiveMode)
         imports.dxSetBlendMode("blend")
         if not elementParent then
             imports.dxSetRenderTarget()
@@ -231,7 +231,7 @@ function renderSelector(element, isFetchingInput, mouseReference)
     else
         if elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startX and elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startY and elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startX and elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startY then
             local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
-            imports.renderElementChildren(element, true, mouseReference)
+            imports.renderElementChildren(element, isPassiveMode, true, mouseReference)
             local isElementHovered = CLIENT_HOVERED_ELEMENT.element == element
             local isSelectorHovered = false
             local isArrowPreviousHovered, isArrowNextHovered = false, false

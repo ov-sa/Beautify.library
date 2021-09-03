@@ -50,7 +50,7 @@ local elementType = "beautify_slider"
 --[[ Function: Renders Slider ]]--
 ----------------------------------
 
-function renderSlider(element, isFetchingInput, mouseReference)
+function renderSlider(element, isPassiveMode, isFetchingInput, mouseReference)
 
     local elementReference = createdElements[element]
     if not isFetchingInput then
@@ -207,7 +207,7 @@ function renderSlider(element, isFetchingInput, mouseReference)
             end
             imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.height, elementReference.gui["__UI_CACHE__"]["Thumb"].color, slider_postGUI)
             imports.manageElementForceRender(element, isElementRootToBeForceRendered)
-            imports.renderElementChildren(element)
+            imports.renderElementChildren(element, isPassiveMode)
             imports.dxSetBlendMode("blend")
             if not elementParent then
                 imports.dxSetRenderTarget()
@@ -218,7 +218,7 @@ function renderSlider(element, isFetchingInput, mouseReference)
     else
         if elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX and elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY then
             local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
-            imports.renderElementChildren(element, true, mouseReference)
+            imports.renderElementChildren(element, isPassiveMode, true, mouseReference)
             local isElementHovered = CLIENT_HOVERED_ELEMENT.element == element
             local isSliderHovered, isSliderThumbHovered = false, false
             if isElementHovered then

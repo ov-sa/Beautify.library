@@ -52,7 +52,7 @@ local elementType = "beautify_deck"
 --[[ Function: Renders Deck ]]--
 --------------------------------
 
-function renderDeck(element, isFetchingInput, mouseReference)
+function renderDeck(element, isPassiveMode, isFetchingInput, mouseReference)
 
     local elementReference = createdElements[element]
     local elementParent = imports.getUIParent(element)
@@ -200,7 +200,7 @@ function renderDeck(element, isFetchingInput, mouseReference)
         imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Title Bar"].text.text, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.fontColor, elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "left", "center", true, false, deck_postGUI, false)
         imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.offsets.height, createdAssets["images"]["collar/bottom.png"], 360*elementReference.gui.titleBar.toggleButton.animRotationPercent, 0, 0, elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.color, deck_postGUI)
         imports.manageElementForceRender(element, isElementRootToBeForceRendered)
-        imports.renderElementChildren(element)
+        imports.renderElementChildren(element, isPassiveMode)
         imports.dxSetBlendMode("blend")
         imports.dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
         local deck_renderTarget = elementReference.gui.renderTarget
@@ -209,7 +209,7 @@ function renderDeck(element, isFetchingInput, mouseReference)
         end
     else
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
-        imports.renderElementChildren(element, true, mouseReference)
+        imports.renderElementChildren(element, isPassiveMode, true, mouseReference)
         local isElementHovered = CLIENT_HOVERED_ELEMENT.element == element
         if isElementHovered then
             local isToggleButtonHovered = imports.isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Toggle Button"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Toggle Button"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Toggle Button"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Toggle Button"].height)

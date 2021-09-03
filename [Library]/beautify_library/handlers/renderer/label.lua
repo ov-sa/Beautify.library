@@ -36,7 +36,7 @@ local elementType = "beautify_label"
 --[[ Function: Renders Label ]]--
 ---------------------------------
 
-function renderLabel(element, isFetchingInput, mouseReference)
+function renderLabel(element, isPassiveMode, isFetchingInput, mouseReference)
 
     local elementReference = createdElements[element]
     if not isFetchingInput then
@@ -78,7 +78,7 @@ function renderLabel(element, isFetchingInput, mouseReference)
             end
 
             imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Label"].text.text, elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Label"].text.fontColor, elementTemplate.fontScale or 1, elementTemplate.font, elementReference.gui.alignment.horizontal, elementReference.gui.alignment.vertical, true, false, label_postGUI, false)
-            imports.renderElementChildren(element)
+            imports.renderElementChildren(element, isPassiveMode)
             imports.dxSetBlendMode("blend")
             if not elementParent then
                 imports.dxSetRenderTarget()
@@ -88,7 +88,7 @@ function renderLabel(element, isFetchingInput, mouseReference)
         end
     else
         if elementReference.gui["__UI_CACHE__"]["Label"].offsets.width and elementReference.gui["__UI_CACHE__"]["Label"].offsets.height then
-            imports.renderElementChildren(element, true, mouseReference)
+            imports.renderElementChildren(element, isPassiveMode, true, mouseReference)
         end
     end
     return true
