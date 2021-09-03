@@ -50,7 +50,11 @@ local imports = {
 CLIENT_ELEMENT_FORCE_RENDERED = {
     __cache = {
         preRenderedElements = {},
-        nextTickRemoval = {}
+        nextTickRemoval = {},
+        structure = {
+            totalChildren = 0,
+            renderChildren = {}
+        }
     }
 }
 local clickedMouseKey = false
@@ -87,10 +91,7 @@ function manageElementForceRender(element, renderState)
             CLIENT_ELEMENT_FORCE_RENDERED.__cache.nextTickRemoval[elementRoot] = nil
         end
         if not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] then
-            CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] = {
-                totalChildren = 0,
-                renderChildren = {}
-            }
+            CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] = imports.cloneTableDatas(CLIENT_ELEMENT_FORCE_RENDERED.__cache.structure, false)
         end
         if not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[element] then
             CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[element] = true
@@ -248,18 +249,12 @@ imports.addEventHandler("onClientRender", root, function()
             createdElements[(CLIENT_ATTACHED_ELEMENT.element)].gui["__UI_CACHE__"].updateElement = true
             imports.detachUIElement()
         else
-            -------
-            --TODO: NEEDS TO BE BETTER CODED
             if elementRoot then
-                if CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] then
-                    CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] = {
-                        totalChildren = 0,
-                        renderChildren = {}
-                    }
+                if not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] then
+                    CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] = imports.cloneTableDatas(CLIENT_ELEMENT_FORCE_RENDERED.__cache.structure, false)
                 end
                 CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].isAttached = true
             end
-            -------
             if not CLIENT_ATTACHED_ELEMENT.isInternal then
                 local cursor_offsetX, cursor_offsetY = imports.getAbsoluteCursorPosition()
                 if cursor_offsetX and cursor_offsetY then
