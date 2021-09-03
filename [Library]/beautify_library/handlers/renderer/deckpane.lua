@@ -8,7 +8,6 @@
      Desc: Deck Pane Pane's Renderer ]]--
 ----------------------------------------------------------------
 
---TODO: INTEGRATE
 
 -----------------
 --[[ Imports ]]--
@@ -44,14 +43,15 @@ function renderDeckPane(element, isActiveMode, isFetchingInput, mouseReference)
     if not isFetchingInput then
         local elementParent = imports.getUIParent(element)
         if not elementParent then imports.dxSetRenderTarget() end
-        local isElementToBeForceRendered = false
+        local isElementToBeRendered, isElementToBeForceRendered = true, false
         local isElementInterpolationToBeRefreshed = CLIENT_MTA_RESTORED
         local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)] and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
         local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
         local deckpane_postGUI = elementReference.gui.postGUI
 
-        if isElementToBeUpdated then
+        if not isElementToBeRendered then return false end
+        if (isActiveMode or isElementToBeReloaded) and isElementToBeUpdated then
             if not elementReference.gui["__UI_CACHE__"]["Deckpane"] then
                 elementReference.gui["__UI_CACHE__"]["Deckpane"] = {
                     offsets = {},
@@ -71,24 +71,24 @@ function renderDeckPane(element, isActiveMode, isFetchingInput, mouseReference)
             elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.startY = elementReference.gui["__UI_CACHE__"]["Deckpane"].offsets.startY
             elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.width = deckpane_view_width
             elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.height = deckpane_view_height
-
             if not CLIENT_MTA_MINIMIZED then
                 elementReference.gui["__UI_CACHE__"].reloadElement = nil
             end
             elementReference.gui["__UI_CACHE__"].updateElement = nil
         end
 
-        imports.manageElementForceRender(element, isElementToBeForceRendered)
-        imports.renderElementChildren(element, isActiveMode)
-        imports.dxSetBlendMode("blend")
-        if not elementParent then
-            imports.dxSetRenderTarget()
-        else
-            imports.dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
-        end
-        local deckpane_renderTarget = elementReference.gui.renderTarget
-        if deckpane_renderTarget and imports.isElement(deckpane_renderTarget) then
-            imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.startX, elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.startY, elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.height, deckpane_renderTarget, 0, 0, 0, -1, deckpane_postGUI)
+        if elementReference.gui.renderTarget and imports.isElement(elementReference.gui.renderTarget) then
+            if isActiveMode then
+                imports.manageElementForceRender(element, isElementToBeForceRendered)
+                imports.renderElementChildren(element, isActiveMode)
+                imports.dxSetBlendMode("blend")
+                if not elementParent then
+                    imports.dxSetRenderTarget()
+                else
+                    imports.dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
+                end
+            end
+            imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.startX, elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.startY, elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.height, elementReference.gui.renderTarget, 0, 0, 0, -1, deckpane_postGUI)
         end
     else
         if not isActiveMode then return false end
