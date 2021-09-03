@@ -212,7 +212,7 @@ function renderElementChildren(element, isFetchingInput, mouseReference)
         propagatedMouseReference.y = propagatedMouseReference.y + elementReference.gui.y + ((elementReference.gui.contentSection and elementReference.gui.contentSection.startY) or 0)
         for i = elementChildrenCount, 1, -1 do
             local childElement = elementReference.renderIndexReference[(elementReference.renderIndex)].children[i].element
-            if isElementRootHovered or (CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] and CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[childElement]) then
+            if isChildrenToBeForceRendered or isElementRootHovered or (CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] and CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[childElement]) then
                 if imports.isUIValid(childElement) and imports.isUIVisible(childElement) then
                     local childElementType = createdElements[childElement].elementType
                     local childReference = createdElements[childElement]
