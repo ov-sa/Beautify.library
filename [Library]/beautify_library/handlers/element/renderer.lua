@@ -137,7 +137,7 @@ local function renderElements()
         local element = createdRenderingPriority[i].element
         if imports.isUIValid(element) and imports.isUIVisible(element) then
             local elementType = createdElements[element].elementType
-            availableElements[elementType].renderFunction(element, false)
+            availableElements[elementType].renderFunction(element, true)
             imports.table.insert(validatedRenderingPriority, {element = element, type = elementType})
         end
     end
@@ -150,7 +150,7 @@ local function renderElements()
                 CLIENT_HOVERED_ELEMENT.elementRoot = element
                 CLIENT_HOVERED_ELEMENT.element = element
                 CLIENT_HOVERED_ELEMENT.traceMarks[element] = true
-                availableElements[elementType].renderFunction(element, false, true, {x = 0, y = 0, element = element})
+                availableElements[elementType].renderFunction(element, true, true, {x = 0, y = 0, element = element})
                 CLIENT_ELEMENT_FORCE_RENDERED.__cache.preRenderedElements[element] = true
                 break
             end
@@ -160,7 +160,7 @@ local function renderElements()
         if (element ~= "__cache") and not CLIENT_ELEMENT_FORCE_RENDERED.__cache.preRenderedElements[element] then
             if not CLIENT_ELEMENT_FORCE_RENDERED.__cache.nextTickRemoval[element] and imports.isUIValid(element) and imports.isUIVisible(element) then
                 local elementType = createdElements[element].elementType
-                availableElements[elementType].renderFunction(element, false, true, {x = 0, y = 0, element = element})
+                availableElements[elementType].renderFunction(element, true, true, {x = 0, y = 0, element = element})
             else
                 destroyElementForceRender(element)
             end
@@ -170,8 +170,9 @@ local function renderElements()
 
 end
 
-function renderElementChildren(element, isPassiveMode, isFetchingInput, mouseReference)
+function renderElementChildren(element, isActiveMode, isFetchingInput, mouseReference)
 
+    if not isActiveMode then return false end
     local elementReference = createdElements[element]
     local elementChildrenCount = #elementReference.renderIndexReference[(elementReference.renderIndex)].children
     if elementChildrenCount <= 0 then return false end
@@ -180,12 +181,7 @@ function renderElementChildren(element, isPassiveMode, isFetchingInput, mouseRef
     local isChildrenToBeForceRendered = CLIENT_MTA_RESTORED or (not CLIENT_RESOURCE_TEMPLATE_RELOAD.__cache.loaded and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)])
     if not isElementHovered and not isChildrenToBeForceRendered and not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] then
         return false
-    else
-        if isElementHovered or isChildrenToBeForceRendered or ((element ~= elementRoot) and CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[element]) then
-            isPassiveMode = false
-        end
     end
-    if isPassiveMode then return false end
 
     if not isFetchingInput then
         if not elementReference.gui.renderTarget or not imports.isElement(elementReference.gui.renderTarget) then return false end
@@ -196,14 +192,13 @@ function renderElementChildren(element, isPassiveMode, isFetchingInput, mouseRef
             if imports.isUIValid(childElement) and imports.isUIVisible(childElement) then
                 local childElementType = createdElements[childElement].elementType
                 local isChildActive = CLIENT_HOVERED_ELEMENT.traceMarks[childElement] or isChildrenToBeForceRendered or (CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] and CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[childElement])
-                availableElements[childElementType].renderFunction(childElement, not isChildActive)
+                availableElements[childElementType].renderFunction(childElement, isChildActive)
                 imports.dxSetRenderTarget(elementReference.gui.renderTarget)
                 imports.dxSetBlendMode("modulate_add")
             end
         end
     else
         if not mouseReference then return false end
-
         local propagatedMouseReference = false
         if mouseReference.element == element then
             propagatedMouseReference = mouseReference
@@ -224,7 +219,7 @@ function renderElementChildren(element, isPassiveMode, isFetchingInput, mouseRef
                 end
                 local isChildActive = CLIENT_HOVERED_ELEMENT.traceMarks[childElement] or isChildrenToBeForceRendered or (CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] and CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[childElement])
                 if isChildActive then
-                    availableElements[childElementType].renderFunction(childElement, false, true, propagatedMouseReference)
+                    availableElements[childElementType].renderFunction(childElement, true, true, propagatedMouseReference)
                 end
             end
         end

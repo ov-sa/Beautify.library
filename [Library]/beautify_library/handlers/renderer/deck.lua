@@ -52,14 +52,14 @@ local elementType = "beautify_deck"
 --[[ Function: Renders Deck ]]--
 --------------------------------
 
-function renderDeck(element, isPassiveMode, isFetchingInput, mouseReference)
+function renderDeck(element, isActiveMode, isFetchingInput, mouseReference)
 
     local elementReference = createdElements[element]
     local elementParent = imports.getUIParent(element)
     if not elementParent then return false end
 
     if not isFetchingInput then
-        local isElementRootToBeForceRendered = false
+        local isElementToBeForceRendered = false
         local isElementInterpolationToBeRefreshed = CLIENT_MTA_RESTORED
         local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)] and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
@@ -128,7 +128,7 @@ function renderDeck(element, isPassiveMode, isFetchingInput, mouseReference)
             elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.height = deck_titleBar_height
             elementReference.gui["__UI_CACHE__"]["Deck"].divider.size = elementTemplate.titleBar.divider.size
             if isElementInterpolationToBeRefreshed or isToggleButtonInterpolationRendering then
-                isElementRootToBeForceRendered = isToggleButtonInterpolationRendering
+                isElementToBeForceRendered = isToggleButtonInterpolationRendering
                 elementReference.gui.titleBar.toggleButton.rollInterpolationProgress = imports.getInterpolationProgress(elementReference.gui.titleBar.toggleButton.animTickCounter, availableElements[elementType].titleBar.toggleButton.rollAnimDuration*0.5)
                 if elementReference.gui.titleBar.toggleButton.animStatus == true then
                     elementReference.gui.titleBar.toggleButton.animRotationPercent = imports.interpolateBetween(elementReference.gui.titleBar.toggleButton.animRotationPercent, 0, 0, 0.5, 0, 0, elementReference.gui.titleBar.toggleButton.interpolationProgress, "InQuad")
@@ -199,8 +199,8 @@ function renderDeck(element, isPassiveMode, isFetchingInput, mouseReference)
         end
         imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Title Bar"].text.text, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.fontColor, elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "left", "center", true, false, deck_postGUI, false)
         imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.offsets.height, createdAssets["images"]["collar/bottom.png"], 360*elementReference.gui.titleBar.toggleButton.animRotationPercent, 0, 0, elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.color, deck_postGUI)
-        imports.manageElementForceRender(element, isElementRootToBeForceRendered)
-        imports.renderElementChildren(element, isPassiveMode)
+        imports.manageElementForceRender(element, isElementToBeForceRendered)
+        imports.renderElementChildren(element, isActiveMode)
         imports.dxSetBlendMode("blend")
         imports.dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
         local deck_renderTarget = elementReference.gui.renderTarget
@@ -208,8 +208,9 @@ function renderDeck(element, isPassiveMode, isFetchingInput, mouseReference)
             imports.dxDrawImageSection(elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.startX, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.startY, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.currentHeight, 0, 0, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.currentHeight, deck_renderTarget, 0, 0, 0, elementReference.gui["__UI_CACHE__"]["Deck"].view.color, deck_postGUI)
         end
     else
+        if not isActiveMode then return false end
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
-        imports.renderElementChildren(element, isPassiveMode, true, mouseReference)
+        imports.renderElementChildren(element, isActiveMode, true, mouseReference)
         local isElementHovered = CLIENT_HOVERED_ELEMENT.element == element
         if isElementHovered then
             local isToggleButtonHovered = imports.isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Toggle Button"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Toggle Button"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Toggle Button"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Toggle Button"].height)

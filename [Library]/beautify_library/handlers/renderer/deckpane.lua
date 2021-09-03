@@ -37,13 +37,13 @@ local elementType = "beautify_deckpane"
 --[[ Function: Renders Deck Pane ]]--
 --------------------------------
 
-function renderDeckPane(element, isPassiveMode, isFetchingInput, mouseReference)
+function renderDeckPane(element, isActiveMode, isFetchingInput, mouseReference)
 
     local elementReference = createdElements[element]
     if not isFetchingInput then
         local elementParent = imports.getUIParent(element)
         if not elementParent then imports.dxSetRenderTarget() end
-        local isElementRootToBeForceRendered = false
+        local isElementToBeForceRendered = false
         local isElementInterpolationToBeRefreshed = CLIENT_MTA_RESTORED
         local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)] and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
@@ -77,8 +77,8 @@ function renderDeckPane(element, isPassiveMode, isFetchingInput, mouseReference)
             elementReference.gui["__UI_CACHE__"].updateElement = nil
         end
 
-        imports.manageElementForceRender(element, isElementRootToBeForceRendered)
-        imports.renderElementChildren(element, isPassiveMode)
+        imports.manageElementForceRender(element, isElementToBeForceRendered)
+        imports.renderElementChildren(element, isActiveMode)
         imports.dxSetBlendMode("blend")
         if not elementParent then
             imports.dxSetRenderTarget()
@@ -90,8 +90,9 @@ function renderDeckPane(element, isPassiveMode, isFetchingInput, mouseReference)
             imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.startX, elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.startY, elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.height, deckpane_renderTarget, 0, 0, 0, -1, deckpane_postGUI)
         end
     else
+        if not isActiveMode then return false end
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
-        imports.renderElementChildren(element, isPassiveMode, true, mouseReference)
+        imports.renderElementChildren(element, isActiveMode, true, mouseReference)
         local isElementHovered = CLIENT_HOVERED_ELEMENT.element == element
     end
     return true

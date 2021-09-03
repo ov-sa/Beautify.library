@@ -46,13 +46,13 @@ local elementType = "beautify_selector"
 --[[ Function: Renders Selector ]]--
 ------------------------------------
 
-function renderSelector(element, isPassiveMode, isFetchingInput, mouseReference)
+function renderSelector(element, isActiveMode, isFetchingInput, mouseReference)
 
     local elementReference = createdElements[element]
     if not isFetchingInput then
         local elementParent = imports.getUIParent(element)
         if not elementParent then imports.dxSetRenderTarget() end
-        local isElementRootToBeForceRendered = false
+        local isElementToBeForceRendered = false
         local isElementInterpolationToBeRefreshed = CLIENT_MTA_RESTORED
         local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)] and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
@@ -175,7 +175,7 @@ function renderSelector(element, isPassiveMode, isFetchingInput, mouseReference)
             elementReference.gui.arrow_Previous.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.arrow_Previous.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
             local isPrevArrowHoverInterpolationRendering = elementReference.gui.arrow_Previous.interpolationProgress < 1
             if isElementInterpolationToBeRefreshed or isPrevArrowHoverInterpolationRendering then
-                isElementRootToBeForceRendered = isPrevArrowHoverInterpolationRendering
+                isElementToBeForceRendered = isPrevArrowHoverInterpolationRendering
                 if elementReference.gui.arrow_Previous.hoverStatus == "forward" then
                     elementReference.gui.arrow_Previous.animAlphaPercent = imports.interpolateBetween(elementReference.gui.arrow_Previous.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui.arrow_Previous.interpolationProgress, "InQuad")
                 else
@@ -185,7 +185,7 @@ function renderSelector(element, isPassiveMode, isFetchingInput, mouseReference)
             elementReference.gui.arrow_Next.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.arrow_Next.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
             local isNextArrowHoverInterpolationRendering = elementReference.gui.arrow_Next.interpolationProgress < 1
             if isElementInterpolationToBeRefreshed or isNextArrowHoverInterpolationRendering then
-                isElementRootToBeForceRendered = isElementRootToBeForceRendered or isNextArrowHoverInterpolationRendering
+                isElementToBeForceRendered = isElementToBeForceRendered or isNextArrowHoverInterpolationRendering
                 if elementReference.gui.arrow_Next.hoverStatus == "forward" then
                     elementReference.gui.arrow_Next.animAlphaPercent = imports.interpolateBetween(elementReference.gui.arrow_Next.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui.arrow_Next.interpolationProgress, "InQuad")
                 else
@@ -210,7 +210,7 @@ function renderSelector(element, isPassiveMode, isFetchingInput, mouseReference)
             elementReference.gui.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
             local isTextHoverInterpolationRendering = elementReference.gui.interpolationProgress < 1
             if isElementInterpolationToBeRefreshed or isTextHoverInterpolationRendering then
-                isElementRootToBeForceRendered = isElementRootToBeForceRendered or isTextHoverInterpolationRendering
+                isElementToBeForceRendered = isElementToBeForceRendered or isTextHoverInterpolationRendering
                 if elementReference.gui.hoverStatus == "forward" then
                     elementReference.gui.animAlphaPercent = imports.interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui.interpolationProgress, "InQuad")
                 else
@@ -220,8 +220,8 @@ function renderSelector(element, isPassiveMode, isFetchingInput, mouseReference)
             local selector_fontColor = (elementReference.gui.fontColor and imports.tocolor(elementReference.gui.fontColor[1], elementReference.gui.fontColor[2], elementReference.gui.fontColor[3], elementReference.gui.fontColor[4]*elementReference.gui.animAlphaPercent)) or imports.tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4]*elementReference.gui.animAlphaPercent)
             imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Selector"].text.text, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endY, selector_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "center", "center", true, false, selector_postGUI, false)
         end
-        imports.manageElementForceRender(element, isElementRootToBeForceRendered)
-        imports.renderElementChildren(element, isPassiveMode)
+        imports.manageElementForceRender(element, isElementToBeForceRendered)
+        imports.renderElementChildren(element, isActiveMode)
         imports.dxSetBlendMode("blend")
         if not elementParent then
             imports.dxSetRenderTarget()
@@ -229,9 +229,10 @@ function renderSelector(element, isPassiveMode, isFetchingInput, mouseReference)
             imports.dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
         end
     else
+        if not isActiveMode then return false end
         if elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startX and elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startY and elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startX and elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startY then
             local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
-            imports.renderElementChildren(element, isPassiveMode, true, mouseReference)
+            imports.renderElementChildren(element, isActiveMode, true, mouseReference)
             local isElementHovered = CLIENT_HOVERED_ELEMENT.element == element
             local isSelectorHovered = false
             local isArrowPreviousHovered, isArrowNextHovered = false, false

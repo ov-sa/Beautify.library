@@ -50,13 +50,13 @@ local elementType = "beautify_slider"
 --[[ Function: Renders Slider ]]--
 ----------------------------------
 
-function renderSlider(element, isPassiveMode, isFetchingInput, mouseReference)
+function renderSlider(element, isActiveMode, isFetchingInput, mouseReference)
 
     local elementReference = createdElements[element]
     if not isFetchingInput then
         local elementParent = imports.getUIParent(element)
         if not elementParent then imports.dxSetRenderTarget() end
-        local isElementRootToBeForceRendered = false
+        local isElementToBeForceRendered = false
         local isElementInterpolationToBeRefreshed = CLIENT_MTA_RESTORED
         local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)] and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
@@ -67,14 +67,14 @@ function renderSlider(element, isPassiveMode, isFetchingInput, mouseReference)
         if slider_type == "horizontal" then
             local isSlideInterpolationDone = imports.math.round(elementReference.gui.slideBar_Horizontal.currentPercent, 2) == imports.math.round(elementReference.gui.slideBar_Horizontal.finalPercent, 2)
             if not isSlideInterpolationDone then
-                isElementRootToBeForceRendered = true
+                isElementToBeForceRendered = true
                 elementReference.gui.slideBar_Horizontal.currentPercent = imports.interpolateBetween(elementReference.gui.slideBar_Horizontal.currentPercent, 0, 0, elementReference.gui.slideBar_Horizontal.finalPercent, 0, 0, 0.25, "InQuad")
             end
             isElementToBeUpdated = isElementToBeUpdated or (not isSlideInterpolationDone)
         elseif slider_type == "vertical" then
             local isSlideInterpolationDone = imports.math.round(elementReference.gui.slideBar_Vertical.currentPercent, 2) == imports.math.round(elementReference.gui.slideBar_Vertical.finalPercent, 2)
             if not isSlideInterpolationDone then
-                isElementRootToBeForceRendered = true
+                isElementToBeForceRendered = true
                 elementReference.gui.slideBar_Vertical.currentPercent = imports.interpolateBetween(elementReference.gui.slideBar_Vertical.currentPercent, 0, 0, elementReference.gui.slideBar_Vertical.finalPercent, 0, 0, 0.25, "InQuad")
             end
             isElementToBeUpdated = isElementToBeUpdated or (not isSlideInterpolationDone)
@@ -176,7 +176,7 @@ function renderSlider(element, isPassiveMode, isFetchingInput, mouseReference)
             elementReference.gui.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
             local isTextHoverInterpolationRendering = elementReference.gui.interpolationProgress < 1
             if isElementInterpolationToBeRefreshed or isTextHoverInterpolationRendering then
-                isElementRootToBeForceRendered = isElementRootToBeForceRendered or isTextHoverInterpolationRendering
+                isElementToBeForceRendered = isElementToBeForceRendered or isTextHoverInterpolationRendering
                 if elementReference.gui.hoverStatus == "forward" then
                     elementReference.gui.animAlphaPercent = imports.interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui.interpolationProgress, "InQuad")
                 else
@@ -206,8 +206,8 @@ function renderSlider(element, isPassiveMode, isFetchingInput, mouseReference)
                 end
             end
             imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.height, elementReference.gui["__UI_CACHE__"]["Thumb"].color, slider_postGUI)
-            imports.manageElementForceRender(element, isElementRootToBeForceRendered)
-            imports.renderElementChildren(element, isPassiveMode)
+            imports.manageElementForceRender(element, isElementToBeForceRendered)
+            imports.renderElementChildren(element, isActiveMode)
             imports.dxSetBlendMode("blend")
             if not elementParent then
                 imports.dxSetRenderTarget()
@@ -216,9 +216,10 @@ function renderSlider(element, isPassiveMode, isFetchingInput, mouseReference)
             end
         end
     else
+        if not isActiveMode then return false end
         if elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX and elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY then
             local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
-            imports.renderElementChildren(element, isPassiveMode, true, mouseReference)
+            imports.renderElementChildren(element, isActiveMode, true, mouseReference)
             local isElementHovered = CLIENT_HOVERED_ELEMENT.element == element
             local isSliderHovered, isSliderThumbHovered = false, false
             if isElementHovered then

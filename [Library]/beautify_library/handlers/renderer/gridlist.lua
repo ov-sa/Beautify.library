@@ -51,13 +51,13 @@ local elementType = "beautify_gridlist"
 --[[ Function: Renders Grid List ]]--
 -------------------------------------
 
-function renderGridlist(element, isPassiveMode, isFetchingInput, mouseReference)
+function renderGridlist(element, isActiveMode, isFetchingInput, mouseReference)
 
     local elementReference = createdElements[element]
     if not isFetchingInput then
         local elementParent = imports.getUIParent(element)
         if not elementParent then imports.dxSetRenderTarget() end
-        local isElementRootToBeForceRendered = false
+        local isElementToBeForceRendered = false
         local isElementInterpolationToBeRefreshed = CLIENT_MTA_RESTORED
         local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)] and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
@@ -162,7 +162,7 @@ function renderGridlist(element, isPassiveMode, isFetchingInput, mouseReference)
                     j.interpolationProgress = imports.getInterpolationProgress(j.hoverAnimTickCounter, availableElements[elementType].rowBar.hoverAnimDuration)
                     local isRowHoverInterpolationRendering = j.interpolationProgress < 1
                     if isElementInterpolationToBeRefreshed or isRowHoverInterpolationRendering then
-                        isElementRootToBeForceRendered = isRowHoverInterpolationRendering
+                        isElementToBeForceRendered = isRowHoverInterpolationRendering
                         if j.hoverStatus == "forward" then
                             j.animAlphaPercent = imports.interpolateBetween(j.animAlphaPercent, 0, 0, 1, 0, 0, j.interpolationProgress, "OutBounce")
                         else
@@ -199,11 +199,11 @@ function renderGridlist(element, isPassiveMode, isFetchingInput, mouseReference)
                         elementReference.gui.scrollBar_Vertical
                     }
                     local _, isComponentRootToBeForceRendered = renderScrollbar(element, isElementInterpolationToBeRefreshed, isElementToBeReloaded, isElementToBeUpdated, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][1], elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][2])
-                    isElementRootToBeForceRendered = isElementRootToBeForceRendered or isComponentRootToBeForceRendered
+                    isElementToBeForceRendered = isElementToBeForceRendered or isComponentRootToBeForceRendered
                 end
             end
-            imports.manageElementForceRender(element, isElementRootToBeForceRendered)
-            imports.renderElementChildren(element, isPassiveMode)
+            imports.manageElementForceRender(element, isElementToBeForceRendered)
+            imports.renderElementChildren(element, isActiveMode)
             imports.dxSetBlendMode("blend")
             if not elementParent then
                 imports.dxSetRenderTarget()
@@ -222,8 +222,9 @@ function renderGridlist(element, isPassiveMode, isFetchingInput, mouseReference)
             imports.dxDrawText(j.name, elementReference.gui["__UI_CACHE__"]["Gridlist"].startX + elementReference.gui["__UI_CACHE__"]["Grid Columns"].offsets[i].startX + elementReference.gui["__UI_CACHE__"]["Grid Columns"].padding, elementReference.gui["__UI_CACHE__"]["Gridlist"].startY + elementReference.gui["__UI_CACHE__"]["Grid Columns"].padding + (elementTemplate.columnBar.fontPaddingY or 0), elementReference.gui["__UI_CACHE__"]["Gridlist"].startX + elementReference.gui["__UI_CACHE__"]["Grid Columns"].offsets[i].endX - elementReference.gui["__UI_CACHE__"]["Grid Columns"].padding, elementReference.gui["__UI_CACHE__"]["Gridlist"].startY + elementReference.gui["__UI_CACHE__"]["Grid Columns"].height, elementReference.gui["__UI_CACHE__"]["Grid Columns"].fontColor, elementTemplate.columnBar.fontScale or 1, elementTemplate.columnBar.font, "center", "center", true, false, gridlist_postGUI, false)
         end
     else
+        if not isActiveMode then return false end
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
-        imports.renderElementChildren(element, isPassiveMode, true, mouseReference)
+        imports.renderElementChildren(element, isActiveMode, true, mouseReference)
         local gridlist_row_count = #elementReference.gridData.rows
         if gridlist_row_count > 0 then
             local isElementHovered = CLIENT_HOVERED_ELEMENT.element == element

@@ -17,12 +17,40 @@ availableTemplates["beautify_button"] = {
 
     ["dark-silver-theme"] = {},
 
-    ["dark-blue-theme"] = {},
+    ["dark-blue-theme"] = {
+        ["default"] = {
+            color = {5, 5, 5, 255},
+            fontColor = {200, 200, 200, 255},
+            hoverColor = {175, 175, 175, 255},
+            hoverFontColor = {0, 0, 0, 255}
+        }
+    },
 
-    ["dark-red-theme"] = {},
+    ["dark-red-theme"] = {
+        ["default"] = {
+            color = {5, 5, 5, 255},
+            fontColor = {200, 200, 200, 255},
+            hoverColor = {175, 175, 175, 255},
+            hoverFontColor = {0, 0, 0, 255}
+        }
+    },
 
-    ["dark-green-theme"] = {},
+    ["dark-green-theme"] = {
+        ["default"] = {
+            color = {5, 5, 5, 255},
+            fontColor = {200, 200, 200, 255},
+            hoverColor = {175, 175, 175, 255},
+            hoverFontColor = {0, 0, 0, 255}
+        }
+    },
 
-    ["dark-yellow-theme"] = {}
+    ["dark-yellow-theme"] = {
+        ["default"] = {
+            color = {5, 5, 5, 255},
+            fontColor = {200, 200, 200, 255},
+            hoverColor = {175, 175, 175, 255},
+            hoverFontColor = {0, 0, 0, 255}
+        }
+    }
 
 }
