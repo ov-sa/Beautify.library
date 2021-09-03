@@ -58,7 +58,7 @@ CLIENT_ELEMENT_FORCE_RENDERED = {
     }
 }
 local clickedMouseKey = false
-local resetHoverChecker = true
+local resetHoverChecker = false
 
 
 ---------------------------------------------------------
@@ -139,9 +139,6 @@ local function renderElements()
             local elementType = createdElements[element].elementType
             availableElements[elementType].renderFunction(element, false)
             imports.table.insert(validatedRenderingPriority, {element = element, type = elementType})
-            if resetHoverChecker then
-                CLIENT_HOVERED_ELEMENT.traceMarks[element] = nil
-            end
         end
     end
     for i = #validatedRenderingPriority, 1, -1 do
@@ -219,22 +216,16 @@ function renderElementChildren(element, isPassiveMode, isFetchingInput, mouseRef
         for i = elementChildrenCount, 1, -1 do
             local childElement = elementReference.renderIndexReference[(elementReference.renderIndex)].children[i].element
             if imports.isUIValid(childElement) and imports.isUIVisible(childElement) then
-                --local isChildActive = CLIENT_HOVERED_ELEMENT.traceMarks[childElement] or isChildrenToBeForceRendered or (CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] and CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[childElement])
-                --if isChildActive then
-                    local childReference = createdElements[childElement]
-                    local childElementType = createdElements[childElement].elementType
-                    if imports.isMouseOnPosition(propagatedMouseReference.x + childReference.gui.x, propagatedMouseReference.y + childReference.gui.y, childReference.gui.width, childReference.gui.height, childReference.gui.height) then
-                        CLIENT_HOVERED_ELEMENT.element = childElement
-                        CLIENT_HOVERED_ELEMENT.traceMarks[childElement] = true
-                    else
-                        if resetHoverChecker then
-                            CLIENT_HOVERED_ELEMENT.traceMarks[childElement] = nil
-                        end
-                    end
+                local childReference = createdElements[childElement]
+                local childElementType = createdElements[childElement].elementType
+                if imports.isMouseOnPosition(propagatedMouseReference.x + childReference.gui.x, propagatedMouseReference.y + childReference.gui.y, childReference.gui.width, childReference.gui.height, childReference.gui.height) then
+                    CLIENT_HOVERED_ELEMENT.element = childElement
+                    CLIENT_HOVERED_ELEMENT.traceMarks[childElement] = true
+                end
+                local isChildActive = CLIENT_HOVERED_ELEMENT.traceMarks[childElement] or isChildrenToBeForceRendered or (CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] and CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[childElement])
+                if isChildActive then
                     availableElements[childElementType].renderFunction(childElement, false, true, propagatedMouseReference)
-                --else
-                    --outputChatBox("SKIPPED PASSIVE I/P")
-                --end
+                end
             end
         end
     end
@@ -301,6 +292,9 @@ imports.addEventHandler("onClientRender", root, function()
     end
     CLIENT_MTA_RESTORED = false
     resetHoverChecker = not resetHoverChecker
+    if resetHoverChecker then
+        CLIENT_HOVERED_ELEMENT.traceMarks = {}
+    end
     CLIENT_HOVERED_ELEMENT.elementRoot = false
     CLIENT_HOVERED_ELEMENT.element = false
     imports.resetKeyClickCache()
