@@ -49,6 +49,7 @@ local imports = {
 
 CLIENT_ELEMENT_FORCE_RENDERED = {
     __cache = {
+        preRenderedElements = {},
         nextTickRemoval = {}
     }
 }
@@ -123,13 +124,12 @@ end
 --[[ Functions: Renders Elements/Element's Children ]]--
 --------------------------------------------------------
 
---TODO: NEEDS TO BE BETTER CODED
 local function renderElements()
 
     local renderingPriorityCount = #createdRenderingPriority
     if renderingPriorityCount <= 0 then return false end
 
-    local preRenderedElements = {}
+    CLIENT_ELEMENT_FORCE_RENDERED.__cache.preRenderedElements = {}
     local validatedRenderingPriority = {}
     for i = 1, renderingPriorityCount, 1 do
         local element = createdRenderingPriority[i].element
@@ -141,20 +141,20 @@ local function renderElements()
     end
     for i = #validatedRenderingPriority, 1, -1 do
         local element = validatedRenderingPriority[i].element
-        local elementType = validatedRenderingPriority[i].type
         if not CLIENT_HOVERED_ELEMENT.element and not imports.isUIDisabled(element) then
             local elementReference = createdElements[element]
             if imports.isMouseOnPosition(elementReference.gui.x, elementReference.gui.y, elementReference.gui.width, elementReference.gui.height) then
+                local elementType = validatedRenderingPriority[i].type
                 CLIENT_HOVERED_ELEMENT.elementRoot = element
                 CLIENT_HOVERED_ELEMENT.element = element
                 availableElements[elementType].renderFunction(element, true, {x = 0, y = 0, element = element})
-                preRenderedElements[element] = true
+                CLIENT_ELEMENT_FORCE_RENDERED.__cache.preRenderedElements[element] = true
                 break
             end
         end
     end
     for element, _ in imports.pairs(CLIENT_ELEMENT_FORCE_RENDERED) do
-        if (element ~= "__cache") and not preRenderedElements[element] then
+        if (element ~= "__cache") and not CLIENT_ELEMENT_FORCE_RENDERED.__cache.preRenderedElements[element] then
             if not CLIENT_ELEMENT_FORCE_RENDERED.__cache.nextTickRemoval[element] and imports.isUIValid(element) and imports.isUIVisible(element) then
                 local elementType = createdElements[element].elementType
                 availableElements[elementType].renderFunction(element, true, {x = 0, y = 0, element = element})
@@ -174,20 +174,12 @@ function renderElementChildren(element, isFetchingInput, mouseReference)
     local elementChildrenCount = #elementReference.renderIndexReference[(elementReference.renderIndex)].children
     if elementChildrenCount <= 0 then return false end
 
-    local isChildrenToBeRendered = CLIENT_MTA_RESTORED or (not CLIENT_RESOURCE_TEMPLATE_RELOAD.__cache.loaded and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)])
-    if not isChildrenToBeRendered then
-        local elementRoot = elementReference.elementRoot
-        local isChildrenToBeForceRendered = (elementRoot and CLIENT_ELEMENT_FORCE_RENDERED[elementRoot]) or CLIENT_ELEMENT_FORCE_RENDERED[element]
-        if not isChildrenToBeForceRendered then
-            if not elementRoot then
-                if CLIENT_HOVERED_ELEMENT.elementRoot ~= element then
-                    return false
-                end
-            else
-                if CLIENT_HOVERED_ELEMENT.elementRoot ~= elementRoot then
-                    return false
-                end
-            end
+    local elementRoot = elementReference.elementRoot or element
+    local isElementRootHovered = CLIENT_HOVERED_ELEMENT.elementRoot == elementRoot
+    local isChildrenToBeForceRendered = CLIENT_MTA_RESTORED or (not CLIENT_RESOURCE_TEMPLATE_RELOAD.__cache.loaded and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)])
+    if not isChildrenToBeForceRendered then
+        if not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] and not isElementRootHovered then
+            return false
         end
     end
 
@@ -220,15 +212,15 @@ function renderElementChildren(element, isFetchingInput, mouseReference)
         propagatedMouseReference.y = propagatedMouseReference.y + elementReference.gui.y + ((elementReference.gui.contentSection and elementReference.gui.contentSection.startY) or 0)
         for i = elementChildrenCount, 1, -1 do
             local childElement = elementReference.renderIndexReference[(elementReference.renderIndex)].children[i].element
-            if imports.isUIValid(childElement) and imports.isUIVisible(childElement) then
-                local childElementType = createdElements[childElement].elementType
-                if (CLIENT_HOVERED_ELEMENT.element == element) and not imports.isUIDisabled(childElement) then
+            if isElementRootHovered or (CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] and CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[childElement]) then
+                if imports.isUIValid(childElement) and imports.isUIVisible(childElement) then
+                    local childElementType = createdElements[childElement].elementType
                     local childReference = createdElements[childElement]
                     if imports.isMouseOnPosition(propagatedMouseReference.x + childReference.gui.x, propagatedMouseReference.y + childReference.gui.y, childReference.gui.width, childReference.gui.height, childReference.gui.height) then
                         CLIENT_HOVERED_ELEMENT.element = childElement
                     end
+                    availableElements[childElementType].renderFunction(childElement, true, propagatedMouseReference)
                 end
-                availableElements[childElementType].renderFunction(childElement, true, propagatedMouseReference)
             end
         end
     end
