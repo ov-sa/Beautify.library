@@ -55,9 +55,10 @@ local elementType = "beautify_deck"
 function renderDeck(element, isFetchingInput, mouseReference)
 
     local elementReference = createdElements[element]
+    local elementParent = imports.getUIParent(element)
+    if not elementParent then return false end
+
     if not isFetchingInput then
-        local elementParent = imports.getUIParent(element)
-        if not elementParent then imports.dxSetRenderTarget() end
         local isElementRootToBeForceRendered = false
         local isElementInterpolationToBeRefreshed = CLIENT_MTA_RESTORED
         local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)] and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)][elementType]))
@@ -177,11 +178,7 @@ function renderDeck(element, isFetchingInput, mouseReference)
                 imports.dxDrawRectangle(0, deck_titleBar_height, deck_width, deck_height - deck_titleBar_height, deck_color, false)
                 imports.dxDrawRectangle(0, deck_titleBar_height, deck_width, elementReference.gui["__UI_CACHE__"]["Deck"].divider.size, elementReference.gui["__UI_CACHE__"]["Deck"].divider.color, false)
                 imports.dxSetBlendMode("blend")
-                if not elementParent then
-                    imports.dxSetRenderTarget()
-                else
-                    imports.dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
-                end
+                imports.dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
                 local renderPixels = imports.dxGetTexturePixels(elementReference.gui["__UI_CACHE__"]["Deck"].renderTarget)
                 if renderPixels then
                     elementReference.gui["__UI_CACHE__"]["Deck"].renderTexture = imports.dxCreateTexture(renderPixels, "argb", false, "clamp")
@@ -205,11 +202,7 @@ function renderDeck(element, isFetchingInput, mouseReference)
         imports.manageElementForceRender(element, isElementRootToBeForceRendered)
         imports.renderElementChildren(element)
         imports.dxSetBlendMode("blend")
-        if not elementParent then
-            imports.dxSetRenderTarget()
-        else
-            imports.dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
-        end
+        imports.dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
         local deck_renderTarget = elementReference.gui.renderTarget
         if deck_renderTarget and imports.isElement(deck_renderTarget) then
             imports.dxDrawImageSection(elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.startX, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.startY, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.currentHeight, 0, 0, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.currentHeight, deck_renderTarget, 0, 0, 0, elementReference.gui["__UI_CACHE__"]["Deck"].view.color, deck_postGUI)

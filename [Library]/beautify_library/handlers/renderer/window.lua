@@ -55,8 +55,6 @@ function renderWindow(element, isFetchingInput, mouseReference)
 
     local elementReference = createdElements[element]
     if not isFetchingInput then
-        local elementParent = imports.getUIParent(element)
-        if not elementParent then imports.dxSetRenderTarget() end
         local isElementRootToBeForceRendered = false
         local isElementInterpolationToBeRefreshed = CLIENT_MTA_RESTORED
         local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)] and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)][elementType]))
@@ -165,11 +163,7 @@ function renderWindow(element, isFetchingInput, mouseReference)
                 end
                 imports.dxDrawRectangle(0, window_borderSize, window_width, elementReference.gui["__UI_CACHE__"]["Window"].divider.size, elementReference.gui["__UI_CACHE__"]["Window"].divider.color, false)    
                 imports.dxSetBlendMode("blend")
-                if not elementParent then
-                    imports.dxSetRenderTarget()
-                else
-                    imports.dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
-                end
+                imports.dxSetRenderTarget()
                 local renderPixels = imports.dxGetTexturePixels(elementReference.gui["__UI_CACHE__"]["Window"].renderTarget)
                 if renderPixels then
                     elementReference.gui["__UI_CACHE__"]["Window"].renderTexture = imports.dxCreateTexture(renderPixels, "argb", false, "clamp")
@@ -214,11 +208,7 @@ function renderWindow(element, isFetchingInput, mouseReference)
         imports.manageElementForceRender(element, isElementRootToBeForceRendered)
         imports.renderElementChildren(element)
         imports.dxSetBlendMode("blend")
-        if not elementParent then
-            imports.dxSetRenderTarget()
-        else
-            imports.dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
-        end
+        imports.dxSetRenderTarget()
         local window_renderTarget = elementReference.gui.renderTarget
         if window_renderTarget and imports.isElement(window_renderTarget) then
             imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startX, elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startY, elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.height, window_renderTarget, 0, 0, 0, -1, window_postGUI)
