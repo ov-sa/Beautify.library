@@ -109,7 +109,7 @@ function manageElementForceRender(element, renderState)
             if CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[element] then
                 CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[element] = nil
                 CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalChildren = CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalChildren - 1
-                if CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalChildren <= 1 then
+                if CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalChildren <= 0 then
                     destroyElementForceRender(elementRoot)
                 end
                 return true
@@ -148,6 +148,7 @@ local function renderElements()
                 local elementType = validatedRenderingPriority[i].type
                 CLIENT_HOVERED_ELEMENT.elementRoot = element
                 CLIENT_HOVERED_ELEMENT.element = element
+                CLIENT_HOVERED_ELEMENT.traceMarks[element] = true
                 availableElements[elementType].renderFunction(element, false, true, {x = 0, y = 0, element = element})
                 CLIENT_ELEMENT_FORCE_RENDERED.__cache.preRenderedElements[element] = true
                 break
@@ -174,55 +175,58 @@ function renderElementChildren(element, isPassiveMode, isFetchingInput, mouseRef
     local elementChildrenCount = #elementReference.renderIndexReference[(elementReference.renderIndex)].children
     if elementChildrenCount <= 0 then return false end
     local elementRoot = elementReference.elementRoot or element
-    local isElementRootHovered = CLIENT_HOVERED_ELEMENT.elementRoot == elementRoot
+    local isElementHovered = CLIENT_HOVERED_ELEMENT.prevTraceMarks[element]
     local isChildrenToBeForceRendered = CLIENT_MTA_RESTORED or (not CLIENT_RESOURCE_TEMPLATE_RELOAD.__cache.loaded and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)])
-    if not isChildrenToBeForceRendered and not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] and not isElementRootHovered then
+    if not isElementHovered and not isChildrenToBeForceRendered and not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] then
         return false
+    else
+        if isElementHovered or isChildrenToBeForceRendered or ((element ~= elementRoot) and CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[element]) then
+            isPassiveMode = false
+        end
     end
+    if isPassiveMode then return false end
 
     if not isFetchingInput then
         if not elementReference.gui.renderTarget or not imports.isElement(elementReference.gui.renderTarget) then return false end
-        --TODO: JUST THIS LINE NEEDS MODIFICATION MAINLY AND RENDERER IS DONE!!!
-        --isPassiveMode = true
-        --if isChildrenToBeForceRendered or not elementReference.elementRoot or isElementRootHovered then
-        if isChildrenToBeForceRendered or not isPassiveMode or (CLIENT_HOVERED_ELEMENT.element == element) then
-            imports.dxSetRenderTarget(elementReference.gui.renderTarget, not isPassiveMode)
-            imports.dxSetBlendMode("modulate_add")
-            for i = 1, elementChildrenCount, 1 do
-                local childElement = elementReference.renderIndexReference[(elementReference.renderIndex)].children[i].element
-                if imports.isUIValid(childElement) and imports.isUIVisible(childElement) then
-                    local childElementType = createdElements[childElement].elementType
-                    availableElements[childElementType].renderFunction(childElement, isPassiveMode)
-                    imports.dxSetRenderTarget(elementReference.gui.renderTarget)
-                    imports.dxSetBlendMode("modulate_add")
-                end
-            end            
+        imports.dxSetRenderTarget(elementReference.gui.renderTarget, true)
+        imports.dxSetBlendMode("modulate_add")
+        for i = 1, elementChildrenCount, 1 do
+            local childElement = elementReference.renderIndexReference[(elementReference.renderIndex)].children[i].element
+            if imports.isUIValid(childElement) and imports.isUIVisible(childElement) then
+                local childElementType = createdElements[childElement].elementType
+                local isChildActive = CLIENT_HOVERED_ELEMENT.prevTraceMarks[childElement] or isChildrenToBeForceRendered or (CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] and CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[childElement])
+                availableElements[childElementType].renderFunction(childElement, not isChildActive)
+                imports.dxSetRenderTarget(elementReference.gui.renderTarget)
+                imports.dxSetBlendMode("modulate_add")
+            end
         end
     else
-        if isChildrenToBeForceRendered or not isPassiveMode or (CLIENT_HOVERED_ELEMENT.element == element) then --TODO: BETTER SORTING!!!
-            if not mouseReference then return false end
+        if not mouseReference then return false end
 
-            local propagatedMouseReference = false
-            if mouseReference.element == element then
-                propagatedMouseReference = mouseReference
-            else
-                propagatedMouseReference = imports.cloneTableDatas(mouseReference)
-                propagatedMouseReference.element = element
-            end
-            propagatedMouseReference.x = propagatedMouseReference.x + elementReference.gui.x + ((elementReference.gui.contentSection and elementReference.gui.contentSection.startX) or 0)
-            propagatedMouseReference.y = propagatedMouseReference.y + elementReference.gui.y + ((elementReference.gui.contentSection and elementReference.gui.contentSection.startY) or 0)
-            for i = elementChildrenCount, 1, -1 do
-                local childElement = elementReference.renderIndexReference[(elementReference.renderIndex)].children[i].element
-                if isChildrenToBeForceRendered or isElementRootHovered or (CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] and CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[childElement]) then
-                    if imports.isUIValid(childElement) and imports.isUIVisible(childElement) then
-                        local childElementType = createdElements[childElement].elementType
-                        local childReference = createdElements[childElement]
-                        if imports.isMouseOnPosition(propagatedMouseReference.x + childReference.gui.x, propagatedMouseReference.y + childReference.gui.y, childReference.gui.width, childReference.gui.height, childReference.gui.height) then
-                            CLIENT_HOVERED_ELEMENT.element = childElement
-                        end
-                        availableElements[childElementType].renderFunction(childElement, false, true, propagatedMouseReference)
+        local propagatedMouseReference = false
+        if mouseReference.element == element then
+            propagatedMouseReference = mouseReference
+        else
+            propagatedMouseReference = imports.cloneTableDatas(mouseReference)
+            propagatedMouseReference.element = element
+        end
+        propagatedMouseReference.x = propagatedMouseReference.x + elementReference.gui.x + ((elementReference.gui.contentSection and elementReference.gui.contentSection.startX) or 0)
+        propagatedMouseReference.y = propagatedMouseReference.y + elementReference.gui.y + ((elementReference.gui.contentSection and elementReference.gui.contentSection.startY) or 0)
+        for i = elementChildrenCount, 1, -1 do
+            local childElement = elementReference.renderIndexReference[(elementReference.renderIndex)].children[i].element
+            if imports.isUIValid(childElement) and imports.isUIVisible(childElement) then
+                --local isChildActive = CLIENT_HOVERED_ELEMENT.traceMarks[childElement] or isChildrenToBeForceRendered or (CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] and CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[childElement])
+                --if isChildActive then
+                    local childReference = createdElements[childElement]
+                    local childElementType = createdElements[childElement].elementType
+                    if imports.isMouseOnPosition(propagatedMouseReference.x + childReference.gui.x, propagatedMouseReference.y + childReference.gui.y, childReference.gui.width, childReference.gui.height, childReference.gui.height) then
+                        CLIENT_HOVERED_ELEMENT.element = childElement
+                        CLIENT_HOVERED_ELEMENT.traceMarks[childElement] = true
                     end
-                end
+                    availableElements[childElementType].renderFunction(childElement, false, true, propagatedMouseReference)
+                --else
+                    --outputChatBox("SKIPPED PASSIVE I/P")
+                --end
             end
         end
     end
@@ -288,10 +292,15 @@ imports.addEventHandler("onClientRender", root, function()
         end
     end
     CLIENT_MTA_RESTORED = false
-    if not CLIENT_HOVERED_ELEMENT.element then
+    CLIENT_HOVERED_ELEMENT.prevTraceMarks = imports.cloneTableDatas(CLIENT_HOVERED_ELEMENT.traceMarks, false)
+    --CLIENT_HOVERED_ELEMENT.previous.elementRoot = CLIENT_HOVERED_ELEMENT.elementRoot
+    --CLIENT_HOVERED_ELEMENT.previous.element = CLIENT_HOVERED_ELEMENT.element
+    --if not CLIENT_HOVERED_ELEMENT.element then --TODO: IDK IF NEEDED?
         CLIENT_HOVERED_ELEMENT.elementRoot = false
-    end
+    --end
     CLIENT_HOVERED_ELEMENT.element = false
+    CLIENT_HOVERED_ELEMENT.traceMarks = {}
+    --CLIENT_HOVERED_ELEMENT.traceMarks = {}
     imports.resetKeyClickCache()
     imports.resetScrollCache()
 

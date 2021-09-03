@@ -20,7 +20,7 @@ local imports = {
     isCursorShowing = isCursorShowing,
     getCursorPosition = getCursorPosition,
     addEventHandler = addEventHandler,
-    getKeyState = getKeyState,
+    getKeyState = getKeyState
 }
 
 
@@ -37,7 +37,9 @@ CLIENT_MTA_MINIMIZED = false
 CLIENT_MTA_RESTORED = false
 CLIENT_HOVERED_ELEMENT = {
     elementRoot = false,
-    element = false
+    element = false,
+    prevTraceMarks = {},
+    traceMarks = {}
 }
 INPUT_CACHE = {
     prevKeyClickStates = {},
