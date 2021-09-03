@@ -209,7 +209,6 @@ function renderDeck(element, isActiveMode, isFetchingInput, mouseReference)
             imports.dxDrawImageSection(elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.startX, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.startY, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.currentHeight, 0, 0, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.currentHeight, deck_renderTarget, 0, 0, 0, elementReference.gui["__UI_CACHE__"]["Deck"].view.color, deck_postGUI)
         end
     else
-        if not isActiveMode then return false end
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
         imports.renderElementChildren(element, isActiveMode, true, mouseReference)
         local isElementHovered = CLIENT_HOVERED_ELEMENT.element == element

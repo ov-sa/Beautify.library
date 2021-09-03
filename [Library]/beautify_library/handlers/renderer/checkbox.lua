@@ -172,7 +172,6 @@ function renderCheckbox(element, isActiveMode, isFetchingInput, mouseReference)
             imports.dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
         end
     else
-        if not isActiveMode then return false end
         if elementReference.gui["__UI_CACHE__"]["Tick Box"].offsets.startX and elementReference.gui["__UI_CACHE__"]["Tick Box"].offsets.startY then
             local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
             imports.renderElementChildren(element, isActiveMode, true, mouseReference)

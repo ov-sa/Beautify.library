@@ -91,7 +91,6 @@ function renderDeckPane(element, isActiveMode, isFetchingInput, mouseReference)
             imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.startX, elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.startY, elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.height, elementReference.gui.renderTarget, 0, 0, 0, -1, deckpane_postGUI)
         end
     else
-        if not isActiveMode then return false end
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
         imports.renderElementChildren(element, isActiveMode, true, mouseReference)
         local isElementHovered = CLIENT_HOVERED_ELEMENT.element == element

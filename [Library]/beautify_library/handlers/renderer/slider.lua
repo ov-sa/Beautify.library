@@ -217,7 +217,6 @@ function renderSlider(element, isActiveMode, isFetchingInput, mouseReference)
             end
         end
     else
-        if not isActiveMode then return false end
         if elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX and elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startY then
             local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
             imports.renderElementChildren(element, isActiveMode, true, mouseReference)

@@ -95,7 +95,6 @@ function renderLabel(element, isActiveMode, isFetchingInput, mouseReference)
             end
         end
     else
-        if not isActiveMode then return false end
         if elementReference.gui["__UI_CACHE__"]["Label"].offsets.width and elementReference.gui["__UI_CACHE__"]["Label"].offsets.height then
             imports.renderElementChildren(element, isActiveMode, true, mouseReference)
         end

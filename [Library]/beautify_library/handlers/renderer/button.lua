@@ -180,7 +180,6 @@ function renderButton(element, isActiveMode, isFetchingInput, mouseReference)
             end
         end
     else
-        if not isActiveMode then return false end
         if elementReference.gui["__UI_CACHE__"]["Button"].offsets.width and elementReference.gui["__UI_CACHE__"]["Button"].offsets.height then
             local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
             imports.renderElementChildren(element, isActiveMode, true, mouseReference)

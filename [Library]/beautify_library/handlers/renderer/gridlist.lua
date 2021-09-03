@@ -223,7 +223,6 @@ function renderGridlist(element, isActiveMode, isFetchingInput, mouseReference)
             imports.dxDrawText(j.name, elementReference.gui["__UI_CACHE__"]["Gridlist"].startX + elementReference.gui["__UI_CACHE__"]["Grid Columns"].offsets[i].startX + elementReference.gui["__UI_CACHE__"]["Grid Columns"].padding, elementReference.gui["__UI_CACHE__"]["Gridlist"].startY + elementReference.gui["__UI_CACHE__"]["Grid Columns"].padding + (elementTemplate.columnBar.fontPaddingY or 0), elementReference.gui["__UI_CACHE__"]["Gridlist"].startX + elementReference.gui["__UI_CACHE__"]["Grid Columns"].offsets[i].endX - elementReference.gui["__UI_CACHE__"]["Grid Columns"].padding, elementReference.gui["__UI_CACHE__"]["Gridlist"].startY + elementReference.gui["__UI_CACHE__"]["Grid Columns"].height, elementReference.gui["__UI_CACHE__"]["Grid Columns"].fontColor, elementTemplate.columnBar.fontScale or 1, elementTemplate.columnBar.font, "center", "center", true, false, gridlist_postGUI, false)
         end
     else
-        if not isActiveMode then return false end
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
         imports.renderElementChildren(element, isActiveMode, true, mouseReference)
         local gridlist_row_count = #elementReference.gridData.rows
