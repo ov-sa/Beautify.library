@@ -209,7 +209,7 @@ local function destroyUIElement(element)
     imports.table.remove(createdElements[element].renderIndexReference, createdElements[element].renderIndex)
     createdNonParentElements[element] = nil
     if parentElement and createdElements[parentElement] then
-        createdElements[parentElement].renderIndexReference[(createdElements[parentElement].renderIndex)].children[element] = nil
+        --createdElements[parentElement].renderIndexReference[(createdElements[parentElement].renderIndex)].children[element] = nil
         createdElements[parentElement].children[element] = nil
     end
     createdElements[element] = nil
@@ -230,14 +230,14 @@ imports.addEventHandler("onClientResourceStart", root, function()
 end)
 
 local isLibraryResourceStopping = false
-imports.addEventHandler("onClientResourceStop", root, function()
+imports.addEventHandler("onClientResourceStop", root, function(stoppedResource)
 
     if source == resource then
         isLibraryResourceStopping = true
         imports.collectgarbage()
     else
-        __clearResourceUIElements(source)
-        clearResourceUITemplates(source)
+        __clearResourceUIElements(stoppedResource)
+        clearResourceUITemplates(stoppedResource)
     end
 
 end)
