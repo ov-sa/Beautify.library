@@ -193,9 +193,9 @@ local function destroyUIElement(element)
 
     if not element or not imports.isElement(element) or not createdElements[element] then return false end
 
-    imports.destroyElementForceRender(element)
     local parentElement = createdElements[element].parentElement
     createdElements[element].isValid = false
+    imports.destroyElementForceRender(element)
     for i, j in imports.pairs(createdElements[element].children) do
         imports.destroyElement(i)
     end
@@ -207,6 +207,14 @@ local function destroyUIElement(element)
         end
     end
     imports.table.remove(createdElements[element].renderIndexReference, createdElements[element].renderIndex)
+    local totalChildren = #createdElements[element].renderIndexReference
+    if totalChildren >= createdElements[element].renderIndex then
+        for i = createdElements[element].renderIndex, totalChildren, 1 do
+            createdElements[(createdElements[element].renderIndexReference[i].element)].renderIndex = createdElements[(createdElements[element].renderIndexReference[i].element)].renderIndex - 1
+            imports.manageElementForceRender(createdElements[element].renderIndexReference[i].element, true)
+            updateElement(createdElements[element].renderIndexReference[i].element)
+        end
+    end
     createdNonParentElements[element] = nil
     if parentElement and createdElements[parentElement] then
         --createdElements[parentElement].renderIndexReference[(createdElements[parentElement].renderIndex)].children[element] = nil
