@@ -120,6 +120,7 @@ function renderCheckbox(element, isActiveMode, isFetchingInput, mouseReference)
             elementReference.gui["__UI_CACHE__"].updateElement = nil
         end
 
+        local isCheckBoxSelected = elementReference.gui.selection
         if isActiveMode then
             if not elementReference.gui.tickBox.animAlphaPercent then
                 elementReference.gui.tickBox.animAlphaPercent = 0
@@ -127,7 +128,7 @@ function renderCheckbox(element, isActiveMode, isFetchingInput, mouseReference)
                 elementReference.gui.tickBox.hoverAnimTickCounter = CLIENT_CURRENT_TICK
             end
             elementReference.gui.tickBox.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.tickBox.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
-            local isTickBoxHoverInterpolationRendering = (elementReference.gui.tickBox.interpolationProgress < 1) or (elementReference.gui.tickBox.hoverStatus ~= "backward")
+            local isTickBoxHoverInterpolationRendering = (elementReference.gui.tickBox.interpolationProgress < 1) or (not isCheckBoxSelected and elementReference.gui.tickBox.hoverStatus ~= "backward")
             if isElementInterpolationToBeRefreshed or isTickBoxHoverInterpolationRendering then
                 isElementToBeForceRendered = isTickBoxHoverInterpolationRendering
                 if elementReference.gui.tickBox.hoverStatus == "forward" then
@@ -153,7 +154,7 @@ function renderCheckbox(element, isActiveMode, isFetchingInput, mouseReference)
                     elementReference.gui.hoverAnimTickCounter = CLIENT_CURRENT_TICK
                 end
                 elementReference.gui.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
-                local isTextHoverInterpolationRendering = (elementReference.gui.interpolationProgress < 1) or (elementReference.gui.hoverStatus ~= "backward")
+                local isTextHoverInterpolationRendering = (elementReference.gui.interpolationProgress < 1) or (not isCheckBoxSelected and elementReference.gui.hoverStatus ~= "backward")
                 if isElementInterpolationToBeRefreshed or isTextHoverInterpolationRendering then
                     isElementToBeForceRendered = isElementToBeForceRendered or isTextHoverInterpolationRendering
                     if elementReference.gui.hoverStatus == "forward" then
@@ -174,13 +175,13 @@ function renderCheckbox(element, isActiveMode, isFetchingInput, mouseReference)
             local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
             local isElementHovered = CLIENT_HOVERED_ELEMENT.element == element
             local isCheckBoxHovered, isTickBoxHovered = false, false
-            local isTickBoxSelected = elementReference.gui.selection
+            local isCheckBoxSelected = elementReference.gui.selection
             if isElementHovered then
                 if not elementReference.isDisabled then
                     isCheckBoxHovered = isElementHovered
                 end
             end
-            if isCheckBoxHovered or isTickBoxSelected then
+            if isCheckBoxHovered or isCheckBoxSelected then
                 if elementReference.gui.hoverStatus ~= "forward" then
                     elementReference.gui.hoverStatus = "forward"
                     elementReference.gui.hoverAnimTickCounter = CLIENT_CURRENT_TICK
@@ -192,9 +193,9 @@ function renderCheckbox(element, isActiveMode, isFetchingInput, mouseReference)
                     elementReference.gui.hoverAnimTickCounter = CLIENT_CURRENT_TICK
                 end
             end
-            if isTickBoxHovered or isTickBoxSelected then
+            if isTickBoxHovered or isCheckBoxSelected then
                 if isTickBoxHovered and imports.isKeyClicked("mouse1") then
-                    imports.setCheckboxSelection(element, not isTickBoxSelected)
+                    imports.setCheckboxSelection(element, not isCheckBoxSelected)
                 end
                 if elementReference.gui.tickBox.hoverStatus ~= "forward" then
                     elementReference.gui.tickBox.hoverStatus = "forward"
