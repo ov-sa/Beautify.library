@@ -20,7 +20,6 @@ local imports = {
     manageElementForceRender = manageElementForceRender,
     unpackColor = unpackColor,
     dxSetRenderTarget = dxSetRenderTarget,
-    dxSetBlendMode = dxSetBlendMode,
     dxDrawText = dxDrawText
 }
 

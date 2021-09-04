@@ -8,7 +8,7 @@
      Desc: Checkbox's Renderer ]]--
 ----------------------------------------------------------------
 
---TODO: INTEGRATE
+
 -----------------
 --[[ Imports ]]--
 -----------------
@@ -20,14 +20,12 @@ local imports = {
     getUIParent = getUIParent,
     __getUITemplate = __getUITemplate,
     manageElementForceRender = manageElementForceRender,
-    renderElementChildren = renderElementChildren,
     setCheckboxSelection = setCheckboxSelection,
     unpackColor = unpackColor,
     isMouseOnPosition = isMouseOnPosition,
     getInterpolationProgress = getInterpolationProgress,
     interpolateBetween = interpolateBetween,
     dxSetRenderTarget = dxSetRenderTarget,
-    dxSetBlendMode = dxSetBlendMode,
     dxDrawRectangle = dxDrawRectangle,
     dxDrawText = dxDrawText,
     math = {
@@ -53,7 +51,7 @@ function renderCheckbox(element, isActiveMode, isFetchingInput, mouseReference)
     if not isFetchingInput then
         local elementParent = imports.getUIParent(element)
         if not elementParent then imports.dxSetRenderTarget() end
-        local isElementToBeForceRendered = false
+        local isElementToBeRendered, isElementToBeForceRendered = true, false
         local isElementInterpolationToBeRefreshed = CLIENT_MTA_RESTORED
         local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)] and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
@@ -61,7 +59,8 @@ function renderCheckbox(element, isActiveMode, isFetchingInput, mouseReference)
         local checkbox_type = elementReference.gui.type
         local checkbox_postGUI = elementReference.gui.postGUI
 
-        if isElementToBeUpdated then
+        if not isElementToBeRendered then return false end
+        if (isActiveMode or isElementToBeReloaded) and isElementToBeUpdated then
             if not elementReference.gui["__UI_CACHE__"]["Checkbox"] then
                 elementReference.gui["__UI_CACHE__"]["Checkbox"] = {
                     text = {
@@ -121,19 +120,21 @@ function renderCheckbox(element, isActiveMode, isFetchingInput, mouseReference)
             elementReference.gui["__UI_CACHE__"].updateElement = nil
         end
 
-        if not elementReference.gui.tickBox.animAlphaPercent then
-            elementReference.gui.tickBox.animAlphaPercent = 0
-            elementReference.gui.tickBox.hoverStatus = "backward"
-            elementReference.gui.tickBox.hoverAnimTickCounter = CLIENT_CURRENT_TICK
-        end
-        elementReference.gui.tickBox.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.tickBox.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
-        local isTickBoxHoverInterpolationRendering = elementReference.gui.tickBox.interpolationProgress < 1
-        if isElementInterpolationToBeRefreshed or isTickBoxHoverInterpolationRendering then
-            isElementToBeForceRendered = isTickBoxHoverInterpolationRendering
-            if elementReference.gui.tickBox.hoverStatus == "forward" then
-                elementReference.gui.tickBox.animAlphaPercent = imports.interpolateBetween(elementReference.gui.tickBox.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui.tickBox.interpolationProgress, "InQuad")
-            else
-                elementReference.gui.tickBox.animAlphaPercent = imports.interpolateBetween(elementReference.gui.tickBox.animAlphaPercent, 0, 0, 0, 0, 0, elementReference.gui.tickBox.interpolationProgress, "InQuad")
+        if isActiveMode then
+            if not elementReference.gui.tickBox.animAlphaPercent then
+                elementReference.gui.tickBox.animAlphaPercent = 0
+                elementReference.gui.tickBox.hoverStatus = "backward"
+                elementReference.gui.tickBox.hoverAnimTickCounter = CLIENT_CURRENT_TICK
+            end
+            elementReference.gui.tickBox.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.tickBox.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
+            local isTickBoxHoverInterpolationRendering = (elementReference.gui.tickBox.interpolationProgress < 1) or (elementReference.gui.tickBox.hoverStatus ~= "backward")
+            if isElementInterpolationToBeRefreshed or isTickBoxHoverInterpolationRendering then
+                isElementToBeForceRendered = isTickBoxHoverInterpolationRendering
+                if elementReference.gui.tickBox.hoverStatus == "forward" then
+                    elementReference.gui.tickBox.animAlphaPercent = imports.interpolateBetween(elementReference.gui.tickBox.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui.tickBox.interpolationProgress, "InQuad")
+                else
+                    elementReference.gui.tickBox.animAlphaPercent = imports.interpolateBetween(elementReference.gui.tickBox.animAlphaPercent, 0, 0, 0, 0, 0, elementReference.gui.tickBox.interpolationProgress, "InQuad")
+                end
             end
         end
         if elementReference.gui.tickBox.animAlphaPercent < 1 then
@@ -145,36 +146,32 @@ function renderCheckbox(element, isActiveMode, isFetchingInput, mouseReference)
             imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.height, elementReference.gui["__UI_CACHE__"]["Tick Box"].iconColor, checkbox_postGUI)
         end
         if elementReference.gui["__UI_CACHE__"]["Checkbox"].text.isToBeRendered then
-            if not elementReference.gui.animAlphaPercent then
-                elementReference.gui.animAlphaPercent = 0.8
-                elementReference.gui.hoverStatus = "backward"
-                elementReference.gui.hoverAnimTickCounter = CLIENT_CURRENT_TICK
-            end
-            elementReference.gui.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
-            local isTextHoverInterpolationRendering = elementReference.gui.interpolationProgress < 1
-            if isElementInterpolationToBeRefreshed or isTextHoverInterpolationRendering then
-                isElementToBeForceRendered = isElementToBeForceRendered or isTextHoverInterpolationRendering
-                if elementReference.gui.hoverStatus == "forward" then
-                    elementReference.gui.animAlphaPercent = imports.interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui.interpolationProgress, "InQuad")
-                else
-                    elementReference.gui.animAlphaPercent = imports.interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 0.8, 0, 0, elementReference.gui.interpolationProgress, "InQuad")
+            if isActiveMode then
+                if not elementReference.gui.animAlphaPercent then
+                    elementReference.gui.animAlphaPercent = 0.8
+                    elementReference.gui.hoverStatus = "backward"
+                    elementReference.gui.hoverAnimTickCounter = CLIENT_CURRENT_TICK
+                end
+                elementReference.gui.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
+                local isTextHoverInterpolationRendering = (elementReference.gui.interpolationProgress < 1) or (elementReference.gui.hoverStatus ~= "backward")
+                if isElementInterpolationToBeRefreshed or isTextHoverInterpolationRendering then
+                    isElementToBeForceRendered = isElementToBeForceRendered or isTextHoverInterpolationRendering
+                    if elementReference.gui.hoverStatus == "forward" then
+                        elementReference.gui.animAlphaPercent = imports.interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui.interpolationProgress, "InQuad")
+                    else
+                        elementReference.gui.animAlphaPercent = imports.interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 0.8, 0, 0, elementReference.gui.interpolationProgress, "InQuad")
+                    end
                 end
             end
             local checkbox_fontColor = (elementReference.gui.fontColor and imports.tocolor(elementReference.gui.fontColor[1], elementReference.gui.fontColor[2], elementReference.gui.fontColor[3], elementReference.gui.fontColor[4]*elementReference.gui.animAlphaPercent)) or imports.tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4]*elementReference.gui.animAlphaPercent)
             imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Checkbox"].text.text, elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.endY, checkbox_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "left", "center", true, false, checkbox_postGUI, false)
         end
-        imports.manageElementForceRender(element, isElementToBeForceRendered)
-        imports.renderElementChildren(element, isActiveMode)
-        imports.dxSetBlendMode("blend")
-        if not elementParent then
-            imports.dxSetRenderTarget()
-        else
-            imports.dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
+        if isActiveMode then
+            imports.manageElementForceRender(element, isElementToBeForceRendered)
         end
     else
         if elementReference.gui["__UI_CACHE__"]["Tick Box"].offsets.startX and elementReference.gui["__UI_CACHE__"]["Tick Box"].offsets.startY then
             local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
-            imports.renderElementChildren(element, isActiveMode, true, mouseReference)
             local isElementHovered = CLIENT_HOVERED_ELEMENT.element == element
             local isCheckBoxHovered, isTickBoxHovered = false, false
             local isTickBoxSelected = elementReference.gui.selection
