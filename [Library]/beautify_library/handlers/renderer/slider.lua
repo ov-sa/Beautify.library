@@ -176,9 +176,9 @@ function renderSlider(element, isActiveMode, isFetchingInput, mouseReference)
                     elementReference.gui.hoverAnimTickCounter = CLIENT_CURRENT_TICK
                 end
                 elementReference.gui.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
-                local isTextHoverInterpolationRendering = (elementReference.gui.interpolationProgress < 1) or (elementReference.gui.hoverStatus ~= "backward")
+                local isTextHoverInterpolationRendering = elementReference.gui.interpolationProgress < 1
+                isElementToBeForceRendered = isElementToBeForceRendered or isTextHoverInterpolationRendering or (elementReference.gui.hoverStatus ~= "backward")
                 if isElementInterpolationToBeRefreshed or isTextHoverInterpolationRendering then
-                    isElementToBeForceRendered = isElementToBeForceRendered or isTextHoverInterpolationRendering
                     if elementReference.gui.hoverStatus == "forward" then
                         elementReference.gui.animAlphaPercent = imports.interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui.interpolationProgress, "InQuad")
                     else
