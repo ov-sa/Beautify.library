@@ -47,8 +47,8 @@ function renderDeckPane(element, isActiveMode, isFetchingInput, mouseReference)
         local isElementInterpolationToBeRefreshed = CLIENT_MTA_RESTORED
         local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)] and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
-        local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
         local deckpane_postGUI = elementReference.gui.postGUI
+        local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
 
         if not isElementToBeRendered then return false end
         if (isActiveMode or isElementToBeReloaded) and isElementToBeUpdated then

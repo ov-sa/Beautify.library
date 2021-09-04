@@ -8,7 +8,6 @@
      Desc: Selector's Renderer ]]--
 ----------------------------------------------------------------
 
---TODO: INTEGRATE
 
 -----------------
 --[[ Imports ]]--
@@ -20,14 +19,12 @@ local imports = {
     getUIParent = getUIParent,
     __getUITemplate = __getUITemplate,
     manageElementForceRender = manageElementForceRender,
-    renderElementChildren = renderElementChildren,
     setSelectorSelection = setSelectorSelection,
     unpackColor = unpackColor,
     isMouseOnPosition = isMouseOnPosition,
     getInterpolationProgress = getInterpolationProgress,
     interpolateBetween = interpolateBetween,
     dxSetRenderTarget = dxSetRenderTarget,
-    dxSetBlendMode = dxSetBlendMode,
     dxDrawImage = dxDrawImage,
     dxDrawText = dxDrawText,
     math = {
@@ -53,15 +50,16 @@ function renderSelector(element, isActiveMode, isFetchingInput, mouseReference)
     if not isFetchingInput then
         local elementParent = imports.getUIParent(element)
         if not elementParent then imports.dxSetRenderTarget() end
-        local isElementToBeForceRendered = false
+        local isElementToBeRendered, isElementToBeForceRendered = true, false
         local isElementInterpolationToBeRefreshed = CLIENT_MTA_RESTORED
         local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)] and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
-        local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
         local selector_type = elementReference.gui.type
         local selector_postGUI = elementReference.gui.postGUI
+        local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
 
-        if isElementToBeUpdated then
+        if not isElementToBeRendered then return false end
+        if (isActiveMode or isElementToBeReloaded) and isElementToBeUpdated then
             if not elementReference.gui["__UI_CACHE__"]["Selector"] then
                 elementReference.gui["__UI_CACHE__"]["Selector"] = {
                     text = {
@@ -162,35 +160,36 @@ function renderSelector(element, isActiveMode, isFetchingInput, mouseReference)
             selector_arrow_prevIcon, selector_arrow_nextIcon = createdAssets["images"]["arrow/top.png"], createdAssets["images"]["arrow/bottom.png"]
         end
         if selector_arrow_prevIcon and selector_arrow_nextIcon then
-            if not elementReference.gui.arrow_Previous.animAlphaPercent then
-                elementReference.gui.arrow_Previous.animAlphaPercent = 0
-                elementReference.gui.arrow_Previous.hoverStatus = "backward"
-                elementReference.gui.arrow_Previous.hoverAnimTickCounter = CLIENT_CURRENT_TICK
-            end
-            if not elementReference.gui.arrow_Next.animAlphaPercent then
-                elementReference.gui.arrow_Next.animAlphaPercent = 0
-                elementReference.gui.arrow_Next.hoverStatus = "backward"
-                elementReference.gui.arrow_Next.hoverAnimTickCounter = CLIENT_CURRENT_TICK
-            end
-
-            elementReference.gui.arrow_Previous.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.arrow_Previous.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
-            local isPrevArrowHoverInterpolationRendering = elementReference.gui.arrow_Previous.interpolationProgress < 1
-            if isElementInterpolationToBeRefreshed or isPrevArrowHoverInterpolationRendering then
-                isElementToBeForceRendered = isPrevArrowHoverInterpolationRendering
-                if elementReference.gui.arrow_Previous.hoverStatus == "forward" then
-                    elementReference.gui.arrow_Previous.animAlphaPercent = imports.interpolateBetween(elementReference.gui.arrow_Previous.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui.arrow_Previous.interpolationProgress, "InQuad")
-                else
-                    elementReference.gui.arrow_Previous.animAlphaPercent = imports.interpolateBetween(elementReference.gui.arrow_Previous.animAlphaPercent, 0, 0, 0, 0, 0, elementReference.gui.arrow_Previous.interpolationProgress, "InQuad")
+            if isActiveMode then
+                if not elementReference.gui.arrow_Previous.animAlphaPercent then
+                    elementReference.gui.arrow_Previous.animAlphaPercent = 0
+                    elementReference.gui.arrow_Previous.hoverStatus = "backward"
+                    elementReference.gui.arrow_Previous.hoverAnimTickCounter = CLIENT_CURRENT_TICK
                 end
-            end
-            elementReference.gui.arrow_Next.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.arrow_Next.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
-            local isNextArrowHoverInterpolationRendering = elementReference.gui.arrow_Next.interpolationProgress < 1
-            if isElementInterpolationToBeRefreshed or isNextArrowHoverInterpolationRendering then
-                isElementToBeForceRendered = isElementToBeForceRendered or isNextArrowHoverInterpolationRendering
-                if elementReference.gui.arrow_Next.hoverStatus == "forward" then
-                    elementReference.gui.arrow_Next.animAlphaPercent = imports.interpolateBetween(elementReference.gui.arrow_Next.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui.arrow_Next.interpolationProgress, "InQuad")
-                else
-                    elementReference.gui.arrow_Next.animAlphaPercent = imports.interpolateBetween(elementReference.gui.arrow_Next.animAlphaPercent, 0, 0, 0, 0, 0, elementReference.gui.arrow_Next.interpolationProgress, "InQuad")
+                if not elementReference.gui.arrow_Next.animAlphaPercent then
+                    elementReference.gui.arrow_Next.animAlphaPercent = 0
+                    elementReference.gui.arrow_Next.hoverStatus = "backward"
+                    elementReference.gui.arrow_Next.hoverAnimTickCounter = CLIENT_CURRENT_TICK
+                end
+                elementReference.gui.arrow_Previous.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.arrow_Previous.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
+                local isPrevArrowHoverInterpolationRendering = (elementReference.gui.arrow_Previous.interpolationProgress < 1) or (elementReference.gui.arrow_Previous.hoverStatus ~= "backward")
+                if isElementInterpolationToBeRefreshed or isPrevArrowHoverInterpolationRendering then
+                    isElementToBeForceRendered = isPrevArrowHoverInterpolationRendering
+                    if elementReference.gui.arrow_Previous.hoverStatus == "forward" then
+                        elementReference.gui.arrow_Previous.animAlphaPercent = imports.interpolateBetween(elementReference.gui.arrow_Previous.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui.arrow_Previous.interpolationProgress, "InQuad")
+                    else
+                        elementReference.gui.arrow_Previous.animAlphaPercent = imports.interpolateBetween(elementReference.gui.arrow_Previous.animAlphaPercent, 0, 0, 0, 0, 0, elementReference.gui.arrow_Previous.interpolationProgress, "InQuad")
+                    end
+                end
+                elementReference.gui.arrow_Next.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.arrow_Next.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
+                local isNextArrowHoverInterpolationRendering = (elementReference.gui.arrow_Next.interpolationProgress < 1) or (elementReference.gui.arrow_Next.hoverStatus ~= "backward")
+                if isElementInterpolationToBeRefreshed or isNextArrowHoverInterpolationRendering then
+                    isElementToBeForceRendered = isElementToBeForceRendered or isNextArrowHoverInterpolationRendering
+                    if elementReference.gui.arrow_Next.hoverStatus == "forward" then
+                        elementReference.gui.arrow_Next.animAlphaPercent = imports.interpolateBetween(elementReference.gui.arrow_Next.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui.arrow_Next.interpolationProgress, "InQuad")
+                    else
+                        elementReference.gui.arrow_Next.animAlphaPercent = imports.interpolateBetween(elementReference.gui.arrow_Next.animAlphaPercent, 0, 0, 0, 0, 0, elementReference.gui.arrow_Next.interpolationProgress, "InQuad")
+                    end
                 end
             end
             imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.height, selector_arrow_prevIcon, 0, 0, 0, elementReference.gui["__UI_CACHE__"]["Arrow Previous"].color, slider_postGUI)
@@ -203,36 +202,32 @@ function renderSelector(element, isActiveMode, isFetchingInput, mouseReference)
             end
         end
         if elementReference.gui["__UI_CACHE__"]["Selector"].text.isToBeRendered then
-            if not elementReference.gui.animAlphaPercent then
-                elementReference.gui.animAlphaPercent = 0.8
-                elementReference.gui.hoverStatus = "backward"
-                elementReference.gui.hoverAnimTickCounter = CLIENT_CURRENT_TICK
-            end
-            elementReference.gui.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
-            local isTextHoverInterpolationRendering = elementReference.gui.interpolationProgress < 1
-            if isElementInterpolationToBeRefreshed or isTextHoverInterpolationRendering then
-                isElementToBeForceRendered = isElementToBeForceRendered or isTextHoverInterpolationRendering
-                if elementReference.gui.hoverStatus == "forward" then
-                    elementReference.gui.animAlphaPercent = imports.interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui.interpolationProgress, "InQuad")
-                else
-                    elementReference.gui.animAlphaPercent = imports.interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 0.8, 0, 0, elementReference.gui.interpolationProgress, "InQuad")
+            if isActiveMode then
+                if not elementReference.gui.animAlphaPercent then
+                    elementReference.gui.animAlphaPercent = 0.8
+                    elementReference.gui.hoverStatus = "backward"
+                    elementReference.gui.hoverAnimTickCounter = CLIENT_CURRENT_TICK
+                end
+                elementReference.gui.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
+                local isTextHoverInterpolationRendering = (elementReference.gui.interpolationProgress < 1) or (elementReference.gui.hoverStatus ~= "backward")
+                if isElementInterpolationToBeRefreshed or isTextHoverInterpolationRendering then
+                    isElementToBeForceRendered = isElementToBeForceRendered or isTextHoverInterpolationRendering
+                    if elementReference.gui.hoverStatus == "forward" then
+                        elementReference.gui.animAlphaPercent = imports.interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui.interpolationProgress, "InQuad")
+                    else
+                        elementReference.gui.animAlphaPercent = imports.interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 0.8, 0, 0, elementReference.gui.interpolationProgress, "InQuad")
+                    end
                 end
             end
             local selector_fontColor = (elementReference.gui.fontColor and imports.tocolor(elementReference.gui.fontColor[1], elementReference.gui.fontColor[2], elementReference.gui.fontColor[3], elementReference.gui.fontColor[4]*elementReference.gui.animAlphaPercent)) or imports.tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4]*elementReference.gui.animAlphaPercent)
             imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Selector"].text.text, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endY, selector_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "center", "center", true, false, selector_postGUI, false)
         end
-        imports.manageElementForceRender(element, isElementToBeForceRendered)
-        imports.renderElementChildren(element, isActiveMode)
-        imports.dxSetBlendMode("blend")
-        if not elementParent then
-            imports.dxSetRenderTarget()
-        else
-            imports.dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
+        if isActiveMode then
+            imports.manageElementForceRender(element, isElementToBeForceRendered)
         end
     else
         if elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startX and elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startY and elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startX and elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startY then
             local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
-            imports.renderElementChildren(element, isActiveMode, true, mouseReference)
             local isElementHovered = CLIENT_HOVERED_ELEMENT.element == element
             local isSelectorHovered = false
             local isArrowPreviousHovered, isArrowNextHovered = false, false
