@@ -8,7 +8,6 @@
      Desc: Window's Renderer ]]--
 ----------------------------------------------------------------
 
---TODO: INTEGRATE
 
 -----------------
 --[[ Imports ]]--
@@ -56,14 +55,15 @@ function renderWindow(element, isActiveMode, isFetchingInput, mouseReference)
 
     local elementReference = createdElements[element]
     if not isFetchingInput then
-        local isElementToBeForceRendered = false
+        local isElementToBeRendered, isElementToBeForceRendered = true, false
         local isElementInterpolationToBeRefreshed = CLIENT_MTA_RESTORED
         local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)] and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
-        local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
         local window_postGUI = elementReference.gui.postGUI
+        local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
 
-        if isElementToBeUpdated then
+        if not isElementToBeRendered then return false end
+        if (isActiveMode or isElementToBeReloaded) and isElementToBeUpdated then
             if not elementReference.gui["__UI_CACHE__"]["Window"] then
                 elementReference.gui["__UI_CACHE__"]["Window"] = {
                     offsets = {},
@@ -178,19 +178,21 @@ function renderWindow(element, isActiveMode, isFetchingInput, mouseReference)
             elementReference.gui["__UI_CACHE__"].updateElement = nil
         end
 
-        if not elementReference.gui.titleBar.closeButton.animAlphaPercent then
-            elementReference.gui.titleBar.closeButton.animAlphaPercent = 0
-            elementReference.gui.titleBar.closeButton.hoverStatus = "backward"
-            elementReference.gui.titleBar.closeButton.hoverAnimTickCounter = CLIENT_CURRENT_TICK
-        end
-        elementReference.gui.titleBar.closeButton.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.titleBar.closeButton.hoverAnimTickCounter, availableElements[elementType].titleBar.closeButton.hoverAnimDuration)
-        local isCloseButtonHoverInterpolationRendering = elementReference.gui.titleBar.closeButton.interpolationProgress < 1
-        if isElementInterpolationToBeRefreshed or isCloseButtonHoverInterpolationRendering then
-            isElementToBeForceRendered = isCloseButtonHoverInterpolationRendering
-            if elementReference.gui.titleBar.closeButton.hoverStatus == "forward" then
-                elementReference.gui.titleBar.closeButton.animAlphaPercent = imports.interpolateBetween(elementReference.gui.titleBar.closeButton.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui.titleBar.closeButton.interpolationProgress, "InQuad")
-            else
-                elementReference.gui.titleBar.closeButton.animAlphaPercent = imports.interpolateBetween(elementReference.gui.titleBar.closeButton.animAlphaPercent, 0, 0, 0, 0, 0, elementReference.gui.titleBar.closeButton.interpolationProgress, "InQuad")
+        if isActiveMode then
+            if not elementReference.gui.titleBar.closeButton.animAlphaPercent then
+                elementReference.gui.titleBar.closeButton.animAlphaPercent = 0
+                elementReference.gui.titleBar.closeButton.hoverStatus = "backward"
+                elementReference.gui.titleBar.closeButton.hoverAnimTickCounter = CLIENT_CURRENT_TICK
+            end
+            elementReference.gui.titleBar.closeButton.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.titleBar.closeButton.hoverAnimTickCounter, availableElements[elementType].titleBar.closeButton.hoverAnimDuration)
+            local isCloseButtonHoverInterpolationRendering = elementReference.gui.titleBar.closeButton.interpolationProgress < 1
+            isElementToBeForceRendered = isElementToBeForceRendered or isCloseButtonHoverInterpolationRendering or (elementReference.gui.titleBar.closeButton.hoverStatus ~= "backward")
+            if isElementInterpolationToBeRefreshed or isCloseButtonHoverInterpolationRendering then
+                if elementReference.gui.titleBar.closeButton.hoverStatus == "forward" then
+                    elementReference.gui.titleBar.closeButton.animAlphaPercent = imports.interpolateBetween(elementReference.gui.titleBar.closeButton.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui.titleBar.closeButton.interpolationProgress, "InQuad")
+                else
+                    elementReference.gui.titleBar.closeButton.animAlphaPercent = imports.interpolateBetween(elementReference.gui.titleBar.closeButton.animAlphaPercent, 0, 0, 0, 0, 0, elementReference.gui.titleBar.closeButton.interpolationProgress, "InQuad")
+                end
             end
         end
         if elementReference.gui["__UI_CACHE__"]["Window"].renderTexture then
@@ -206,13 +208,14 @@ function renderWindow(element, isActiveMode, isFetchingInput, mouseReference)
             imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Close Button"].text.text, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.endY, imports.tocolor(elementTemplate.titleBar.closeButton.hoverFontColor[1], elementTemplate.titleBar.closeButton.hoverFontColor[2], elementTemplate.titleBar.closeButton.hoverFontColor[3], elementTemplate.titleBar.closeButton.hoverFontColor[4]*elementReference.gui.titleBar.closeButton.animAlphaPercent), elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "center", "center", true, false, window_postGUI, false)
         end
         imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Window"].divider.size, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.height, elementReference.gui["__UI_CACHE__"]["Window"].divider.color, window_postGUI)
-        imports.manageElementForceRender(element, isElementToBeForceRendered)
-        imports.renderElementChildren(element, isActiveMode)
-        imports.dxSetBlendMode("blend")
-        imports.dxSetRenderTarget()
-        local window_renderTarget = elementReference.gui.renderTarget
-        if window_renderTarget and imports.isElement(window_renderTarget) then
-            imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startX, elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startY, elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.height, window_renderTarget, 0, 0, 0, -1, window_postGUI)
+        if elementReference.gui.renderTarget and imports.isElement(elementReference.gui.renderTarget) then
+            if isActiveMode then
+                imports.manageElementForceRender(element, isElementToBeForceRendered)
+                imports.renderElementChildren(element, isActiveMode)
+                imports.dxSetBlendMode("blend")
+                imports.dxSetRenderTarget()
+            end
+            imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startX, elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startY, elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.height, elementReference.gui.renderTarget, 0, 0, 0, -1, window_postGUI)
         end
     else
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}

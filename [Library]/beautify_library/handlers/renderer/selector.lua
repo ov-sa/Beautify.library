@@ -172,9 +172,9 @@ function renderSelector(element, isActiveMode, isFetchingInput, mouseReference)
                     elementReference.gui.arrow_Next.hoverAnimTickCounter = CLIENT_CURRENT_TICK
                 end
                 elementReference.gui.arrow_Previous.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.arrow_Previous.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
-                local isPrevArrowHoverInterpolationRendering = (elementReference.gui.arrow_Previous.interpolationProgress < 1) or (elementReference.gui.arrow_Previous.hoverStatus ~= "backward")
+                local isPrevArrowHoverInterpolationRendering = elementReference.gui.arrow_Previous.interpolationProgress < 1
+                isElementToBeForceRendered = isElementToBeForceRendered or isPrevArrowHoverInterpolationRendering or (elementReference.gui.arrow_Previous.hoverStatus ~= "backward")
                 if isElementInterpolationToBeRefreshed or isPrevArrowHoverInterpolationRendering then
-                    isElementToBeForceRendered = isPrevArrowHoverInterpolationRendering
                     if elementReference.gui.arrow_Previous.hoverStatus == "forward" then
                         elementReference.gui.arrow_Previous.animAlphaPercent = imports.interpolateBetween(elementReference.gui.arrow_Previous.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui.arrow_Previous.interpolationProgress, "InQuad")
                     else
@@ -182,9 +182,9 @@ function renderSelector(element, isActiveMode, isFetchingInput, mouseReference)
                     end
                 end
                 elementReference.gui.arrow_Next.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.arrow_Next.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
-                local isNextArrowHoverInterpolationRendering = (elementReference.gui.arrow_Next.interpolationProgress < 1) or (elementReference.gui.arrow_Next.hoverStatus ~= "backward")
+                local isNextArrowHoverInterpolationRendering = elementReference.gui.arrow_Next.interpolationProgress < 1
+                isElementToBeForceRendered = isElementToBeForceRendered or isNextArrowHoverInterpolationRendering or (elementReference.gui.arrow_Next.hoverStatus ~= "backward")
                 if isElementInterpolationToBeRefreshed or isNextArrowHoverInterpolationRendering then
-                    isElementToBeForceRendered = isElementToBeForceRendered or isNextArrowHoverInterpolationRendering
                     if elementReference.gui.arrow_Next.hoverStatus == "forward" then
                         elementReference.gui.arrow_Next.animAlphaPercent = imports.interpolateBetween(elementReference.gui.arrow_Next.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui.arrow_Next.interpolationProgress, "InQuad")
                     else
@@ -209,9 +209,9 @@ function renderSelector(element, isActiveMode, isFetchingInput, mouseReference)
                     elementReference.gui.hoverAnimTickCounter = CLIENT_CURRENT_TICK
                 end
                 elementReference.gui.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
-                local isTextHoverInterpolationRendering = (elementReference.gui.interpolationProgress < 1) or (elementReference.gui.hoverStatus ~= "backward")
+                local isTextHoverInterpolationRendering = elementReference.gui.interpolationProgress < 1
+                isElementToBeForceRendered = isElementToBeForceRendered or isTextHoverInterpolationRendering or (elementReference.gui.hoverStatus ~= "backward")
                 if isElementInterpolationToBeRefreshed or isTextHoverInterpolationRendering then
-                    isElementToBeForceRendered = isElementToBeForceRendered or isTextHoverInterpolationRendering
                     if elementReference.gui.hoverStatus == "forward" then
                         elementReference.gui.animAlphaPercent = imports.interpolateBetween(elementReference.gui.animAlphaPercent, 0, 0, 1, 0, 0, elementReference.gui.interpolationProgress, "InQuad")
                     else
