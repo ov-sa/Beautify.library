@@ -78,10 +78,12 @@ function cloneUIOutline(elementType, nestedOutline)
         if imports.type(j) == "table" then
             if j.isOutLine then
                 clonedOutline[i] = cloneUIOutline(elementType, j)
-                if (i == "scrollBar_Horizontal") or (i == "scrollBar_Vertical") then
-                    if i == "scrollBar_Horizontal" then
+                if UI_VALID_SCROLLERS[i] then
+                    if UI_VALID_SCROLLERS[i].isHorizontal then
                         clonedOutline[i].isHorizontal = true
                     end
+                    clonedOutline[i].updateComponent = true
+                    clonedOutline[i].reloadComponent = true
                     clonedOutline[i].currentPercent = 0
                     clonedOutline[i].finalPercent = 0
                     clonedOutline[i].currentThumbSize = 0

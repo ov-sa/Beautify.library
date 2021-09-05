@@ -29,6 +29,13 @@ UI_VALID_ALIGNMENT = {
     }
 }
 
+UI_VALID_SCROLLERS = {
+    ["scrollBar_Horizontal"] = {
+        isHorizontal = true
+    },
+    ["scrollBar_Vertical"] = {}
+}
+
 UI_PRIORITY_LEVEL = {
     RENDER = "low-999",
     INPUT = "low-1000"

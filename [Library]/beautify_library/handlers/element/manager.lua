@@ -99,6 +99,11 @@ function updateElement(element)
     if not element or not imports.isElement(element) or not createdElements[element] then return false end
     
     createdElements[element].gui["__UI_CACHE__"].updateElement = true
+    for i, j in pairs(UI_VALID_SCROLLERS) do
+        if createdElements[element].gui[i] then
+            createdElements[element].gui[i].updateComponent = true
+        end
+    end
     imports.manageElementForceRender(element, true)
     return true
 
@@ -109,6 +114,11 @@ function reloadElement(element)
     if not element or not imports.isElement(element) or not createdElements[element] then return false end
 
     createdElements[element].gui["__UI_CACHE__"].reloadElement = true
+    for i, j in pairs(UI_VALID_SCROLLERS) do
+        if createdElements[element].gui[i] then
+            createdElements[element].gui[i].reloadComponent = true
+        end
+    end
     imports.manageElementForceRender(element, true)
     return true
 
