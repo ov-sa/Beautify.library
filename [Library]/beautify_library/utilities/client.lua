@@ -69,9 +69,7 @@ function cloneUIOutline(elementType, nestedOutline)
 
     local clonedOutline = {}
     if not nestedOutline then
-        clonedOutline["__UI_CACHE__"] = {
-            reloadElement = true
-        }
+        clonedOutline["__UI_CACHE__"] = {}
         clonedOutline["__UI_INPUT_FETCH_CACHE__"] = {}
     end
     for i, j in imports.pairs(nestedOutline or availableTemplates[elementType]) do
@@ -82,8 +80,6 @@ function cloneUIOutline(elementType, nestedOutline)
                     if UI_VALID_SCROLLERS[i].isHorizontal then
                         clonedOutline[i].isHorizontal = true
                     end
-                    clonedOutline[i].updateComponent = true
-                    clonedOutline[i].reloadComponent = true
                     clonedOutline[i].currentPercent = 0
                     clonedOutline[i].finalPercent = 0
                     clonedOutline[i].currentThumbSize = 0

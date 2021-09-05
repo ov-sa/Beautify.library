@@ -52,6 +52,7 @@ function createSelector(...)
     end
     elementReference.gui.postGUI = (parameters[(#availableElements[elementType].syntax.parameters + 2)] and true) or false
     elementReference.isValid = true
+    reloadElement(createdElement)
     return createdElement
 
 end

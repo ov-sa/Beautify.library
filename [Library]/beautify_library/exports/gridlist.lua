@@ -58,6 +58,7 @@ function createGridlist(...)
         elementReference.gui.renderTarget = dxCreateRenderTarget(elementReference.gui.contentSection.width, elementReference.gui.contentSection.height, true)
     end
     elementReference.isValid = true
+    reloadElement(createdElement)
     return createdElement
 
 end

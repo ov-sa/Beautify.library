@@ -45,6 +45,7 @@ function createLabel(...)
         vertical = "center"
     }
     elementReference.isValid = true
+    reloadElement(createdElement)
     return createdElement
 
 end
