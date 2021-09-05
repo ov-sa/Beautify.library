@@ -202,7 +202,7 @@ function renderGridlist(element, isActiveMode, isFetchingInput, mouseReference)
                             },
                             elementReference.gui.scrollBar_Vertical
                         }
-                        local _, isComponentRootToBeForceRendered = imports.renderScrollbar(element, isElementInterpolationToBeRefreshed, isElementToBeReloaded, isElementToBeUpdated, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][1], elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][2])
+                        local _, isComponentRootToBeForceRendered = imports.renderScrollbar(element, false, false, false, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][1], elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][2])
                         isElementToBeForceRendered = isElementToBeForceRendered or isComponentRootToBeForceRendered
                     end
                 end

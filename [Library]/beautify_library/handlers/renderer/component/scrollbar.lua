@@ -49,7 +49,9 @@ function renderScrollbar(elementParent, isComponentInterpolationToBeRefreshed, i
     local scrollbar_overflownSize = renderData.overflownSize
     if not isFetchingInput then
         local isComponentRootToBeForceRendered = false
-        local isComponentInterpolationToBeRefreshed = CLIENT_MTA_RESTORED
+        local isComponentInterpolationToBeRefreshed = isComponentInterpolationToBeRefreshed or CLIENT_MTA_RESTORED
+        local isComponentToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (isComponentToBeReloaded or referenceData.reloadComponent or (CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)] and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)][componentType]))
+        local isComonentToBeUpdated = isComponentToBeReloaded or isComonentToBeUpdated or referenceData.updateComponent or CLIENT_MTA_RESTORED
         local scrollbar_postGUI = renderData.postGUI
 
         if isComonentToBeUpdated then
@@ -97,6 +99,10 @@ function renderScrollbar(elementParent, isComponentInterpolationToBeRefreshed, i
                 referenceData["__UI_CACHE__"]["Thumb"].color = imports.tocolor(imports.unpackColor(componentTemplate.thumb.color))
                 referenceData["__UI_CACHE__"]["Thumb"].shadowColor = imports.tocolor(imports.unpackColor(componentTemplate.thumb.shadowColor))
             end
+            if not CLIENT_MTA_MINIMIZED then
+                referenceData.reloadComponent = nil
+            end
+            referenceData.updateComponent = nil
         end
 
         local isScrollThumbInterpolationRendering = imports.math.round(referenceData.currentThumbSize, 0) ~= imports.math.round(referenceData.finalThumbSize, 0)
