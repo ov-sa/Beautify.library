@@ -83,16 +83,17 @@ function renderDeckPane(element, isActiveMode, isFetchingInput, mouseReference)
         end
         if elementReference.gui.renderTarget and imports.isElement(elementReference.gui.renderTarget) then
             if isActiveMode then
-                local deckpane_children = elementReference.renderIndexReference[(elementReference.renderIndex)].children
                 imports.manageElementForceRender(element, isElementToBeForceRendered)
                 imports.renderElementChildren(element, isActiveMode)
                 imports.dxSetBlendMode("blend")
+                local deckpane_children = elementReference.renderIndexReference[(elementReference.renderIndex)].children
                 if #deckpane_children > 0 then
                     local lastDeckReference = createdElements[(deckpane_children[(#deckpane_children)].element)]
                     if lastDeckReference.gui["__UI_CACHE__"] and lastDeckReference.gui["__UI_CACHE__"]["Deck"] then
                         local deckpane_data_height = lastDeckReference.gui["__UI_CACHE__"]["Deck"].offsets.startY + lastDeckReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight
                         local deckpane_exceeded_height = deckpane_data_height - elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.height
                         if deckpane_exceeded_height > 0 then
+                            elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsetY = deckpane_exceeded_height*elementReference.gui.scrollBar_Vertical.currentPercent*0.01
                             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"] = {
                                 {
                                     isDisabled = elementReference.isDisabled,
@@ -101,7 +102,7 @@ function renderDeckPane(element, isActiveMode, isFetchingInput, mouseReference)
                                     startY = 0,
                                     height = elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.height,
                                     overflownSize = deckpane_exceeded_height,
-                                    multiplier = 1,
+                                    multiplier = lastDeckReference.gui["__UI_CACHE__"]["Title Bar"].offsets.height,
                                     postGUI = false
                                 },
                                 elementReference.gui.scrollBar_Vertical
@@ -130,10 +131,11 @@ function renderDeckPane(element, isActiveMode, isFetchingInput, mouseReference)
         imports.renderElementChildren(element, isActiveMode, true, mouseReference)
         local deckpane_children_count = #elementReference.renderIndexReference[(elementReference.renderIndex)].children
         if deckpane_children_count > 0 then
+            --TODO: ADD LATER
             local isElementHovered = (CLIENT_HOVERED_ELEMENT.element == element) or createdElements[element].children[(CLIENT_HOVERED_ELEMENT.element)]
-            if isElementHovered and elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"] then
+            --if isElementHovered and elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"] then
                 imports.renderScrollbar(element, false, false, false, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][1], elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][2], true)
-            end
+            --end
         end
     end
     return true

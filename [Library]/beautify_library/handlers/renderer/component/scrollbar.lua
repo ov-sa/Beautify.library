@@ -48,12 +48,13 @@ function renderScrollbar(elementParent, isComponentInterpolationToBeRefreshed, i
     local scrollbar_isHorizontal = referenceData.isHorizontal
     local scrollbar_overflownSize = renderData.overflownSize
     if not isFetchingInput then
-        local isComponentRootToBeForceRendered = false
+        local isComponentToBeRendered, isComponentToBeForceRendered = true, false
         local isComponentInterpolationToBeRefreshed = isComponentInterpolationToBeRefreshed or CLIENT_MTA_RESTORED
         local isComponentToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (isComponentToBeReloaded or referenceData.reloadComponent or (CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)] and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)][componentType]))
         local isComonentToBeUpdated = isComponentToBeReloaded or isComonentToBeUpdated or referenceData.updateComponent or CLIENT_MTA_RESTORED
         local scrollbar_postGUI = renderData.postGUI
 
+        if not isComponentToBeRendered then return false end
         if isComonentToBeUpdated then
             local componentTemplate = imports.__getUITemplate(componentType, elementReference.sourceResource)
             if not referenceData["__UI_CACHE__"] then
@@ -107,12 +108,13 @@ function renderScrollbar(elementParent, isComponentInterpolationToBeRefreshed, i
 
         local isScrollThumbInterpolationRendering = imports.math.round(referenceData.currentThumbSize, 0) ~= imports.math.round(referenceData.finalThumbSize, 0)
         if isComponentInterpolationToBeRefreshed or isScrollThumbInterpolationRendering then
-            isComponentRootToBeForceRendered = isScrollThumbInterpolationRendering
+            isComponentToBeForceRendered = isScrollThumbInterpolationRendering
             referenceData.currentThumbSize = imports.interpolateBetween(referenceData.currentThumbSize, 0, 0, referenceData.finalThumbSize, 0, 0, 0.25, "InQuad")
         end
-        local isScrollInterpolationDone = imports.math.round(referenceData.currentPercent, 2) == imports.math.round(referenceData.finalPercent, 2)
+        --TODO: ....
+        --local isScrollInterpolationDone = imports.math.round(referenceData.currentPercent, 2) == imports.math.round(referenceData.finalPercent, 2)
         if isComponentInterpolationToBeRefreshed or (not isScrollInterpolationDone) then
-            isComponentRootToBeForceRendered = isComponentRootToBeForceRendered or not isScrollInterpolationDone
+            isComponentToBeForceRendered = isComponentToBeForceRendered or not isScrollInterpolationDone
             referenceData.currentPercent = imports.interpolateBetween(referenceData.currentPercent, 0, 0, referenceData.finalPercent, 0, 0, 0.25, "InQuad")
             if scrollbar_isHorizontal then
                 referenceData["__UI_CACHE__"]["Thumb"].offsets.startX = imports.math.max(referenceData["__UI_CACHE__"]["Track"].offsets.startX, referenceData["__UI_CACHE__"]["Track"].offsets.startX + (referenceData["__UI_CACHE__"]["Track"].offsets.width - referenceData["__UI_CACHE__"]["Thumb"].offsets.width)*(referenceData.currentPercent*0.01))
@@ -129,7 +131,7 @@ function renderScrollbar(elementParent, isComponentInterpolationToBeRefreshed, i
             imports.dxDrawRectangle(referenceData["__UI_CACHE__"]["Thumb"].offsets.startX, referenceData["__UI_CACHE__"]["Thumb"].offsets.startY, referenceData["__UI_CACHE__"]["Track"].offsets.width, referenceData.currentThumbSize, referenceData["__UI_CACHE__"]["Thumb"].color, scrollbar_postGUI)
             imports.dxDrawRectangle(referenceData["__UI_CACHE__"]["Thumb"].offsets.startX, referenceData["__UI_CACHE__"]["Thumb"].offsets.startY, referenceData["__UI_CACHE__"]["Thumb"].shadowSize, scrollbar_thumb_size, referenceData["__UI_CACHE__"]["Thumb"].shadowColor, scrollbar_postGUI)
         end
-        return true, isComponentRootToBeForceRendered
+        return true, isComponentToBeForceRendered
     else
         if not renderData.isDisabled then
             local scroll_state, scroll_streak = imports.isMouseScrolled()
