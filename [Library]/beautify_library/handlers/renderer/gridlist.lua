@@ -20,7 +20,7 @@ local imports = {
     getUIParent = getUIParent,
     __getUITemplate = __getUITemplate,
     manageElementForceRender = manageElementForceRender,
-    renderElementChildren = renderElementChildren,
+    renderScrollbar = renderScrollbar,
     setGridlistSelection = setGridlistSelection,
     unpackColor = unpackColor,
     isMouseOnPosition = isMouseOnPosition,
@@ -147,7 +147,7 @@ function renderGridlist(element, isActiveMode, isFetchingInput, mouseReference)
                     local gridlist_row_maxRenderered = imports.math.ceil(elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.height/gridlist_row_occupiedSpace)
                     local gridlist_data_height = (gridlist_row_occupiedSpace)*(gridlist_row_count) + elementReference.gui["__UI_CACHE__"]["Grid Rows"].padding
                     local gridlist_exceeded_height = gridlist_data_height - elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.height
-                    if gridlist_exceeded_height > 0 then gridlist_scrolled_offsetY = gridlist_exceeded_height*elementReference.gui.scrollBar_Vertical.currentPercent*0.01 end      
+                    if gridlist_exceeded_height > 0 then gridlist_scrolled_offsetY = gridlist_exceeded_height*elementReference.gui.scrollBar_Vertical.currentPercent*0.01 end
                     local gridlist_row_startIndex = imports.math.floor(gridlist_scrolled_offsetY/gridlist_row_occupiedSpace) + 1
                     local gridlist_row_endIndex = imports.math.min(gridlist_row_count, gridlist_row_startIndex + gridlist_row_maxRenderered)
                     elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Grid Rows"].startIndex = gridlist_row_startIndex
@@ -202,12 +202,11 @@ function renderGridlist(element, isActiveMode, isFetchingInput, mouseReference)
                             },
                             elementReference.gui.scrollBar_Vertical
                         }
-                        local _, isComponentRootToBeForceRendered = renderScrollbar(element, isElementInterpolationToBeRefreshed, isElementToBeReloaded, isElementToBeUpdated, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][1], elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][2])
+                        local _, isComponentRootToBeForceRendered = imports.renderScrollbar(element, isElementInterpolationToBeRefreshed, isElementToBeReloaded, isElementToBeUpdated, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][1], elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][2])
                         isElementToBeForceRendered = isElementToBeForceRendered or isComponentRootToBeForceRendered
                     end
                 end
                 imports.manageElementForceRender(element, isElementToBeForceRendered)
-                imports.renderElementChildren(element, isActiveMode)
                 imports.dxSetBlendMode("blend")
                 if not elementParent then
                     imports.dxSetRenderTarget()
@@ -228,7 +227,6 @@ function renderGridlist(element, isActiveMode, isFetchingInput, mouseReference)
         end
     else
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
-        imports.renderElementChildren(element, isActiveMode, true, mouseReference)
         local gridlist_row_count = #elementReference.gridData.rows
         if gridlist_row_count > 0 then
             local isElementHovered = CLIENT_HOVERED_ELEMENT.element == element
@@ -265,7 +263,7 @@ function renderGridlist(element, isActiveMode, isFetchingInput, mouseReference)
                 end
             end
             if isElementHovered and elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"] then
-                renderScrollbar(element, false, false, false, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][1], elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][2], true)
+                imports.renderScrollbar(element, false, false, false, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][1], elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][2], true)
             end
         end
     end
