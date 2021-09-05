@@ -67,8 +67,8 @@ function renderDeck(element, isActiveMode, isFetchingInput, mouseReference)
         local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
 
         if not isElementToBeRendered then return false end
-        local isElementParentBeingRendered = CLIENT_ELEMENT_FORCE_RENDERED[(elementReference.elementRoot)] and CLIENT_ELEMENT_FORCE_RENDERED[(elementReference.elementRoot)].renderChildren[elementParent]
-        if isActiveMode or isElementToBeReloaded or isElementParentBeingRendered then
+        local isElementParentBeingForceRendered = CLIENT_ELEMENT_FORCE_RENDERED[(elementReference.elementRoot)] and CLIENT_ELEMENT_FORCE_RENDERED[(elementReference.elementRoot)].renderChildren[elementParent]
+        if isActiveMode or isElementToBeReloaded or isElementParentBeingForceRendered then
             if not elementReference.gui.titleBar.toggleButton.animRotationPercent then
                 elementReference.gui.titleBar.toggleButton.animRotationPercent = 0
                 elementReference.gui.titleBar.toggleButton.animRollPercent = 0
@@ -80,7 +80,7 @@ function renderDeck(element, isActiveMode, isFetchingInput, mouseReference)
                 elementReference.gui.titleBar.toggleButton.animTickCounter = CLIENT_CURRENT_TICK
             end
             elementReference.gui.titleBar.toggleButton.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.titleBar.toggleButton.animTickCounter, availableElements[elementType].titleBar.toggleButton.rollAnimDuration)
-            local isToggleButtonInterpolationRendering = (elementReference.gui.titleBar.toggleButton.interpolationProgress < 1) or isElementParentBeingRendered
+            local isToggleButtonInterpolationRendering = (elementReference.gui.titleBar.toggleButton.interpolationProgress < 1) or isElementParentBeingForceRendered
             if isElementInterpolationToBeRefreshed or isToggleButtonInterpolationRendering or isElementToBeUpdated then
                 if not elementReference.gui["__UI_CACHE__"]["Deck"] then
                     elementReference.gui["__UI_CACHE__"]["Deck"] = {
