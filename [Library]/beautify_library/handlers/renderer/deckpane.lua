@@ -83,12 +83,12 @@ function renderDeckPane(element, isActiveMode, isFetchingInput, mouseReference)
         end
         if elementReference.gui.renderTarget and imports.isElement(elementReference.gui.renderTarget) then
             if isActiveMode then
-                local elementChildren = elementReference.renderIndexReference[(elementReference.renderIndex)].children
+                local deckpane_children = elementReference.renderIndexReference[(elementReference.renderIndex)].children
                 imports.manageElementForceRender(element, isElementToBeForceRendered)
                 imports.renderElementChildren(element, isActiveMode)
                 imports.dxSetBlendMode("blend")
-                if #elementChildren > 0 then
-                    local lastDeckReference = createdElements[(elementChildren[(#elementChildren)].element)]
+                if #deckpane_children > 0 then
+                    local lastDeckReference = createdElements[(deckpane_children[(#deckpane_children)].element)]
                     if lastDeckReference.gui["__UI_CACHE__"] and lastDeckReference.gui["__UI_CACHE__"]["Deck"] then
                         local deckpane_data_height = lastDeckReference.gui["__UI_CACHE__"]["Deck"].offsets.startY + lastDeckReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight
                         local deckpane_exceeded_height = deckpane_data_height - elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.height
@@ -128,7 +128,13 @@ function renderDeckPane(element, isActiveMode, isFetchingInput, mouseReference)
     else
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
         imports.renderElementChildren(element, isActiveMode, true, mouseReference)
-        local isElementHovered = CLIENT_HOVERED_ELEMENT.element == element
+        local deckpane_children_count = #elementReference.renderIndexReference[(elementReference.renderIndex)].children
+        if deckpane_children_count > 0 then
+            local isElementHovered = (CLIENT_HOVERED_ELEMENT.element == element) or createdElements[element].children[(CLIENT_HOVERED_ELEMENT.element)]
+            if isElementHovered and elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"] then
+                imports.renderScrollbar(element, false, false, false, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][1], elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][2], true)
+            end
+        end
     end
     return true
 
