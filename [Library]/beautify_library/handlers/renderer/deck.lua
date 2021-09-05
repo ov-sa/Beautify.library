@@ -68,7 +68,7 @@ function renderDeck(element, isActiveMode, isFetchingInput, mouseReference)
 
         if not isElementToBeRendered then return false end
         local isElementParentBeingForceRendered = CLIENT_ELEMENT_FORCE_RENDERED[(elementReference.elementRoot)] and CLIENT_ELEMENT_FORCE_RENDERED[(elementReference.elementRoot)].renderChildren[elementParent]
-        --if isActiveMode or isElementToBeReloaded or isElementParentBeingForceRendered then
+        if isActiveMode or isElementToBeReloaded or isElementParentBeingForceRendered then
             if not elementReference.gui.titleBar.toggleButton.animRotationPercent then
                 elementReference.gui.titleBar.toggleButton.animRotationPercent = 0
                 elementReference.gui.titleBar.toggleButton.animRollPercent = 0
@@ -81,8 +81,7 @@ function renderDeck(element, isActiveMode, isFetchingInput, mouseReference)
             end
             elementReference.gui.titleBar.toggleButton.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.titleBar.toggleButton.animTickCounter, availableElements[elementType].titleBar.toggleButton.rollAnimDuration)
             local isToggleButtonInterpolationRendering = (elementReference.gui.titleBar.toggleButton.interpolationProgress < 1) or isElementParentBeingForceRendered
-            isElementToBeUpdated = true --TODO: NEED TO ROL THIS SHIT WHEN SCROLLING
-            --if isElementInterpolationToBeRefreshed or isToggleButtonInterpolationRendering or isElementToBeUpdated then
+            if isElementInterpolationToBeRefreshed or isToggleButtonInterpolationRendering or isElementToBeUpdated then
                 if not elementReference.gui["__UI_CACHE__"]["Deck"] then
                     elementReference.gui["__UI_CACHE__"]["Deck"] = {
                         offsets = {},
@@ -198,8 +197,8 @@ function renderDeck(element, isActiveMode, isFetchingInput, mouseReference)
                     end
                     elementReference.gui["__UI_CACHE__"].updateElement = nil
                 end
-            --end
-        --end
+            end
+        end
 
         if elementReference.gui["__UI_CACHE__"]["Deck"].renderTexture then
             imports.dxDrawImageSection(elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.offsetY, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.width, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight, 0, 0, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.width, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight, elementReference.gui["__UI_CACHE__"]["Deck"].renderTexture, 0, 0, 0, -1, deck_postGUI)
