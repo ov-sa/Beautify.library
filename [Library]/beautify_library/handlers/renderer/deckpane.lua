@@ -19,6 +19,7 @@ local imports = {
     __getUITemplate = __getUITemplate,
     manageElementForceRender = manageElementForceRender,
     renderElementChildren = renderElementChildren,
+    renderScrollbar = renderScrollbar,
     isMouseOnPosition = isMouseOnPosition,
     dxSetRenderTarget = dxSetRenderTarget,
     dxSetBlendMode = dxSetBlendMode,
@@ -77,11 +78,39 @@ function renderDeckPane(element, isActiveMode, isFetchingInput, mouseReference)
             elementReference.gui["__UI_CACHE__"].updateElement = nil
         end
 
+        if isActiveMode then
+            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"] = {}
+        end
         if elementReference.gui.renderTarget and imports.isElement(elementReference.gui.renderTarget) then
             if isActiveMode then
+                local elementChildren = elementReference.renderIndexReference[(elementReference.renderIndex)].children
                 imports.manageElementForceRender(element, isElementToBeForceRendered)
                 imports.renderElementChildren(element, isActiveMode)
                 imports.dxSetBlendMode("blend")
+                if #elementChildren > 0 then
+                    local lastDeckReference = createdElements[(elementChildren[(#elementChildren)].element)]
+                    if lastDeckReference.gui["__UI_CACHE__"] and lastDeckReference.gui["__UI_CACHE__"]["Deck"] then
+                        local deckpane_data_height = lastDeckReference.gui["__UI_CACHE__"]["Deck"].offsets.startY + lastDeckReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight
+                        local deckpane_exceeded_height = deckpane_data_height - elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.height
+                        if deckpane_exceeded_height > 0 then
+                            elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"] = {
+                                {
+                                    isDisabled = elementReference.isDisabled,
+                                    elementReference = elementReference,
+                                    startX = elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.width,
+                                    startY = 0,
+                                    height = elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.height,
+                                    overflownSize = deckpane_exceeded_height,
+                                    multiplier = 1,
+                                    postGUI = false
+                                },
+                                elementReference.gui.scrollBar_Vertical
+                            }
+                            local _, isComponentRootToBeForceRendered = imports.renderScrollbar(element, isElementInterpolationToBeRefreshed, isElementToBeReloaded, isElementToBeUpdated, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][1], elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][2])
+                            isElementToBeForceRendered = isElementToBeForceRendered or isComponentRootToBeForceRendered
+                        end
+                    end
+                end
                 if not elementParent then
                     imports.dxSetRenderTarget()
                 else
