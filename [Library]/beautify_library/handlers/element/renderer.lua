@@ -192,6 +192,10 @@ function renderElementChildren(element, isActiveMode, isFetchingInput, mouseRefe
             if imports.isUIValid(childElement) and imports.isUIVisible(childElement) then
                 local childElementType = createdElements[childElement].elementType
                 local isChildActive = CLIENT_HOVERED_ELEMENT.traceMarks[childElement] or isChildrenToBeForceRendered or (CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] and CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[childElement])
+                --TODO: REMOVE LLATER :)
+                if isChildActive then
+                    --outputChatBox("HUH?: "..childElementType.." | "..tostring(childElement))
+                end
                 availableElements[childElementType].renderFunction(childElement, isChildActive)
                 imports.dxSetRenderTarget(elementReference.gui.renderTarget)
                 imports.dxSetBlendMode("modulate_add")
