@@ -37,14 +37,13 @@ local bundlerData = false
 --[[ Function: Fetches Imports ]]--
 -----------------------------------
 
-function __fetchImports()
+function fetchImports()
 
     if not bundlerData then return false end
 
     return bundlerData
 
 end
-function fetchImports() return __fetchImports() end
 
 
 -----------------------------------------
