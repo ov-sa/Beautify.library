@@ -132,10 +132,11 @@ function renderDeckPane(element, isActiveMode, isFetchingInput, mouseReference)
         local deckpane_children_count = #elementReference.renderIndexReference[(elementReference.renderIndex)].children
         if deckpane_children_count > 0 then
             --TODO: ADD LATER
-            local isElementHovered = (CLIENT_HOVERED_ELEMENT.element == element) or createdElements[element].children[(CLIENT_HOVERED_ELEMENT.element)]
-            --if isElementHovered and elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"] then
+            local isElementHovered = true
+            --local isElementHovered = (CLIENT_HOVERED_ELEMENT.element == element) or createdElements[element].children[(CLIENT_HOVERED_ELEMENT.element)]
+            if isElementHovered and elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"] then
                 imports.renderScrollbar(element, false, false, false, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][1], elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][2], true)
-            --end
+            end
         end
     end
     return true
