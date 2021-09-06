@@ -83,6 +83,7 @@ function renderDeckPane(element, isActiveMode, isFetchingInput, mouseReference)
         end
         if elementReference.gui.renderTarget and imports.isElement(elementReference.gui.renderTarget) then
             if isActiveMode then
+                imports.manageElementForceRender(element, isElementToBeForceRendered)
                 imports.renderElementChildren(element, isActiveMode)
                 local deckpane_children = elementReference.renderIndexReference[(elementReference.renderIndex)].children
                 if #deckpane_children > 0 then
@@ -116,7 +117,6 @@ function renderDeckPane(element, isActiveMode, isFetchingInput, mouseReference)
                         end
                     end
                 end
-                imports.manageElementForceRender(element, isElementToBeForceRendered)
                 imports.dxSetBlendMode("blend")
                 if not elementParent then
                     imports.dxSetRenderTarget()
