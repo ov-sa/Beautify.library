@@ -22,6 +22,7 @@ local imports = {
     manageElementForceRender = manageElementForceRender,
     renderElementChildren = renderElementChildren,
     destroyElement = destroyElement,
+    setDeckMaximized = setDeckMaximized,
     unpackColor = unpackColor,
     isMouseOnPosition = isMouseOnPosition,
     getInterpolationProgress = getInterpolationProgress,
@@ -224,7 +225,7 @@ function renderDeck(element, isActiveMode, isFetchingInput, mouseReference)
             local isToggleButtonHovered = imports.isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Toggle Button"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Toggle Button"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Toggle Button"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Toggle Button"].height)
             if isToggleButtonHovered then
                 if imports.isKeyClicked("mouse1") then
-                    setDeckMaximized(element, not elementReference.gui.maximized)
+                    imports.setDeckMaximized(element, not elementReference.gui.maximized)
                 end
             end
         end
