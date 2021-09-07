@@ -111,6 +111,11 @@ function renderDeckPane(element, isActiveMode, isFetchingInput, mouseReference)
                         end
                     end
                 end
+                if not isScrollerComponentToBeRendered then
+                    local isScrollerToBeResetted = elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsetY ~= 0
+                    isElementToBeForceRendered = isElementToBeForceRendered or isScrollerToBeResetted
+                    elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsetY = 0
+                end
                 imports.manageElementForceRender(element, isElementToBeForceRendered)
                 imports.renderElementChildren(element, isActiveMode)
                 local isElementBeingForceRendered = false
