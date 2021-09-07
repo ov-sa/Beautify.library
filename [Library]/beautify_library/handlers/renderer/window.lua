@@ -54,6 +54,8 @@ local elementType = "beautify_window"
 function renderWindow(element, isActiveMode, isFetchingInput, mouseReference)
 
     local elementReference = createdElements[element]
+    if not elementReference.isValid or not elementReference.isVisible then return false end
+
     if not isFetchingInput then
         local isElementToBeRendered, isElementToBeForceRendered = true, false
         local isElementInterpolationToBeRefreshed = CLIENT_MTA_RESTORED

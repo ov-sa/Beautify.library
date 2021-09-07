@@ -44,6 +44,8 @@ local componentType = "beautify_scrollbar"
 
 function renderScrollbar(elementParent, isComponentInterpolationToBeRefreshed, isComponentToBeReloaded, isComonentToBeUpdated, renderData, referenceData, isFetchingInput, isFetchingForceRender)
 
+    if not renderData.elementReference.isValid or not renderData.elementReference.isVisible then return false end
+
     if not isFetchingInput then
         local isComponentToBeRendered, isComponentToBeForceRendered = true, false
         local isComponentInterpolationToBeRefreshed = (not isFetchingForceRender) and (isComponentInterpolationToBeRefreshed or CLIENT_MTA_RESTORED)

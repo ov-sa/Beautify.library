@@ -56,6 +56,7 @@ local elementType = "beautify_deck"
 function renderDeck(element, isActiveMode, isFetchingInput, mouseReference)
 
     local elementReference = createdElements[element]
+    if not elementReference.isValid or not elementReference.isVisible then return false end
     local elementParent = imports.getUIParent(element)
     if not elementParent then return false end
 
