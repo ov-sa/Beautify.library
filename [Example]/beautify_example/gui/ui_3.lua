@@ -61,7 +61,7 @@ end
 
 function createExampleUI3()
 
-    local window_width, window_height = 275, 700
+    local window_width, window_height = 275, 600
     local createdWindow = beautify.window.create(725 + 300 + 25, (CLIENT_MTA_RESOLUTION[2] - window_height)/2 - 20, window_width, window_height, "Dev. UI #3", nil, false)
 
     local createdDeckpane = beautify.deckpane.create(0, 0, window_width, window_height, createdWindow, false)
