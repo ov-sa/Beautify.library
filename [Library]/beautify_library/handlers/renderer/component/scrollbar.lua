@@ -144,11 +144,11 @@ function renderScrollbar(elementParent, isComponentInterpolationToBeRefreshed, i
                 local scrollbar_scrollSpeed = (renderData.multiplier/renderData.overflownSize)*100
                 if referenceData.isHorizontal then
                     if renderData.overflownSize < referenceData["__UI_INPUT_FETCH_CACHE__"]["Track"].width then
-                        scrollbar_scrollSpeed = scrollbar_scrollSpeed*25
+                        scrollbar_scrollSpeed = scrollbar_scrollSpeed*(renderData.overflownSize/referenceData["__UI_INPUT_FETCH_CACHE__"]["Track"].width)
                     end
                 else
                     if renderData.overflownSize < referenceData["__UI_INPUT_FETCH_CACHE__"]["Track"].height then
-                        scrollbar_scrollSpeed = scrollbar_scrollSpeed*25
+                        scrollbar_scrollSpeed = scrollbar_scrollSpeed*(renderData.overflownSize/referenceData["__UI_INPUT_FETCH_CACHE__"]["Track"].height)
                     end
                 end
                 if scroll_state == "up" then
