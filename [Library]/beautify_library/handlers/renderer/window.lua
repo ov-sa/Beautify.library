@@ -91,10 +91,10 @@ function renderWindow(element, isActiveMode, isFetchingInput, mouseReference)
             elementReference.gui["__UI_CACHE__"]["Window"].offsets.startY = elementReference.gui.y
             elementReference.gui["__UI_CACHE__"]["Window"].offsets.width = elementReference.gui.width
             elementReference.gui["__UI_CACHE__"]["Window"].offsets.height = elementReference.gui.height
-            elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startX = elementReference.gui["__UI_CACHE__"]["Window"].offsets.startX + elementReference.gui.contentSection.startX
-            elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startY = elementReference.gui["__UI_CACHE__"]["Window"].offsets.startY + elementReference.gui.contentSection.startY
-            elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.width = elementReference.gui.contentSection.width
-            elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.height = elementReference.gui.contentSection.height
+            elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startX = elementReference.gui["__UI_CACHE__"]["Window"].offsets.startX + elementReference.gui.viewSection.startX
+            elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startY = elementReference.gui["__UI_CACHE__"]["Window"].offsets.startY + elementReference.gui.viewSection.startY
+            elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.width = elementReference.gui.viewSection.width
+            elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.height = elementReference.gui.viewSection.height
             local window_titleBar_paddingX = availableElements[elementType].titleBar.paddingX
             elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.startX = elementReference.gui["__UI_CACHE__"]["Window"].offsets.startX
             elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.startY = elementReference.gui["__UI_CACHE__"]["Window"].offsets.startY

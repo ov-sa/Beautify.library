@@ -40,7 +40,7 @@ availableElements[elementType] = {
         ["horizontal"] = true,
         ["vertical"] = true
     },
-    contentSection = {
+    viewSection = {
         padding = 5,
         hoverAnimDuration = 1250
     }

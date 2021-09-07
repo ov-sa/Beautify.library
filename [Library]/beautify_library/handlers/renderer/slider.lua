@@ -94,9 +94,9 @@ function renderSlider(element, isActiveMode, isFetchingInput, mouseReference)
                 elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"] = {}
             end
             if elementReference.gui.type == "horizontal" then
-                local slider_track_width = elementReference.gui.width - (availableElements[elementType].contentSection.padding*2)
+                local slider_track_width = elementReference.gui.width - (availableElements[elementType].viewSection.padding*2)
                 if (slider_track_width > 0) and (elementReference.gui.height > elementTemplate.track.size) then
-                    elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX = elementReference.gui.x + availableElements[elementType].contentSection.padding
+                    elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX = elementReference.gui.x + availableElements[elementType].viewSection.padding
                     elementReference.gui["__UI_CACHE__"]["Track"].offsets.width = slider_track_width
                     local slider_thumb_startX = imports.math.max(elementReference.gui.x, elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX + (slider_track_width - elementTemplate.thumb.size)*(elementReference.gui.slideBar_Horizontal.currentPercent*0.01))
                     elementReference.gui["__UI_CACHE__"]["Track"].offsets.height = imports.math.min(elementTemplate.track.size, elementReference.gui.height)
@@ -120,9 +120,9 @@ function renderSlider(element, isActiveMode, isFetchingInput, mouseReference)
                     elementReference.gui["__UI_CACHE__"]["Track"].unprogressedWidth = slider_track_unprogressed_length
                 end
             elseif elementReference.gui.type == "vertical" then
-                local slider_track_height = elementReference.gui.height - (availableElements[elementType].contentSection.padding*2)
+                local slider_track_height = elementReference.gui.height - (availableElements[elementType].viewSection.padding*2)
                 if (slider_track_height > 0) and (elementReference.gui.width > elementTemplate.track.size) then
-                    elementReference.gui["__UI_CACHE__"]["Track"].offsets.startY = elementReference.gui.y + availableElements[elementType].contentSection.padding
+                    elementReference.gui["__UI_CACHE__"]["Track"].offsets.startY = elementReference.gui.y + availableElements[elementType].viewSection.padding
                     elementReference.gui["__UI_CACHE__"]["Track"].offsets.height = slider_track_height
                     local slider_thumb_startY = imports.math.max(elementReference.gui.y, elementReference.gui["__UI_CACHE__"]["Track"].offsets.startY + (slider_track_height - elementTemplate.thumb.size)*(elementReference.gui.slideBar_Vertical.currentPercent*0.01))
                     elementReference.gui["__UI_CACHE__"]["Track"].offsets.width = imports.math.min(elementTemplate.track.size, elementReference.gui.width)
@@ -138,9 +138,9 @@ function renderSlider(element, isActiveMode, isFetchingInput, mouseReference)
                     elementReference.gui["__UI_CACHE__"]["Slider"].text.offsets.rotValue = elementReference.gui.width*0.5
                     local slider_text_offsetY = elementReference.gui.width - (imports.math.max(elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX + elementReference.gui["__UI_CACHE__"]["Track"].offsets.width, elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX + (elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.width*0.5)) - elementReference.gui.x) - 2
                     elementReference.gui["__UI_CACHE__"]["Slider"].text.text = (elementReference.gui.text and elementReference.gui.text..": "..imports.math.round(elementReference.gui.slideBar_Vertical.currentPercent, 0).."%") or nil
-                    elementReference.gui["__UI_CACHE__"]["Slider"].text.offsets.startX = elementReference.gui.x + availableElements[elementType].contentSection.padding
+                    elementReference.gui["__UI_CACHE__"]["Slider"].text.offsets.startX = elementReference.gui.x + availableElements[elementType].viewSection.padding
                     elementReference.gui["__UI_CACHE__"]["Slider"].text.offsets.startY = elementReference.gui.y + (elementTemplate.fontPaddingY or 0)
-                    elementReference.gui["__UI_CACHE__"]["Slider"].text.offsets.endX = elementReference.gui.x + elementReference.gui.height - availableElements[elementType].contentSection.padding
+                    elementReference.gui["__UI_CACHE__"]["Slider"].text.offsets.endX = elementReference.gui.x + elementReference.gui.height - availableElements[elementType].viewSection.padding
                     elementReference.gui["__UI_CACHE__"]["Slider"].text.offsets.endY = elementReference.gui.y + slider_text_offsetY
                     elementReference.gui["__UI_CACHE__"]["Slider"].text.offsets.rotX = elementReference.gui.x + elementReference.gui["__UI_CACHE__"]["Slider"].text.offsets.rotValue
                     elementReference.gui["__UI_CACHE__"]["Slider"].text.offsets.rotY = elementReference.gui.y + elementReference.gui["__UI_CACHE__"]["Slider"].text.offsets.rotValue
@@ -170,7 +170,7 @@ function renderSlider(element, isActiveMode, isFetchingInput, mouseReference)
                     elementReference.gui.hoverStatus = "backward"
                     elementReference.gui.hoverAnimTickCounter = CLIENT_CURRENT_TICK
                 end
-                elementReference.gui.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
+                elementReference.gui.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].viewSection.hoverAnimDuration)
                 local isTextHoverInterpolationRendering = elementReference.gui.interpolationProgress < 1
                 isElementToBeForceRendered = isElementToBeForceRendered or isTextHoverInterpolationRendering or (elementReference.gui.hoverStatus ~= "backward")
                 if isElementInterpolationToBeRefreshed or isTextHoverInterpolationRendering then

@@ -99,10 +99,10 @@ function renderSelector(element, isActiveMode, isFetchingInput, mouseReference)
                 elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.height = selector_arrow_icon_size
                 elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.startX = elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startX + selector_arrow_icon_padding
                 elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.startY = elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startY + selector_arrow_icon_padding
-                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startX = elementReference.gui.x + availableElements[elementType].minimumSize + availableElements[elementType].contentSection.padding
-                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startY = elementReference.gui.y + availableElements[elementType].contentSection.padding + elementTemplate.fontPaddingY
-                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endX = elementReference.gui.x + elementReference.gui.width - availableElements[elementType].minimumSize - availableElements[elementType].contentSection.padding
-                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endY = elementReference.gui.y + elementReference.gui.height - availableElements[elementType].contentSection.padding
+                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startX = elementReference.gui.x + availableElements[elementType].minimumSize + availableElements[elementType].viewSection.padding
+                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startY = elementReference.gui.y + availableElements[elementType].viewSection.padding + elementTemplate.fontPaddingY
+                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endX = elementReference.gui.x + elementReference.gui.width - availableElements[elementType].minimumSize - availableElements[elementType].viewSection.padding
+                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endY = elementReference.gui.y + elementReference.gui.height - availableElements[elementType].viewSection.padding
             elseif elementReference.gui.type == "vertical" then
                 local selector_arrow_offsetX = elementReference.gui.x + ((elementReference.gui.width - availableElements[elementType].minimumSize)*0.5)
                 elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.width = availableElements[elementType].minimumSize
@@ -121,10 +121,10 @@ function renderSelector(element, isActiveMode, isFetchingInput, mouseReference)
                 elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.height = selector_arrow_icon_size
                 elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.startX = elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startX + selector_arrow_icon_padding
                 elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.startY = elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startY + selector_arrow_icon_padding
-                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startX = elementReference.gui.x + availableElements[elementType].contentSection.padding
-                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startY = elementReference.gui.y + availableElements[elementType].minimumSize + availableElements[elementType].contentSection.padding + elementTemplate.fontPaddingY
-                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endX = elementReference.gui.x + elementReference.gui.width - availableElements[elementType].contentSection.padding
-                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endY = elementReference.gui.y + elementReference.gui.height - availableElements[elementType].minimumSize - availableElements[elementType].contentSection.padding
+                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startX = elementReference.gui.x + availableElements[elementType].viewSection.padding
+                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startY = elementReference.gui.y + availableElements[elementType].minimumSize + availableElements[elementType].viewSection.padding + elementTemplate.fontPaddingY
+                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endX = elementReference.gui.x + elementReference.gui.width - availableElements[elementType].viewSection.padding
+                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endY = elementReference.gui.y + elementReference.gui.height - availableElements[elementType].minimumSize - availableElements[elementType].viewSection.padding
             end
             local slider_text = (elementReference.selectorDataList.selection and elementReference.selectorDataList.list[elementReference.selectorDataList.selection]) or "-"
             elementReference.gui["__UI_CACHE__"]["Selector"].text.text = ((elementReference.gui.text and elementReference.gui.text.." | ") or "")..slider_text
@@ -165,7 +165,7 @@ function renderSelector(element, isActiveMode, isFetchingInput, mouseReference)
                     elementReference.gui.arrow_Next.hoverStatus = "backward"
                     elementReference.gui.arrow_Next.hoverAnimTickCounter = CLIENT_CURRENT_TICK
                 end
-                elementReference.gui.arrow_Previous.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.arrow_Previous.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
+                elementReference.gui.arrow_Previous.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.arrow_Previous.hoverAnimTickCounter, availableElements[elementType].viewSection.hoverAnimDuration)
                 local isPrevArrowHoverInterpolationRendering = elementReference.gui.arrow_Previous.interpolationProgress < 1
                 isElementToBeForceRendered = isElementToBeForceRendered or isPrevArrowHoverInterpolationRendering or (elementReference.gui.arrow_Previous.hoverStatus ~= "backward")
                 if isElementInterpolationToBeRefreshed or isPrevArrowHoverInterpolationRendering then
@@ -175,7 +175,7 @@ function renderSelector(element, isActiveMode, isFetchingInput, mouseReference)
                         elementReference.gui.arrow_Previous.animAlphaPercent = imports.interpolateBetween(elementReference.gui.arrow_Previous.animAlphaPercent, 0, 0, 0, 0, 0, elementReference.gui.arrow_Previous.interpolationProgress, "InQuad")
                     end
                 end
-                elementReference.gui.arrow_Next.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.arrow_Next.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
+                elementReference.gui.arrow_Next.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.arrow_Next.hoverAnimTickCounter, availableElements[elementType].viewSection.hoverAnimDuration)
                 local isNextArrowHoverInterpolationRendering = elementReference.gui.arrow_Next.interpolationProgress < 1
                 isElementToBeForceRendered = isElementToBeForceRendered or isNextArrowHoverInterpolationRendering or (elementReference.gui.arrow_Next.hoverStatus ~= "backward")
                 if isElementInterpolationToBeRefreshed or isNextArrowHoverInterpolationRendering then
@@ -202,7 +202,7 @@ function renderSelector(element, isActiveMode, isFetchingInput, mouseReference)
                     elementReference.gui.hoverStatus = "backward"
                     elementReference.gui.hoverAnimTickCounter = CLIENT_CURRENT_TICK
                 end
-                elementReference.gui.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
+                elementReference.gui.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].viewSection.hoverAnimDuration)
                 local isTextHoverInterpolationRendering = elementReference.gui.interpolationProgress < 1
                 isElementToBeForceRendered = isElementToBeForceRendered or isTextHoverInterpolationRendering or (elementReference.gui.hoverStatus ~= "backward")
                 if isElementInterpolationToBeRefreshed or isTextHoverInterpolationRendering then

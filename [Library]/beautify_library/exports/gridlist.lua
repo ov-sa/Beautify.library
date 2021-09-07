@@ -48,14 +48,14 @@ function createGridlist(...)
         end
     end
     elementReference.gui.postGUI = (not elementParent and (parameters[(#availableElements[elementType].syntax.parameters + 2)] and true)) or false
-    elementReference.gui.contentSection = {
+    elementReference.gui.viewSection = {
         startX = 0,
         startY = availableElements[elementType].columnBar.height,
         width = elementReference.gui.width,
         height = elementReference.gui.height - availableElements[elementType].columnBar.height
     }
-    if elementReference.gui.contentSection.width > 0 and elementReference.gui.contentSection.height > 0 then
-        elementReference.gui.renderTarget = dxCreateRenderTarget(elementReference.gui.contentSection.width, elementReference.gui.contentSection.height, true)
+    if elementReference.gui.viewSection.width > 0 and elementReference.gui.viewSection.height > 0 then
+        elementReference.gui.renderTarget = dxCreateRenderTarget(elementReference.gui.viewSection.width, elementReference.gui.viewSection.height, true)
     end
     elementReference.isValid = true
     reloadElement(createdElement)

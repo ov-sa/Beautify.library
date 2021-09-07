@@ -44,7 +44,7 @@ availableElements[elementType] = {
     ["TEMPLATE_PROPERTIES"] = {
         ["default"] = {}
     },
-    contentSection = {
+    viewSection = {
         paddingX = 5,
         hoverAnimDuration = 1250
     }

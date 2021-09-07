@@ -105,7 +105,7 @@ function renderDeck(element, isActiveMode, isFetchingInput, mouseReference)
                 end
                 local deck_startX, deck_startY, deck_offsetY = 0, 0, (createdElements[elementParent].gui["__UI_CACHE__"]["Deckpane"].view.offsetY and -createdElements[elementParent].gui["__UI_CACHE__"]["Deckpane"].view.offsetY) or 0
                 local deck_width, deck_height = elementReference.gui.width, elementReference.gui.height
-                local deck_view_width, deck_view_height = elementReference.gui.contentSection.width, elementReference.gui.contentSection.height
+                local deck_view_width, deck_view_height = elementReference.gui.viewSection.width, elementReference.gui.viewSection.height
                 local deck_toggle_arrow_icon_size = imports.math.min(availableElements[elementType].titleBar.height, availableElements[elementType].titleBar.toggleButton.arrowIconSize)
                 local deck_toggle_arrow_icon_padding = (availableElements[elementType].titleBar.height - deck_toggle_arrow_icon_size)*0.5
                 if elementReference.renderIndex > 1 then
@@ -120,8 +120,8 @@ function renderDeck(element, isActiveMode, isFetchingInput, mouseReference)
                 elementReference.gui["__UI_CACHE__"]["Deck"].offsets.offsetY = deck_offsetY
                 elementReference.gui["__UI_CACHE__"]["Deck"].offsets.width = deck_width
                 elementReference.gui["__UI_CACHE__"]["Deck"].offsets.height = deck_height
-                elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.startX = elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startX + elementReference.gui.contentSection.startX
-                elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.startY = elementReference.gui["__UI_CACHE__"]["Deck"].offsets.offsetY + elementReference.gui.contentSection.startY
+                elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.startX = elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startX + elementReference.gui.viewSection.startX
+                elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.startY = elementReference.gui["__UI_CACHE__"]["Deck"].offsets.offsetY + elementReference.gui.viewSection.startY
                 elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.width = deck_view_width
                 elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.height = deck_view_height
                 local deck_titleBar_paddingX = availableElements[elementType].titleBar.paddingX

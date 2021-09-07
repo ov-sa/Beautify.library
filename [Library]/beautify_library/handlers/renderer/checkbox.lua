@@ -87,10 +87,10 @@ function renderCheckbox(element, isActiveMode, isFetchingInput, mouseReference)
             elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startY = elementReference.gui["__UI_CACHE__"]["Tick Box"].offsets.startY + checkbox_tickbox_icon_padding
             if elementReference.gui.text then
                 elementReference.gui["__UI_CACHE__"]["Checkbox"].text.text = elementReference.gui.text
-                elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.startX = elementReference.gui.x + availableElements[elementType].minimumSize + availableElements[elementType].contentSection.paddingLeft
-                elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.startY = elementReference.gui.y + availableElements[elementType].contentSection.padding + elementTemplate.fontPaddingY
-                elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.endX = elementReference.gui.x + elementReference.gui.width - availableElements[elementType].contentSection.padding
-                elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.endY = elementReference.gui.y + elementReference.gui.height - availableElements[elementType].contentSection.padding
+                elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.startX = elementReference.gui.x + availableElements[elementType].minimumSize + availableElements[elementType].viewSection.paddingLeft
+                elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.startY = elementReference.gui.y + availableElements[elementType].viewSection.padding + elementTemplate.fontPaddingY
+                elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.endX = elementReference.gui.x + elementReference.gui.width - availableElements[elementType].viewSection.padding
+                elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.endY = elementReference.gui.y + elementReference.gui.height - availableElements[elementType].viewSection.padding
                 elementReference.gui["__UI_CACHE__"]["Checkbox"].text.isToBeRendered = ((elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.endX - elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.startX) > 0) and ((elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.endY - elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.startY) > 0)
             else
                 elementReference.gui["__UI_CACHE__"]["Checkbox"].text.text = false
@@ -121,7 +121,7 @@ function renderCheckbox(element, isActiveMode, isFetchingInput, mouseReference)
                 elementReference.gui.tickBox.hoverStatus = "backward"
                 elementReference.gui.tickBox.hoverAnimTickCounter = CLIENT_CURRENT_TICK
             end
-            elementReference.gui.tickBox.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.tickBox.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
+            elementReference.gui.tickBox.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.tickBox.hoverAnimTickCounter, availableElements[elementType].viewSection.hoverAnimDuration)
             local isTickBoxHoverInterpolationRendering = elementReference.gui.tickBox.interpolationProgress < 1
             isElementToBeForceRendered = isElementToBeForceRendered or isTickBoxHoverInterpolationRendering or (not isCheckBoxSelected and elementReference.gui.tickBox.hoverStatus ~= "backward")
             if isElementInterpolationToBeRefreshed or isTickBoxHoverInterpolationRendering then
@@ -147,7 +147,7 @@ function renderCheckbox(element, isActiveMode, isFetchingInput, mouseReference)
                     elementReference.gui.hoverStatus = "backward"
                     elementReference.gui.hoverAnimTickCounter = CLIENT_CURRENT_TICK
                 end
-                elementReference.gui.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
+                elementReference.gui.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].viewSection.hoverAnimDuration)
                 local isTextHoverInterpolationRendering = elementReference.gui.interpolationProgress < 1
                 isElementToBeForceRendered = isElementToBeForceRendered or isTextHoverInterpolationRendering or (not isCheckBoxSelected and elementReference.gui.hoverStatus ~= "backward")
                 if isElementInterpolationToBeRefreshed or isTextHoverInterpolationRendering then

@@ -76,9 +76,9 @@ function renderButton(element, isActiveMode, isFetchingInput, mouseReference)
             elementReference.gui["__UI_CACHE__"]["Button"].offsets.width = elementReference.gui.size or elementReference.gui.width
             elementReference.gui["__UI_CACHE__"]["Button"].offsets.height = elementReference.gui.size or elementReference.gui.height
             elementReference.gui["__UI_CACHE__"]["Button"].text.text = elementReference.gui.text
-            elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.startX = elementReference.gui["__UI_CACHE__"]["Button"].offsets.startX + availableElements[elementType].contentSection.paddingX
+            elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.startX = elementReference.gui["__UI_CACHE__"]["Button"].offsets.startX + availableElements[elementType].viewSection.paddingX
             elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.startY = elementReference.gui["__UI_CACHE__"]["Button"].offsets.startY + (elementTemplate.fontPaddingY or 0)
-            elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.endX = elementReference.gui["__UI_CACHE__"]["Button"].offsets.startX + elementReference.gui["__UI_CACHE__"]["Button"].offsets.width - availableElements[elementType].contentSection.paddingX
+            elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.endX = elementReference.gui["__UI_CACHE__"]["Button"].offsets.startX + elementReference.gui["__UI_CACHE__"]["Button"].offsets.width - availableElements[elementType].viewSection.paddingX
             elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.endY = elementReference.gui["__UI_CACHE__"]["Button"].offsets.startY + elementReference.gui["__UI_CACHE__"]["Button"].offsets.height
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX = elementReference.gui["__UI_CACHE__"]["Button"].offsets.startX
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY = elementReference.gui["__UI_CACHE__"]["Button"].offsets.startY
@@ -134,7 +134,7 @@ function renderButton(element, isActiveMode, isFetchingInput, mouseReference)
                     elementReference.gui.hoverStatus = "backward"
                     elementReference.gui.hoverAnimTickCounter = CLIENT_CURRENT_TICK
                 end
-                elementReference.gui.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].contentSection.hoverAnimDuration)
+                elementReference.gui.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.hoverAnimTickCounter, availableElements[elementType].viewSection.hoverAnimDuration)
             end
             local isButtonHoverInterpolationRendering = elementReference.gui.interpolationProgress < 1
             if isActiveMode then

@@ -85,10 +85,10 @@ function renderGridlist(element, isActiveMode, isFetchingInput, mouseReference)
             elementReference.gui["__UI_CACHE__"]["Gridlist"].startY = elementReference.gui.y
             elementReference.gui["__UI_CACHE__"]["Gridlist"].width = elementReference.gui.width
             elementReference.gui["__UI_CACHE__"]["Gridlist"].height = elementReference.gui.height
-            elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.startX = elementReference.gui["__UI_CACHE__"]["Gridlist"].startX + elementReference.gui.contentSection.startX
-            elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.startY = elementReference.gui["__UI_CACHE__"]["Gridlist"].startY + elementReference.gui.contentSection.startY
-            elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.width = elementReference.gui.contentSection.width
-            elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.height = elementReference.gui.contentSection.height
+            elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.startX = elementReference.gui["__UI_CACHE__"]["Gridlist"].startX + elementReference.gui.viewSection.startX
+            elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.startY = elementReference.gui["__UI_CACHE__"]["Gridlist"].startY + elementReference.gui.viewSection.startY
+            elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.width = elementReference.gui.viewSection.width
+            elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.height = elementReference.gui.viewSection.height
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Grid View"].width = elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.width 
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Grid View"].height = elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.height
             elementReference.gui["__UI_CACHE__"]["Grid Columns"].height = availableElements[elementType].columnBar.height

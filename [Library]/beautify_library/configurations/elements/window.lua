@@ -50,7 +50,7 @@ availableElements[elementType] = {
             hoverAnimDuration = 1000
         }
     },
-    contentSection = {
+    viewSection = {
         padding = 5
     }
 }

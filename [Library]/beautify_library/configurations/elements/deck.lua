@@ -48,7 +48,7 @@ availableElements[elementType] = {
             rollAnimDuration = 1000
         }
     },
-    contentSection = {
+    viewSection = {
         padding = 5
     }
 }

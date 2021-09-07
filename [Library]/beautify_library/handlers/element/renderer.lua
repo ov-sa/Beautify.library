@@ -206,8 +206,8 @@ function renderElementChildren(element, isActiveMode, isFetchingInput, mouseRefe
             propagatedMouseReference = imports.cloneTableDatas(mouseReference)
             propagatedMouseReference.element = element
         end
-        propagatedMouseReference.x = propagatedMouseReference.x + elementReference.gui.x + ((elementReference.gui.contentSection and elementReference.gui.contentSection.startX) or 0)
-        propagatedMouseReference.y = propagatedMouseReference.y + elementReference.gui.y + ((elementReference.gui.contentSection and elementReference.gui.contentSection.startY) or 0)
+        propagatedMouseReference.x = propagatedMouseReference.x + elementReference.gui.x + ((elementReference.gui.viewSection and elementReference.gui.viewSection.startX) or 0)
+        propagatedMouseReference.y = propagatedMouseReference.y + elementReference.gui.y + ((elementReference.gui.viewSection and elementReference.gui.viewSection.startY) or 0)
         for i = elementChildrenCount, 1, -1 do
             local childElement = elementReference.renderIndexReference[(elementReference.renderIndex)].children[i].element
             if imports.isUIValid(childElement) and imports.isUIVisible(childElement) then

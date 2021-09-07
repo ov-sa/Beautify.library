@@ -68,8 +68,8 @@ function renderDeckPane(element, isActiveMode, isFetchingInput, mouseReference)
             elementReference.gui["__UI_CACHE__"]["Deckpane"].offsets.height = elementReference.gui.height
             elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.startX = elementReference.gui["__UI_CACHE__"]["Deckpane"].offsets.startX
             elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.startY = elementReference.gui["__UI_CACHE__"]["Deckpane"].offsets.startY
-            elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.width = elementReference.gui.contentSection.width
-            elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.height = elementReference.gui.contentSection.height
+            elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.width = elementReference.gui.viewSection.width
+            elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.height = elementReference.gui.viewSection.height
             if not CLIENT_MTA_MINIMIZED then
                 elementReference.gui["__UI_CACHE__"].reloadElement = nil
             end

@@ -34,7 +34,7 @@ function createWindow(...)
     elementReference.gui = cloneUIOutline(elementType)
     for i, j in ipairs(availableElements[elementType].syntax.parameters) do
         if (j.name == "width") or (j.name == "height") then
-            elementReference.gui[j.name] = math.max(0, math.max(availableElements[elementType].minimumSize, parameters[i]) + (availableElements[elementType].contentSection.padding*2))
+            elementReference.gui[j.name] = math.max(0, math.max(availableElements[elementType].minimumSize, parameters[i]) + (availableElements[elementType].viewSection.padding*2))
             if j.name == "height" then
                 elementReference.gui[j.name] = elementReference.gui[j.name] + (availableElements[elementType].minimumSize*0.5)
             end
@@ -43,14 +43,14 @@ function createWindow(...)
         end
     end
     elementReference.gui.postGUI = (parameters[(#availableElements[elementType].syntax.parameters + 2)] and true) or false
-    elementReference.gui.contentSection = {
-        startX = availableElements[elementType].contentSection.padding,
-        startY = (availableElements[elementType].minimumSize*0.5) + availableElements[elementType].contentSection.padding,
-        width = elementReference.gui.width - (availableElements[elementType].contentSection.padding*2),
-        height = elementReference.gui.height - (availableElements[elementType].minimumSize*0.5) - (availableElements[elementType].contentSection.padding*2)
+    elementReference.gui.viewSection = {
+        startX = availableElements[elementType].viewSection.padding,
+        startY = (availableElements[elementType].minimumSize*0.5) + availableElements[elementType].viewSection.padding,
+        width = elementReference.gui.width - (availableElements[elementType].viewSection.padding*2),
+        height = elementReference.gui.height - (availableElements[elementType].minimumSize*0.5) - (availableElements[elementType].viewSection.padding*2)
     }
-    if (elementReference.gui.contentSection.width > math.max(0, availableElements[elementType].minimumSize*0.5)) and (elementReference.gui.contentSection.height > math.max(0, availableElements[elementType].minimumSize*0.5)) then
-        elementReference.gui.renderTarget = dxCreateRenderTarget(elementReference.gui.contentSection.width, elementReference.gui.contentSection.height, true)
+    if (elementReference.gui.viewSection.width > math.max(0, availableElements[elementType].minimumSize*0.5)) and (elementReference.gui.viewSection.height > math.max(0, availableElements[elementType].minimumSize*0.5)) then
+        elementReference.gui.renderTarget = dxCreateRenderTarget(elementReference.gui.viewSection.width, elementReference.gui.viewSection.height, true)
     end
     elementReference.isValid = true
     reloadElement(createdElement)
