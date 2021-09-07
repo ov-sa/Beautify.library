@@ -61,7 +61,6 @@ function renderGridlist(element, isActiveMode, isFetchingInput, mouseReference)
         local isElementInterpolationToBeRefreshed = CLIENT_MTA_RESTORED
         local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)] and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
-        local gridlist_postGUI = elementReference.gui.postGUI
         local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
 
         if not isElementToBeRendered then return false end
@@ -82,26 +81,20 @@ function renderGridlist(element, isActiveMode, isFetchingInput, mouseReference)
                 }
                 elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Grid View"] = {}
             end
-            local gridlist_startX, gridlist_startY = elementReference.gui.x, elementReference.gui.y
-            local gridlist_width, gridlist_height = elementReference.gui.width, elementReference.gui.height
-            elementReference.gui["__UI_CACHE__"]["Gridlist"].startX = gridlist_startX
-            elementReference.gui["__UI_CACHE__"]["Gridlist"].startY = gridlist_startY
-            elementReference.gui["__UI_CACHE__"]["Gridlist"].width = gridlist_width
-            elementReference.gui["__UI_CACHE__"]["Gridlist"].height = gridlist_height
-            local gridlist_renderTarget_startX, gridlist_renderTarget_startY = elementReference.gui["__UI_CACHE__"]["Gridlist"].startX + elementReference.gui.contentSection.startX, elementReference.gui["__UI_CACHE__"]["Gridlist"].startY + elementReference.gui.contentSection.startY
-            local gridlist_renderTarget_width, gridlist_renderTarget_height = elementReference.gui.contentSection.width, elementReference.gui.contentSection.height
-            elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.startX = gridlist_renderTarget_startX
-            elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.startY = gridlist_renderTarget_startY
-            elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.width = gridlist_renderTarget_width
-            elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.height = gridlist_renderTarget_height
+            elementReference.gui["__UI_CACHE__"]["Gridlist"].startX = elementReference.gui.x
+            elementReference.gui["__UI_CACHE__"]["Gridlist"].startY = elementReference.gui.y
+            elementReference.gui["__UI_CACHE__"]["Gridlist"].width = elementReference.gui.width
+            elementReference.gui["__UI_CACHE__"]["Gridlist"].height = elementReference.gui.height
+            elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.startX = elementReference.gui["__UI_CACHE__"]["Gridlist"].startX + elementReference.gui.contentSection.startX
+            elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.startY = elementReference.gui["__UI_CACHE__"]["Gridlist"].startY + elementReference.gui.contentSection.startY
+            elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.width = elementReference.gui.contentSection.width
+            elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.height = elementReference.gui.contentSection.height
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Grid View"].width = elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.width 
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Grid View"].height = elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.height
-            local gridlist_columnBar_height, gridlist_columnBar_padding = availableElements[elementType].columnBar.height, availableElements[elementType].columnBar.padding
-            elementReference.gui["__UI_CACHE__"]["Grid Columns"].height = gridlist_columnBar_height
-            elementReference.gui["__UI_CACHE__"]["Grid Columns"].padding = gridlist_columnBar_padding
-            local gridlist_rowBar_height, gridlist_rowBar_padding = availableElements[elementType].rowBar.height, availableElements[elementType].rowBar.padding
-            elementReference.gui["__UI_CACHE__"]["Grid Rows"].height = gridlist_rowBar_height
-            elementReference.gui["__UI_CACHE__"]["Grid Rows"].padding = gridlist_rowBar_padding
+            elementReference.gui["__UI_CACHE__"]["Grid Columns"].height = availableElements[elementType].columnBar.height
+            elementReference.gui["__UI_CACHE__"]["Grid Columns"].padding = availableElements[elementType].columnBar.padding
+            elementReference.gui["__UI_CACHE__"]["Grid Rows"].height = availableElements[elementType].rowBar.height
+            elementReference.gui["__UI_CACHE__"]["Grid Rows"].padding = availableElements[elementType].rowBar.padding
             if isElementToBeReloaded then
                 elementReference.gui["__UI_CACHE__"]["Gridlist"].color = imports.tocolor(imports.unpackColor(elementTemplate.color))
                 elementReference.gui["__UI_CACHE__"]["Grid Columns"].divider.size = elementTemplate.columnBar.divider.size
@@ -134,7 +127,7 @@ function renderGridlist(element, isActiveMode, isFetchingInput, mouseReference)
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"] = {}
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Grid Rows"] = {}
         end
-        imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Gridlist"].startX, elementReference.gui["__UI_CACHE__"]["Gridlist"].startY, elementReference.gui["__UI_CACHE__"]["Gridlist"].width, elementReference.gui["__UI_CACHE__"]["Gridlist"].height, elementReference.gui["__UI_CACHE__"]["Gridlist"].color, gridlist_postGUI)
+        imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Gridlist"].startX, elementReference.gui["__UI_CACHE__"]["Gridlist"].startY, elementReference.gui["__UI_CACHE__"]["Gridlist"].width, elementReference.gui["__UI_CACHE__"]["Gridlist"].height, elementReference.gui["__UI_CACHE__"]["Gridlist"].color, elementReference.gui.postGUI)
         local gridlist_row_count, gridlist_column_count = #elementReference.gridData.rows, #elementReference.gridData.columns
         if elementReference.gui.renderTarget and imports.isElement(elementReference.gui.renderTarget) then
             if isActiveMode then
@@ -214,16 +207,16 @@ function renderGridlist(element, isActiveMode, isFetchingInput, mouseReference)
                     imports.dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
                 end
             end
-            imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.startX, elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.startY, elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.height, elementReference.gui.renderTarget, 0, 0, 0, -1, gridlist_postGUI)    
+            imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.startX, elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.startY, elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Gridlist"].view.offsets.height, elementReference.gui.renderTarget, 0, 0, 0, -1, elementReference.gui.postGUI)    
         end
-        imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Gridlist"].startX, elementReference.gui["__UI_CACHE__"]["Gridlist"].startY, elementReference.gui["__UI_CACHE__"]["Gridlist"].width, elementReference.gui["__UI_CACHE__"]["Grid Columns"].height, elementReference.gui["__UI_CACHE__"]["Grid Columns"].color, gridlist_postGUI)
-        imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Gridlist"].startX, elementReference.gui["__UI_CACHE__"]["Gridlist"].startY + elementReference.gui["__UI_CACHE__"]["Grid Columns"].height, elementReference.gui["__UI_CACHE__"]["Gridlist"].width, elementReference.gui["__UI_CACHE__"]["Grid Columns"].divider.size, elementReference.gui["__UI_CACHE__"]["Grid Columns"].divider.color, gridlist_postGUI)
+        imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Gridlist"].startX, elementReference.gui["__UI_CACHE__"]["Gridlist"].startY, elementReference.gui["__UI_CACHE__"]["Gridlist"].width, elementReference.gui["__UI_CACHE__"]["Grid Columns"].height, elementReference.gui["__UI_CACHE__"]["Grid Columns"].color, elementReference.gui.postGUI)
+        imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Gridlist"].startX, elementReference.gui["__UI_CACHE__"]["Gridlist"].startY + elementReference.gui["__UI_CACHE__"]["Grid Columns"].height, elementReference.gui["__UI_CACHE__"]["Gridlist"].width, elementReference.gui["__UI_CACHE__"]["Grid Columns"].divider.size, elementReference.gui["__UI_CACHE__"]["Grid Columns"].divider.color, elementReference.gui.postGUI)
         for i = 1, gridlist_column_count, 1 do
             local j = elementReference.gridData.columns[i]
             if i ~= gridlist_column_count then
-                imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Gridlist"].startX + elementReference.gui["__UI_CACHE__"]["Grid Columns"].offsets[i].startX + j.width + elementReference.gui["__UI_CACHE__"]["Grid Columns"].divider.size, elementReference.gui["__UI_CACHE__"]["Gridlist"].startY + elementReference.gui["__UI_CACHE__"]["Grid Columns"].height, elementReference.gui["__UI_CACHE__"]["Grid Columns"].divider.size, elementReference.gui["__UI_CACHE__"]["Gridlist"].height - elementReference.gui["__UI_CACHE__"]["Grid Columns"].height, elementReference.gui["__UI_CACHE__"]["Grid Columns"].divider.color, gridlist_postGUI)
+                imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Gridlist"].startX + elementReference.gui["__UI_CACHE__"]["Grid Columns"].offsets[i].startX + j.width + elementReference.gui["__UI_CACHE__"]["Grid Columns"].divider.size, elementReference.gui["__UI_CACHE__"]["Gridlist"].startY + elementReference.gui["__UI_CACHE__"]["Grid Columns"].height, elementReference.gui["__UI_CACHE__"]["Grid Columns"].divider.size, elementReference.gui["__UI_CACHE__"]["Gridlist"].height - elementReference.gui["__UI_CACHE__"]["Grid Columns"].height, elementReference.gui["__UI_CACHE__"]["Grid Columns"].divider.color, elementReference.gui.postGUI)
             end
-            imports.dxDrawText(j.name, elementReference.gui["__UI_CACHE__"]["Gridlist"].startX + elementReference.gui["__UI_CACHE__"]["Grid Columns"].offsets[i].startX + elementReference.gui["__UI_CACHE__"]["Grid Columns"].padding, elementReference.gui["__UI_CACHE__"]["Gridlist"].startY + elementReference.gui["__UI_CACHE__"]["Grid Columns"].padding + (elementTemplate.columnBar.fontPaddingY or 0), elementReference.gui["__UI_CACHE__"]["Gridlist"].startX + elementReference.gui["__UI_CACHE__"]["Grid Columns"].offsets[i].endX - elementReference.gui["__UI_CACHE__"]["Grid Columns"].padding, elementReference.gui["__UI_CACHE__"]["Gridlist"].startY + elementReference.gui["__UI_CACHE__"]["Grid Columns"].height, elementReference.gui["__UI_CACHE__"]["Grid Columns"].fontColor, elementTemplate.columnBar.fontScale or 1, elementTemplate.columnBar.font, "center", "center", true, false, gridlist_postGUI, false)
+            imports.dxDrawText(j.name, elementReference.gui["__UI_CACHE__"]["Gridlist"].startX + elementReference.gui["__UI_CACHE__"]["Grid Columns"].offsets[i].startX + elementReference.gui["__UI_CACHE__"]["Grid Columns"].padding, elementReference.gui["__UI_CACHE__"]["Gridlist"].startY + elementReference.gui["__UI_CACHE__"]["Grid Columns"].padding + (elementTemplate.columnBar.fontPaddingY or 0), elementReference.gui["__UI_CACHE__"]["Gridlist"].startX + elementReference.gui["__UI_CACHE__"]["Grid Columns"].offsets[i].endX - elementReference.gui["__UI_CACHE__"]["Grid Columns"].padding, elementReference.gui["__UI_CACHE__"]["Gridlist"].startY + elementReference.gui["__UI_CACHE__"]["Grid Columns"].height, elementReference.gui["__UI_CACHE__"]["Grid Columns"].fontColor, elementTemplate.columnBar.fontScale or 1, elementTemplate.columnBar.font, "center", "center", true, false, elementReference.gui.postGUI, false)
         end
     else
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
