@@ -51,8 +51,6 @@ local elementType = "beautify_slider"
 function renderSlider(element, isActiveMode, isFetchingInput, mouseReference)
 
     local elementReference = createdElements[element]
-    if not elementReference.isValid or not elementReference.isVisible then return false end
-
     if not isFetchingInput then
         local elementParent = imports.getUIParent(element)
         if not elementParent then imports.dxSetRenderTarget() end
