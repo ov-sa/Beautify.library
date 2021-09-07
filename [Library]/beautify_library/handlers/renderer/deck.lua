@@ -216,10 +216,7 @@ function renderDeck(element, isActiveMode, isFetchingInput, mouseReference)
         end
     else
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
-        local isElementChildrenToBeRendered = elementReference.gui.maximized and (elementReference.gui.titleBar.toggleButton.interpolationProgress >= 1)
-        if isElementChildrenToBeRendered then
-            imports.renderElementChildren(element, isActiveMode, true, mouseReference)
-        end
+        imports.renderElementChildren(element, isActiveMode, true, mouseReference)
         local isElementHovered = CLIENT_HOVERED_ELEMENT.element == element
         if isElementHovered then
             local isToggleButtonHovered = imports.isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Toggle Button"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Toggle Button"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Toggle Button"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Toggle Button"].height)
