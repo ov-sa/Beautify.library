@@ -58,11 +58,8 @@ function renderButton(element, isActiveMode, isFetchingInput, mouseReference)
         local isElementInterpolationToBeRefreshed = CLIENT_MTA_RESTORED
         local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)] and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
-        local button_width, button_height = elementReference.gui.size or elementReference.gui.width, elementReference.gui.size or elementReference.gui.height
-        local button_type = elementReference.gui.type
-        local button_postGUI = elementReference.gui.postGUI
         local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
-        elementTemplate = elementTemplate[button_type]
+        elementTemplate = elementTemplate[elementReference.gui.type]
     
         if not isElementToBeRendered then return false end
         if (isActiveMode or isElementToBeReloaded) and isElementToBeUpdated then
@@ -74,16 +71,14 @@ function renderButton(element, isActiveMode, isFetchingInput, mouseReference)
                     }
                 }
             end
-            local button_startX, button_startY = elementReference.gui.x, elementReference.gui.y
-            local button_content_padding = availableElements[elementType].contentSection.paddingX
-            elementReference.gui["__UI_CACHE__"]["Button"].offsets.startX = button_startX
-            elementReference.gui["__UI_CACHE__"]["Button"].offsets.startY = button_startY
-            elementReference.gui["__UI_CACHE__"]["Button"].offsets.width = button_width
-            elementReference.gui["__UI_CACHE__"]["Button"].offsets.height = button_height
+            elementReference.gui["__UI_CACHE__"]["Button"].offsets.startX = elementReference.gui.x
+            elementReference.gui["__UI_CACHE__"]["Button"].offsets.startY = elementReference.gui.y
+            elementReference.gui["__UI_CACHE__"]["Button"].offsets.width = elementReference.gui.size or elementReference.gui.width
+            elementReference.gui["__UI_CACHE__"]["Button"].offsets.height = elementReference.gui.size or elementReference.gui.height
             elementReference.gui["__UI_CACHE__"]["Button"].text.text = elementReference.gui.text
-            elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.startX = elementReference.gui["__UI_CACHE__"]["Button"].offsets.startX + button_content_padding
+            elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.startX = elementReference.gui["__UI_CACHE__"]["Button"].offsets.startX + availableElements[elementType].contentSection.paddingX
             elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.startY = elementReference.gui["__UI_CACHE__"]["Button"].offsets.startY + (elementTemplate.fontPaddingY or 0)
-            elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.endX = elementReference.gui["__UI_CACHE__"]["Button"].offsets.startX + elementReference.gui["__UI_CACHE__"]["Button"].offsets.width - button_content_padding
+            elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.endX = elementReference.gui["__UI_CACHE__"]["Button"].offsets.startX + elementReference.gui["__UI_CACHE__"]["Button"].offsets.width - availableElements[elementType].contentSection.paddingX
             elementReference.gui["__UI_CACHE__"]["Button"].text.offsets.endY = elementReference.gui["__UI_CACHE__"]["Button"].offsets.startY + elementReference.gui["__UI_CACHE__"]["Button"].offsets.height
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startX = elementReference.gui["__UI_CACHE__"]["Button"].offsets.startX
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"].startY = elementReference.gui["__UI_CACHE__"]["Button"].offsets.startY
@@ -91,7 +86,7 @@ function renderButton(element, isActiveMode, isFetchingInput, mouseReference)
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"].height = elementReference.gui["__UI_CACHE__"]["Button"].offsets.height
             if not elementReference.gui["__UI_CACHE__"]["Button"].renderTexture then
                 if not elementReference.gui["__UI_CACHE__"]["Button"].renderTarget then
-                    elementReference.gui["__UI_CACHE__"]["Button"].renderTarget = imports.dxCreateRenderTarget(button_width, button_height, true)
+                    elementReference.gui["__UI_CACHE__"]["Button"].renderTarget = imports.dxCreateRenderTarget(elementReference.gui["__UI_CACHE__"]["Button"].offsets.width, elementReference.gui["__UI_CACHE__"]["Button"].offsets.height, true)
                 end
                 if elementReference.gui["__UI_CACHE__"]["Button"].renderTexture and imports.isElement(elementReference.gui["__UI_CACHE__"]["Button"].renderTexture) then
                     imports.destroyElement(elementReference.gui["__UI_CACHE__"]["Button"].renderTexture)
@@ -99,18 +94,18 @@ function renderButton(element, isActiveMode, isFetchingInput, mouseReference)
                 end
                 imports.dxSetRenderTarget(elementReference.gui["__UI_CACHE__"]["Button"].renderTarget, true)
                 imports.dxSetBlendMode("modulate_add")
-                if button_type == "default" then
+                if elementReference.gui.type == "default" then
                     local button_borderSize = availableElements[elementType].minimumSize*0.5
                     imports.dxDrawImage(0, 0, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/top_left.png"], 0, 0, 0, -1, false)
-                    imports.dxDrawImage(button_width - button_borderSize, 0, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/top_right.png"], 0, 0, 0, -1, false)
-                    imports.dxDrawImage(0, button_height - button_borderSize, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/bottom_left.png"], 0, 0, 0, -1, false)
-                    imports.dxDrawImage(button_width - button_borderSize, button_height - button_borderSize, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/bottom_right.png"], 0, 0, 0, -1, false)
-                    if button_width > availableElements[elementType].minimumSize then
-                        imports.dxDrawRectangle(button_borderSize, 0, button_width - availableElements[elementType].minimumSize, button_height, -1, false)
+                    imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Button"].offsets.width - button_borderSize, 0, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/top_right.png"], 0, 0, 0, -1, false)
+                    imports.dxDrawImage(0, elementReference.gui["__UI_CACHE__"]["Button"].offsets.height - button_borderSize, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/bottom_left.png"], 0, 0, 0, -1, false)
+                    imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Button"].offsets.width - button_borderSize, elementReference.gui["__UI_CACHE__"]["Button"].offsets.height - button_borderSize, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/bottom_right.png"], 0, 0, 0, -1, false)
+                    if elementReference.gui["__UI_CACHE__"]["Button"].offsets.width > availableElements[elementType].minimumSize then
+                        imports.dxDrawRectangle(button_borderSize, 0, elementReference.gui["__UI_CACHE__"]["Button"].offsets.width - availableElements[elementType].minimumSize, elementReference.gui["__UI_CACHE__"]["Button"].offsets.height, -1, false)
                     end
-                    if button_height > availableElements[elementType].minimumSize then
-                        imports.dxDrawRectangle(0, button_borderSize, button_borderSize, button_height - availableElements[elementType].minimumSize, -1, false)
-                        imports.dxDrawRectangle(button_width - button_borderSize, button_borderSize, button_borderSize, button_height - availableElements[elementType].minimumSize, -1, false)
+                    if elementReference.gui["__UI_CACHE__"]["Button"].offsets.height > availableElements[elementType].minimumSize then
+                        imports.dxDrawRectangle(0, button_borderSize, button_borderSize, elementReference.gui["__UI_CACHE__"]["Button"].offsets.height - availableElements[elementType].minimumSize, -1, false)
+                        imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Button"].offsets.width - button_borderSize, button_borderSize, button_borderSize, elementReference.gui["__UI_CACHE__"]["Button"].offsets.height - availableElements[elementType].minimumSize, -1, false)
                     end
                 end
                 imports.dxSetBlendMode("blend")

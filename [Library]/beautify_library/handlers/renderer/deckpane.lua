@@ -48,7 +48,6 @@ function renderDeckPane(element, isActiveMode, isFetchingInput, mouseReference)
         local isElementInterpolationToBeRefreshed = CLIENT_MTA_RESTORED
         local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)] and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
-        local deckpane_postGUI = elementReference.gui.postGUI
         local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
 
         if not isElementToBeRendered then return false end
@@ -136,7 +135,7 @@ function renderDeckPane(element, isActiveMode, isFetchingInput, mouseReference)
                     imports.dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
                 end
             end
-            imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.startX, elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.startY, elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.height, elementReference.gui.renderTarget, 0, 0, 0, -1, deckpane_postGUI)
+            imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.startX, elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.startY, elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.height, elementReference.gui.renderTarget, 0, 0, 0, -1, elementReference.gui.postGUI)
         end
     else
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}

@@ -55,8 +55,6 @@ function renderCheckbox(element, isActiveMode, isFetchingInput, mouseReference)
         local isElementInterpolationToBeRefreshed = CLIENT_MTA_RESTORED
         local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)] and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
-        local checkbox_type = elementReference.gui.type
-        local checkbox_postGUI = elementReference.gui.postGUI
         local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
 
         if not isElementToBeRendered then return false end
@@ -76,16 +74,12 @@ function renderCheckbox(element, isActiveMode, isFetchingInput, mouseReference)
                 elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Checkbox"] = {}
                 elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Tick Box"] = {}
             end
-            local checkbox_startX, checkbox_startY = elementReference.gui.x, elementReference.gui.y
-            local checkbox_width, checkbox_height = elementReference.gui.width, elementReference.gui.height
-            local checkbox_tickbox_size = availableElements[elementType].minimumSize
-            local checkbox_tickbox_icon_size = imports.math.min(checkbox_tickbox_size, availableElements[elementType].tickboxSize)
-            local checkbox_content_padding, checkbox_content_paddingLeft = availableElements[elementType].contentSection.padding, availableElements[elementType].contentSection.paddingLeft
-            local checkbox_tickbox_icon_padding = (checkbox_tickbox_size - checkbox_tickbox_icon_size)*0.5
-            local checkbox_tickbox_offsetY = checkbox_startY + ((checkbox_height - checkbox_tickbox_size)*0.5)
-            elementReference.gui["__UI_CACHE__"]["Tick Box"].offsets.width = checkbox_tickbox_size
-            elementReference.gui["__UI_CACHE__"]["Tick Box"].offsets.height = checkbox_tickbox_size
-            elementReference.gui["__UI_CACHE__"]["Tick Box"].offsets.startX = checkbox_startX
+            local checkbox_tickbox_icon_size = imports.math.min(availableElements[elementType].minimumSize, availableElements[elementType].tickboxSize)
+            local checkbox_tickbox_icon_padding = (availableElements[elementType].minimumSize - checkbox_tickbox_icon_size)*0.5
+            local checkbox_tickbox_offsetY = elementReference.gui.y + ((elementReference.gui.height - availableElements[elementType].minimumSize)*0.5)
+            elementReference.gui["__UI_CACHE__"]["Tick Box"].offsets.width = availableElements[elementType].minimumSize
+            elementReference.gui["__UI_CACHE__"]["Tick Box"].offsets.height = availableElements[elementType].minimumSize
+            elementReference.gui["__UI_CACHE__"]["Tick Box"].offsets.startX = elementReference.gui.x
             elementReference.gui["__UI_CACHE__"]["Tick Box"].offsets.startY = checkbox_tickbox_offsetY
             elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.width = checkbox_tickbox_icon_size
             elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.height = checkbox_tickbox_icon_size
@@ -93,10 +87,10 @@ function renderCheckbox(element, isActiveMode, isFetchingInput, mouseReference)
             elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startY = elementReference.gui["__UI_CACHE__"]["Tick Box"].offsets.startY + checkbox_tickbox_icon_padding
             if elementReference.gui.text then
                 elementReference.gui["__UI_CACHE__"]["Checkbox"].text.text = elementReference.gui.text
-                elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.startX = checkbox_startX + checkbox_tickbox_size + checkbox_content_paddingLeft
-                elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.startY = checkbox_startY + checkbox_content_padding + elementTemplate.fontPaddingY
-                elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.endX = checkbox_startX + checkbox_width - checkbox_content_padding
-                elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.endY = checkbox_startY + checkbox_height - checkbox_content_padding
+                elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.startX = elementReference.gui.x + availableElements[elementType].minimumSize + availableElements[elementType].contentSection.paddingLeft
+                elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.startY = elementReference.gui.y + availableElements[elementType].contentSection.padding + elementTemplate.fontPaddingY
+                elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.endX = elementReference.gui.x + elementReference.gui.width - availableElements[elementType].contentSection.padding
+                elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.endY = elementReference.gui.y + elementReference.gui.height - availableElements[elementType].contentSection.padding
                 elementReference.gui["__UI_CACHE__"]["Checkbox"].text.isToBeRendered = ((elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.endX - elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.startX) > 0) and ((elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.endY - elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.startY) > 0)
             else
                 elementReference.gui["__UI_CACHE__"]["Checkbox"].text.text = false
@@ -139,12 +133,12 @@ function renderCheckbox(element, isActiveMode, isFetchingInput, mouseReference)
             end
         end
         if elementReference.gui.tickBox.animAlphaPercent < 1 then
-            imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.height, elementReference.gui["__UI_CACHE__"]["Tick Box"].color, checkbox_postGUI)
+            imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.height, elementReference.gui["__UI_CACHE__"]["Tick Box"].color, elementReference.gui.postGUI)
             if elementReference.gui.tickBox.animAlphaPercent > 0 then
-                imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.height, imports.tocolor(elementTemplate.tickBox.iconColor[1], elementTemplate.tickBox.iconColor[2], elementTemplate.tickBox.iconColor[3], elementTemplate.tickBox.iconColor[4]*elementReference.gui.tickBox.animAlphaPercent), checkbox_postGUI)
+                imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.height, imports.tocolor(elementTemplate.tickBox.iconColor[1], elementTemplate.tickBox.iconColor[2], elementTemplate.tickBox.iconColor[3], elementTemplate.tickBox.iconColor[4]*elementReference.gui.tickBox.animAlphaPercent), elementReference.gui.postGUI)
             end
         else
-            imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.height, elementReference.gui["__UI_CACHE__"]["Tick Box"].iconColor, checkbox_postGUI)
+            imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Tick Box"].icon.offsets.height, elementReference.gui["__UI_CACHE__"]["Tick Box"].iconColor, elementReference.gui.postGUI)
         end
         if elementReference.gui["__UI_CACHE__"]["Checkbox"].text.isToBeRendered then
             if isActiveMode then
@@ -165,7 +159,7 @@ function renderCheckbox(element, isActiveMode, isFetchingInput, mouseReference)
                 end
             end
             local checkbox_fontColor = (elementReference.gui.fontColor and imports.tocolor(elementReference.gui.fontColor[1], elementReference.gui.fontColor[2], elementReference.gui.fontColor[3], elementReference.gui.fontColor[4]*elementReference.gui.animAlphaPercent)) or imports.tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4]*elementReference.gui.animAlphaPercent)
-            imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Checkbox"].text.text, elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.endY, checkbox_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "left", "center", true, false, checkbox_postGUI, false)
+            imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Checkbox"].text.text, elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Checkbox"].text.offsets.endY, checkbox_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "left", "center", true, false, elementReference.gui.postGUI, false)
         end
         if isActiveMode then
             imports.manageElementForceRender(element, isElementToBeForceRendered)
