@@ -85,7 +85,7 @@ function renderDeckPane(element, isActiveMode, isFetchingInput, mouseReference)
                 if #elementReference.renderIndexReference[(elementReference.renderIndex)].children > 0 then
                     local lastDeckReference = createdElements[(elementReference.renderIndexReference[(elementReference.renderIndex)].children[(#elementReference.renderIndexReference[(elementReference.renderIndex)].children)].element)]
                     if lastDeckReference.gui["__UI_CACHE__"] and lastDeckReference.gui["__UI_CACHE__"]["Deck"] then
-                        local deckpane_data_height = lastDeckReference.gui["__UI_CACHE__"]["Deck"].offsets.startY + lastDeckReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight
+                        local deckpane_data_height = lastDeckReference.gui["__UI_CACHE__"]["Deck"].offsets.startY + (lastDeckReference.gui.currentHeight or 0)
                         local deckpane_exceeded_height = deckpane_data_height - elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.height
                         if deckpane_exceeded_height > 0 then
                             elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsetY = deckpane_exceeded_height*elementReference.gui.scrollBar_Vertical.currentPercent*0.01
@@ -102,8 +102,7 @@ function renderDeckPane(element, isActiveMode, isFetchingInput, mouseReference)
                                 },
                                 elementReference.gui.scrollBar_Vertical
                             }
-                            local isComponentToBeForceRendered = imports.renderScrollbar(element, false, false, false, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][1], elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][2], false, true)
-                            isElementToBeForceRendered = isElementToBeForceRendered or isComponentToBeForceRendered
+                            isElementToBeForceRendered = isElementToBeForceRendered or imports.renderScrollbar(element, false, false, false, false, false, false, true)
                             isScrollerComponentToBeRendered = true
                         end
                     end
@@ -116,8 +115,8 @@ function renderDeckPane(element, isActiveMode, isFetchingInput, mouseReference)
                 imports.manageElementForceRender(element, isElementToBeForceRendered)
                 imports.renderElementChildren(element, isActiveMode)
                 local isElementBeingForceRendered = false
-                if elementReference.elementRoot then
-                    isElementBeingForceRendered = (CLIENT_ELEMENT_FORCE_RENDERED[(elementReference.elementRoot)] and CLIENT_ELEMENT_FORCE_RENDERED[(elementReference.elementRoot)].renderChildren[element]) or isElementBeingForceRendered
+                if elementReference.rootElement then
+                    isElementBeingForceRendered = (CLIENT_ELEMENT_FORCE_RENDERED[(elementReference.rootElement)] and CLIENT_ELEMENT_FORCE_RENDERED[(elementReference.rootElement)].renderChildren[element]) or isElementBeingForceRendered
                 else
                     isElementBeingForceRendered = CLIENT_ELEMENT_FORCE_RENDERED[element] or isElementBeingForceRendered
                 end

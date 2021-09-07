@@ -84,8 +84,7 @@ function manageElementForceRender(element, renderState)
     local elementAncestors = imports.getUIAncestors(element)
     if not elementAncestors then return false end
 
-    local totalAncestorsToBeRendered = #elementAncestors.ancestorIndex
-    local elementRoot = elementAncestors.ancestorIndex[totalAncestorsToBeRendered]
+    local elementRoot = createdElements[element].rootElement
     if renderState then
         if CLIENT_ELEMENT_FORCE_RENDERED.__cache.nextTickRemoval[elementRoot] then
             CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].isAttached = nil
@@ -147,7 +146,7 @@ local function renderElements()
             local elementReference = createdElements[element]
             if imports.isMouseOnPosition(elementReference.gui.x, elementReference.gui.y, elementReference.gui.width, elementReference.gui.height) then
                 local elementType = validatedRenderingPriority[i].type
-                CLIENT_HOVERED_ELEMENT.elementRoot = element
+                CLIENT_HOVERED_ELEMENT.rootElement = element
                 CLIENT_HOVERED_ELEMENT.element = element
                 CLIENT_HOVERED_ELEMENT.traceMarks[element] = true
                 availableElements[elementType].renderFunction(element, true, true, {x = 0, y = 0, element = element})
@@ -176,7 +175,7 @@ function renderElementChildren(element, isActiveMode, isFetchingInput, mouseRefe
     local elementReference = createdElements[element]
     local elementChildrenCount = #elementReference.renderIndexReference[(elementReference.renderIndex)].children
     if elementChildrenCount <= 0 then return false end
-    local elementRoot = elementReference.elementRoot or element
+    local elementRoot = elementReference.rootElement or element
     local isElementHovered = CLIENT_HOVERED_ELEMENT.traceMarks[element]
     local isChildrenToBeForceRendered = CLIENT_MTA_RESTORED or (not CLIENT_RESOURCE_TEMPLATE_RELOAD.__cache.loaded and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)])
     if not isElementHovered and not isChildrenToBeForceRendered and not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] then
@@ -213,7 +212,7 @@ function renderElementChildren(element, isActiveMode, isFetchingInput, mouseRefe
             if imports.isUIValid(childElement) and imports.isUIVisible(childElement) then
                 local childReference = createdElements[childElement]
                 local childElementType = createdElements[childElement].elementType
-                if imports.isMouseOnPosition(propagatedMouseReference.x + childReference.gui.x, propagatedMouseReference.y + childReference.gui.y, childReference.gui.width, childReference.gui.height, childReference.gui.height) then
+                if imports.isMouseOnPosition(propagatedMouseReference.x + childReference.gui.x, propagatedMouseReference.y + childReference.gui.y, childReference.gui.currentWidth or childReference.gui.width, childReference.gui.currentHeight or childReference.gui.height) then
                     CLIENT_HOVERED_ELEMENT.element = childElement
                     CLIENT_HOVERED_ELEMENT.traceMarks[childElement] = true
                 end
@@ -236,7 +235,7 @@ end
 imports.addEventHandler("onClientRender", root, function()
 
     if CLIENT_ATTACHED_ELEMENT then
-        local elementRoot = createdElements[(CLIENT_ATTACHED_ELEMENT.element)].elementRoot
+        local elementRoot = createdElements[(CLIENT_ATTACHED_ELEMENT.element)].rootElement
         if not CLIENT_ATTACHED_ELEMENT.element or not imports.isElement(CLIENT_ATTACHED_ELEMENT.element) or not createdElements[CLIENT_ATTACHED_ELEMENT.element] then
             if elementRoot then
                 destroyElementForceRender(elementRoot)
@@ -290,7 +289,7 @@ imports.addEventHandler("onClientRender", root, function()
     if resetHoverChecker then
         CLIENT_HOVERED_ELEMENT.traceMarks = {}
     end
-    CLIENT_HOVERED_ELEMENT.elementRoot = false
+    CLIENT_HOVERED_ELEMENT.rootElement = false
     CLIENT_HOVERED_ELEMENT.element = false
     imports.resetKeyClickCache()
     imports.resetScrollCache()

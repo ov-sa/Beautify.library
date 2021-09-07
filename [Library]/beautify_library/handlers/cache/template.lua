@@ -108,7 +108,7 @@ local function __createTemplate(elementType, defaultTemplate, customTemplate)
                         end
                     end
                 else
-                    if (currentDataType == defaultDataType) then
+                    if currentDataType == defaultDataType then
                         defaultTemplate[i] = customTemplate[i]
                     end
                 end

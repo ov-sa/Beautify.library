@@ -151,7 +151,7 @@ function createUIElement(elementType, parentElement, sourceResource)
             renderIndexReference = createdElements[parentElement].renderIndexReference[(createdElements[parentElement].renderIndex)].children
             createdElements[createdElement] = {
                 parentElement = parentElement,
-                elementRoot = createdElements[parentElement].elementRoot or parentElement
+                rootElement = createdElements[parentElement].rootElement or parentElement
             }
             createdElements[parentElement].children[createdElement] = true
             local elementAncestors = {
@@ -171,7 +171,7 @@ function createUIElement(elementType, parentElement, sourceResource)
             parentElement = nil
             renderIndexReference = createdRenderingPriority
             createdElements[createdElement] = {
-                elementRoot = false
+                rootElement = false
             }
             createdNonParentElements[createdElement] = true
         end
@@ -227,7 +227,6 @@ local function destroyUIElement(element)
     end
     createdNonParentElements[element] = nil
     if parentElement and createdElements[parentElement] then
-        --createdElements[parentElement].renderIndexReference[(createdElements[parentElement].renderIndex)].children[element] = nil
         createdElements[parentElement].children[element] = nil
     end
     createdElements[element] = nil

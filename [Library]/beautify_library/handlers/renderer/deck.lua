@@ -66,7 +66,7 @@ function renderDeck(element, isActiveMode, isFetchingInput, mouseReference)
         local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
 
         if not isElementToBeRendered then return false end
-        local isElementParentBeingForceRendered = CLIENT_ELEMENT_FORCE_RENDERED[(elementReference.elementRoot)] and CLIENT_ELEMENT_FORCE_RENDERED[(elementReference.elementRoot)].renderChildren[elementParent]
+        local isElementParentBeingForceRendered = CLIENT_ELEMENT_FORCE_RENDERED[(elementReference.rootElement)] and CLIENT_ELEMENT_FORCE_RENDERED[(elementReference.rootElement)].renderChildren[elementParent]
         if isActiveMode or isElementToBeReloaded or isElementParentBeingForceRendered then
             if not elementReference.gui.titleBar.toggleButton.animRotationPercent then
                 elementReference.gui.titleBar.toggleButton.animRotationPercent = 0
@@ -111,8 +111,9 @@ function renderDeck(element, isActiveMode, isFetchingInput, mouseReference)
                 if elementReference.renderIndex > 1 then
                     local parentChildrenReference = createdElements[elementParent].renderIndexReference[(createdElements[elementParent].renderIndex)].children
                     local prevChildElementReference = createdElements[(parentChildrenReference[(elementReference.renderIndex - 1)].element)]
-                    deck_startY = prevChildElementReference.gui["__UI_CACHE__"]["Deck"].offsets.startY + (prevChildElementReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight or 0)
-                    deck_offsetY = prevChildElementReference.gui["__UI_CACHE__"]["Deck"].offsets.offsetY + (prevChildElementReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight or 0)
+                    local prevChildElementHeight = prevChildElementReference.gui.currentHeight or 0
+                    deck_startY = prevChildElementReference.gui["__UI_CACHE__"]["Deck"].offsets.startY + prevChildElementHeight
+                    deck_offsetY = prevChildElementReference.gui["__UI_CACHE__"]["Deck"].offsets.offsetY + prevChildElementHeight
                 end
                 elementReference.gui.x, elementReference.gui.y = deck_startX, deck_offsetY
                 elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startX = deck_startX
@@ -140,7 +141,7 @@ function renderDeck(element, isActiveMode, isFetchingInput, mouseReference)
                         elementReference.gui.titleBar.toggleButton.animRotationPercent = imports.interpolateBetween(elementReference.gui.titleBar.toggleButton.animRotationPercent, 0, 0, 0, 0, 0, elementReference.gui.titleBar.toggleButton.interpolationProgress, "InQuad")
                         elementReference.gui.titleBar.toggleButton.animRollPercent = imports.interpolateBetween(elementReference.gui.titleBar.toggleButton.animRollPercent, 0, 0, 0, 0, 0, elementReference.gui.titleBar.toggleButton.rollInterpolationProgress, "InOutQuad")
                     end
-                    elementReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight = elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.height + ((elementReference.gui["__UI_CACHE__"]["Deck"].offsets.height - elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.height)*elementReference.gui.titleBar.toggleButton.animRollPercent)
+                    elementReference.gui.currentHeight = elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.height + ((elementReference.gui["__UI_CACHE__"]["Deck"].offsets.height - elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.height)*elementReference.gui.titleBar.toggleButton.animRollPercent)
                     elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.currentHeight = elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.height*elementReference.gui.titleBar.toggleButton.animRollPercent
                     elementReference.gui["__UI_CACHE__"]["Deck"].view.color = imports.tocolor(255, 255, 255, 255*elementReference.gui.titleBar.toggleButton.animRollPercent)
                 end
@@ -199,7 +200,7 @@ function renderDeck(element, isActiveMode, isFetchingInput, mouseReference)
         end
 
         if elementReference.gui["__UI_CACHE__"]["Deck"].renderTexture then
-            imports.dxDrawImageSection(elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.offsetY, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.width, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight, 0, 0, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.width, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight, elementReference.gui["__UI_CACHE__"]["Deck"].renderTexture, 0, 0, 0, -1, elementReference.gui.postGUI)
+            imports.dxDrawImageSection(elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.offsetY, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.width, elementReference.gui.currentHeight, 0, 0, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.width, elementReference.gui.currentHeight, elementReference.gui["__UI_CACHE__"]["Deck"].renderTexture, 0, 0, 0, -1, elementReference.gui.postGUI)
         end
         imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Title Bar"].text.text, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.fontColor, elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "left", "center", true, false, elementReference.gui.postGUI, false)
         imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.offsets.height, createdAssets["images"]["collar/bottom.rw"], 360*elementReference.gui.titleBar.toggleButton.animRotationPercent, 0, 0, elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.color, elementReference.gui.postGUI)
