@@ -102,7 +102,7 @@ function renderDeckPane(element, isActiveMode, isFetchingInput, mouseReference)
                                 },
                                 elementReference.gui.scrollBar_Vertical
                             }
-                            isElementToBeForceRendered = isElementToBeForceRendered or imports.renderScrollbar(element, false, false, false, false, false, false, true)
+                            isElementToBeForceRendered = isElementToBeForceRendered or imports.renderScrollbar(element, false, false, false, false, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][2], false, true)
                             isScrollerComponentToBeRendered = true
                         end
                     end
