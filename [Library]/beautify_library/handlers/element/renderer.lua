@@ -234,6 +234,8 @@ end
 
 imports.addEventHandler("onClientRender", root, function()
 
+    if CLIENT_MTA_MINIMIZED then return false end
+
     if CLIENT_ATTACHED_ELEMENT then
         local elementRoot = createdElements[(CLIENT_ATTACHED_ELEMENT.element)].rootElement
         if not CLIENT_ATTACHED_ELEMENT.element or not imports.isElement(CLIENT_ATTACHED_ELEMENT.element) or not createdElements[CLIENT_ATTACHED_ELEMENT.element] then
