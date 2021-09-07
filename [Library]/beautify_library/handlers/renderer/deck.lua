@@ -113,8 +113,8 @@ function renderDeck(element, isActiveMode, isFetchingInput, mouseReference)
                 if elementReference.renderIndex > 1 then
                     local parentChildrenReference = createdElements[elementParent].renderIndexReference[(createdElements[elementParent].renderIndex)].children
                     local prevChildElementReference = createdElements[(parentChildrenReference[(elementReference.renderIndex - 1)].element)]
-                    deck_startY = (prevChildElementReference.gui["__UI_CACHE__"]["Deck"].offsets.startY or 0) + (prevChildElementReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight or 0)
-                    deck_offsetY = (prevChildElementReference.gui["__UI_CACHE__"]["Deck"].offsets.offsetY or 0) + (prevChildElementReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight or 0)
+                    deck_startY = prevChildElementReference.gui["__UI_CACHE__"]["Deck"].offsets.startY + (prevChildElementReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight or 0)
+                    deck_offsetY = prevChildElementReference.gui["__UI_CACHE__"]["Deck"].offsets.offsetY + (prevChildElementReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight or 0)
                 end
                 elementReference.gui.x, elementReference.gui.y = deck_startX, deck_offsetY
                 elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startX = deck_startX

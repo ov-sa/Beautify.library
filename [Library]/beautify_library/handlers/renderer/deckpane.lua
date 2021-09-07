@@ -57,7 +57,9 @@ function renderDeckPane(element, isActiveMode, isFetchingInput, mouseReference)
                 elementReference.gui["__UI_CACHE__"]["Deckpane"] = {
                     offsets = {},
                     view = {
-                        offsets = {}
+                        offsets = {
+                            offsetY = 0
+                        }
                     }
                 }
             end
