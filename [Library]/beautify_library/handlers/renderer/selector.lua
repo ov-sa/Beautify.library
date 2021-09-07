@@ -54,8 +54,6 @@ function renderSelector(element, isActiveMode, isFetchingInput, mouseReference)
         local isElementInterpolationToBeRefreshed = CLIENT_MTA_RESTORED
         local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)] and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
-        local selector_type = elementReference.gui.type
-        local selector_postGUI = elementReference.gui.postGUI
         local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
 
         if not isElementToBeRendered then return false end
@@ -81,56 +79,52 @@ function renderSelector(element, isActiveMode, isFetchingInput, mouseReference)
                 elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Previous"] = {}
                 elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Arrow Next"] = {}
             end
-            local selector_startX, selector_startY = elementReference.gui.x, elementReference.gui.y
-            local selector_width, selector_height = elementReference.gui.width, elementReference.gui.height
-            local selector_arrow_size = availableElements[elementType].minimumSize
-            local selector_arrow_icon_size = imports.math.min(selector_arrow_size, availableElements[elementType].arrowIconSize)
-            local selector_content_padding = availableElements[elementType].contentSection.padding
-            local selector_arrow_icon_padding = (selector_arrow_size - selector_arrow_icon_size)*0.5
-            if selector_type == "horizontal" then
-                local selector_arrow_offsetY = selector_startY + ((selector_height - selector_arrow_size)*0.5)
-                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.width = selector_arrow_size
-                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.height = selector_arrow_size
-                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startX = selector_startX
+            local selector_arrow_icon_size = imports.math.min(availableElements[elementType].minimumSize, availableElements[elementType].arrowIconSize)
+            local selector_arrow_icon_padding = (availableElements[elementType].minimumSize - selector_arrow_icon_size)*0.5
+            if elementReference.gui.type == "horizontal" then
+                local selector_arrow_offsetY = elementReference.gui.y + ((elementReference.gui.height - availableElements[elementType].minimumSize)*0.5)
+                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.width = availableElements[elementType].minimumSize
+                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.height = availableElements[elementType].minimumSize
+                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startX = elementReference.gui.x
                 elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startY = selector_arrow_offsetY
                 elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.width = selector_arrow_icon_size
                 elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.height = selector_arrow_icon_size
                 elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.startX = elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startX + selector_arrow_icon_padding
                 elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.startY = elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startY + selector_arrow_icon_padding
-                elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.width = selector_arrow_size
-                elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.height = selector_arrow_size
-                elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startX = selector_startX + selector_width - elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.width
+                elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.width = availableElements[elementType].minimumSize
+                elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.height = availableElements[elementType].minimumSize
+                elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startX = elementReference.gui.x + elementReference.gui.width - elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.width
                 elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startY = selector_arrow_offsetY
                 elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.width = selector_arrow_icon_size
                 elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.height = selector_arrow_icon_size
                 elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.startX = elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startX + selector_arrow_icon_padding
                 elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.startY = elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startY + selector_arrow_icon_padding
-                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startX = selector_startX + selector_arrow_size + selector_content_padding
-                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startY = selector_startY + selector_content_padding + elementTemplate.fontPaddingY
-                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endX = selector_startX + selector_width - selector_arrow_size - selector_content_padding
-                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endY = selector_startY + selector_height - selector_content_padding
-            elseif selector_type == "vertical" then
-                local selector_arrow_offsetX = selector_startX + ((selector_width - selector_arrow_size)*0.5)
-                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.width = selector_arrow_size
-                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.height = selector_arrow_size
+                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startX = elementReference.gui.x + availableElements[elementType].minimumSize + availableElements[elementType].contentSection.padding
+                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startY = elementReference.gui.y + availableElements[elementType].contentSection.padding + elementTemplate.fontPaddingY
+                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endX = elementReference.gui.x + elementReference.gui.width - availableElements[elementType].minimumSize - availableElements[elementType].contentSection.padding
+                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endY = elementReference.gui.y + elementReference.gui.height - availableElements[elementType].contentSection.padding
+            elseif elementReference.gui.type == "vertical" then
+                local selector_arrow_offsetX = elementReference.gui.x + ((elementReference.gui.width - availableElements[elementType].minimumSize)*0.5)
+                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.width = availableElements[elementType].minimumSize
+                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.height = availableElements[elementType].minimumSize
                 elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startX = selector_arrow_offsetX
-                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startY = selector_startY
+                elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startY = elementReference.gui.y
                 elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.width = selector_arrow_icon_size
                 elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.height = selector_arrow_icon_size
                 elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.startX = elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startX + selector_arrow_icon_padding
                 elementReference.gui["__UI_CACHE__"]["Arrow Previous"].icon.offsets.startY = elementReference.gui["__UI_CACHE__"]["Arrow Previous"].offsets.startY + selector_arrow_icon_padding
-                elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.width = selector_arrow_size
-                elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.height = selector_arrow_size
+                elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.width = availableElements[elementType].minimumSize
+                elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.height = availableElements[elementType].minimumSize
                 elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startX = selector_arrow_offsetX
-                elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startY = selector_startY + selector_height - elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.height
+                elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startY = elementReference.gui.y + elementReference.gui.height - elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.height
                 elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.width = selector_arrow_icon_size
                 elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.height = selector_arrow_icon_size
                 elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.startX = elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startX + selector_arrow_icon_padding
                 elementReference.gui["__UI_CACHE__"]["Arrow Next"].icon.offsets.startY = elementReference.gui["__UI_CACHE__"]["Arrow Next"].offsets.startY + selector_arrow_icon_padding
-                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startX = selector_startX + selector_content_padding
-                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startY = selector_startY + selector_arrow_size + selector_content_padding + elementTemplate.fontPaddingY
-                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endX = selector_startX + selector_width - selector_content_padding
-                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endY = selector_startY + selector_height - selector_arrow_size - selector_content_padding
+                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startX = elementReference.gui.x + availableElements[elementType].contentSection.padding
+                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startY = elementReference.gui.y + availableElements[elementType].minimumSize + availableElements[elementType].contentSection.padding + elementTemplate.fontPaddingY
+                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endX = elementReference.gui.x + elementReference.gui.width - availableElements[elementType].contentSection.padding
+                elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endY = elementReference.gui.y + elementReference.gui.height - availableElements[elementType].minimumSize - availableElements[elementType].contentSection.padding
             end
             local slider_text = (elementReference.selectorDataList.selection and elementReference.selectorDataList.list[elementReference.selectorDataList.selection]) or "-"
             elementReference.gui["__UI_CACHE__"]["Selector"].text.text = ((elementReference.gui.text and elementReference.gui.text.." | ") or "")..slider_text
@@ -154,9 +148,9 @@ function renderSelector(element, isActiveMode, isFetchingInput, mouseReference)
         end
 
         local selector_arrow_prevIcon, selector_arrow_nextIcon = false, false
-        if selector_type == "horizontal" then
+        if elementReference.gui.type == "horizontal" then
             selector_arrow_prevIcon, selector_arrow_nextIcon = createdAssets["images"]["arrow/left.png"], createdAssets["images"]["arrow/right.png"]
-        elseif selector_type == "vertical" then
+        elseif elementReference.gui.type == "vertical" then
             selector_arrow_prevIcon, selector_arrow_nextIcon = createdAssets["images"]["arrow/top.png"], createdAssets["images"]["arrow/bottom.png"]
         end
         if selector_arrow_prevIcon and selector_arrow_nextIcon then
@@ -220,7 +214,7 @@ function renderSelector(element, isActiveMode, isFetchingInput, mouseReference)
                 end
             end
             local selector_fontColor = (elementReference.gui.fontColor and imports.tocolor(elementReference.gui.fontColor[1], elementReference.gui.fontColor[2], elementReference.gui.fontColor[3], elementReference.gui.fontColor[4]*elementReference.gui.animAlphaPercent)) or imports.tocolor(elementTemplate.fontColor[1], elementTemplate.fontColor[2], elementTemplate.fontColor[3], elementTemplate.fontColor[4]*elementReference.gui.animAlphaPercent)
-            imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Selector"].text.text, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endY, selector_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "center", "center", true, false, selector_postGUI, false)
+            imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Selector"].text.text, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Selector"].text.offsets.endY, selector_fontColor, elementTemplate.fontScale or 1, elementTemplate.font, "center", "center", true, false, elementReference.gui.postGUI, false)
         end
         if isActiveMode then
             imports.manageElementForceRender(element, isElementToBeForceRendered)
