@@ -62,17 +62,14 @@ function renderDeckPane(element, isActiveMode, isFetchingInput, mouseReference)
                     }
                 }
             end
-            local deckpane_startX, deckpane_startY = elementReference.gui.x, elementReference.gui.y
-            local deckpane_width, deckpane_height = elementReference.gui.width, elementReference.gui.height
-            local deckpane_view_width, deckpane_view_height = elementReference.gui.contentSection.width, elementReference.gui.contentSection.height
-            elementReference.gui["__UI_CACHE__"]["Deckpane"].offsets.startX = deckpane_startX
-            elementReference.gui["__UI_CACHE__"]["Deckpane"].offsets.startY = deckpane_startY
-            elementReference.gui["__UI_CACHE__"]["Deckpane"].offsets.width = deckpane_width
-            elementReference.gui["__UI_CACHE__"]["Deckpane"].offsets.height = deckpane_height
+            elementReference.gui["__UI_CACHE__"]["Deckpane"].offsets.startX = elementReference.gui.x
+            elementReference.gui["__UI_CACHE__"]["Deckpane"].offsets.startY = elementReference.gui.y
+            elementReference.gui["__UI_CACHE__"]["Deckpane"].offsets.width = elementReference.gui.width
+            elementReference.gui["__UI_CACHE__"]["Deckpane"].offsets.height = elementReference.gui.height
             elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.startX = elementReference.gui["__UI_CACHE__"]["Deckpane"].offsets.startX
             elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.startY = elementReference.gui["__UI_CACHE__"]["Deckpane"].offsets.startY
-            elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.width = deckpane_view_width
-            elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.height = deckpane_view_height
+            elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.width = elementReference.gui.contentSection.width
+            elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.height = elementReference.gui.contentSection.height
             if not CLIENT_MTA_MINIMIZED then
                 elementReference.gui["__UI_CACHE__"].reloadElement = nil
             end
@@ -85,9 +82,8 @@ function renderDeckPane(element, isActiveMode, isFetchingInput, mouseReference)
         if elementReference.gui.renderTarget and imports.isElement(elementReference.gui.renderTarget) then
             if isActiveMode then
                 local isScrollerComponentToBeRendered = false
-                local deckpane_children = elementReference.renderIndexReference[(elementReference.renderIndex)].children
-                if #deckpane_children > 0 then
-                    local lastDeckReference = createdElements[(deckpane_children[(#deckpane_children)].element)]
+                if #elementReference.renderIndexReference[(elementReference.renderIndex)].children > 0 then
+                    local lastDeckReference = createdElements[(elementReference.renderIndexReference[(elementReference.renderIndex)].children[(#elementReference.renderIndexReference[(elementReference.renderIndex)].children)].element)]
                     if lastDeckReference.gui["__UI_CACHE__"] and lastDeckReference.gui["__UI_CACHE__"]["Deck"] then
                         local deckpane_data_height = lastDeckReference.gui["__UI_CACHE__"]["Deck"].offsets.startY + lastDeckReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight
                         local deckpane_exceeded_height = deckpane_data_height - elementReference.gui["__UI_CACHE__"]["Deckpane"].view.offsets.height

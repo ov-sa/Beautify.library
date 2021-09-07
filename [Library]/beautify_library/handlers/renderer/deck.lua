@@ -63,7 +63,6 @@ function renderDeck(element, isActiveMode, isFetchingInput, mouseReference)
         local isElementInterpolationToBeRefreshed = CLIENT_MTA_RESTORED
         local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)] and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
-        local deck_postGUI = elementReference.gui.postGUI
         local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
 
         if not isElementToBeRendered then return false end
@@ -107,9 +106,8 @@ function renderDeck(element, isActiveMode, isFetchingInput, mouseReference)
                 local deck_startX, deck_startY, deck_offsetY = 0, 0, (createdElements[elementParent].gui["__UI_CACHE__"]["Deckpane"].view.offsetY and -createdElements[elementParent].gui["__UI_CACHE__"]["Deckpane"].view.offsetY) or 0
                 local deck_width, deck_height = elementReference.gui.width, elementReference.gui.height
                 local deck_view_width, deck_view_height = elementReference.gui.contentSection.width, elementReference.gui.contentSection.height
-                local deck_titleBar_height = availableElements[elementType].titleBar.height
-                local deck_toggle_arrow_icon_size = imports.math.min(deck_titleBar_height, availableElements[elementType].titleBar.toggleButton.arrowIconSize)
-                local deck_toggle_arrow_icon_padding = (deck_titleBar_height - deck_toggle_arrow_icon_size)*0.5
+                local deck_toggle_arrow_icon_size = imports.math.min(availableElements[elementType].titleBar.height, availableElements[elementType].titleBar.toggleButton.arrowIconSize)
+                local deck_toggle_arrow_icon_padding = (availableElements[elementType].titleBar.height - deck_toggle_arrow_icon_size)*0.5
                 if elementReference.renderIndex > 1 then
                     local parentChildrenReference = createdElements[elementParent].renderIndexReference[(createdElements[elementParent].renderIndex)].children
                     local prevChildElementReference = createdElements[(parentChildrenReference[(elementReference.renderIndex - 1)].element)]
@@ -130,7 +128,7 @@ function renderDeck(element, isActiveMode, isFetchingInput, mouseReference)
                 elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.startX = elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startX
                 elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.startY = elementReference.gui["__UI_CACHE__"]["Deck"].offsets.offsetY
                 elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.width = elementReference.gui["__UI_CACHE__"]["Deck"].offsets.width
-                elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.height = deck_titleBar_height
+                elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.height = availableElements[elementType].titleBar.height
                 elementReference.gui["__UI_CACHE__"]["Deck"].divider.size = elementTemplate.titleBar.divider.size
                 if isElementInterpolationToBeRefreshed or isToggleButtonInterpolationRendering then
                     isElementToBeForceRendered = isToggleButtonInterpolationRendering
@@ -179,9 +177,9 @@ function renderDeck(element, isActiveMode, isFetchingInput, mouseReference)
                     imports.dxSetRenderTarget(elementReference.gui["__UI_CACHE__"]["Deck"].renderTarget, true)
                     imports.dxSetBlendMode("modulate_add")
                     local deck_color, deck_titleBar_color = imports.tocolor(imports.unpackColor(elementTemplate.color)), imports.tocolor(imports.unpackColor(elementTemplate.titleBar.color))
-                    imports.dxDrawRectangle(0, 0, deck_width, deck_titleBar_height, deck_titleBar_color, false)
-                    imports.dxDrawRectangle(0, deck_titleBar_height, deck_width, deck_height - deck_titleBar_height, deck_color, false)
-                    imports.dxDrawRectangle(0, deck_titleBar_height, deck_width, elementReference.gui["__UI_CACHE__"]["Deck"].divider.size, elementReference.gui["__UI_CACHE__"]["Deck"].divider.color, false)
+                    imports.dxDrawRectangle(0, 0, deck_width, availableElements[elementType].titleBar.height, deck_titleBar_color, false)
+                    imports.dxDrawRectangle(0, availableElements[elementType].titleBar.height, deck_width, deck_height - availableElements[elementType].titleBar.height, deck_color, false)
+                    imports.dxDrawRectangle(0, availableElements[elementType].titleBar.height, deck_width, elementReference.gui["__UI_CACHE__"]["Deck"].divider.size, elementReference.gui["__UI_CACHE__"]["Deck"].divider.color, false)
                     imports.dxSetBlendMode("blend")
                     imports.dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
                     local renderPixels = imports.dxGetTexturePixels(elementReference.gui["__UI_CACHE__"]["Deck"].renderTarget)
@@ -201,10 +199,10 @@ function renderDeck(element, isActiveMode, isFetchingInput, mouseReference)
         end
 
         if elementReference.gui["__UI_CACHE__"]["Deck"].renderTexture then
-            imports.dxDrawImageSection(elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.offsetY, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.width, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight, 0, 0, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.width, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight, elementReference.gui["__UI_CACHE__"]["Deck"].renderTexture, 0, 0, 0, -1, deck_postGUI)
+            imports.dxDrawImageSection(elementReference.gui["__UI_CACHE__"]["Deck"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.offsetY, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.width, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight, 0, 0, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.width, elementReference.gui["__UI_CACHE__"]["Deck"].offsets.currentHeight, elementReference.gui["__UI_CACHE__"]["Deck"].renderTexture, 0, 0, 0, -1, elementReference.gui.postGUI)
         end
-        imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Title Bar"].text.text, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.fontColor, elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "left", "center", true, false, deck_postGUI, false)
-        imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.offsets.height, createdAssets["images"]["collar/bottom.png"], 360*elementReference.gui.titleBar.toggleButton.animRotationPercent, 0, 0, elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.color, deck_postGUI)
+        imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Title Bar"].text.text, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.fontColor, elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "left", "center", true, false, elementReference.gui.postGUI, false)
+        imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.offsets.startX, elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.offsets.startY, elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.offsets.width, elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.offsets.height, createdAssets["images"]["collar/bottom.png"], 360*elementReference.gui.titleBar.toggleButton.animRotationPercent, 0, 0, elementReference.gui["__UI_CACHE__"]["Toggle Button"].icon.color, elementReference.gui.postGUI)
         if elementReference.gui.renderTarget and imports.isElement(elementReference.gui.renderTarget) then
             if isActiveMode then
                 imports.manageElementForceRender(element, isElementToBeForceRendered)
@@ -212,7 +210,7 @@ function renderDeck(element, isActiveMode, isFetchingInput, mouseReference)
                 imports.dxSetBlendMode("blend")
                 imports.dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
             end
-            imports.dxDrawImageSection(elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.startX, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.startY, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.currentHeight, 0, 0, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.currentHeight, elementReference.gui.renderTarget, 0, 0, 0, elementReference.gui["__UI_CACHE__"]["Deck"].view.color, deck_postGUI)
+            imports.dxDrawImageSection(elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.startX, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.startY, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.currentHeight, 0, 0, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.currentHeight, elementReference.gui.renderTarget, 0, 0, 0, elementReference.gui["__UI_CACHE__"]["Deck"].view.color, elementReference.gui.postGUI)
         end
     else
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
