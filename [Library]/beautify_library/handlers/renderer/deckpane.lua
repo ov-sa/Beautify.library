@@ -83,8 +83,14 @@ function renderDeckPane(element, isActiveMode, isFetchingInput, mouseReference)
         end
         if elementReference.gui.renderTarget and imports.isElement(elementReference.gui.renderTarget) then
             if isActiveMode then
-                imports.manageElementForceRender(element, isElementToBeForceRendered)
+                imports.manageElementForceRender(element, false)
                 imports.renderElementChildren(element, isActiveMode)
+                local isElementBeingForceRendered = false
+                if elementReference.elementRoot then
+                    isElementBeingForceRendered = (CLIENT_ELEMENT_FORCE_RENDERED[(elementReference.elementRoot)] and CLIENT_ELEMENT_FORCE_RENDERED[(elementReference.elementRoot)].renderChildren[element]) or isElementBeingForceRendered
+                else
+                    isElementBeingForceRendered = CLIENT_ELEMENT_FORCE_RENDERED[element] or isElementBeingForceRendered
+                end
                 local deckpane_children = elementReference.renderIndexReference[(elementReference.renderIndex)].children
                 if #deckpane_children > 0 then
                     local lastDeckReference = createdElements[(deckpane_children[(#deckpane_children)].element)]
@@ -106,17 +112,13 @@ function renderDeckPane(element, isActiveMode, isFetchingInput, mouseReference)
                                 },
                                 elementReference.gui.scrollBar_Vertical
                             }
-                            local isElementBeingForceRendered = false
-                            if elementReference.elementRoot then
-                                isElementBeingForceRendered = (CLIENT_ELEMENT_FORCE_RENDERED[(elementReference.elementRoot)] and CLIENT_ELEMENT_FORCE_RENDERED[(elementReference.elementRoot)].renderChildren[element]) or isElementBeingForceRendered
-                            else
-                                isElementBeingForceRendered = CLIENT_ELEMENT_FORCE_RENDERED[element] or isElementBeingForceRendered
-                            end
                             local _, isComponentToBeForceRendered = imports.renderScrollbar(element, isElementBeingForceRendered, false, isElementBeingForceRendered, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][1], elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][2])
                             isElementToBeForceRendered = isElementToBeForceRendered or isComponentToBeForceRendered
                         end
                     end
                 end
+                isElementToBeForceRendered = isElementToBeForceRendered or isElementBeingForceRendered
+                imports.manageElementForceRender(element, isElementToBeForceRendered)
                 imports.dxSetBlendMode("blend")
                 if not elementParent then
                     imports.dxSetRenderTarget()

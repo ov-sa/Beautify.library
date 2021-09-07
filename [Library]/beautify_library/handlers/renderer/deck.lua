@@ -80,8 +80,8 @@ function renderDeck(element, isActiveMode, isFetchingInput, mouseReference)
                 elementReference.gui.titleBar.toggleButton.animTickCounter = CLIENT_CURRENT_TICK
             end
             elementReference.gui.titleBar.toggleButton.interpolationProgress = imports.getInterpolationProgress(elementReference.gui.titleBar.toggleButton.animTickCounter, availableElements[elementType].titleBar.toggleButton.rollAnimDuration)
-            local isToggleButtonInterpolationRendering = (elementReference.gui.titleBar.toggleButton.interpolationProgress < 1) or isElementParentBeingForceRendered
-            if isElementInterpolationToBeRefreshed or isToggleButtonInterpolationRendering or isElementToBeUpdated then
+            local isToggleButtonInterpolationRendering = elementReference.gui.titleBar.toggleButton.interpolationProgress < 1
+            if isElementInterpolationToBeRefreshed or isToggleButtonInterpolationRendering or isElementParentBeingForceRendered or isElementToBeUpdated then
                 if not elementReference.gui["__UI_CACHE__"]["Deck"] then
                     elementReference.gui["__UI_CACHE__"]["Deck"] = {
                         offsets = {},
