@@ -17,7 +17,7 @@ availableTemplates["beautify_gridlist"] = {
     color = {5, 5, 5, 253},
     columnBar = {
         isOutLine = true,
-        font = dxCreateFont("files/assets/fonts/teko_medium.ttf", 18),
+        font = dxCreateFont("files/assets/fonts/teko_medium.rw", 18),
         color = {225, 225, 225, 255},
         fontColor = {0, 0, 0, 255},
         divider = {
@@ -27,7 +27,7 @@ availableTemplates["beautify_gridlist"] = {
     },
     rowBar = {
         isOutLine = true,
-        font = dxCreateFont("files/assets/fonts/signika_semibold.ttf", 11),
+        font = dxCreateFont("files/assets/fonts/signika_semibold.rw", 11),
         color = {0, 0, 0, 255},
         fontColor = {200, 200, 200, 255},
         hoverColor = {200, 200, 200, 255},

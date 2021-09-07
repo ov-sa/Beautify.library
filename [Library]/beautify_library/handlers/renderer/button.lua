@@ -96,10 +96,10 @@ function renderButton(element, isActiveMode, isFetchingInput, mouseReference)
                 imports.dxSetBlendMode("modulate_add")
                 if elementReference.gui.type == "default" then
                     local button_borderSize = availableElements[elementType].minimumSize*0.5
-                    imports.dxDrawImage(0, 0, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/top_left.png"], 0, 0, 0, -1, false)
-                    imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Button"].offsets.width - button_borderSize, 0, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/top_right.png"], 0, 0, 0, -1, false)
-                    imports.dxDrawImage(0, elementReference.gui["__UI_CACHE__"]["Button"].offsets.height - button_borderSize, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/bottom_left.png"], 0, 0, 0, -1, false)
-                    imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Button"].offsets.width - button_borderSize, elementReference.gui["__UI_CACHE__"]["Button"].offsets.height - button_borderSize, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/bottom_right.png"], 0, 0, 0, -1, false)
+                    imports.dxDrawImage(0, 0, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/top_left.rw"], 0, 0, 0, -1, false)
+                    imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Button"].offsets.width - button_borderSize, 0, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/top_right.rw"], 0, 0, 0, -1, false)
+                    imports.dxDrawImage(0, elementReference.gui["__UI_CACHE__"]["Button"].offsets.height - button_borderSize, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/bottom_left.rw"], 0, 0, 0, -1, false)
+                    imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Button"].offsets.width - button_borderSize, elementReference.gui["__UI_CACHE__"]["Button"].offsets.height - button_borderSize, button_borderSize, button_borderSize, createdAssets["images"]["curved_square/semi_thick/bottom_right.rw"], 0, 0, 0, -1, false)
                     if elementReference.gui["__UI_CACHE__"]["Button"].offsets.width > availableElements[elementType].minimumSize then
                         imports.dxDrawRectangle(button_borderSize, 0, elementReference.gui["__UI_CACHE__"]["Button"].offsets.width - availableElements[elementType].minimumSize, elementReference.gui["__UI_CACHE__"]["Button"].offsets.height, -1, false)
                     end

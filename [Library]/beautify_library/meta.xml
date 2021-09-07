@@ -67,40 +67,40 @@
     <script src="configurations/templates/deck.lua" type="client" cache="false"/>
 
     <!-- Files: Assets: Fonts -->
-    <file src="files/assets/fonts/teko_regular.ttf"/>
-    <file src="files/assets/fonts/teko_medium.ttf"/>
-    <file src="files/assets/fonts/signika_semibold.ttf"/>
-    <file src="files/assets/fonts/poppins_medium.ttf"/>
+    <file src="files/assets/fonts/teko_regular.rw"/>
+    <file src="files/assets/fonts/teko_medium.rw"/>
+    <file src="files/assets/fonts/signika_semibold.rw"/>
+    <file src="files/assets/fonts/poppins_medium.rw"/>
 
     <!-- Files: Assets: Images -->
-    <file src="files/assets/images/canvas/circle.png"/>
-    <file src="files/assets/images/arrow/left.png"/>
-    <file src="files/assets/images/arrow/right.png"/>
-    <file src="files/assets/images/arrow/top.png"/>
-    <file src="files/assets/images/arrow/bottom.png"/>
-    <file src="files/assets/images/tick_box/regular.png"/>
-    <file src="files/assets/images/collar/left.png"/>
-    <file src="files/assets/images/collar/right.png"/>
-    <file src="files/assets/images/collar/top.png"/>
-    <file src="files/assets/images/collar/bottom.png"/>
-    <file src="files/assets/images/right_triangle/default.png"/>
-    <file src="files/assets/images/right_triangle/flipped.png"/>
-    <file src="files/assets/images/right_triangle/inverted.png"/>
-    <file src="files/assets/images/right_triangle/flipped_inverted.png"/>
-    <file src="files/assets/images/curved_square/regular/left.png"/>
-    <file src="files/assets/images/curved_square/regular/right.png"/>
-    <file src="files/assets/images/curved_square/regular/top_left.png"/>
-    <file src="files/assets/images/curved_square/regular/top_right.png"/>
-    <file src="files/assets/images/curved_square/regular/bottom_left.png"/>
-    <file src="files/assets/images/curved_square/regular/bottom_right.png"/>
-    <file src="files/assets/images/curved_square/regular/square.png"/>
-    <file src="files/assets/images/curved_square/semi_thick/left.png"/>
-    <file src="files/assets/images/curved_square/semi_thick/right.png"/>
-    <file src="files/assets/images/curved_square/semi_thick/top_left.png"/>
-    <file src="files/assets/images/curved_square/semi_thick/top_right.png"/>
-    <file src="files/assets/images/curved_square/semi_thick/bottom_left.png"/>
-    <file src="files/assets/images/curved_square/semi_thick/bottom_right.png"/>
-    <file src="files/assets/images/curved_square/semi_thick/square.png"/>
+    <file src="files/assets/images/canvas/circle.rw"/>
+    <file src="files/assets/images/arrow/left.rw"/>
+    <file src="files/assets/images/arrow/right.rw"/>
+    <file src="files/assets/images/arrow/top.rw"/>
+    <file src="files/assets/images/arrow/bottom.rw"/>
+    <file src="files/assets/images/tick_box/regular.rw"/>
+    <file src="files/assets/images/collar/left.rw"/>
+    <file src="files/assets/images/collar/right.rw"/>
+    <file src="files/assets/images/collar/top.rw"/>
+    <file src="files/assets/images/collar/bottom.rw"/>
+    <file src="files/assets/images/right_triangle/default.rw"/>
+    <file src="files/assets/images/right_triangle/flipped.rw"/>
+    <file src="files/assets/images/right_triangle/inverted.rw"/>
+    <file src="files/assets/images/right_triangle/flipped_inverted.rw"/>
+    <file src="files/assets/images/curved_square/regular/left.rw"/>
+    <file src="files/assets/images/curved_square/regular/right.rw"/>
+    <file src="files/assets/images/curved_square/regular/top_left.rw"/>
+    <file src="files/assets/images/curved_square/regular/top_right.rw"/>
+    <file src="files/assets/images/curved_square/regular/bottom_left.rw"/>
+    <file src="files/assets/images/curved_square/regular/bottom_right.rw"/>
+    <file src="files/assets/images/curved_square/regular/square.rw"/>
+    <file src="files/assets/images/curved_square/semi_thick/left.rw"/>
+    <file src="files/assets/images/curved_square/semi_thick/right.rw"/>
+    <file src="files/assets/images/curved_square/semi_thick/top_left.rw"/>
+    <file src="files/assets/images/curved_square/semi_thick/top_right.rw"/>
+    <file src="files/assets/images/curved_square/semi_thick/bottom_left.rw"/>
+    <file src="files/assets/images/curved_square/semi_thick/bottom_right.rw"/>
+    <file src="files/assets/images/curved_square/semi_thick/square.rw"/>
 
     <!-- Params: fetchImports() | Returns Data; Else false Boolean -->
     <export function="fetchImports" type="client"/>

@@ -15,7 +15,7 @@
 
 availableTemplates["beautify_checkbox"] = {
     fontPaddingY = 3,
-    font = dxCreateFont("files/assets/fonts/poppins_medium.ttf", 14),
+    font = dxCreateFont("files/assets/fonts/poppins_medium.rw", 14),
     fontColor = {225, 225, 225, 255},
     tickBox = {
         isOutLine = true,

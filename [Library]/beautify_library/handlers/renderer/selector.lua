@@ -149,9 +149,9 @@ function renderSelector(element, isActiveMode, isFetchingInput, mouseReference)
 
         local selector_arrow_prevIcon, selector_arrow_nextIcon = false, false
         if elementReference.gui.type == "horizontal" then
-            selector_arrow_prevIcon, selector_arrow_nextIcon = createdAssets["images"]["arrow/left.png"], createdAssets["images"]["arrow/right.png"]
+            selector_arrow_prevIcon, selector_arrow_nextIcon = createdAssets["images"]["arrow/left.rw"], createdAssets["images"]["arrow/right.rw"]
         elseif elementReference.gui.type == "vertical" then
-            selector_arrow_prevIcon, selector_arrow_nextIcon = createdAssets["images"]["arrow/top.png"], createdAssets["images"]["arrow/bottom.png"]
+            selector_arrow_prevIcon, selector_arrow_nextIcon = createdAssets["images"]["arrow/top.rw"], createdAssets["images"]["arrow/bottom.rw"]
         end
         if selector_arrow_prevIcon and selector_arrow_nextIcon then
             if isActiveMode then

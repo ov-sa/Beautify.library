@@ -16,7 +16,7 @@
 availableTemplates["beautify_button"] = {
     ["default"] = {
         fontPaddingY = 3,
-        font = dxCreateFont("files/assets/fonts/poppins_medium.ttf", 15),
+        font = dxCreateFont("files/assets/fonts/poppins_medium.rw", 15),
         color = {5, 5, 5, 255},
         fontColor = {225, 225, 225, 255},
         hoverColor = {200, 200, 200, 255},
