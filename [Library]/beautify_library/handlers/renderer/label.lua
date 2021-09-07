@@ -44,11 +44,9 @@ function renderLabel(element, isActiveMode, isFetchingInput, mouseReference)
         local isElementToBeRendered, isElementToBeForceRendered = false, false
         local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)] and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
-        local label_width, label_height = elementReference.gui.width, elementReference.gui.height
-        local label_postGUI = elementReference.gui.postGUI
         local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
 
-        if (label_width > 0) and (label_height > 0) then
+        if (elementReference.gui.width > 0) and (elementReference.gui.height > 0) then
             isElementToBeRendered = true
         end
 
@@ -62,11 +60,10 @@ function renderLabel(element, isActiveMode, isFetchingInput, mouseReference)
                     }
                 }
             end
-            local label_startX, label_startY = elementReference.gui.x, elementReference.gui.y
-            elementReference.gui["__UI_CACHE__"]["Label"].offsets.startX = label_startX
-            elementReference.gui["__UI_CACHE__"]["Label"].offsets.startY = label_startY
-            elementReference.gui["__UI_CACHE__"]["Label"].offsets.width = label_width
-            elementReference.gui["__UI_CACHE__"]["Label"].offsets.height = label_height
+            elementReference.gui["__UI_CACHE__"]["Label"].offsets.startX = elementReference.gui.x
+            elementReference.gui["__UI_CACHE__"]["Label"].offsets.startY = elementReference.gui.y
+            elementReference.gui["__UI_CACHE__"]["Label"].offsets.width = elementReference.gui.width
+            elementReference.gui["__UI_CACHE__"]["Label"].offsets.height = elementReference.gui.height
             elementReference.gui["__UI_CACHE__"]["Label"].text.text = elementReference.gui.text
             if isElementToBeReloaded then
                 elementReference.gui["__UI_CACHE__"]["Label"].text.fontColor = imports.tocolor(imports.unpackColor(elementReference.gui.fontColor or elementTemplate.fontColor))
@@ -81,12 +78,9 @@ function renderLabel(element, isActiveMode, isFetchingInput, mouseReference)
             elementReference.gui["__UI_CACHE__"].updateElement = nil
         end
 
-        imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Label"].text.text, elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Label"].text.fontColor, elementTemplate.fontScale or 1, elementTemplate.font, elementReference.gui.alignment.horizontal, elementReference.gui.alignment.vertical, true, false, label_postGUI, false)
+        imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Label"].text.text, elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Label"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Label"].text.fontColor, elementTemplate.fontScale or 1, elementTemplate.font, elementReference.gui.alignment.horizontal, elementReference.gui.alignment.vertical, true, false, elementReference.gui.postGUI, false)
         if isActiveMode then
             imports.manageElementForceRender(element, isElementToBeForceRendered)
-        end
-    else
-        if elementReference.gui["__UI_CACHE__"]["Label"].offsets.width and elementReference.gui["__UI_CACHE__"]["Label"].offsets.height then
         end
     end
     return true
