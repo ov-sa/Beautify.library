@@ -59,7 +59,6 @@ function renderWindow(element, isActiveMode, isFetchingInput, mouseReference)
         local isElementInterpolationToBeRefreshed = CLIENT_MTA_RESTORED
         local isElementToBeReloaded = (not CLIENT_MTA_MINIMIZED) and (elementReference.gui["__UI_CACHE__"].reloadElement or (CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)] and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)][elementType]))
         local isElementToBeUpdated = isElementToBeReloaded or elementReference.gui["__UI_CACHE__"].updateElement or CLIENT_MTA_RESTORED
-        local window_postGUI = elementReference.gui.postGUI
         local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
 
         if not isElementToBeRendered then return false end
@@ -87,18 +86,15 @@ function renderWindow(element, isActiveMode, isFetchingInput, mouseReference)
                 elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Title Bar"] = {}
                 elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"] = {}
             end
-            local window_startX, window_startY = elementReference.gui.x, elementReference.gui.y
-            local window_width, window_height = elementReference.gui.width, elementReference.gui.height
-            local window_view_width, window_view_height = elementReference.gui.contentSection.width, elementReference.gui.contentSection.height
             local window_borderSize = availableElements[elementType].minimumSize*0.5
-            elementReference.gui["__UI_CACHE__"]["Window"].offsets.startX = window_startX
-            elementReference.gui["__UI_CACHE__"]["Window"].offsets.startY = window_startY
-            elementReference.gui["__UI_CACHE__"]["Window"].offsets.width = window_width
-            elementReference.gui["__UI_CACHE__"]["Window"].offsets.height = window_height
+            elementReference.gui["__UI_CACHE__"]["Window"].offsets.startX = elementReference.gui.x
+            elementReference.gui["__UI_CACHE__"]["Window"].offsets.startY = elementReference.gui.y
+            elementReference.gui["__UI_CACHE__"]["Window"].offsets.width = elementReference.gui.width
+            elementReference.gui["__UI_CACHE__"]["Window"].offsets.height = elementReference.gui.height
             elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startX = elementReference.gui["__UI_CACHE__"]["Window"].offsets.startX + elementReference.gui.contentSection.startX
             elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startY = elementReference.gui["__UI_CACHE__"]["Window"].offsets.startY + elementReference.gui.contentSection.startY
-            elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.width = window_view_width
-            elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.height = window_view_height
+            elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.width = elementReference.gui.contentSection.width
+            elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.height = elementReference.gui.contentSection.height
             local window_titleBar_paddingX = availableElements[elementType].titleBar.paddingX
             elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.startX = elementReference.gui["__UI_CACHE__"]["Window"].offsets.startX
             elementReference.gui["__UI_CACHE__"]["Title Bar"].offsets.startY = elementReference.gui["__UI_CACHE__"]["Window"].offsets.startY
@@ -138,7 +134,7 @@ function renderWindow(element, isActiveMode, isFetchingInput, mouseReference)
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Close Button"].height = elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.height
             if isElementToBeReloaded or not elementReference.gui["__UI_CACHE__"]["Window"].renderTexture then
                 if not elementReference.gui["__UI_CACHE__"]["Window"].renderTarget then
-                    elementReference.gui["__UI_CACHE__"]["Window"].renderTarget = imports.dxCreateRenderTarget(window_width, window_height, true)
+                    elementReference.gui["__UI_CACHE__"]["Window"].renderTarget = imports.dxCreateRenderTarget(elementReference.gui.width, elementReference.gui.height, true)
                 end
                 if elementReference.gui["__UI_CACHE__"]["Window"].renderTexture and imports.isElement(elementReference.gui["__UI_CACHE__"]["Window"].renderTexture) then
                     imports.destroyElement(elementReference.gui["__UI_CACHE__"]["Window"].renderTexture)
@@ -148,21 +144,21 @@ function renderWindow(element, isActiveMode, isFetchingInput, mouseReference)
                 imports.dxSetBlendMode("modulate_add")
                 local window_color, window_titleBar_color = imports.tocolor(imports.unpackColor(elementTemplate.color)), imports.tocolor(imports.unpackColor(elementTemplate.titleBar.color))
                 imports.dxDrawImage(0, 0, window_borderSize, window_borderSize, createdAssets["images"]["curved_square/regular/top_left.png"], 0, 0, 0, window_titleBar_color, false)
-                imports.dxDrawImage(window_width - window_borderSize, 0, window_borderSize, window_borderSize, createdAssets["images"]["curved_square/regular/top_right.png"], 0, 0, 0, window_titleBar_color, false)
-                imports.dxDrawImage(0, window_height - window_borderSize, window_borderSize, window_borderSize, createdAssets["images"]["curved_square/regular/bottom_left.png"], 0, 0, 0, window_color, false)
-                imports.dxDrawImage(window_width - window_borderSize, window_height - window_borderSize, window_borderSize, window_borderSize, createdAssets["images"]["curved_square/regular/bottom_right.png"], 0, 0, 0, window_color, false)
-                if window_width > availableElements[elementType].minimumSize then
-                    imports.dxDrawRectangle(window_borderSize, 0, window_width - availableElements[elementType].minimumSize, window_borderSize, window_titleBar_color, false)
-                    imports.dxDrawRectangle(window_borderSize, window_height - window_borderSize, window_width - availableElements[elementType].minimumSize, window_borderSize, window_color, false)
+                imports.dxDrawImage(elementReference.gui.width - window_borderSize, 0, window_borderSize, window_borderSize, createdAssets["images"]["curved_square/regular/top_right.png"], 0, 0, 0, window_titleBar_color, false)
+                imports.dxDrawImage(0, elementReference.gui.height - window_borderSize, window_borderSize, window_borderSize, createdAssets["images"]["curved_square/regular/bottom_left.png"], 0, 0, 0, window_color, false)
+                imports.dxDrawImage(elementReference.gui.width - window_borderSize, elementReference.gui.height - window_borderSize, window_borderSize, window_borderSize, createdAssets["images"]["curved_square/regular/bottom_right.png"], 0, 0, 0, window_color, false)
+                if elementReference.gui.width > availableElements[elementType].minimumSize then
+                    imports.dxDrawRectangle(window_borderSize, 0, elementReference.gui.width - availableElements[elementType].minimumSize, window_borderSize, window_titleBar_color, false)
+                    imports.dxDrawRectangle(window_borderSize, elementReference.gui.height - window_borderSize, elementReference.gui.width - availableElements[elementType].minimumSize, window_borderSize, window_color, false)
                 end
-                if window_height > availableElements[elementType].minimumSize then
-                    imports.dxDrawRectangle(0, window_borderSize, window_borderSize, window_height - availableElements[elementType].minimumSize, window_color, false)
-                    imports.dxDrawRectangle(window_width - window_borderSize, window_borderSize, window_borderSize, window_height - availableElements[elementType].minimumSize, window_color, false)
+                if elementReference.gui.height > availableElements[elementType].minimumSize then
+                    imports.dxDrawRectangle(0, window_borderSize, window_borderSize, elementReference.gui.height - availableElements[elementType].minimumSize, window_color, false)
+                    imports.dxDrawRectangle(elementReference.gui.width - window_borderSize, window_borderSize, window_borderSize, elementReference.gui.height - availableElements[elementType].minimumSize, window_color, false)
                 end
-                if window_width > availableElements[elementType].minimumSize and window_height > availableElements[elementType].minimumSize then
-                    imports.dxDrawRectangle(window_borderSize, window_borderSize, window_width - availableElements[elementType].minimumSize, window_height - availableElements[elementType].minimumSize, window_color, false)
+                if elementReference.gui.width > availableElements[elementType].minimumSize and elementReference.gui.height > availableElements[elementType].minimumSize then
+                    imports.dxDrawRectangle(window_borderSize, window_borderSize, elementReference.gui.width - availableElements[elementType].minimumSize, elementReference.gui.height - availableElements[elementType].minimumSize, window_color, false)
                 end
-                imports.dxDrawRectangle(0, window_borderSize, window_width, elementReference.gui["__UI_CACHE__"]["Window"].divider.size, elementReference.gui["__UI_CACHE__"]["Window"].divider.color, false)    
+                imports.dxDrawRectangle(0, window_borderSize, elementReference.gui.width, elementReference.gui["__UI_CACHE__"]["Window"].divider.size, elementReference.gui["__UI_CACHE__"]["Window"].divider.color, false)    
                 imports.dxSetBlendMode("blend")
                 imports.dxSetRenderTarget()
                 local renderPixels = imports.dxGetTexturePixels(elementReference.gui["__UI_CACHE__"]["Window"].renderTarget)
@@ -196,18 +192,18 @@ function renderWindow(element, isActiveMode, isFetchingInput, mouseReference)
             end
         end
         if elementReference.gui["__UI_CACHE__"]["Window"].renderTexture then
-            imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Window"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Window"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Window"].offsets.width, elementReference.gui["__UI_CACHE__"]["Window"].offsets.height, elementReference.gui["__UI_CACHE__"]["Window"].renderTexture, 0, 0, 0, -1, window_postGUI)
+            imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Window"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Window"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Window"].offsets.width, elementReference.gui["__UI_CACHE__"]["Window"].offsets.height, elementReference.gui["__UI_CACHE__"]["Window"].renderTexture, 0, 0, 0, -1, elementReference.gui.postGUI)
         end
         local isCloseButtonHoverToBeRendered = elementReference.gui.titleBar.closeButton.animAlphaPercent > 0
-        imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Title Bar"].text.text, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.fontColor, elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "center", "center", true, false, window_postGUI, false)
+        imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Title Bar"].text.text, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Title Bar"].text.fontColor, elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "center", "center", true, false, elementReference.gui.postGUI, false)
         if isCloseButtonHoverToBeRendered then    
-            imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.width, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.height, createdAssets["images"]["curved_square/regular/top_right.png"], 0, 0, 0, imports.tocolor(elementTemplate.titleBar.closeButton.hoverColor[1], elementTemplate.titleBar.closeButton.hoverColor[2], elementTemplate.titleBar.closeButton.hoverColor[3], elementTemplate.titleBar.closeButton.hoverColor[4]*elementReference.gui.titleBar.closeButton.animAlphaPercent), window_postGUI)
+            imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.width, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.height, createdAssets["images"]["curved_square/regular/top_right.png"], 0, 0, 0, imports.tocolor(elementTemplate.titleBar.closeButton.hoverColor[1], elementTemplate.titleBar.closeButton.hoverColor[2], elementTemplate.titleBar.closeButton.hoverColor[3], elementTemplate.titleBar.closeButton.hoverColor[4]*elementReference.gui.titleBar.closeButton.animAlphaPercent), elementReference.gui.postGUI)
         end
-        imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Close Button"].text.text, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Close Button"].text.fontColor, elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "center", "center", true, false, window_postGUI, false)
+        imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Close Button"].text.text, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.endY, elementReference.gui["__UI_CACHE__"]["Close Button"].text.fontColor, elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "center", "center", true, false, elementReference.gui.postGUI, false)
         if isCloseButtonHoverToBeRendered then
-            imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Close Button"].text.text, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.endY, imports.tocolor(elementTemplate.titleBar.closeButton.hoverFontColor[1], elementTemplate.titleBar.closeButton.hoverFontColor[2], elementTemplate.titleBar.closeButton.hoverFontColor[3], elementTemplate.titleBar.closeButton.hoverFontColor[4]*elementReference.gui.titleBar.closeButton.animAlphaPercent), elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "center", "center", true, false, window_postGUI, false)
+            imports.dxDrawText(elementReference.gui["__UI_CACHE__"]["Close Button"].text.text, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.startX, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.startY, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.endX, elementReference.gui["__UI_CACHE__"]["Close Button"].text.offsets.endY, imports.tocolor(elementTemplate.titleBar.closeButton.hoverFontColor[1], elementTemplate.titleBar.closeButton.hoverFontColor[2], elementTemplate.titleBar.closeButton.hoverFontColor[3], elementTemplate.titleBar.closeButton.hoverFontColor[4]*elementReference.gui.titleBar.closeButton.animAlphaPercent), elementTemplate.titleBar.fontScale or 1, elementTemplate.titleBar.font, "center", "center", true, false, elementReference.gui.postGUI, false)
         end
-        imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Window"].divider.size, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.height, elementReference.gui["__UI_CACHE__"]["Window"].divider.color, window_postGUI)
+        imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Window"].divider.size, elementReference.gui["__UI_CACHE__"]["Close Button"].offsets.height, elementReference.gui["__UI_CACHE__"]["Window"].divider.color, elementReference.gui.postGUI)
         if elementReference.gui.renderTarget and imports.isElement(elementReference.gui.renderTarget) then
             if isActiveMode then
                 imports.manageElementForceRender(element, isElementToBeForceRendered)
@@ -215,7 +211,7 @@ function renderWindow(element, isActiveMode, isFetchingInput, mouseReference)
                 imports.dxSetBlendMode("blend")
                 imports.dxSetRenderTarget()
             end
-            imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startX, elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startY, elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.height, elementReference.gui.renderTarget, 0, 0, 0, -1, window_postGUI)
+            imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startX, elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startY, elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.height, elementReference.gui.renderTarget, 0, 0, 0, -1, elementReference.gui.postGUI)
         end
     else
         local __mouseReference = {x = mouseReference.x, y = mouseReference.y}
