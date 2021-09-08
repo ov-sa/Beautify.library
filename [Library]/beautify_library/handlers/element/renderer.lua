@@ -81,10 +81,9 @@ end
 
 function manageElementForceRender(element, renderState)
 
+    local elementRoot = createdElements[element].rootElement or element
     local elementAncestors = imports.getUIAncestors(element)
-    if not elementAncestors then return false end
 
-    local elementRoot = createdElements[element].rootElement
     if renderState then
         if CLIENT_ELEMENT_FORCE_RENDERED.__cache.nextTickRemoval[elementRoot] then
             CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].isAttached = nil
@@ -97,10 +96,12 @@ function manageElementForceRender(element, renderState)
             CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[element] = true
             CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalChildren = CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalChildren + 1
         end
-        for i, j in imports.pairs(elementAncestors.ancestors) do
-            if (i ~= elementRoot) and not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[i] then
-                CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[i] = true
-                CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalChildren = CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalChildren + 1
+        if elementAncestors then
+            for i, j in imports.pairs(elementAncestors.ancestors) do
+                if (i ~= elementRoot) and not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[i] then
+                    CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[i] = true
+                    CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalChildren = CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].totalChildren + 1
+                end
             end
         end
         return true

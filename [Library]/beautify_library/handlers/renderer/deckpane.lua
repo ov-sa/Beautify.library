@@ -121,6 +121,8 @@ function renderDeckPane(element, isActiveMode, isFetchingInput, mouseReference)
                     isElementBeingForceRendered = CLIENT_ELEMENT_FORCE_RENDERED[element] or isElementBeingForceRendered
                 end
                 if isScrollerComponentToBeRendered then
+                    imports.dxSetRenderTarget(elementReference.gui.renderTarget)
+                    imports.dxSetBlendMode("modulate_add")
                     imports.renderScrollbar(element, isElementBeingForceRendered, false, isElementBeingForceRendered, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][1], elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][2], false)
                 end
                 imports.dxSetBlendMode("blend")
