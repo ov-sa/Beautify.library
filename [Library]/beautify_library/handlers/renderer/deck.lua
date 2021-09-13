@@ -187,7 +187,6 @@ function renderDeck(element, isActiveMode, isFetchingInput, mouseReference)
                     imports.dxDrawRectangle(0, 0, deck_width, availableElements[elementType].titleBar.height, deck_titleBar_color, false)
                     imports.dxDrawRectangle(0, availableElements[elementType].titleBar.height, deck_width, deck_height - availableElements[elementType].titleBar.height, deck_color, false)
                     imports.dxDrawRectangle(0, availableElements[elementType].titleBar.height, deck_width, elementReference.gui["__UI_CACHE__"]["Deck"].divider.size, elementReference.gui["__UI_CACHE__"]["Deck"].divider.color, false)
-                    imports.dxSetBlendMode("blend")
                     imports.dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
                     local renderPixels = imports.dxGetTexturePixels(elementReference.gui["__UI_CACHE__"]["Deck"].renderTarget)
                     if renderPixels then
@@ -214,7 +213,6 @@ function renderDeck(element, isActiveMode, isFetchingInput, mouseReference)
             if isActiveMode then
                 imports.manageElementForceRender(element, isElementToBeForceRendered)
                 imports.renderElementChildren(element, isActiveMode)
-                imports.dxSetBlendMode("blend")
                 imports.dxSetRenderTarget(createdElements[elementParent].gui.renderTarget)
             end
             imports.dxDrawImageSection(elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.startX, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.startY, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.currentHeight, 0, 0, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Deck"].view.offsets.currentHeight, elementReference.gui.renderTarget, 0, 0, 0, elementReference.gui["__UI_CACHE__"]["Deck"].view.color, elementReference.gui.postGUI)

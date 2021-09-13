@@ -125,7 +125,6 @@ function renderDeckPane(element, isActiveMode, isFetchingInput, mouseReference)
                     imports.dxSetBlendMode("modulate_add")
                     imports.renderScrollbar(element, isElementBeingForceRendered, false, isElementBeingForceRendered, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][1], elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Scroll Bars"]["Vertical"][2], false)
                 end
-                imports.dxSetBlendMode("blend")
                 if not elementParent then
                     imports.dxSetRenderTarget()
                 else

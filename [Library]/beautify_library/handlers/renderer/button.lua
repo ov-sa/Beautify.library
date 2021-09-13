@@ -108,7 +108,6 @@ function renderButton(element, isActiveMode, isFetchingInput, mouseReference)
                         imports.dxDrawRectangle(elementReference.gui["__UI_CACHE__"]["Button"].offsets.width - button_borderSize, button_borderSize, button_borderSize, elementReference.gui["__UI_CACHE__"]["Button"].offsets.height - availableElements[elementType].minimumSize, -1, false)
                     end
                 end
-                imports.dxSetBlendMode("blend")
                 if not elementParent then
                     imports.dxSetRenderTarget()
                 else

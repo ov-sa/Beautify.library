@@ -200,7 +200,6 @@ function renderGridlist(element, isActiveMode, isFetchingInput, mouseReference)
                     end
                 end
                 imports.manageElementForceRender(element, isElementToBeForceRendered)
-                imports.dxSetBlendMode("blend")
                 if not elementParent then
                     imports.dxSetRenderTarget()
                 else

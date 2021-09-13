@@ -159,7 +159,6 @@ function renderWindow(element, isActiveMode, isFetchingInput, mouseReference)
                     imports.dxDrawRectangle(window_borderSize, window_borderSize, elementReference.gui.width - availableElements[elementType].minimumSize, elementReference.gui.height - availableElements[elementType].minimumSize, window_color, false)
                 end
                 imports.dxDrawRectangle(0, window_borderSize, elementReference.gui.width, elementReference.gui["__UI_CACHE__"]["Window"].divider.size, elementReference.gui["__UI_CACHE__"]["Window"].divider.color, false)    
-                imports.dxSetBlendMode("blend")
                 imports.dxSetRenderTarget()
                 local renderPixels = imports.dxGetTexturePixels(elementReference.gui["__UI_CACHE__"]["Window"].renderTarget)
                 if renderPixels then
@@ -208,7 +207,6 @@ function renderWindow(element, isActiveMode, isFetchingInput, mouseReference)
             if isActiveMode then
                 imports.manageElementForceRender(element, isElementToBeForceRendered)
                 imports.renderElementChildren(element, isActiveMode)
-                imports.dxSetBlendMode("blend")
                 imports.dxSetRenderTarget()
             end
             imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startX, elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.startY, elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.width, elementReference.gui["__UI_CACHE__"]["Window"].view.offsets.height, elementReference.gui.renderTarget, 0, 0, 0, -1, elementReference.gui.postGUI)
