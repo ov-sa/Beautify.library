@@ -87,6 +87,7 @@ function setCheckboxSelection(...)
     local elementReference = createdElements[element]
     if (elementReference.gui.selection == parameters[2]) then return false end
     elementReference.gui.selection = parameters[2]
+    imports.updateElement(element)
     imports.triggerEvent("onClientUISelectionAltered", element, elementReference.gui.selection)
     return true
 
