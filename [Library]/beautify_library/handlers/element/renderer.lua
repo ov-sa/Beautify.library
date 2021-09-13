@@ -213,9 +213,11 @@ function renderElementChildren(element, isActiveMode, isFetchingInput, mouseRefe
             if imports.isUIValid(childElement) and imports.isUIVisible(childElement) then
                 local childReference = createdElements[childElement]
                 local childElementType = createdElements[childElement].elementType
-                if imports.isMouseOnPosition(propagatedMouseReference.x + childReference.gui.x, propagatedMouseReference.y + childReference.gui.y, childReference.gui.currentWidth or childReference.gui.width, childReference.gui.currentHeight or childReference.gui.height) then
-                    CLIENT_HOVERED_ELEMENT.element = childElement
-                    CLIENT_HOVERED_ELEMENT.traceMarks[childElement] = true
+                if (not CLIENT_HOVERED_ELEMENT.element or (CLIENT_HOVERED_ELEMENT.element == element)) and not imports.isUIDisabled(childElement) then
+                    if imports.isMouseOnPosition(propagatedMouseReference.x + childReference.gui.x, propagatedMouseReference.y + childReference.gui.y, childReference.gui.currentWidth or childReference.gui.width, childReference.gui.currentHeight or childReference.gui.height) then
+                        CLIENT_HOVERED_ELEMENT.element = childElement
+                        CLIENT_HOVERED_ELEMENT.traceMarks[childElement] = true
+                    end
                 end
                 local isChildActive = CLIENT_HOVERED_ELEMENT.traceMarks[childElement] or isChildrenToBeForceRendered or (CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] and CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[childElement])
                 if isChildActive then
