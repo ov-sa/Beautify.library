@@ -21,7 +21,9 @@ local imports = {
 }
 
 imports.addEventHandler("onClientResourceStart", resource, function()
+    imports.destroyElementForceRender = destroyElementForceRender
     imports.getUIParent = getUIParent
+    imports.updateElement = updateElement
 end)
 
 
@@ -71,6 +73,11 @@ function setUIVisible(element, state)
     if isUIValid(element) and (state == true or state == false) then
         if createdElements[element].isVisible ~= state then
             createdElements[element].isVisible = state
+            if state then
+                imports.updateElement(element)
+            else
+                imports.destroyElementForceRender(element)
+            end
             imports.triggerEvent("onClientUIVisibilityAltered", element, state)
             return true
         end
