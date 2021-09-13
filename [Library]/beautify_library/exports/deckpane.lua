@@ -9,6 +9,28 @@
 ----------------------------------------------------------------
 
 
+-----------------
+--[[ Imports ]]--
+-----------------
+
+local imports = {
+    ipairs = ipairs,
+    addEventHandler = addEventHandler,
+    cloneUIOutline = cloneUIOutline,
+    areUIParametersValid = areUIParametersValid,
+    dxCreateRenderTarget = dxCreateRenderTarget,
+    math = {
+        max = math.max
+    }
+}
+
+imports.addEventHandler("onClientResourceStart", resource, function()
+    imports.__getUITemplate = __getUITemplate
+    imports.createUIElement = createUIElement
+    imports.reloadElement = reloadElement
+end)
+
+
 -------------------
 --[[ Variables ]]--
 -------------------
@@ -23,18 +45,18 @@ local elementType = "beautify_deckpane"
 function createDeckpane(...)
 
     local parameters = {...}
-    if not areUIParametersValid(parameters, elementType) then return false end
-    local createdElement = createUIElement(elementType, parameters[(#availableElements[elementType].syntax.parameters + 1)], sourceResource)
+    if not imports.areUIParametersValid(parameters, elementType) then return false end
+    local createdElement = imports.createUIElement(elementType, parameters[(#availableElements[elementType].syntax.parameters + 1)], sourceResource)
     if not createdElement then return false end
 
     local elementReference = createdElements[createdElement]
-    local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
+    local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
     if not elementTemplate then return false end
 
-    elementReference.gui = cloneUIOutline(elementType)
-    for i, j in ipairs(availableElements[elementType].syntax.parameters) do
+    elementReference.gui = imports.cloneUIOutline(elementType)
+    for i, j in imports.ipairs(availableElements[elementType].syntax.parameters) do
         if (j.name == "width") or (j.name == "height") then
-            elementReference.gui[j.name] = math.max(0, parameters[i])
+            elementReference.gui[j.name] = imports.math.max(0, parameters[i])
         else
             elementReference.gui[j.name] = parameters[i]
         end
@@ -47,10 +69,10 @@ function createDeckpane(...)
         height = elementReference.gui.height
     }
     if (elementReference.gui.viewSection.width > 0) and (elementReference.gui.viewSection.height > 0) then
-        elementReference.gui.renderTarget = dxCreateRenderTarget(elementReference.gui.viewSection.width, elementReference.gui.viewSection.height, true)
+        elementReference.gui.renderTarget = imports.dxCreateRenderTarget(elementReference.gui.viewSection.width, elementReference.gui.viewSection.height, true)
     end
     elementReference.isValid = true
-    reloadElement(createdElement)
+    imports.reloadElement(createdElement)
     return createdElement
 
 end
