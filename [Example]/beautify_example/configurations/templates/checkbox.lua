@@ -20,7 +20,7 @@ availableTemplates["beautify_checkbox"] = {
     ["dark-blue-theme"] = {
         fontColor = {198, 198, 198, 255},
         tickBox = {
-            color = {50, 50, 50, 255},
+            color = {86, 86, 86, 255},
             iconColor = {158, 158, 255, 255}
         }
     },
@@ -28,7 +28,7 @@ availableTemplates["beautify_checkbox"] = {
     ["dark-red-theme"] = {
         fontColor = {198, 198, 198, 255},
         tickBox = {
-            color = {50, 50, 50, 255},
+            color = {86, 86, 86, 255},
             iconColor = {255, 158, 158, 255}
         }
     },
@@ -36,7 +36,7 @@ availableTemplates["beautify_checkbox"] = {
     ["dark-green-theme"] = {
         fontColor = {198, 198, 198, 255},
         tickBox = {
-            color = {50, 50, 50, 255},
+            color = {86, 86, 86, 255},
             iconColor = {158, 255, 158, 255}
         }
     },
@@ -44,7 +44,7 @@ availableTemplates["beautify_checkbox"] = {
     ["dark-yellow-theme"] = {
         fontColor = {198, 198, 198, 255},
         tickBox = {
-            color = {50, 50, 50, 255},
+            color = {86, 86, 86, 255},
             iconColor = {255, 255, 158, 255}
         }
     }

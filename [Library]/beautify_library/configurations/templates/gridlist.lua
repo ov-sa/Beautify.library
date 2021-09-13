@@ -14,24 +14,24 @@
 ------------------------
 
 availableTemplates["beautify_gridlist"] = {
-    color = {5, 5, 5, 253},
+    color = {20, 20, 20, 253},
     columnBar = {
         isOutLine = true,
         font = dxCreateFont("files/assets/fonts/teko_medium.rw", 18),
-        color = {225, 225, 225, 255},
-        fontColor = {0, 0, 0, 255},
+        color = {235, 235, 235, 255},
+        fontColor = {6, 6, 6, 255},
         divider = {
             size = 2,
-            color = {5, 5, 5, 253}
+            color = {20, 20, 20, 253}
         }
     },
     rowBar = {
         isOutLine = true,
         font = dxCreateFont("files/assets/fonts/signika_semibold.rw", 11),
-        color = {0, 0, 0, 255},
-        fontColor = {200, 200, 200, 255},
-        hoverColor = {200, 200, 200, 255},
-        hoverFontColor = {0, 0, 0, 255}
+        color = {6, 6, 6, 255},
+        fontColor = {217, 217, 217, 255},
+        hoverColor = {217, 217, 217, 255},
+        hoverFontColor = {6, 6, 6, 255}
     },
     scrollBar_Horizontal = {
         isOutLine = true

@@ -15,5 +15,5 @@
 
 availableTemplates["beautify_label"] = {
     font = dxCreateFont("files/assets/fonts/poppins_medium.rw", 14),
-    fontColor = {225, 225, 225, 255}
+    fontColor = {235, 235, 235, 255}
 }

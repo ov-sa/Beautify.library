@@ -14,21 +14,21 @@
 ------------------------
 
 availableTemplates["beautify_window"] = {
-    color = {0, 0, 0, 253},
+    color = {6, 6, 6, 253},
     titleBar = {
         isOutLine = true,
         font = dxCreateFont("files/assets/fonts/poppins_medium.rw", 15),
-        fontColor = {225, 225, 225, 255},
-        color = {0, 0, 0, 255},
+        fontColor = {235, 235, 235, 255},
+        color = {6, 6, 6, 255},
         divider = {
             size = 1,
-            color = {225, 225, 225, 150}
+            color = {235, 235, 235, 150}
         },
         closeButton = {
             isOutLine = true,
-            fontColor = {225, 225, 225, 255},
-            hoverColor = {225, 225, 225, 255},
-            hoverFontColor = {0, 0, 0, 255}
+            fontColor = {235, 235, 235, 255},
+            hoverColor = {235, 235, 235, 255},
+            hoverFontColor = {6, 6, 6, 255}
         }
     }
 }

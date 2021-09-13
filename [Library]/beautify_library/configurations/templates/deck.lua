@@ -14,19 +14,19 @@
 ------------------------
 
 availableTemplates["beautify_deck"] = {
-    color = {2, 2, 2, 253},
+    color = {12, 12, 12, 253},
     titleBar = {
         isOutLine = true,
         font = dxCreateFont("files/assets/fonts/signika_semibold.rw", 11),
-        color = {225, 225, 225, 255},
-        fontColor = {0, 0, 0, 255},
+        color = {235, 235, 235, 255},
+        fontColor = {6, 6, 6, 255},
         divider = {
             size = 1,
-            color = {0, 0, 0, 255},
+            color = {6, 6, 6, 255},
         },
         toggleButton = {
             isOutLine = true,
-            color = {0, 0, 0, 255}
+            color = {6, 6, 6, 255}
         }
     }
 }

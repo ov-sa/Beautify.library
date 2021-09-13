@@ -16,9 +16,9 @@
 availableTemplates["beautify_selector"] = {
     fontPaddingY = 3,
     font = dxCreateFont("files/assets/fonts/poppins_medium.rw", 14),
-    color = {50, 50, 50, 255},
-    fontColor = {225, 225, 225, 255},
-    hoverColor = {225, 225, 225, 255},
+    color = {86, 86, 86, 255},
+    fontColor = {235, 235, 235, 255},
+    hoverColor = {235, 235, 235, 255},
     arrow_Previous = {
         isOutLine = true
     },
