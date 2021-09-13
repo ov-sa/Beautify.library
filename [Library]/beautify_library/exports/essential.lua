@@ -9,14 +9,30 @@
 ----------------------------------------------------------------
 
 
+-----------------
+--[[ Imports ]]--
+-----------------
+
+local imports = {
+    isElement = isElement,
+    getElementType = getElementType,
+    addEventHandler = addEventHandler,
+    triggerEvent = triggerEvent
+}
+
+imports.addEventHandler("onClientResourceStart", resource, function()
+    imports.getUIParent = getUIParent
+end)
+
+
 ------------------------------------------
 --[[ Function: Verifies UI's Validity ]]--
 ------------------------------------------
 
 function isUIValid(element)
 
-    if element and isElement(element) then
-        local elementParent = getUIParent(element)
+    if element and imports.isElement(element) then
+        local elementParent = imports.getUIParent(element)
         if elementParent then
             if createdElements[elementParent].isValid then
                 return createdElements[element].isValid
@@ -37,7 +53,7 @@ end
 function isUIVisible(element)
 
     if isUIValid(element) then
-        local elementParent = getUIParent(element)
+        local elementParent = imports.getUIParent(element)
         if elementParent then
             if createdElements[elementParent].isVisible then
                 return createdElements[element].isVisible
@@ -55,7 +71,7 @@ function setUIVisible(element, state)
     if isUIValid(element) and (state == true or state == false) then
         if createdElements[element].isVisible ~= state then
             createdElements[element].isVisible = state
-            triggerEvent("onClientUIVisibilityAltered", element, state)
+            imports.triggerEvent("onClientUIVisibilityAltered", element, state)
             return true
         end
     end
@@ -79,7 +95,7 @@ end
 
 function setUIDraggable(element, state)
 
-    if isUIValid(element) and availableElements[getElementType(element)].isDraggable and (state == true or state == false) then
+    if isUIValid(element) and availableElements[imports.getElementType(element)].isDraggable and (state == true or state == false) then
         if createdElements[element].isDraggable ~= state then
             createdElements[element].isDraggable = state
             return true
