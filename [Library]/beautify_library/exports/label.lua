@@ -9,6 +9,31 @@
 ----------------------------------------------------------------
 
 
+-----------------
+--[[ Imports ]]--
+-----------------
+
+local imports = {
+    tonumber = tonumber,
+    ipairs = ipairs,
+    addEventHandler = addEventHandler,
+    triggerEvent = triggerEvent,
+    isUIValid = isUIValid,
+    cloneUIOutline = cloneUIOutline,
+    areUIParametersValid = areUIParametersValid,
+    math = {
+        max = math.max
+    }
+}
+
+imports.addEventHandler("onClientResourceStart", resource, function()
+    imports.__getUITemplate = __getUITemplate
+    imports.createUIElement = createUIElement
+    imports.updateElement = updateElement
+    imports.reloadElement = reloadElement
+end)
+
+
 -------------------
 --[[ Variables ]]--
 -------------------
@@ -23,18 +48,18 @@ local elementType = "beautify_label"
 function createLabel(...)
 
     local parameters = {...}
-    if not areUIParametersValid(parameters, elementType) then return false end
-    local createdElement = createUIElement(elementType, parameters[(#availableElements[elementType].syntax.parameters + 1)], sourceResource)
+    if not imports.areUIParametersValid(parameters, elementType) then return false end
+    local createdElement = imports.createUIElement(elementType, parameters[(#availableElements[elementType].syntax.parameters + 1)], sourceResource)
     if not createdElement then return false end
 
     local elementReference = createdElements[createdElement]
-    local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
+    local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
     if not elementTemplate then return false end
 
-    elementReference.gui = cloneUIOutline(elementType)
-    for i, j in ipairs(availableElements[elementType].syntax.parameters) do
+    elementReference.gui = imports.cloneUIOutline(elementType)
+    for i, j in imports.ipairs(availableElements[elementType].syntax.parameters) do
         if (j.name == "width") or (j.name == "height") then
-            elementReference.gui[j.name] = math.max(0, parameters[i])
+            elementReference.gui[j.name] = imports.math.max(0, parameters[i])
         else
             elementReference.gui[j.name] = parameters[i]
         end
@@ -45,7 +70,7 @@ function createLabel(...)
         vertical = "center"
     }
     elementReference.isValid = true
-    reloadElement(createdElement)
+    imports.reloadElement(createdElement)
     return createdElement
 
 end
@@ -58,15 +83,15 @@ end
 function setLabelText(...)
 
     local parameters = {...}
-    if not areUIParametersValid(parameters, elementType, "setLabelText") then return false end
+    if not imports.areUIParametersValid(parameters, elementType, "setLabelText") then return false end
     local element = parameters[1]
-    if not isUIValid(element) then return false end
+    if not imports.isUIValid(element) then return false end
 
     local elementReference = createdElements[element]
     if (elementReference.gui.text == parameters[2]) then return false end
     elementReference.gui.text = parameters[2]
-    updateElement(element)
-    triggerEvent("onClientUIAltered", element)
+    imports.updateElement(element)
+    imports.triggerEvent("onClientUIAltered", element)
     return true
 
 end
@@ -74,9 +99,9 @@ end
 function getLabelText(...)
 
     local parameters = {...}
-    if not areUIParametersValid(parameters, elementType, "getLabelText") then return false end
+    if not imports.areUIParametersValid(parameters, elementType, "getLabelText") then return false end
     local element = parameters[1]
-    if not isUIValid(element) then return false end
+    if not imports.isUIValid(element) then return false end
 
     local elementReference = createdElements[element]
     return elementReference.gui.text
@@ -91,15 +116,15 @@ end
 function clearLabelColor(...)
 
     local parameters = {...}
-    if not areUIParametersValid(parameters, elementType, "clearLabelColor") then return false end
+    if not imports.areUIParametersValid(parameters, elementType, "clearLabelColor") then return false end
     local element = parameters[1]
-    if not isUIValid(element) then return false end
+    if not imports.isUIValid(element) then return false end
 
     local elementReference = createdElements[element]
     if not elementReference.gui.fontColor then return false end
     elementReference.gui.fontColor = nil
-    reloadElement(element)
-    triggerEvent("onClientUIAltered", element)
+    imports.reloadElement(element)
+    imports.triggerEvent("onClientUIAltered", element)
     return true
 
 end
@@ -107,12 +132,12 @@ end
 function setLabelColor(...)
 
     local parameters = {...}
-    if not areUIParametersValid(parameters, elementType, "setLabelColor") then return false end
+    if not imports.areUIParametersValid(parameters, elementType, "setLabelColor") then return false end
     local element = parameters[1]
-    if not isUIValid(element) then return false end
+    if not imports.isUIValid(element) then return false end
 
-    parameters[2][1] = tonumber(parameters[2][1]); parameters[2][2] = tonumber(parameters[2][2]);
-    parameters[2][3] = tonumber(parameters[2][3]); parameters[2][4] = tonumber(parameters[2][4]);
+    parameters[2][1] = imports.tonumber(parameters[2][1]); parameters[2][2] = imports.tonumber(parameters[2][2]);
+    parameters[2][3] = imports.tonumber(parameters[2][3]); parameters[2][4] = imports.tonumber(parameters[2][4]);
     for i = 1, 4, 1 do
         if not parameters[2][i] or (parameters[2][i] < 0) or (parameters[2][i] > 255) then
             return false
@@ -122,8 +147,8 @@ function setLabelColor(...)
     local labelColor = getLabelColor(element)
     if not labelColor or ((labelColor[1] == parameters[2][1]) and (labelColor[2] == parameters[2][2]) and (labelColor[3] == parameters[2][3]) and (labelColor[4] == parameters[2][4])) then return false end
     elementReference.gui.fontColor = {parameters[2][1], parameters[2][2], parameters[2][3], parameters[2][4]}
-    reloadElement(element)
-    triggerEvent("onClientUIAltered", element)
+    imports.reloadElement(element)
+    imports.triggerEvent("onClientUIAltered", element)
     return true
 
 end
@@ -131,12 +156,12 @@ end
 function getLabelColor(...)
 
     local parameters = {...}
-    if not areUIParametersValid(parameters, elementType, "getLabelColor") then return false end
+    if not imports.areUIParametersValid(parameters, elementType, "getLabelColor") then return false end
     local element = parameters[1]
-    if not isUIValid(element) then return false end
+    if not imports.isUIValid(element) then return false end
 
     local elementReference = createdElements[element]
-    local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
+    local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
     return elementReference.gui.fontColor or elementTemplate.fontColor
 
 end
@@ -149,14 +174,15 @@ end
 function setLabelHorizontalAlignment(...)
 
     local parameters = {...}
-    if not areUIParametersValid(parameters, elementType, "setLabelHorizontalAlignment") then return false end
+    if not imports.areUIParametersValid(parameters, elementType, "setLabelHorizontalAlignment") then return false end
     local element = parameters[1]
-    if not isUIValid(element) then return false end
+    if not imports.isUIValid(element) then return false end
 
     local elementReference = createdElements[element]
     if not UI_VALID_ALIGNMENT.horizontal[(parameters[2])] or (elementReference.gui.alignment.horizontal == parameters[2]) then return false end
     elementReference.gui.alignment.horizontal = parameters[2]
-    triggerEvent("onClientUIAltered", element)
+    imports.updateElement(element)
+    imports.triggerEvent("onClientUIAltered", element)
     return true
 
 end
@@ -164,9 +190,9 @@ end
 function getLabelHorizontalAlignment(...)
 
     local parameters = {...}
-    if not areUIParametersValid(parameters, elementType, "getLabelHorizontalAlignment") then return false end
+    if not imports.areUIParametersValid(parameters, elementType, "getLabelHorizontalAlignment") then return false end
     local element = parameters[1]
-    if not isUIValid(element) then return false end
+    if not imports.isUIValid(element) then return false end
 
     local elementReference = createdElements[element]
     return elementReference.gui.alignment.horizontal
@@ -176,14 +202,15 @@ end
 function setLabelVerticalAlignment(...)
 
     local parameters = {...}
-    if not areUIParametersValid(parameters, elementType, "setLabelVerticalAlignment") then return false end
+    if not imports.areUIParametersValid(parameters, elementType, "setLabelVerticalAlignment") then return false end
     local element = parameters[1]
-    if not isUIValid(element) then return false end
+    if not imports.isUIValid(element) then return false end
 
     local elementReference = createdElements[element]
     if not UI_VALID_ALIGNMENT.vertical[(parameters[2])] or (elementReference.gui.alignment.vertical == parameters[2]) then return false end
     elementReference.gui.alignment.vertical = parameters[2]
-    triggerEvent("onClientUIAltered", element)
+    imports.updateElement(element)
+    imports.triggerEvent("onClientUIAltered", element)
     return true
 
 end
@@ -191,9 +218,9 @@ end
 function getLabelVerticalAlignment(...)
 
     local parameters = {...}
-    if not areUIParametersValid(parameters, elementType, "getLabelVerticalAlignment") then return false end
+    if not imports.areUIParametersValid(parameters, elementType, "getLabelVerticalAlignment") then return false end
     local element = parameters[1]
-    if not isUIValid(element) then return false end
+    if not imports.isUIValid(element) then return false end
 
     local elementReference = createdElements[element]
     return elementReference.gui.alignment.vertical
