@@ -2,6 +2,10 @@
 
     <info author="OvileAmriam" name="Beautify Library" type="Library" version="1.0.0"/>
 
+    <!-- Settings & Utilities -->
+    <script src="utilities/client.lua" type="client" cache="false"/>
+    <script src="settings/client.lua" type="client" cache="false"/>
+
     <!-- Exports -->
     <script src="exports/essential.lua" type="client" cache="false"/>
     <script src="exports/window.lua" type="client" cache="false"/>
@@ -13,10 +17,6 @@
     <script src="exports/checkbox.lua" type="client" cache="false"/>
     <script src="exports/deckpane.lua" type="client" cache="false"/>
     <script src="exports/deck.lua" type="client" cache="false"/>
-
-    <!-- Settings & Utilities -->
-    <script src="utilities/client.lua" type="client" cache="false"/>
-    <script src="settings/client.lua" type="client" cache="false"/>
 
     <!-- Handlers -->
     <script src="handlers/logger/client.lua" type="client" cache="false"/>

@@ -241,7 +241,7 @@ end
 --[[ Events: On Client Resource Start/Stop ]]--
 -----------------------------------------------
 
-imports.addEventHandler("onClientResourceStart", root, function()
+imports.addEventHandler("onClientResourceStart", resource, function()
     imports.destroyElementForceRender = destroyElementForceRender
     imports.manageElementForceRender = manageElementForceRender
 end)

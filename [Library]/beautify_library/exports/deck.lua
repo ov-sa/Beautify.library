@@ -9,6 +9,31 @@
 ----------------------------------------------------------------
 
 
+-----------------
+--[[ Imports ]]--
+-----------------
+
+local imports = {
+    ipairs = ipairs,
+    addEventHandler = addEventHandler,
+    triggerEvent = triggerEvent,
+    isUIValid = isUIValid,
+    cloneUIOutline = cloneUIOutline,
+    areUIParametersValid = areUIParametersValid,
+    dxCreateRenderTarget = dxCreateRenderTarget,
+    math = {
+        max = math.max
+    }
+}
+
+imports.addEventHandler("onClientResourceStart", resource, function()
+    imports.__getUITemplate = __getUITemplate
+    imports.createUIElement = createUIElement
+    imports.updateElement = updateElement
+    imports.reloadElement = reloadElement
+end)
+
+
 -------------------
 --[[ Variables ]]--
 -------------------
@@ -23,21 +48,21 @@ local elementType = "beautify_deck"
 function createDeck(...)
 
     local parameters = {...}
-    if not areUIParametersValid(parameters, elementType) then return false end
-    local createdElement = createUIElement(elementType, parameters[3], sourceResource)
+    if not imports.areUIParametersValid(parameters, elementType) then return false end
+    local createdElement = imports.createUIElement(elementType, parameters[3], sourceResource)
     if not createdElement then return false end
 
     local elementReference = createdElements[createdElement]
-    local elementTemplate = __getUITemplate(elementType, elementReference.sourceResource)
+    local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
     if not elementTemplate then return false end
 
-    elementReference.gui = cloneUIOutline(elementType)
+    elementReference.gui = imports.cloneUIOutline(elementType)
     elementReference.gui.x, elementReference.gui.y = 0, 0
-    elementReference.gui.width = math.max(0, createdElements[(parameters[3])].gui.width)
+    elementReference.gui.width = imports.math.max(0, createdElements[(parameters[3])].gui.width)
     elementReference.gui.maximized = false
-    for i, j in ipairs(availableElements[elementType].syntax.parameters) do
+    for i, j in imports.ipairs(availableElements[elementType].syntax.parameters) do
         if j.name == "height" then
-            elementReference.gui[j.name] = math.max(0, math.max(availableElements[elementType].titleBar.height, parameters[i]) + (availableElements[elementType].viewSection.padding*2)) + availableElements[elementType].titleBar.height
+            elementReference.gui[j.name] = imports.math.max(0, imports.math.max(availableElements[elementType].titleBar.height, parameters[i]) + (availableElements[elementType].viewSection.padding*2)) + availableElements[elementType].titleBar.height
         else
             elementReference.gui[j.name] = parameters[i]
         end
@@ -49,11 +74,11 @@ function createDeck(...)
         width = elementReference.gui.width - (availableElements[elementType].viewSection.padding*2),
         height = elementReference.gui.height - (availableElements[elementType].titleBar.height) - (availableElements[elementType].viewSection.padding*2)
     }
-    if (elementReference.gui.viewSection.width > 0) and (elementReference.gui.viewSection.height > math.max(0, availableElements[elementType].titleBar.height)) then
-        elementReference.gui.renderTarget = dxCreateRenderTarget(elementReference.gui.viewSection.width, elementReference.gui.viewSection.height, true)
+    if (elementReference.gui.viewSection.width > 0) and (elementReference.gui.viewSection.height > imports.math.max(0, availableElements[elementType].titleBar.height)) then
+        elementReference.gui.renderTarget = imports.dxCreateRenderTarget(elementReference.gui.viewSection.width, elementReference.gui.viewSection.height, true)
     end
     elementReference.isValid = true
-    reloadElement(createdElement)
+    imports.reloadElement(createdElement)
     return createdElement
 
 end
@@ -66,14 +91,15 @@ end
 function setDeckMaximized(...)
 
     local parameters = {...}
-    if not areUIParametersValid(parameters, elementType, "setDeckMaximized") then return false end
+    if not imports.areUIParametersValid(parameters, elementType, "setDeckMaximized") then return false end
     local element = parameters[1]
-    if not isUIValid(element) then return false end
+    if not imports.isUIValid(element) then return false end
 
     local elementReference = createdElements[element]
     if (elementReference.gui.maximized == parameters[2]) then return false end
     elementReference.gui.maximized = parameters[2]
-    triggerEvent("onClientUIMaximizationAltered", element, elementReference.gui.maximized)
+    imports.updateElement(createdElement)
+    imports.triggerEvent("onClientUIMaximizationAltered", element, elementReference.gui.maximized)
     return true
 
 end
@@ -81,9 +107,9 @@ end
 function isDeckMaximized(...)
 
     local parameters = {...}
-    if not areUIParametersValid(parameters, elementType, "isDeckMaximized") then return false end
+    if not imports.areUIParametersValid(parameters, elementType, "isDeckMaximized") then return false end
     local element = parameters[1]
-    if not isUIValid(element) then return false end
+    if not imports.isUIValid(element) then return false end
 
     local elementReference = createdElements[element]
     return elementReference.gui.maximized
