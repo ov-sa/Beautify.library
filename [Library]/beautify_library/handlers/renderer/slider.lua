@@ -218,19 +218,22 @@ function renderSlider(element, isActiveMode, isFetchingInput, mouseReference)
                     isSliderHovered = isElementHovered
                 end
             end
-            if isSliderHovered then
+            local isSliderInternallyAttached = CLIENT_ATTACHED_ELEMENT and (CLIENT_ATTACHED_ELEMENT.element == element) and CLIENT_ATTACHED_ELEMENT.isInternal
+            if isSliderHovered or isSliderInternallyAttached then
                 if elementReference.gui.hoverStatus ~= "forward" then
                     elementReference.gui.hoverStatus = "forward"
                     elementReference.gui.hoverAnimTickCounter = CLIENT_CURRENT_TICK
                 end
-                isSliderThumbHovered = imports.isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].height)
+                if isSliderHovered then
+                    isSliderThumbHovered = imports.isMouseOnPosition(__mouseReference.x + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].startX, __mouseReference.y + elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].startY, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].width, elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].height)
+                end
             else
                 if elementReference.gui.hoverStatus ~= "backward" then
                     elementReference.gui.hoverStatus = "backward"
                     elementReference.gui.hoverAnimTickCounter = CLIENT_CURRENT_TICK
                 end
             end
-            if CLIENT_ATTACHED_ELEMENT and (CLIENT_ATTACHED_ELEMENT.element == element) and CLIENT_ATTACHED_ELEMENT.isInternal then
+            if isSliderInternallyAttached then
                 local cursor_offsetX, cursor_offsetY = imports.getAbsoluteCursorPosition()
                 if cursor_offsetX and cursor_offsetY then
                     if elementReference.gui.type == "horizontal" then
@@ -240,7 +243,7 @@ function renderSlider(element, isActiveMode, isFetchingInput, mouseReference)
                     end
                 end
             else
-                if isSliderThumbHovered and imports.isKeyClicked("mouse1") and not elementReference.isDisabled then
+                if isSliderThumbHovered and imports.isKeyClicked("mouse1") then
                     imports.attachUIElement(element, true)
                 end
             end
