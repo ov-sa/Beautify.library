@@ -18,70 +18,70 @@ availableTemplates["beautify_gridlist"] = {
     ["dark-silver-theme"] = {},
 
     ["dark-blue-theme"] = {
-        color = {5, 5, 5, 253},
+        color = {20, 20, 20, 253},
         columnBar = {
-            color = {125, 125, 255, 255},
-            fontColor = {0, 0, 0, 255},
+            color = {158, 158, 255, 255},
+            fontColor = {6, 6, 6, 255},
             divider = {
-                color = {5, 5, 5, 253}
+                color = {20, 20, 20, 253}
             }
         },
         rowBar = {
-            color = {0, 0, 0, 255},
-            fontColor = {100, 100, 255, 255},
-            hoverColor = {100, 100, 255, 255},
-            hoverFontColor = {0, 0, 0, 255}
+            color = {6, 6, 6, 255},
+            fontColor = {136, 136, 255, 255},
+            hoverColor = {136, 136, 255, 255},
+            hoverFontColor = {6, 6, 6, 255}
         }
     },
 
     ["dark-red-theme"] = {
-        color = {5, 5, 5, 253},
+        color = {20, 20, 20, 253},
         columnBar = {
-            color = {255, 125, 125, 255},
-            fontColor = {0, 0, 0, 255},
+            color = {255, 158, 158, 255},
+            fontColor = {6, 6, 6, 255},
             divider = {
-                color = {5, 5, 5, 253}
+                color = {20, 20, 20, 253}
             }
         },
         rowBar = {
-            color = {0, 0, 0, 255},
-            fontColor = {255, 100, 100, 255},
-            hoverColor = {255, 100, 100, 255},
-            hoverFontColor = {0, 0, 0, 255}
+            color = {6, 6, 6, 255},
+            fontColor = {255, 136, 136, 255},
+            hoverColor = {255, 136, 136, 255},
+            hoverFontColor = {6, 6, 6, 255}
         }
     },
 
     ["dark-green-theme"] = {
-        color = {5, 5, 5, 253},
+        color = {20, 20, 20, 253},
         columnBar = {
-            color = {125, 255, 125, 255},
-            fontColor = {0, 0, 0, 255},
+            color = {158, 255, 158, 255},
+            fontColor = {6, 6, 6, 255},
             divider = {
-                color = {5, 5, 5, 253}
+                color = {20, 20, 20, 253}
             }
         },
         rowBar = {
-            color = {0, 0, 0, 255},
-            fontColor = {100, 255, 100, 255},
-            hoverColor = {100, 255, 100, 255},
-            hoverFontColor = {0, 0, 0, 255}
+            color = {6, 6, 6, 255},
+            fontColor = {136, 255, 136, 255},
+            hoverColor = {136, 255, 136, 255},
+            hoverFontColor = {6, 6, 6, 255}
         }
     },
 
     ["dark-yellow-theme"] = {
-        color = {5, 5, 5, 253},
+        color = {20, 20, 20, 253},
         columnBar = {
-            color = {255, 255, 125, 255},
-            fontColor = {0, 0, 0, 255},
+            color = {255, 255, 158, 255},
+            fontColor = {6, 6, 6, 255},
             divider = {
-                color = {5, 5, 5, 253}
+                color = {20, 20, 20, 253}
             }
         },
         rowBar = {
-            color = {0, 0, 0, 255},
-            fontColor = {255, 255, 100, 255},
-            hoverColor = {255, 255, 100, 255},
-            hoverFontColor = {0, 0, 0, 255}
+            color = {6, 6, 6, 255},
+            fontColor = {255, 255, 136, 255},
+            hoverColor = {255, 255, 136, 255},
+            hoverFontColor = {6, 6, 6, 255}
         }
     }
 

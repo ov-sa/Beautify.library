@@ -19,37 +19,37 @@ availableTemplates["beautify_button"] = {
 
     ["dark-blue-theme"] = {
         ["default"] = {
-            color = {5, 5, 5, 255},
-            fontColor = {200, 200, 200, 255},
-            hoverColor = {175, 175, 175, 255},
-            hoverFontColor = {0, 0, 0, 255}
+            color = {20, 20, 20, 255},
+            fontColor = {198, 198, 198, 255},
+            hoverColor = {198, 198, 198, 255},
+            hoverFontColor = {6, 6, 6, 255}
         }
     },
 
     ["dark-red-theme"] = {
         ["default"] = {
-            color = {5, 5, 5, 255},
-            fontColor = {200, 200, 200, 255},
-            hoverColor = {175, 175, 175, 255},
-            hoverFontColor = {0, 0, 0, 255}
+            color = {20, 20, 20, 255},
+            fontColor = {198, 198, 198, 255},
+            hoverColor = {198, 198, 198, 255},
+            hoverFontColor = {6, 6, 6, 255}
         }
     },
 
     ["dark-green-theme"] = {
         ["default"] = {
-            color = {5, 5, 5, 255},
-            fontColor = {200, 200, 200, 255},
-            hoverColor = {175, 175, 175, 255},
-            hoverFontColor = {0, 0, 0, 255}
+            color = {20, 20, 20, 255},
+            fontColor = {198, 198, 198, 255},
+            hoverColor = {198, 198, 198, 255},
+            hoverFontColor = {6, 6, 6, 255}
         }
     },
 
     ["dark-yellow-theme"] = {
         ["default"] = {
-            color = {5, 5, 5, 255},
-            fontColor = {200, 200, 200, 255},
-            hoverColor = {175, 175, 175, 255},
-            hoverFontColor = {0, 0, 0, 255}
+            color = {20, 20, 20, 255},
+            fontColor = {198, 198, 198, 255},
+            hoverColor = {198, 198, 198, 255},
+            hoverFontColor = {6, 6, 6, 255}
         }
     }
 

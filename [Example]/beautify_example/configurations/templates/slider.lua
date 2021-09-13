@@ -18,46 +18,46 @@ availableTemplates["beautify_slider"] = {
     ["dark-silver-theme"] = {},
 
     ["dark-blue-theme"] = {
-        fontColor = {200, 200, 200, 255},
+        fontColor = {198, 198, 198, 255},
         track = {
-            progressedColor = {125, 125, 255, 255},
-            unprogressedColor = {15, 15, 15, 255}
+            progressedColor = {158, 158, 255, 255},
+            unprogressedColor = {32, 32, 32, 255}
         },
         thumb = {
-            color = {125, 125, 255, 255}
+            color = {158, 158, 255, 255}
         }
     },
 
     ["dark-red-theme"] = {
-        fontColor = {200, 200, 200, 255},
+        fontColor = {198, 198, 198, 255},
         track = {
-            progressedColor = {255, 125, 125, 255},
-            unprogressedColor = {15, 15, 15, 255}
+            progressedColor = {255, 158, 158, 255},
+            unprogressedColor = {32, 32, 32, 255}
         },
         thumb = {
-            color = {255, 125, 125, 255}
+            color = {255, 158, 158, 255}
         }
     },
 
     ["dark-green-theme"] = {
-        fontColor = {200, 200, 200, 255},
+        fontColor = {198, 198, 198, 255},
         track = {
-            progressedColor = {125, 255, 125, 255},
-            unprogressedColor = {15, 15, 15, 255}
+            progressedColor = {158, 255, 158, 255},
+            unprogressedColor = {32, 32, 32, 255}
         },
         thumb = {
-            color = {125, 255, 125, 255}
+            color = {158, 255, 158, 255}
         }
     },
 
     ["dark-yellow-theme"] = {
-        fontColor = {200, 200, 200, 255},
+        fontColor = {198, 198, 198, 255},
         track = {
-            progressedColor = {255, 255, 125, 255},
-            unprogressedColor = {15, 15, 15, 255}
+            progressedColor = {255, 255, 158, 255},
+            unprogressedColor = {32, 32, 32, 255}
         },
         thumb = {
-            color = {255, 255, 125, 255}
+            color = {255, 255, 158, 255}
         }
     }
 

@@ -18,65 +18,65 @@ availableTemplates["beautify_window"] = {
     ["dark-silver-theme"] = {},
 
     ["dark-blue-theme"] = {
-        color = {0, 0, 0, 253},
+        color = {6, 6, 6, 253},
         titleBar = {
-            fontColor = {125, 125, 255, 255},
-            color = {0, 0, 0, 255},
+            fontColor = {158, 158, 255, 255},
+            color = {6, 6, 6, 255},
             divider = {
-                color = {125, 125, 255, 150}
+                color = {158, 158, 255, 150}
             },
             closeButton = {
-                fontColor = {125, 125, 255, 255},
-                hoverColor = {125, 125, 255, 255},
-                hoverFontColor = {0, 0, 0, 255}
+                fontColor = {158, 158, 255, 255},
+                hoverColor = {158, 158, 255, 255},
+                hoverFontColor = {6, 6, 6, 255}
             }
         }
     },
 
     ["dark-red-theme"] = {
-        color = {0, 0, 0, 253},
+        color = {6, 6, 6, 253},
         titleBar = {
-            fontColor = {255, 125, 125, 255},
-            color = {0, 0, 0, 255},
+            fontColor = {255, 158, 158, 255},
+            color = {6, 6, 6, 255},
             divider = {
-                color = {255, 125, 125, 150}
+                color = {255, 158, 158, 150}
             },
             closeButton = {
-                fontColor = {255, 125, 125, 255},
-                hoverColor = {255, 125, 125, 255},
-                hoverFontColor = {0, 0, 0, 255}
+                fontColor = {255, 158, 158, 255},
+                hoverColor = {255, 158, 158, 255},
+                hoverFontColor = {6, 6, 6, 255}
             }
         }
     },
 
     ["dark-green-theme"] = {
-        color = {0, 0, 0, 253},
+        color = {6, 6, 6, 253},
         titleBar = {
-            fontColor = {125, 255, 125, 255},
-            color = {0, 0, 0, 255},
+            fontColor = {158, 255, 158, 255},
+            color = {6, 6, 6, 255},
             divider = {
-                color = {125, 255, 125, 150}
+                color = {158, 255, 158, 150}
             },
             closeButton = {
-                fontColor = {125, 255, 125, 255},
-                hoverColor = {125, 255, 125, 255},
-                hoverFontColor = {0, 0, 0, 255}
+                fontColor = {158, 255, 158, 255},
+                hoverColor = {158, 255, 158, 255},
+                hoverFontColor = {6, 6, 6, 255}
             }
         }
     },
 
     ["dark-yellow-theme"] = {
-        color = {0, 0, 0, 253},
+        color = {6, 6, 6, 253},
         titleBar = {
-            fontColor = {255, 255, 125, 255},
-            color = {0, 0, 0, 255},
+            fontColor = {255, 255, 158, 255},
+            color = {6, 6, 6, 255},
             divider = {
-                color = {255, 255, 125, 150}
+                color = {255, 255, 158, 150}
             },
             closeButton = {
-                fontColor = {255, 255, 125, 255},
-                hoverColor = {255, 255, 125, 255},
-                hoverFontColor = {0, 0, 0, 255}
+                fontColor = {255, 255, 158, 255},
+                hoverColor = {255, 255, 158, 255},
+                hoverFontColor = {6, 6, 6, 255}
             }
         }
     }

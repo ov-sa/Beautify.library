@@ -18,19 +18,19 @@ availableTemplates["beautify_label"] = {
     ["dark-silver-theme"] = {},
 
     ["dark-blue-theme"] = {
-        fontColor = {150, 150, 150, 255}
+        fontColor = {179, 179, 179, 255}
     },
 
     ["dark-red-theme"] = {
-        fontColor = {150, 150, 150, 255}
+        fontColor = {179, 179, 179, 255}
     },
 
     ["dark-green-theme"] = {
-        fontColor = {150, 150, 150, 255}
+        fontColor = {179, 179, 179, 255}
     },
 
     ["dark-yellow-theme"] = {
-        fontColor = {150, 150, 150, 255}
+        fontColor = {179, 179, 179, 255}
     }
 
 }

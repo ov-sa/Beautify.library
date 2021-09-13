@@ -18,57 +18,57 @@ availableTemplates["beautify_deck"] = {
     ["dark-silver-theme"] = {},
 
     ["dark-blue-theme"] = {
-        color = {2, 2, 2, 253},
+        color = {12, 12, 12, 253},
         titleBar = {
-            color = {125, 125, 255, 255},
-            fontColor = {0, 0, 0, 255},
+            color = {158, 158, 255, 255},
+            fontColor = {6, 6, 6, 255},
             divider = {
-                color = {0, 0, 0, 255},
+                color = {6, 6, 6, 255},
             },
             toggleButton = {
-                color = {0, 0, 0, 255}
+                color = {6, 6, 6, 255}
             }
         }
     },
 
     ["dark-red-theme"] = {
-        color = {2, 2, 2, 253},
+        color = {12, 12, 12, 253},
         titleBar = {
-            color = {255, 125, 125, 255},
-            fontColor = {0, 0, 0, 255},
+            color = {255, 158, 158, 255},
+            fontColor = {6, 6, 6, 255},
             divider = {
-                color = {0, 0, 0, 255},
+                color = {6, 6, 6, 255},
             },
             toggleButton = {
-                color = {0, 0, 0, 255}
+                color = {6, 6, 6, 255}
             }
         }
     },
 
     ["dark-green-theme"] = {
-        color = {2, 2, 2, 253},
+        color = {12, 12, 12, 253},
         titleBar = {
-            color = {125, 255, 125, 255},
-            fontColor = {0, 0, 0, 255},
+            color = {158, 255, 158, 255},
+            fontColor = {6, 6, 6, 255},
             divider = {
-                color = {0, 0, 0, 255},
+                color = {6, 6, 6, 255},
             },
             toggleButton = {
-                color = {0, 0, 0, 255}
+                color = {6, 6, 6, 255}
             }
         }
     },
 
     ["dark-yellow-theme"] = {
-        color = {2, 2, 2, 253},
+        color = {12, 12, 12, 253},
         titleBar = {
-            color = {255, 255, 125, 255},
-            fontColor = {0, 0, 0, 255},
+            color = {255, 255, 158, 255},
+            fontColor = {6, 6, 6, 255},
             divider = {
-                color = {0, 0, 0, 255},
+                color = {6, 6, 6, 255},
             },
             toggleButton = {
-                color = {0, 0, 0, 255}
+                color = {6, 6, 6, 255}
             }
         }
     }

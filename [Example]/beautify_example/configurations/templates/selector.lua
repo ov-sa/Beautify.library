@@ -19,26 +19,26 @@ availableTemplates["beautify_selector"] = {
 
     ["dark-blue-theme"] = {
         color = {50, 50, 50, 255},
-        fontColor = {200, 200, 200, 255},
-        hoverColor = {125, 125, 255, 255}
+        fontColor = {198, 198, 198, 255},
+        hoverColor = {158, 158, 255, 255}
     },
 
     ["dark-red-theme"] = {
         color = {50, 50, 50, 255},
-        fontColor = {200, 200, 200, 255},
-        hoverColor = {255, 125, 125, 255}
+        fontColor = {198, 198, 198, 255},
+        hoverColor = {255, 158, 158, 255}
     },
 
     ["dark-green-theme"] = {
         color = {50, 50, 50, 255},
-        fontColor = {200, 200, 200, 255},
-        hoverColor = {125, 255, 125, 255}
+        fontColor = {198, 198, 198, 255},
+        hoverColor = {158, 255, 158, 255}
     },
 
     ["dark-yellow-theme"] = {
         color = {50, 50, 50, 255},
-        fontColor = {200, 200, 200, 255},
-        hoverColor = {255, 255, 125, 255}
+        fontColor = {198, 198, 198, 255},
+        hoverColor = {255, 255, 158, 255}
     }
 
 }
