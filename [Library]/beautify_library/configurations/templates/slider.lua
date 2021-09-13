@@ -23,6 +23,7 @@ availableTemplates["beautify_slider"] = {
         unprogressedColor = {32, 32, 32, 255}
     },
     thumb = {
+        slideAcceleration = 0.25,
         size = 9.2,
         color = {235, 235, 235, 255}
     },

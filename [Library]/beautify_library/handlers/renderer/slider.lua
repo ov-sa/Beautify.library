@@ -66,14 +66,18 @@ function renderSlider(element, isActiveMode, isFetchingInput, mouseReference)
                 local isSlideInterpolationDone = imports.math.round(elementReference.gui.slideBar_Horizontal.currentPercent, 2) == imports.math.round(elementReference.gui.slideBar_Horizontal.finalPercent, 2)
                 if not isSlideInterpolationDone then
                     isElementToBeForceRendered = true
-                    elementReference.gui.slideBar_Horizontal.currentPercent = imports.interpolateBetween(elementReference.gui.slideBar_Horizontal.currentPercent, 0, 0, elementReference.gui.slideBar_Horizontal.finalPercent, 0, 0, 0.25, "InQuad")
+                    if elementReference.gui["__UI_CACHE__"]["Thumb"] then
+                        elementReference.gui.slideBar_Horizontal.currentPercent = imports.interpolateBetween(elementReference.gui.slideBar_Horizontal.currentPercent, 0, 0, elementReference.gui.slideBar_Horizontal.finalPercent, 0, 0, elementReference.gui["__UI_CACHE__"]["Thumb"].slideAcceleration, "InQuad")
+                    end
                 end
                 isElementToBeUpdated = isElementToBeUpdated or (not isSlideInterpolationDone)
             elseif elementReference.gui.type == "vertical" then
                 local isSlideInterpolationDone = imports.math.round(elementReference.gui.slideBar_Vertical.currentPercent, 2) == imports.math.round(elementReference.gui.slideBar_Vertical.finalPercent, 2)
                 if not isSlideInterpolationDone then
                     isElementToBeForceRendered = true
-                    elementReference.gui.slideBar_Vertical.currentPercent = imports.interpolateBetween(elementReference.gui.slideBar_Vertical.currentPercent, 0, 0, elementReference.gui.slideBar_Vertical.finalPercent, 0, 0, 0.25, "InQuad")
+                    if elementReference.gui["__UI_CACHE__"]["Thumb"] then
+                        elementReference.gui.slideBar_Vertical.currentPercent = imports.interpolateBetween(elementReference.gui.slideBar_Vertical.currentPercent, 0, 0, elementReference.gui.slideBar_Vertical.finalPercent, 0, 0, elementReference.gui["__UI_CACHE__"]["Thumb"].slideAcceleration, "InQuad")
+                    end
                 end
                 isElementToBeUpdated = isElementToBeUpdated or (not isSlideInterpolationDone)
             end
@@ -151,6 +155,7 @@ function renderSlider(element, isActiveMode, isFetchingInput, mouseReference)
                 end
             end
             if isElementToBeReloaded then
+                elementReference.gui["__UI_CACHE__"]["Thumb"].slideAcceleration = 0.25 + (elementTemplate.thumb.slideAcceleration*0.1)
                 elementReference.gui["__UI_CACHE__"]["Thumb"].color = imports.tocolor(imports.unpackColor(elementTemplate.thumb.color))
             end
             elementReference.gui["__UI_INPUT_FETCH_CACHE__"]["Thumb"].startX = elementReference.gui["__UI_CACHE__"]["Thumb"].offsets.startX

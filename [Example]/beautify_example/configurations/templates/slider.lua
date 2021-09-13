@@ -24,6 +24,7 @@ availableTemplates["beautify_slider"] = {
             unprogressedColor = {32, 32, 32, 255}
         },
         thumb = {
+            slideAcceleration = 1,
             color = {158, 158, 255, 255}
         }
     },
@@ -35,6 +36,7 @@ availableTemplates["beautify_slider"] = {
             unprogressedColor = {32, 32, 32, 255}
         },
         thumb = {
+            slideAcceleration = 1,
             color = {255, 158, 158, 255}
         }
     },
@@ -46,6 +48,7 @@ availableTemplates["beautify_slider"] = {
             unprogressedColor = {32, 32, 32, 255}
         },
         thumb = {
+            slideAcceleration = 1,
             color = {158, 255, 158, 255}
         }
     },
@@ -57,6 +60,7 @@ availableTemplates["beautify_slider"] = {
             unprogressedColor = {32, 32, 32, 255}
         },
         thumb = {
+            slideAcceleration = 1,
             color = {255, 255, 158, 255}
         }
     }
