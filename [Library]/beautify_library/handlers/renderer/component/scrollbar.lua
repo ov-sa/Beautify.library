@@ -91,6 +91,7 @@ function renderScrollbar(elementParent, isComponentInterpolationToBeRefreshed, i
             end
             referenceData["__UI_CACHE__"]["Thumb"].shadowSize = componentTemplate.thumb.shadowSize
             if isComponentToBeReloaded then
+                isComponentInterpolationToBeRefreshed = isComponentInterpolationToBeRefreshed or true
                 referenceData["__UI_CACHE__"]["Thumb"].animAcceleration = 0.25 + (componentTemplate.thumb.animAcceleration*0.1)
                 referenceData["__UI_CACHE__"]["Thumb"].scrollAcceleration = 0.25 + (componentTemplate.thumb.scrollAcceleration*0.1)
                 referenceData["__UI_CACHE__"]["Track"].color = imports.tocolor(imports.unpackColor(componentTemplate.track.color))
