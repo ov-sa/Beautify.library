@@ -22,6 +22,8 @@ availableTemplates["beautify_scrollbar"] = {
             color = {20, 20, 20, 253}
         },
         thumb = {
+            animAcceleration = 1,
+            scrollAcceleration = 1,
             color = {198, 198, 198, 255},
             shadowColor = {20, 20, 20, 253}
         }
@@ -32,6 +34,8 @@ availableTemplates["beautify_scrollbar"] = {
             color = {20, 20, 20, 253}
         },
         thumb = {
+            animAcceleration = 1,
+            scrollAcceleration = 1,
             color = {198, 198, 198, 255},
             shadowColor = {20, 20, 20, 253}
         }
@@ -42,6 +46,8 @@ availableTemplates["beautify_scrollbar"] = {
             color = {20, 20, 20, 253}
         },
         thumb = {
+            animAcceleration = 1,
+            scrollAcceleration = 1,
             color = {198, 198, 198, 255},
             shadowColor = {20, 20, 20, 253}
         }
@@ -52,6 +58,8 @@ availableTemplates["beautify_scrollbar"] = {
             color = {20, 20, 20, 253}
         },
         thumb = {
+            animAcceleration = 1,
+            scrollAcceleration = 1,
             color = {198, 198, 198, 255},
             shadowColor = {20, 20, 20, 253}
         }

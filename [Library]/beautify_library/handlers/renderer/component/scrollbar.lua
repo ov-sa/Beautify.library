@@ -91,6 +91,8 @@ function renderScrollbar(elementParent, isComponentInterpolationToBeRefreshed, i
             end
             referenceData["__UI_CACHE__"]["Thumb"].shadowSize = componentTemplate.thumb.shadowSize
             if isComponentToBeReloaded then
+                referenceData["__UI_CACHE__"]["Thumb"].animAcceleration = 0.25 + (componentTemplate.thumb.animAcceleration*0.1)
+                referenceData["__UI_CACHE__"]["Thumb"].scrollAcceleration = 0.25 + (componentTemplate.thumb.scrollAcceleration*0.1)
                 referenceData["__UI_CACHE__"]["Track"].color = imports.tocolor(imports.unpackColor(componentTemplate.track.color))
                 referenceData["__UI_CACHE__"]["Thumb"].color = imports.tocolor(imports.unpackColor(componentTemplate.thumb.color))
                 referenceData["__UI_CACHE__"]["Thumb"].shadowColor = imports.tocolor(imports.unpackColor(componentTemplate.thumb.shadowColor))
@@ -105,14 +107,14 @@ function renderScrollbar(elementParent, isComponentInterpolationToBeRefreshed, i
         if isComponentInterpolationToBeRefreshed or isScrollThumbInterpolationRendering then
             isComponentToBeForceRendered = isScrollThumbInterpolationRendering
             if not isFetchingForceRender then
-                referenceData.currentThumbSize = imports.interpolateBetween(referenceData.currentThumbSize, 0, 0, referenceData.finalThumbSize, 0, 0, 0.25, "InQuad")
+                referenceData.currentThumbSize = imports.interpolateBetween(referenceData.currentThumbSize, 0, 0, referenceData.finalThumbSize, 0, 0, referenceData["__UI_CACHE__"]["Thumb"].animAcceleration, "InQuad")
             end
         end
         local isScrollInterpolationDone = imports.math.round(referenceData.currentPercent, 2) == imports.math.round(referenceData.finalPercent, 2)
         if isComponentInterpolationToBeRefreshed or (not isScrollInterpolationDone) then
             isComponentToBeForceRendered = isComponentToBeForceRendered or not isScrollInterpolationDone
             if not isFetchingForceRender then
-                referenceData.currentPercent = imports.interpolateBetween(referenceData.currentPercent, 0, 0, referenceData.finalPercent, 0, 0, 0.25, "InQuad")
+                referenceData.currentPercent = imports.interpolateBetween(referenceData.currentPercent, 0, 0, referenceData.finalPercent, 0, 0, referenceData["__UI_CACHE__"]["Thumb"].scrollAcceleration, "InQuad")
                 if referenceData.isHorizontal then
                     referenceData["__UI_CACHE__"]["Thumb"].offsets.startX = imports.math.max(referenceData["__UI_CACHE__"]["Track"].offsets.startX, referenceData["__UI_CACHE__"]["Track"].offsets.startX + (referenceData["__UI_CACHE__"]["Track"].offsets.width - referenceData["__UI_CACHE__"]["Thumb"].offsets.width)*(referenceData.currentPercent*0.01))
                 else
@@ -141,23 +143,23 @@ function renderScrollbar(elementParent, isComponentInterpolationToBeRefreshed, i
                 end
             end
             if scroll_state then
-                local scrollbar_scrollSpeed = (renderData.multiplier/renderData.overflownSize)*100
+                local scrollbar_scrollAcceleration = (renderData.multiplier/renderData.overflownSize)*100
                 if referenceData.isHorizontal then
                     if renderData.overflownSize < referenceData["__UI_INPUT_FETCH_CACHE__"]["Track"].width then
-                        scrollbar_scrollSpeed = scrollbar_scrollSpeed*(renderData.overflownSize/referenceData["__UI_INPUT_FETCH_CACHE__"]["Track"].width)
+                        scrollbar_scrollAcceleration = scrollbar_scrollAcceleration*(renderData.overflownSize/referenceData["__UI_INPUT_FETCH_CACHE__"]["Track"].width)
                     end
                 else
                     if renderData.overflownSize < referenceData["__UI_INPUT_FETCH_CACHE__"]["Track"].height then
-                        scrollbar_scrollSpeed = scrollbar_scrollSpeed*(renderData.overflownSize/referenceData["__UI_INPUT_FETCH_CACHE__"]["Track"].height)
+                        scrollbar_scrollAcceleration = scrollbar_scrollAcceleration*(renderData.overflownSize/referenceData["__UI_INPUT_FETCH_CACHE__"]["Track"].height)
                     end
                 end
                 if scroll_state == "up" then
                     if referenceData.finalPercent > 0 then
-                        referenceData.finalPercent = referenceData.finalPercent - (scrollbar_scrollSpeed*scroll_streak)
+                        referenceData.finalPercent = referenceData.finalPercent - (scrollbar_scrollAcceleration*scroll_streak)
                     end
                 elseif scroll_state == "down" then
                     if referenceData.finalPercent < 100 then
-                        referenceData.finalPercent = referenceData.finalPercent + (scrollbar_scrollSpeed*scroll_streak)
+                        referenceData.finalPercent = referenceData.finalPercent + (scrollbar_scrollAcceleration*scroll_streak)
                     end
                 end
                 referenceData.finalPercent = imports.math.max(0, imports.math.min(100, referenceData.finalPercent))

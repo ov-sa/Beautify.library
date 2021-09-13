@@ -27,6 +27,13 @@ local imports = {
     cloneTableDatas = cloneTableDatas,
     table = {
         insert = table.insert
+    },
+    math = {
+        min = math.min,
+        max = math.max
+    },
+    string = {
+        find = string.find
     }
 }
 
@@ -109,7 +116,11 @@ local function __createTemplate(elementType, defaultTemplate, customTemplate)
                     end
                 else
                     if currentDataType == defaultDataType then
-                        defaultTemplate[i] = customTemplate[i]
+                        if imports.string.find(i, "Acceleration", 1) or imports.string.find(i, "Speed", 1) then
+                            defaultTemplate[i] = imports.math.max(0, imports.math.min(1, customTemplate[i]))
+                        else
+                            defaultTemplate[i] = customTemplate[i]
+                        end
                     end
                 end
             end

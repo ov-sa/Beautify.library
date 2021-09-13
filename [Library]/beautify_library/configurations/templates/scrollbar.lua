@@ -19,6 +19,8 @@ availableTemplates["beautify_scrollbar"] = {
         color = {12, 12, 12, 253}
     },
     thumb = {
+        animAcceleration = 0.25,
+        scrollAcceleration = 0.25,
         minSize = 75,
         shadowSize = 1,
         color = {235, 235, 235, 255},
