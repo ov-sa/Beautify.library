@@ -23,6 +23,11 @@ local imports = {
     math = {
         min = math.min,
         max = math.max
+    },
+    string = {
+        sub = string.sub,
+        gsub = string.gsub,
+        upper = string.upper
     }
 }
 
@@ -66,7 +71,7 @@ function createButton(...)
     for i, j in imports.ipairs(templateReference) do
         local parameterIndex = #availableElements[elementType].syntax.parameters + i
         if (j.name == "width") or (j.name == "height") or (j.name == "size") then
-            local minRequirementIndex = "minimum"..j.name:sub(1, 1):upper()..j.name:sub(2)
+            local minRequirementIndex = "minimum"..imports.string.upper(imports.string.sub(j.name, 1, 1))..imports.string.sub(j.name, 2)
             if availableElements[elementType]["TEMPLATE_PROPERTIES"][templateReferenceName][minRequirementIndex] then
                 elementReference.gui[j.name] = imports.math.max(availableElements[elementType]["TEMPLATE_PROPERTIES"][templateReferenceName][minRequirementIndex], parameters[parameterIndex])
             else

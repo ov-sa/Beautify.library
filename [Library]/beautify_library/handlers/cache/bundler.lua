@@ -65,79 +65,78 @@ imports.addEventHandler("onClientResourceStart", resource, function(resourceSour
         functionClass = {}
     }
     BEAUTIFY_LIBRARY.renderClass.__index = BEAUTIFY_LIBRARY.renderClass
-    function BEAUTIFY_LIBRARY.renderClass:createRender(functionReference, elementReference) 
-        if not beautify.render.ELEMENT_RENDERS[elementReference] then
-            beautify.render.ELEMENT_RENDERS[elementReference] = {
-                totalFunctions = 0,
-                renderFunctions = {}
-            }
+    function BEAUTIFY_LIBRARY.renderClass:createRender(functionReference, elementReference)
+        if not functionReference or (BEAUTIFY_LIBRARY.type(functionReference) ~= "function") then return false end
+        if not elementReference then
+            BEAUTIFY_LIBRARY.addEventHandler("onClientRender", root, functionReference, false, "]]..UI_PRIORITY_LEVEL.RENDER..[[")
+        else
+            if not beautify.isUIValid(elementReference) then return false end
+            if not beautify.render.ELEMENT_RENDERS[elementReference] then
+                beautify.render.ELEMENT_RENDERS[elementReference] = {
+                    totalFunctions = 0,
+                    renderFunctions = {}
+                }
+            end
+            if beautify.render.ELEMENT_RENDERS[elementReference].renderFunctions[functionReference] then return false end
+            self = setmetatable({}, self) 
+            self.functionReference = functionReference
+            self.elementReference = elementReference
+            self.renderFunction = function()
+                if beautify.isUIVisible(self.elementReference) and beautify.isUIBeingForceRendered(self.elementReference) then
+                    self.functionReference(self.elementReference)
+                end
+            end
+            beautify.render.ELEMENT_RENDERS[elementReference].renderFunctions[functionReference] = self
+            beautify.render.ELEMENT_RENDERS[elementReference].totalFunctions = beautify.render.ELEMENT_RENDERS[elementReference].totalFunctions + 1
+            BEAUTIFY_LIBRARY.addEventHandler("onClientRender", root, self.renderFunction, false, "]]..UI_PRIORITY_LEVEL.RENDER..[[")
         end
-        if beautify.render.ELEMENT_RENDERS[elementReference].renderFunctions[functionReference] then return false end
-        self = setmetatable({}, self) 
-        self.functionReference = functionReference
-        self.elementReference = elementReference
-        self.renderFunction = function()
-            if beautify.isUIVisible(self.elementReference) and beautify.isUIBeingForceRendered(self.elementReference) then
-                self.functionReference(self.elementReference)
+        return true 
+    end
+    function BEAUTIFY_LIBRARY.renderClass:removeRender(functionReference, elementReference)
+        if not functionReference or (BEAUTIFY_LIBRARY.type(functionReference) ~= "function") then return false end
+        if not elementReference then
+            BEAUTIFY_LIBRARY.removeEventHandler("onClientRender", root, functionReference)
+        else
+            if not beautify.render.ELEMENT_RENDERS[elementReference] or not beautify.render.ELEMENT_RENDERS[elementReference].renderFunctions[functionReference] then return false end
+            BEAUTIFY_LIBRARY.removeEventHandler("onClientRender", root, beautify.render.ELEMENT_RENDERS[elementReference].renderFunctions[functionReference].renderFunction)
+            beautify.render.ELEMENT_RENDERS[elementReference].renderFunctions[functionReference] = nil
+            beautify.render.ELEMENT_RENDERS[elementReference].totalFunctions = beautify.render.ELEMENT_RENDERS[elementReference].totalFunctions - 1
+            if beautify.render.ELEMENT_RENDERS[elementReference].totalFunctions <= 0 then
+                beautify.render.ELEMENT_RENDERS[elementReference] = nil
             end
         end
-        beautify.render.ELEMENT_RENDERS[elementReference].renderFunctions[functionReference] = self
-        beautify.render.ELEMENT_RENDERS[elementReference].totalFunctions = beautify.render.ELEMENT_RENDERS[elementReference].totalFunctions + 1
-        BEAUTIFY_LIBRARY.addEventHandler("onClientRender", root, self.renderFunction, false, "]]..UI_PRIORITY_LEVEL.RENDER..[[")
-        return self 
-    end 
+        return true
+    end
     function BEAUTIFY_LIBRARY.functionClass:__index(functionName)
         self[functionName] = function(...)
             return BEAUTIFY_LIBRARY.call(BEAUTIFY_LIBRARY.resource, functionName, ...)
         end
         return self[functionName]
     end
-    local BEAUTIFY_FUNCTION_INIT = setmetatable({}, BEAUTIFY_LIBRARY.functionClass)
+    BEAUTIFY_LIBRARY.functionInit = setmetatable({}, BEAUTIFY_LIBRARY.functionClass)
     beautify = {
         render = {
             ELEMENT_RENDERS = {},
-            create = function(functionReference, elementReference)
-                if not functionReference or (BEAUTIFY_LIBRARY.type(functionReference) ~= "function") then return false end
-                if not elementReference then
-                    return BEAUTIFY_LIBRARY.addEventHandler("onClientRender", root, functionReference, false, "]]..UI_PRIORITY_LEVEL.RENDER..[[")
-                else
-                    if beautify.isUIValid(elementReference) then
-                        return BEAUTIFY_LIBRARY.renderClass:createRender(functionReference, elementReference)
-                    end
-                end
-                return false
+            create = function(...)
+                return BEAUTIFY_LIBRARY.renderClass:createRender(...)
             end,
-            remove = function(functionReference, elementReference)
-                if not functionReference or (BEAUTIFY_LIBRARY.type(functionReference) ~= "function") then return false end
-                if not elementReference then
-                    return BEAUTIFY_LIBRARY.removeEventHandler("onClientRender", root, functionReference)
-                else
-                    if beautify.render.ELEMENT_RENDERS[elementReference] and beautify.render.ELEMENT_RENDERS[elementReference].renderFunctions[functionReference] then
-                        BEAUTIFY_LIBRARY.removeEventHandler("onClientRender", root, beautify.render.ELEMENT_RENDERS[elementReference].renderFunctions[functionReference].renderFunction)
-                        beautify.render.ELEMENT_RENDERS[elementReference].renderFunctions[functionReference] = nil
-                        beautify.render.ELEMENT_RENDERS[elementReference].totalFunctions = beautify.render.ELEMENT_RENDERS[elementReference].totalFunctions - 1
-                        if beautify.render.ELEMENT_RENDERS[elementReference].totalFunctions <= 0 then
-                            beautify.render.ELEMENT_RENDERS[elementReference] = nil
-                        end
-                        return true
-                    end
-                end
-                return false
+            remove = function(...)
+                return BEAUTIFY_LIBRARY.renderClass:removeRender(...)
             end
         }, ]]
 
     for i, j in imports.pairs(availableElements) do
         if i == "__ELEMENT_ESSENTIALS__" then
             for k, v in imports.ipairs(j) do
-                bundlerData = bundlerData..v..[[ = BEAUTIFY_FUNCTION_INIT.]]..v..[[,]]
+                bundlerData = bundlerData..v..[[ = BEAUTIFY_LIBRARY.functionInit.]]..v..[[,]]
             end
         else
             if j.reference then
                 local elementName = imports.string.upper(imports.string.sub(j.reference, 1, 1))..imports.string.sub(j.reference, 2)
                 bundlerData = bundlerData..[[["]]..j.reference..[["] = {]]
-                bundlerData = bundlerData..(imports.string.gsub(j.syntax.functionName, elementName, "", 1))..[[ = BEAUTIFY_FUNCTION_INIT.]]..j.syntax.functionName..[[,]]
+                bundlerData = bundlerData..(imports.string.gsub(j.syntax.functionName, elementName, "", 1))..[[ = BEAUTIFY_LIBRARY.functionInit.]]..j.syntax.functionName..[[,]]
                 for k, v in imports.pairs(j.APIs) do
-                    bundlerData = bundlerData..(imports.string.gsub(k, elementName, "", 1))..[[ = BEAUTIFY_FUNCTION_INIT.]]..k..[[,]]
+                    bundlerData = bundlerData..(imports.string.gsub(k, elementName, "", 1))..[[ = BEAUTIFY_LIBRARY.functionInit.]]..k..[[,]]
                 end
                 bundlerData = bundlerData..[[},]]
             end
