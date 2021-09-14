@@ -19,6 +19,7 @@ local imports = {
     isKeyClicked = isKeyClicked,
     getUIParent = getUIParent,
     __getUITemplate = __getUITemplate,
+    isUIBeingForceRendered = isUIBeingForceRendered,
     manageElementForceRender = manageElementForceRender,
     renderElementChildren = renderElementChildren,
     destroyElement = destroyElement,
@@ -67,12 +68,7 @@ function renderDeck(element, isActiveMode, isFetchingInput, mouseReference)
         local elementTemplate = imports.__getUITemplate(elementType, elementReference.sourceResource)
 
         if not isElementToBeRendered then return false end
-        local isElementParentBeingForceRendered = false
-        if createdElements[elementParent].rootElement then
-            isElementParentBeingForceRendered = (CLIENT_ELEMENT_FORCE_RENDERED[(elementReference.rootElement)] and CLIENT_ELEMENT_FORCE_RENDERED[(elementReference.rootElement)].renderChildren[elementParent] and true) or false
-        else
-            isElementParentBeingForceRendered = (CLIENT_ELEMENT_FORCE_RENDERED[elementParent] and true) or false
-        end
+        local isElementParentBeingForceRendered = imports.isUIBeingForceRendered(elementParent)
         if isActiveMode or isElementToBeReloaded or isElementParentBeingForceRendered then
             if not elementReference.gui.titleBar.toggleButton.animRotationPercent then
                 elementReference.gui.titleBar.toggleButton.animRotationPercent = 0

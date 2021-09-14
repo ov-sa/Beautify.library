@@ -65,6 +65,24 @@ local resetHoverChecker = false
 --[[ Functions: Manages Element's Force Render State ]]--
 ---------------------------------------------------------
 
+function isUIBeingForceRendered(element)
+
+    if element and createdElements[element] then
+        local elementRoot = createdElements[element].rootElement or element
+        if createdElements[elementRoot] and CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] then
+            if elementRoot == element then
+                return true
+            else
+                if CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[element] then
+                    return true
+                end
+            end
+        end
+    end
+    return false
+
+end
+
 function destroyElementForceRender(element, onNextTick)
 
     if onNextTick and CLIENT_ELEMENT_FORCE_RENDERED[element] then

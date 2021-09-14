@@ -127,6 +127,9 @@
     <!-- Params: getUIViewRT(element) | Returns Element; Else false Boolean -->
     <export function="getUIViewRT" type="client"/>
 
+    <!-- Params: isUIBeingForceRendered(element) | Returns Boolean -->
+    <export function="isUIBeingForceRendered" type="client"/>
+
     <!-- Params: isUIValid(element) | Returns Boolean -->
     <export function="isUIValid" type="client"/>
 

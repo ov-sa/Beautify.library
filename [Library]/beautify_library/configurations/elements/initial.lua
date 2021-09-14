@@ -21,6 +21,7 @@ availableElements = {
         "setUITemplate",
         "getUIParent",
         "getUIViewRT",
+        "isUIBeingForceRendered",
         "isUIValid",
         "isUIVisible",
         "setUIVisible",
