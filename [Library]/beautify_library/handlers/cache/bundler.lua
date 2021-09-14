@@ -57,6 +57,9 @@ imports.addEventHandler("onClientResourceStart", resource, function(resourceSour
     bundlerData = [[
     local BEAUTIFY_LIBRARY = {
         call = call,
+        type = type,
+        addEventHandler = addEventHandler,
+        removeEventHandler = removeEventHandler,
         resource = getResourceFromName("]]..resourceName..[["),
         functionClass = {}
     }
@@ -66,21 +69,39 @@ imports.addEventHandler("onClientResourceStart", resource, function(resourceSour
         end
         return self[functionName]
     end
-    local BEAUTIFY_FUNC_INIT = setmetatable({}, BEAUTIFY_LIBRARY.functionClass)
-    beautify = {]]
+    local BEAUTIFY_FUNCTION_INIT = setmetatable({}, BEAUTIFY_LIBRARY.functionClass)
+    beautify = {
+        render = {
+            create = function(functionReference, elementReference)
+                if not functionReference or (BEAUTIFY_LIBRARY.type(functionReference) ~= "function") then return false end
+                if not elementReference then
+                    BEAUTIFY_LIBRARY.addEventHandler("onClientRender", root, functionReference, false, "]]..UI_PRIORITY_LEVEL.RENDER..[[")
+                else
+                    if not beautify.isUIValid(elementReference) then return false end
+                end
+            end,
+            remove = function(functionReference, elementReference)
+                if not functionReference or (BEAUTIFY_LIBRARY.type(functionReference) ~= "function") then return false end
+                if not elementReference then
+                    BEAUTIFY_LIBRARY.removeEventHandler("onClientRender", root, functionReference)
+                else
+                    if not beautify.isUIValid(elementReference) then return false end
+                end
+            end
+        }, ]]
 
     for i, j in imports.pairs(availableElements) do
         if i == "__ELEMENT_ESSENTIALS__" then
             for k, v in imports.ipairs(j) do
-                bundlerData = bundlerData..v..[[ = BEAUTIFY_FUNC_INIT.]]..v..[[,]]
+                bundlerData = bundlerData..v..[[ = BEAUTIFY_FUNCTION_INIT.]]..v..[[,]]
             end
         else
             if j.reference then
                 local elementName = imports.string.upper(imports.string.sub(j.reference, 1, 1))..imports.string.sub(j.reference, 2)
                 bundlerData = bundlerData..[[["]]..j.reference..[["] = {]]
-                bundlerData = bundlerData..(imports.string.gsub(j.syntax.functionName, elementName, "", 1))..[[ = BEAUTIFY_FUNC_INIT.]]..j.syntax.functionName..[[,]]
+                bundlerData = bundlerData..(imports.string.gsub(j.syntax.functionName, elementName, "", 1))..[[ = BEAUTIFY_FUNCTION_INIT.]]..j.syntax.functionName..[[,]]
                 for k, v in imports.pairs(j.APIs) do
-                    bundlerData = bundlerData..(imports.string.gsub(k, elementName, "", 1))..[[ = BEAUTIFY_FUNC_INIT.]]..k..[[,]]
+                    bundlerData = bundlerData..(imports.string.gsub(k, elementName, "", 1))..[[ = BEAUTIFY_FUNCTION_INIT.]]..k..[[,]]
                 end
                 bundlerData = bundlerData..[[},]]
             end
