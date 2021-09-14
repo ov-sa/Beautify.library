@@ -61,10 +61,10 @@ end
 
 function createExampleUI3()
 
-    local window_width, window_height = 275, 600
-    local createdWindow = beautify.window.create(725 + 300 + 25, (CLIENT_MTA_RESOLUTION[2] - window_height)/2 - 20, window_width, window_height, "Dev. UI #3", nil, false)
+    local card_width, card_height = 275, 600
+    local createdCard = beautify.card.create(725 + 300 + 25, (CLIENT_MTA_RESOLUTION[2] - card_height)/2 - 20, card_width, card_height, nil, false)
 
-    local createdDeckpane = beautify.deckpane.create(0, 0, window_width, window_height, createdWindow, false)
+    local createdDeckpane = beautify.deckpane.create(0, 0, card_width, card_height, createdCard, false)
     local deck_height = 150
     local createdDecks = {
         {
@@ -84,7 +84,7 @@ function createExampleUI3()
         local createdDeck = beautify.deck.create(j.title, deck_height, createdDeckpane, false)
         if j.deckType == "ui_templates" then
             for k, v in ipairs(loadedTemplates) do
-                local createdCheckbox = beautify.checkbox.create(5, ((20 + 5)*(k - 1)) + 5, window_width - 20, 20, createdDeck, false)
+                local createdCheckbox = beautify.checkbox.create(5, ((20 + 5)*(k - 1)) + 5, card_width - 20, 20, createdDeck, false)
                 beautify.checkbox.setText(createdCheckbox, v.label)
                 beautify.checkbox.setTextColor(createdCheckbox, v.labelColor)
                 beautify.setUIVisible(createdCheckbox, true)
@@ -132,7 +132,7 @@ function createExampleUI3()
                 }
             }
             for k, v in ipairs(createdSelectors) do
-                local createdSelector = beautify.selector.create(5, 12.5 + ((20 + 12.5)*(k - 1)), window_width - 20, 20, "horizontal", createdDeck, false)
+                local createdSelector = beautify.selector.create(5, 12.5 + ((20 + 12.5)*(k - 1)), card_width - 20, 20, "horizontal", createdDeck, false)
                 beautify.selector.setText(createdSelector, v.text)
                 beautify.selector.setDataList(createdSelector, v.datasList)
                 beautify.setUIVisible(createdSelector, true)
@@ -160,7 +160,7 @@ function createExampleUI3()
                 }
             }
             for k, v in ipairs(createdSelectors) do
-                local createdSelector = beautify.selector.create(5, 12 + ((60 + 5)*(k - 1)), window_width - 20, 60, "vertical", createdDeck, false)
+                local createdSelector = beautify.selector.create(5, 12 + ((60 + 5)*(k - 1)), card_width - 20, 60, "vertical", createdDeck, false)
                 beautify.selector.setText(createdSelector, v.text)
                 beautify.selector.setDataList(createdSelector, v.datasList)
                 beautify.setUIVisible(createdSelector, true)
@@ -172,7 +172,6 @@ function createExampleUI3()
     end
     beautify.setUIVisible(createdDeckpane, true)
 
-    beautify.setUIVisible(createdWindow, true)
-    beautify.setUIDraggable(createdWindow, true)
+    beautify.setUIVisible(createdCard, true)
 
 end
