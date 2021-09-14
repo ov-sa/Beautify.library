@@ -73,9 +73,6 @@ function renderCard(element, isActiveMode, isFetchingInput, mouseReference)
             elementReference.gui["__UI_CACHE__"]["Card"].view.offsets.startY = elementReference.gui["__UI_CACHE__"]["Card"].offsets.startY + elementReference.gui.viewSection.startY
             elementReference.gui["__UI_CACHE__"]["Card"].view.offsets.width = elementReference.gui.viewSection.width
             elementReference.gui["__UI_CACHE__"]["Card"].view.offsets.height = elementReference.gui.viewSection.height
-            if isElementToBeReloaded then
-                --local card_color = imports.tocolor(imports.unpackColor(elementTemplate.color)) --TODO: MAYBE CACHE IT? LIKE BUTTON AND DONT DESTROY THIS TEXTURE UPON RELOAD
-            end
             if not elementReference.gui["__UI_CACHE__"]["Card"].renderTexture then
                 if not elementReference.gui["__UI_CACHE__"]["Card"].renderTarget then
                     elementReference.gui["__UI_CACHE__"]["Card"].renderTarget = imports.dxCreateRenderTarget(elementReference.gui.width, elementReference.gui.height, true)
@@ -105,6 +102,9 @@ function renderCard(element, isActiveMode, isFetchingInput, mouseReference)
                     elementReference.gui["__UI_CACHE__"]["Card"].renderTarget = nil
                 end
             end
+            if isElementToBeReloaded then
+                elementReference.gui["__UI_CACHE__"]["Card"].color = imports.tocolor(imports.unpackColor(elementTemplate.color))
+            end
             if not CLIENT_MTA_MINIMIZED then
                 elementReference.gui["__UI_CACHE__"].reloadElement = nil
             end
@@ -112,7 +112,7 @@ function renderCard(element, isActiveMode, isFetchingInput, mouseReference)
         end
 
         if elementReference.gui["__UI_CACHE__"]["Card"].renderTexture then
-            imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Card"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Card"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Card"].offsets.width, elementReference.gui["__UI_CACHE__"]["Card"].offsets.height, elementReference.gui["__UI_CACHE__"]["Card"].renderTexture, 0, 0, 0, -1, elementReference.gui.postGUI)
+            imports.dxDrawImage(elementReference.gui["__UI_CACHE__"]["Card"].offsets.startX, elementReference.gui["__UI_CACHE__"]["Card"].offsets.startY, elementReference.gui["__UI_CACHE__"]["Card"].offsets.width, elementReference.gui["__UI_CACHE__"]["Card"].offsets.height, elementReference.gui["__UI_CACHE__"]["Card"].renderTexture, 0, 0, 0, elementReference.gui["__UI_CACHE__"]["Card"].color, elementReference.gui.postGUI)
         end
         if elementReference.gui.renderTarget and imports.isElement(elementReference.gui.renderTarget) then
             if isActiveMode then

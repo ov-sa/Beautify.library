@@ -39,6 +39,7 @@
     <script src="handlers/renderer/checkbox.lua" type="client" cache="false"/>
     <script src="handlers/renderer/deckpane.lua" type="client" cache="false"/>
     <script src="handlers/renderer/deck.lua" type="client" cache="false"/>
+    <script src="handlers/renderer/card.lua" type="client" cache="false"/>
 
     <!-- Configurations -->
     <script src="configurations/assets/initial.lua" type="client" cache="false"/>
@@ -221,5 +222,8 @@
     <export function="createDeck" type="client"/>
     <export function="setDeckMaximized" type="client"/>
     <export function="isDeckMaximized" type="client"/>
+
+    <!-- Exports: Element: Card -->
+    <export function="createCard" type="client"/>
 
 </meta>

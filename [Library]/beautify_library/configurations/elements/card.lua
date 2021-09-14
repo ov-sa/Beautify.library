@@ -42,7 +42,7 @@ availableElements[elementType] = {
         ["beautify_deckpane"] = true
     },
     isDraggable = false,
-    minimumSize = 24,
+    minimumSize = 56,
     viewSection = {
         padding = 5
     }
