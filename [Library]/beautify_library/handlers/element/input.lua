@@ -38,7 +38,6 @@ CLIENT_MTA_RESTORED = false
 CLIENT_HOVERED_ELEMENT = {
     rootElement = false,
     element = false,
-    prevTraceMarks = {},
     traceMarks = {}
 }
 INPUT_CACHE = {

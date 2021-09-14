@@ -176,7 +176,7 @@ function areUIParametersValid(parameters, elementType, apiName)
     local areParametersValid, templateReferenceIndex = true, false
     local functionReference = (not apiName and availableElements[elementType].syntax) or availableElements[elementType].APIs[apiName]
     local functionName = (not apiName and availableElements[elementType].syntax.functionName) or apiName
-    local functionParemeters, additionParameters = functionReference.parameters, false
+    local functionParemeters, additionalParameters = functionReference.parameters, false
     for i, j in imports.ipairs(functionParemeters) do
         if (parameters[i] == nil) or (imports.type(parameters[i]) ~= (((j.type == "float") and "number") or j.type)) then
             areParametersValid = false
@@ -189,7 +189,7 @@ function areUIParametersValid(parameters, elementType, apiName)
                         break
                     else
                         templateReferenceIndex = i
-                        additionParameters = availableElements[elementType].syntax.parameters["TEMPLATE_PARAMETERS"][(parameters[i])]
+                        additionalParameters = availableElements[elementType].syntax.parameters["TEMPLATE_PARAMETERS"][(parameters[i])]
                     end                    
                 end
             elseif j.type == "userdata" then
@@ -201,9 +201,9 @@ function areUIParametersValid(parameters, elementType, apiName)
             end
         end
     end
-    if additionParameters then
+    if additionalParameters then
         if areParametersValid then
-            for i, j in imports.ipairs(additionParameters) do
+            for i, j in imports.ipairs(additionalParameters) do
                 local parameterIndex = #functionParemeters + i
                 if not parameters[parameterIndex] or (imports.type(parameters[parameterIndex]) ~= (((j.type == "float") and "number") or j.type)) then
                     areParametersValid = false
@@ -211,7 +211,7 @@ function areUIParametersValid(parameters, elementType, apiName)
                 end
             end
         else
-            additionParameters = false
+            additionalParameters = false
         end
     end
     if not apiName and availableElements[elementType].syntax.parameters["TEMPLATE_PARAMETERS"] and not templateReferenceIndex then areParametersValid = false end
@@ -221,14 +221,14 @@ function areUIParametersValid(parameters, elementType, apiName)
         for i = 1, (templateReferenceIndex or #functionParemeters), 1 do
             local parameterData = functionParemeters[i]
             syntaxMessage = syntaxMessage..parameterData.name.." : "..(((parameterData.type == "userdata") and "element") or parameterData.type)
-            if (i ~= #functionParemeters) or (additionParameters and (#additionParameters ~= 0)) then
+            if (i ~= #functionParemeters) or (additionalParameters and (#additionalParameters ~= 0)) then
                 syntaxMessage = syntaxMessage..", "
             end
         end
-        if additionParameters then
-            for i, j in imports.ipairs(additionParameters) do
+        if additionalParameters then
+            for i, j in imports.ipairs(additionalParameters) do
                 syntaxMessage = syntaxMessage..j.name.." : "..(((j.type == "userdata") and "element") or j.type)
-                if i ~= #additionParameters then
+                if i ~= #additionalParameters then
                     syntaxMessage = syntaxMessage..", "
                 end
             end
