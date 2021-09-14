@@ -20,6 +20,7 @@ availableElements = {
         "getUITemplate",
         "setUITemplate",
         "getUIParent",
+        "getUIViewRT",
         "isUIValid",
         "isUIVisible",
         "setUIVisible",

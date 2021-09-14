@@ -66,8 +66,8 @@ function clearResourceUIElements() return __clearResourceUIElements() end
 
 function getUIParent(element)
 
-    if element and imports.isElement(element) and not createdNonParentElements[element] and createdElements[element] then
-        if createdElements[element].parentElement and imports.isElement(createdElements[element].parentElement) then
+    if element and not createdNonParentElements[element] and createdElements[element] then
+        if createdElements[element].parentElement and createdElements[(createdElements[element].parentElement)] then
             return createdElements[element].parentElement, createdElements[element].parentReference
         end
     end
@@ -82,11 +82,25 @@ end
 
 function getUIAncestors(element)
 
-    if element and imports.isElement(element) and not createdNonParentElements[element] and createdElements[element] then
+    if element and not createdNonParentElements[element] and createdElements[element] then
         return createdElements[element].renderIndexReference[(createdElements[element].renderIndex)].ancestors
     end
     return false
     
+end
+
+
+------------------------------------------
+--[[ Function: Retrieves UI's View RT ]]--
+------------------------------------------
+
+function getUIViewRT(element)
+
+    if element and createdElements[element] and createdElements[element].gui.renderTarget and imports.isElement(createdElements[element].gui.renderTarget) then
+        return createdElements[element].gui.renderTarget
+    end
+    return false
+
 end
 
 
@@ -96,7 +110,7 @@ end
 
 function updateElement(element)
 
-    if not element or not imports.isElement(element) or not createdElements[element] then return false end
+    if not element or not createdElements[element] then return false end
     
     createdElements[element].gui["__UI_CACHE__"].updateElement = true
     for i, j in pairs(UI_VALID_SCROLLERS) do
@@ -111,7 +125,7 @@ end
 
 function reloadElement(element)
 
-    if not element or not imports.isElement(element) or not createdElements[element] then return false end
+    if not element or not createdElements[element] then return false end
 
     createdElements[element].gui["__UI_CACHE__"].reloadElement = true
     for i, j in pairs(UI_VALID_SCROLLERS) do

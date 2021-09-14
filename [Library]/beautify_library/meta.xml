@@ -124,6 +124,9 @@
     <!-- Params: getUIParent(element) | Returns Element; Else false Boolean -->
     <export function="getUIParent" type="client"/>
 
+    <!-- Params: getUIViewRT(element) | Returns Element; Else false Boolean -->
+    <export function="getUIViewRT" type="client"/>
+
     <!-- Params: isUIValid(element) | Returns Boolean -->
     <export function="isUIValid" type="client"/>
 
