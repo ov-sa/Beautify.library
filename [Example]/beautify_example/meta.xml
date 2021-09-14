@@ -20,6 +20,7 @@
     <script src="configurations/templates/selector.lua" type="client" cache="false"/>
     <script src="configurations/templates/checkbox.lua" type="client" cache="false"/>
     <script src="configurations/templates/deck.lua" type="client" cache="false"/>
+    <script src="configurations/templates/card.lua" type="client" cache="false"/>
 
     <!-- GUIs -->
     <script src="gui/ui_1.lua" type="client" cache="false"/>
