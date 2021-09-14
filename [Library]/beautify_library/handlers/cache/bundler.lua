@@ -72,21 +72,48 @@ imports.addEventHandler("onClientResourceStart", resource, function(resourceSour
     local BEAUTIFY_FUNCTION_INIT = setmetatable({}, BEAUTIFY_LIBRARY.functionClass)
     beautify = {
         render = {
+            ELEMENT_RENDERS = {},
             create = function(functionReference, elementReference)
                 if not functionReference or (BEAUTIFY_LIBRARY.type(functionReference) ~= "function") then return false end
                 if not elementReference then
                     BEAUTIFY_LIBRARY.addEventHandler("onClientRender", root, functionReference, false, "]]..UI_PRIORITY_LEVEL.RENDER..[[")
+                    return true
                 else
-                    if not beautify.isUIValid(elementReference) then return false end
+                    if beautify.isUIValid(elementReference) then
+                        if not beautify.render.ELEMENT_RENDERS[elementReference] then
+                            beautify.render.ELEMENT_RENDERS[elementReference] = {
+                                totalFunctions = 0,
+                                renderFunctions = {}
+                            }
+                        end
+                        if not beautify.render.ELEMENT_RENDERS[elementReference].renderFunctions[functionReference] then
+                            beautify.render.ELEMENT_RENDERS[elementReference].renderFunctions[functionReference] = true
+                            beautify.render.ELEMENT_RENDERS[elementReference].totalFunctions = beautify.render.ELEMENT_RENDERS[elementReference].totalFunctions + 1
+                            --TODO: Render it
+                            return true
+                        end
+                    end
                 end
+                return false
             end,
             remove = function(functionReference, elementReference)
                 if not functionReference or (BEAUTIFY_LIBRARY.type(functionReference) ~= "function") then return false end
                 if not elementReference then
                     BEAUTIFY_LIBRARY.removeEventHandler("onClientRender", root, functionReference)
+                    return true
                 else
-                    if not beautify.isUIValid(elementReference) then return false end
+                    if beautify.render.ELEMENT_RENDERS[elementReference] and beautify.render.ELEMENT_RENDERS[elementReference].renderFunctions[functionReference] then
+                        BEAUTIFY_LIBRARY.removeEventHandler("onClientRender", root, functionReference)
+                        beautify.render.ELEMENT_RENDERS[elementReference].renderFunctions[functionReference] = nil
+                        beautify.render.ELEMENT_RENDERS[elementReference].totalFunctions = beautify.render.ELEMENT_RENDERS[elementReference].totalFunctions - 1
+                        if beautify.render.ELEMENT_RENDERS[elementReference].totalFunctions <= 0 then
+                            beautify.render.ELEMENT_RENDERS[elementReference] = nil
+                            --TODO: Remove it
+                        end
+                        return true
+                    end
                 end
+                return false
             end
         }, ]]
 
