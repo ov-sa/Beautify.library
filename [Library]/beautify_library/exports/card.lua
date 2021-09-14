@@ -64,9 +64,9 @@ function createCard(...)
     elementReference.gui.postGUI = (parameters[(#availableElements[elementType].syntax.parameters + 2)] and true) or false
     elementReference.gui.viewSection = {
         startX = availableElements[elementType].viewSection.padding,
-        startY = (availableElements[elementType].minimumSize*0.5) + availableElements[elementType].viewSection.padding,
+        startY = availableElements[elementType].viewSection.padding,
         width = elementReference.gui.width - (availableElements[elementType].viewSection.padding*2),
-        height = elementReference.gui.height - (availableElements[elementType].minimumSize*0.5) - (availableElements[elementType].viewSection.padding*2)
+        height = elementReference.gui.height - (availableElements[elementType].viewSection.padding*2)
     }
     if (elementReference.gui.viewSection.width > imports.math.max(0, availableElements[elementType].minimumSize*0.5)) and (elementReference.gui.viewSection.height > imports.math.max(0, availableElements[elementType].minimumSize*0.5)) then
         elementReference.gui.renderTarget = imports.dxCreateRenderTarget(elementReference.gui.viewSection.width, elementReference.gui.viewSection.height, true)
