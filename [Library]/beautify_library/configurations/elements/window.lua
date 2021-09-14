@@ -40,8 +40,7 @@ availableElements[elementType] = {
         ["beautify_slider"] = true,
         ["beautify_selector"] = true,
         ["beautify_checkbox"] = true,
-        ["beautify_deckpane"] = true,
-        ["beautify_card"] = true
+        ["beautify_deckpane"] = true
     },
     isDraggable = true,
     minimumSize = 56,
