@@ -31,7 +31,7 @@ availableElements[elementType] = {
             {name = "height", type = "float"}
         }
     },
-    renderFunction = renderWindow,
+    renderFunction = renderCard,
     allowedChildren = {
         ["beautify_gridlist"] = true,
         ["beautify_button"] = true,

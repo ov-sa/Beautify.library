@@ -88,10 +88,6 @@ function renderButton(element, isActiveMode, isFetchingInput, mouseReference)
                 if not elementReference.gui["__UI_CACHE__"]["Button"].renderTarget then
                     elementReference.gui["__UI_CACHE__"]["Button"].renderTarget = imports.dxCreateRenderTarget(elementReference.gui["__UI_CACHE__"]["Button"].offsets.width, elementReference.gui["__UI_CACHE__"]["Button"].offsets.height, true)
                 end
-                if elementReference.gui["__UI_CACHE__"]["Button"].renderTexture and imports.isElement(elementReference.gui["__UI_CACHE__"]["Button"].renderTexture) then
-                    imports.destroyElement(elementReference.gui["__UI_CACHE__"]["Button"].renderTexture)
-                    elementReference.gui["__UI_CACHE__"]["Button"].renderTexture = nil
-                end
                 imports.dxSetRenderTarget(elementReference.gui["__UI_CACHE__"]["Button"].renderTarget, true)
                 imports.dxSetBlendMode("modulate_add")
                 if elementReference.gui.type == "default" then

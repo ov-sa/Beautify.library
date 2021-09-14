@@ -17,7 +17,6 @@ local imports = {
     tocolor = tocolor,
     isElement = isElement,
     isKeyClicked = isKeyClicked,
-    getUIParent = getUIParent,
     __getUITemplate = __getUITemplate,
     manageElementForceRender = manageElementForceRender,
     renderElementChildren = renderElementChildren,
@@ -155,7 +154,7 @@ function renderWindow(element, isActiveMode, isFetchingInput, mouseReference)
                     imports.dxDrawRectangle(0, window_borderSize, window_borderSize, elementReference.gui.height - availableElements[elementType].minimumSize, window_color, false)
                     imports.dxDrawRectangle(elementReference.gui.width - window_borderSize, window_borderSize, window_borderSize, elementReference.gui.height - availableElements[elementType].minimumSize, window_color, false)
                 end
-                if elementReference.gui.width > availableElements[elementType].minimumSize and elementReference.gui.height > availableElements[elementType].minimumSize then
+                if (elementReference.gui.width > availableElements[elementType].minimumSize) and (elementReference.gui.height > availableElements[elementType].minimumSize) then
                     imports.dxDrawRectangle(window_borderSize, window_borderSize, elementReference.gui.width - availableElements[elementType].minimumSize, elementReference.gui.height - availableElements[elementType].minimumSize, window_color, false)
                 end
                 imports.dxDrawRectangle(0, window_borderSize, elementReference.gui.width, elementReference.gui["__UI_CACHE__"]["Window"].divider.size, elementReference.gui["__UI_CACHE__"]["Window"].divider.color, false)    
