@@ -17,6 +17,7 @@
     <script src="exports/checkbox.lua" type="client" cache="false"/>
     <script src="exports/deckpane.lua" type="client" cache="false"/>
     <script src="exports/deck.lua" type="client" cache="false"/>
+    <script src="exports/card.lua" type="client" cache="false"/>
 
     <!-- Handlers -->
     <script src="handlers/logger/client.lua" type="client" cache="false"/>
@@ -51,12 +52,14 @@
     <script src="configurations/elements/selector.lua" type="client" cache="false"/>
     <script src="configurations/elements/checkbox.lua" type="client" cache="false"/>
     <script src="configurations/elements/deckpane.lua" type="client" cache="false"/>
+    <script src="configurations/elements/card.lua" type="client" cache="false"/>
     <script src="configurations/elements/deck.lua" type="client" cache="false"/>
     <script src="configurations/events/initial.lua" type="client" cache="false"/>
     <script src="configurations/events/generic.lua" type="client" cache="false"/>
     <script src="configurations/templates/initial.lua" type="client" cache="false"/>
     <script src="configurations/templates/scrollbar.lua" type="client" cache="false"/>
     <script src="configurations/templates/window.lua" type="client" cache="false"/>
+    <script src="configurations/templates/card.lua" type="client" cache="false"/>
     <script src="configurations/templates/gridlist.lua" type="client" cache="false"/>
     <script src="configurations/templates/button.lua" type="client" cache="false"/>
     <script src="configurations/templates/label.lua" type="client" cache="false"/>

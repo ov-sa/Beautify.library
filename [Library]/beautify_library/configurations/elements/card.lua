@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
 --[[ Resource: Beautify Library
-     Script: configurations: elements: window.lua
+     Script: configurations: elements: card.lua
      Server: -
      Author: OvileAmriam
      Developer: -
@@ -13,7 +13,7 @@
 --[[ Variables ]]--
 -------------------
 
-local elementType = "beautify_window"
+local elementType = "beautify_card"
 
 
 ------------------------
@@ -21,15 +21,14 @@ local elementType = "beautify_window"
 ------------------------
 
 availableElements[elementType] = {
-    reference = "window",
+    reference = "card",
     syntax = {
-        functionName = "createWindow",
+        functionName = "createCard",
         parameters = {
             {name = "x", type = "float"},
             {name = "y", type = "float"},
             {name = "width", type = "float"},
-            {name = "height", type = "float"},
-            {name = "title", type = "string"}
+            {name = "height", type = "float"}
         }
     },
     renderFunction = renderWindow,
@@ -40,17 +39,10 @@ availableElements[elementType] = {
         ["beautify_slider"] = true,
         ["beautify_selector"] = true,
         ["beautify_checkbox"] = true,
-        ["beautify_deckpane"] = true,
-        ["beautify_card"] = true
+        ["beautify_deckpane"] = true
     },
-    isDraggable = true,
-    minimumSize = 56,
-    titleBar = {
-        paddingX = 5,
-        closeButton = {
-            hoverAnimDuration = 1000
-        }
-    },
+    isDraggable = false,
+    minimumSize = 24,
     viewSection = {
         padding = 5
     }
