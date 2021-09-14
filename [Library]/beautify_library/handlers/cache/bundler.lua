@@ -83,7 +83,7 @@ imports.addEventHandler("onClientResourceStart", resource, function(resourceSour
             self.elementReference = elementReference
             self.renderFunction = function()
                 if beautify.isUIVisible(self.elementReference) and beautify.isUIBeingForceRendered(self.elementReference) then
-                    self.functionReference(self.elementReference)
+                    self.functionReference(self.elementReference, beautify.getUIPosition(self.elementReference))
                 end
             end
             beautify.render.ELEMENT_RENDERS[elementReference].renderFunctions[functionReference] = self

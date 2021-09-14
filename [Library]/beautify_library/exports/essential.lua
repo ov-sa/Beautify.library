@@ -137,3 +137,17 @@ function setUIDisabled(element, state)
     return false
 
 end
+
+
+-------------------------------------------
+--[[ Function: Retrieves UI's Position ]]--
+-------------------------------------------
+
+function getUIPosition(element)
+
+    if isUIValid(element) then
+        return createdElements[element].gui.x, createdElements[element].gui.y
+    end
+    return false
+
+end
