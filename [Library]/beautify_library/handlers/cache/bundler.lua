@@ -92,7 +92,7 @@ imports.addEventHandler("onClientResourceStart", resource, function(resourceSour
         end
         return true 
     end
-    BEAUTIFY_LIBRARY.addEventHandler("onClientUIViewRTInject", root, function()
+    BEAUTIFY_LIBRARY.addEventHandler("onClientUIPostViewRTRender", root, function()
         if beautify.render.ELEMENT_RENDERS[source] then
             for i, j in pairs(beautify.render.ELEMENT_RENDERS[source].renderFunctions) do
                 j.renderFunction()

@@ -14,8 +14,8 @@
 ------------------------
 
 availableEvents["generic"] = {
-    "onClientUIInject",
-    "onClientUIViewRTInject",
+    "onClientUIPostViewRTRender",
+    "onClientUIPreViewRTRender",
     "onClientUIClick",
     "onClientUIScroll",
     "onClientUIAltered",
