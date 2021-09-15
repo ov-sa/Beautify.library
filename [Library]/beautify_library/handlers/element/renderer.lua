@@ -193,7 +193,7 @@ function renderElementChildren(element, isActiveMode, isFetchingInput, mouseRefe
     if not isActiveMode then return false end
     local elementReference = createdElements[element]
     local elementChildrenCount = #elementReference.renderIndexReference[(elementReference.renderIndex)].children
-    if elementChildrenCount <= 0 then return false end
+    local isElementChildrenToBeRendered = elementChildrenCount > 0
     local elementRoot = elementReference.rootElement or element
     local isElementHovered = CLIENT_HOVERED_ELEMENT.traceMarks[element]
     local isChildrenToBeForceRendered = CLIENT_MTA_RESTORED or (not CLIENT_RESOURCE_TEMPLATE_RELOAD.__cache.loaded and CLIENT_RESOURCE_TEMPLATE_RELOAD[(elementReference.sourceResource)])
@@ -205,20 +205,22 @@ function renderElementChildren(element, isActiveMode, isFetchingInput, mouseRefe
         if not elementReference.gui.renderTarget or not imports.isElement(elementReference.gui.renderTarget) then return false end
         imports.dxSetRenderTarget(elementReference.gui.renderTarget, true)
         imports.dxSetBlendMode("modulate_add")
-        triggerEvent("onClientUIPreViewRTRender", element)
-        for i = 1, elementChildrenCount, 1 do
-            local childElement = elementReference.renderIndexReference[(elementReference.renderIndex)].children[i].element
-            if imports.isUIValid(childElement) and imports.isUIVisible(childElement) then
-                local childElementType = createdElements[childElement].elementType
-                local isChildActive = CLIENT_HOVERED_ELEMENT.traceMarks[childElement] or isChildrenToBeForceRendered or (CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] and CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[childElement])
-                availableElements[childElementType].renderFunction(childElement, isChildActive)
-                imports.dxSetRenderTarget(elementReference.gui.renderTarget)
-                imports.dxSetBlendMode("modulate_add")
+        imports.triggerEvent("onClientUIPreViewRTRender", element)
+        if isElementChildrenToBeRendered then
+            for i = 1, elementChildrenCount, 1 do
+                local childElement = elementReference.renderIndexReference[(elementReference.renderIndex)].children[i].element
+                if imports.isUIValid(childElement) and imports.isUIVisible(childElement) then
+                    local childElementType = createdElements[childElement].elementType
+                    local isChildActive = CLIENT_HOVERED_ELEMENT.traceMarks[childElement] or isChildrenToBeForceRendered or (CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] and CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[childElement])
+                    availableElements[childElementType].renderFunction(childElement, isChildActive)
+                    imports.dxSetRenderTarget(elementReference.gui.renderTarget)
+                    imports.dxSetBlendMode("modulate_add")
+                end
             end
         end
-        triggerEvent("onClientUIPostViewRTRender", element)
+        imports.triggerEvent("onClientUIPostViewRTRender", element)
     else
-        if not mouseReference then return false end
+        if not isElementChildrenToBeRendered or not mouseReference then return false end
         local propagatedMouseReference = false
         if mouseReference.element == element then
             propagatedMouseReference = mouseReference

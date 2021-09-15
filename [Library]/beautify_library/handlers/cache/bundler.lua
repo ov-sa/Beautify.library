@@ -82,10 +82,7 @@ imports.addEventHandler("onClientResourceStart", resource, function(resourceSour
             self.functionReference = functionReference
             self.elementReference = elementReference
             self.renderFunction = function()
-                local viewRT = beautify.getUIViewRT(elementReference)
-                if viewRT then
-                    self.functionReference(self.elementReference, beautify.getUIPosition(self.elementReference))
-                end
+                self.functionReference(self.elementReference, beautify.getUIPosition(self.elementReference))
             end
             beautify.render.ELEMENT_RENDERS[elementReference].renderFunctions[functionReference] = self
             beautify.render.ELEMENT_RENDERS[elementReference].totalFunctions = beautify.render.ELEMENT_RENDERS[elementReference].totalFunctions + 1
