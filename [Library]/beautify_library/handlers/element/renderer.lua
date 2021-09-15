@@ -205,6 +205,7 @@ function renderElementChildren(element, isActiveMode, isFetchingInput, mouseRefe
         if not elementReference.gui.renderTarget or not imports.isElement(elementReference.gui.renderTarget) then return false end
         imports.dxSetRenderTarget(elementReference.gui.renderTarget, true)
         imports.dxSetBlendMode("modulate_add")
+        triggerEvent("onClientUIViewRTInject", element)
         for i = 1, elementChildrenCount, 1 do
             local childElement = elementReference.renderIndexReference[(elementReference.renderIndex)].children[i].element
             if imports.isUIValid(childElement) and imports.isUIVisible(childElement) then
@@ -215,6 +216,7 @@ function renderElementChildren(element, isActiveMode, isFetchingInput, mouseRefe
                 imports.dxSetBlendMode("modulate_add")
             end
         end
+        triggerEvent("onClientUIInject", element)
     else
         if not mouseReference then return false end
         local propagatedMouseReference = false

@@ -82,16 +82,23 @@ imports.addEventHandler("onClientResourceStart", resource, function(resourceSour
             self.functionReference = functionReference
             self.elementReference = elementReference
             self.renderFunction = function()
-                if beautify.isUIVisible(self.elementReference) and beautify.isUIBeingForceRendered(self.elementReference) then
+                local viewRT = beautify.getUIViewRT(elementReference)
+                if viewRT then
                     self.functionReference(self.elementReference, beautify.getUIPosition(self.elementReference))
                 end
             end
             beautify.render.ELEMENT_RENDERS[elementReference].renderFunctions[functionReference] = self
             beautify.render.ELEMENT_RENDERS[elementReference].totalFunctions = beautify.render.ELEMENT_RENDERS[elementReference].totalFunctions + 1
-            BEAUTIFY_LIBRARY.addEventHandler("onClientRender", root, self.renderFunction, false, "]]..UI_PRIORITY_LEVEL.RENDER..[[")
         end
         return true 
     end
+    BEAUTIFY_LIBRARY.addEventHandler("onClientUIViewRTInject", root, function()
+        if beautify.render.ELEMENT_RENDERS[source] then
+            for i, j in pairs(beautify.render.ELEMENT_RENDERS[source].renderFunctions) do
+                j.renderFunction()
+            end
+        end
+    end)
     function BEAUTIFY_LIBRARY.renderClass:removeRender(functionReference, elementReference)
         if not functionReference or (BEAUTIFY_LIBRARY.type(functionReference) ~= "function") then return false end
         if not elementReference then
