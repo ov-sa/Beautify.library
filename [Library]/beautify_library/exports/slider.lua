@@ -111,9 +111,9 @@ function getSliderPercent(...)
 
     local elementReference = createdElements[element]
     if elementReference.gui.type == "horizontal" then
-        return elementReference.gui.slideBar_Horizontal.finalPercent
+        return elementReference.gui.slideBar_Horizontal.finalPercent, elementReference.gui.slideBar_Horizontal.currentPercent
     elseif elementReference.gui.type == "vertical" then
-        return elementReference.gui.slideBar_Vertical.finalPercent
+        return elementReference.gui.slideBar_Vertical.finalPercent, elementReference.gui.slideBar_Vertical.currentPercent
     end
     return false
 
