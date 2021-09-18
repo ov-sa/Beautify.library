@@ -155,9 +155,9 @@ function getAbsoluteCursorPosition()
 end
 
 
----------------------------------------------
---[[ Function: Verifies Mouse's Position ]]--
----------------------------------------------
+----------------------------------------------
+--[[ Functions: Verifies Mouse's Position ]]--
+----------------------------------------------
 
 function isMouseOnPosition(x, y, width, height)
 
@@ -166,6 +166,16 @@ function isMouseOnPosition(x, y, width, height)
     if not cursor_offsetX or not cursor_offsetY then return false end
 
     return (cursor_offsetX >= x) and (cursor_offsetX <= (x + width)) and (cursor_offsetY >= y) and (cursor_offsetY <= (y + height))
+
+end
+
+function isMouseOnCircularPosition(x, y, radius)
+
+    if CLIENT_ATTACHED_ELEMENT then return false end
+    local cursor_offsetX, cursor_offsetY = getAbsoluteCursorPosition()
+    if not cursor_offsetX or not cursor_offsetY then return false end
+
+    return ((cursor_offsetX - x)^2) + ((cursor_offsetY - y)^2) <= (radius^2)
 
 end
 
