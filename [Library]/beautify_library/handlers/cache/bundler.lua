@@ -76,11 +76,14 @@ imports.addEventHandler("onClientResourceStart", resource, function(resourceSour
         ]],
         handlers = {
             input = fetchFileData("handlers/element/input.lua")..[[
+                imports.tonumber = tonumber
+                imports.gettok = gettok
                 imports.addEventHandler("onClientRender", root, function()
+                    if CLIENT_MTA_MINIMIZED then return false end
                     CLIENT_MTA_RESTORED = false
                     resetKeyClickCache()
                     resetScrollCache()
-                end, false, UI_PRIORITY_LEVEL.RENDER)
+                end, false, imports.gettok(UI_PRIORITY_LEVEL.INPUT, 1, "-").."-"..(imports.tonumber(imports.gettok(UI_PRIORITY_LEVEL.INPUT, 2, "-")) + 1))
             ]],
             bundler = ""
         }
