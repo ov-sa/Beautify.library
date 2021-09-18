@@ -97,19 +97,25 @@ imports.addEventHandler("onClientResourceStart", resource, function(resourceSour
         functionClass = {}
     }
     imports.renderClass.__index = imports.renderClass
-    function imports.renderClass:createRender(functionReference, elementReference, ...)
+    function imports.renderClass:createRender(functionReference, elementReference, isFetchingInput, ...)
         if not functionReference or (imports.type(functionReference) ~= "function") then return false end
+        isFetchingInput = (isFetchingInput and true) or false
         if not elementReference then
-            if beautify.render.NON_ELEMENT_RENDERS[functionReference] then return false end
+            if not beautify.render.NON_ELEMENT_RENDERS[functionReference] then
+                beautify.render.NON_ELEMENT_RENDERS[functionReference] = {}
+            end
+            local renderType = (isFetchingInput and "input") or "render"
+            if beautify.render.NON_ELEMENT_RENDERS[functionReference][renderType] then return false end
             self = setmetatable({}, self) 
             self.functionReference = functionReference
             self.elementReference = false
+            self.isFetchingInput = isFetchingInput
             self.cbArguments = {...}
             self.renderFunction = function()
-                self.functionReference(self.cbArguments)
+                self.functionReference(self.isFetchingInput, self.cbArguments)
             end
-            beautify.render.NON_ELEMENT_RENDERS[functionReference] = self
-            imports.addEventHandler("onClientRender", root, self.renderFunction, false, UI_PRIORITY_LEVEL.RENDER)
+            beautify.render.NON_ELEMENT_RENDERS[functionReference][renderType] = self
+            imports.addEventHandler("onClientRender", root, self.renderFunction, false, (renderType == "input" and UI_PRIORITY_LEVEL.INPUT) or UI_PRIORITY_LEVEL.RENDER)
         else
             if not beautify.isUIValid(elementReference) then return false end
             if not beautify.render.ELEMENT_RENDERS[elementReference] then
@@ -122,6 +128,7 @@ imports.addEventHandler("onClientResourceStart", resource, function(resourceSour
             self = setmetatable({}, self) 
             self.functionReference = functionReference
             self.elementReference = elementReference
+            self.isFetchingInput = isFetchingInput
             self.cbArguments = {...}
             self.renderFunction = function()
                 self.functionReference(self.elementReference, beautify.getUIPosition(self.elementReference), self.cbArguments)
