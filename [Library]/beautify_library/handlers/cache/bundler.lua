@@ -53,8 +53,15 @@ end
 imports.addEventHandler("onClientResourceStart", resource, function(resourceSource)
 
     local resourceName = imports.getResourceName(resourceSource)
+    imports.fetchFileData = fetchFileData
 
-    bundlerData = [[
+    local utilitiesData = fetchFileData("utilities/client.lua")..[[
+    cloneUIOutline = nil
+    areUIParametersValid = nil
+    ]]
+    imports.string.gsub(utilitiesData, "if CLIENT_ATTACHED_ELEMENT then return false end", "")
+
+    bundlerData = utilitiesData..[[
     local BEAUTIFY_LIBRARY = {
         call = call,
         type = type,

@@ -3,72 +3,72 @@
     <info author="OvileAmriam" name="Beautify Library" type="Library" version="1.0.0"/>
 
     <!-- Settings & Utilities -->
-    <script src="utilities/client.lua" type="client" cache="false"/>
-    <script src="settings/client.lua" type="client" cache="false"/>
+    <script src="utilities/client.lua" type="client"/>
+    <script src="settings/client.lua" type="client"/>
 
     <!-- Exports -->
-    <script src="exports/essential.lua" type="client" cache="false"/>
-    <script src="exports/window.lua" type="client" cache="false"/>
-    <script src="exports/gridlist.lua" type="client" cache="false"/>
-    <script src="exports/button.lua" type="client" cache="false"/>
-    <script src="exports/label.lua" type="client" cache="false"/>
-    <script src="exports/slider.lua" type="client" cache="false"/>
-    <script src="exports/selector.lua" type="client" cache="false"/>
-    <script src="exports/checkbox.lua" type="client" cache="false"/>
-    <script src="exports/deckpane.lua" type="client" cache="false"/>
-    <script src="exports/deck.lua" type="client" cache="false"/>
-    <script src="exports/card.lua" type="client" cache="false"/>
+    <script src="exports/essential.lua" type="client"/>
+    <script src="exports/window.lua" type="client"/>
+    <script src="exports/gridlist.lua" type="client"/>
+    <script src="exports/button.lua" type="client"/>
+    <script src="exports/label.lua" type="client"/>
+    <script src="exports/slider.lua" type="client"/>
+    <script src="exports/selector.lua" type="client"/>
+    <script src="exports/checkbox.lua" type="client"/>
+    <script src="exports/deckpane.lua" type="client"/>
+    <script src="exports/deck.lua" type="client"/>
+    <script src="exports/card.lua" type="client"/>
 
     <!-- Handlers -->
-    <script src="handlers/logger/client.lua" type="client" cache="false"/>
-    <script src="handlers/cache/asset.lua" type="client" cache="false"/>
-    <script src="handlers/cache/event.lua" type="client" cache="false"/>
-    <script src="handlers/cache/template.lua" type="client" cache="false"/>
-    <script src="handlers/cache/bundler.lua" type="client" cache="false"/>
-    <script src="handlers/element/input.lua" type="client" cache="false"/>
-    <script src="handlers/element/manager.lua" type="client" cache="false"/>
-    <script src="handlers/element/attacher.lua" type="client" cache="false"/>
-    <script src="handlers/element/renderer.lua" type="client" cache="false"/>
-    <script src="handlers/renderer/component/scrollbar.lua" type="client" cache="false"/>
-    <script src="handlers/renderer/window.lua" type="client" cache="false"/>
-    <script src="handlers/renderer/gridlist.lua" type="client" cache="false"/>
-    <script src="handlers/renderer/button.lua" type="client" cache="false"/>
-    <script src="handlers/renderer/label.lua" type="client" cache="false"/>
-    <script src="handlers/renderer/slider.lua" type="client" cache="false"/>
-    <script src="handlers/renderer/selector.lua" type="client" cache="false"/>
-    <script src="handlers/renderer/checkbox.lua" type="client" cache="false"/>
-    <script src="handlers/renderer/deckpane.lua" type="client" cache="false"/>
-    <script src="handlers/renderer/deck.lua" type="client" cache="false"/>
-    <script src="handlers/renderer/card.lua" type="client" cache="false"/>
+    <script src="handlers/logger/client.lua" type="client"/>
+    <script src="handlers/cache/asset.lua" type="client"/>
+    <script src="handlers/cache/event.lua" type="client"/>
+    <script src="handlers/cache/template.lua" type="client"/>
+    <script src="handlers/cache/bundler.lua" type="client"/>
+    <script src="handlers/element/input.lua" type="client"/>
+    <script src="handlers/element/manager.lua" type="client"/>
+    <script src="handlers/element/attacher.lua" type="client"/>
+    <script src="handlers/element/renderer.lua" type="client"/>
+    <script src="handlers/renderer/component/scrollbar.lua" type="client"/>
+    <script src="handlers/renderer/window.lua" type="client"/>
+    <script src="handlers/renderer/gridlist.lua" type="client"/>
+    <script src="handlers/renderer/button.lua" type="client"/>
+    <script src="handlers/renderer/label.lua" type="client"/>
+    <script src="handlers/renderer/slider.lua" type="client"/>
+    <script src="handlers/renderer/selector.lua" type="client"/>
+    <script src="handlers/renderer/checkbox.lua" type="client"/>
+    <script src="handlers/renderer/deckpane.lua" type="client"/>
+    <script src="handlers/renderer/deck.lua" type="client"/>
+    <script src="handlers/renderer/card.lua" type="client"/>
 
     <!-- Configurations -->
-    <script src="configurations/assets/initial.lua" type="client" cache="false"/>
-    <script src="configurations/assets/images.lua" type="client" cache="false"/>
-    <script src="configurations/elements/initial.lua" type="client" cache="false"/>
-    <script src="configurations/elements/window.lua" type="client" cache="false"/>
-    <script src="configurations/elements/gridlist.lua" type="client" cache="false"/>
-    <script src="configurations/elements/button.lua" type="client" cache="false"/>
-    <script src="configurations/elements/label.lua" type="client" cache="false"/>
-    <script src="configurations/elements/slider.lua" type="client" cache="false"/>
-    <script src="configurations/elements/selector.lua" type="client" cache="false"/>
-    <script src="configurations/elements/checkbox.lua" type="client" cache="false"/>
-    <script src="configurations/elements/deckpane.lua" type="client" cache="false"/>
-    <script src="configurations/elements/card.lua" type="client" cache="false"/>
-    <script src="configurations/elements/deck.lua" type="client" cache="false"/>
-    <script src="configurations/events/initial.lua" type="client" cache="false"/>
-    <script src="configurations/events/generic.lua" type="client" cache="false"/>
-    <script src="configurations/templates/initial.lua" type="client" cache="false"/>
-    <script src="configurations/templates/scrollbar.lua" type="client" cache="false"/>
-    <script src="configurations/templates/window.lua" type="client" cache="false"/>
-    <script src="configurations/templates/card.lua" type="client" cache="false"/>
-    <script src="configurations/templates/gridlist.lua" type="client" cache="false"/>
-    <script src="configurations/templates/button.lua" type="client" cache="false"/>
-    <script src="configurations/templates/label.lua" type="client" cache="false"/>
-    <script src="configurations/templates/slider.lua" type="client" cache="false"/>
-    <script src="configurations/templates/selector.lua" type="client" cache="false"/>
-    <script src="configurations/templates/checkbox.lua" type="client" cache="false"/>
-    <script src="configurations/templates/deckpane.lua" type="client" cache="false"/>
-    <script src="configurations/templates/deck.lua" type="client" cache="false"/>
+    <script src="configurations/assets/initial.lua" type="client"/>
+    <script src="configurations/assets/images.lua" type="client"/>
+    <script src="configurations/elements/initial.lua" type="client"/>
+    <script src="configurations/elements/window.lua" type="client"/>
+    <script src="configurations/elements/gridlist.lua" type="client"/>
+    <script src="configurations/elements/button.lua" type="client"/>
+    <script src="configurations/elements/label.lua" type="client"/>
+    <script src="configurations/elements/slider.lua" type="client"/>
+    <script src="configurations/elements/selector.lua" type="client"/>
+    <script src="configurations/elements/checkbox.lua" type="client"/>
+    <script src="configurations/elements/deckpane.lua" type="client"/>
+    <script src="configurations/elements/card.lua" type="client"/>
+    <script src="configurations/elements/deck.lua" type="client"/>
+    <script src="configurations/events/initial.lua" type="client"/>
+    <script src="configurations/events/generic.lua" type="client"/>
+    <script src="configurations/templates/initial.lua" type="client"/>
+    <script src="configurations/templates/scrollbar.lua" type="client"/>
+    <script src="configurations/templates/window.lua" type="client"/>
+    <script src="configurations/templates/card.lua" type="client"/>
+    <script src="configurations/templates/gridlist.lua" type="client"/>
+    <script src="configurations/templates/button.lua" type="client"/>
+    <script src="configurations/templates/label.lua" type="client"/>
+    <script src="configurations/templates/slider.lua" type="client"/>
+    <script src="configurations/templates/selector.lua" type="client"/>
+    <script src="configurations/templates/checkbox.lua" type="client"/>
+    <script src="configurations/templates/deckpane.lua" type="client"/>
+    <script src="configurations/templates/deck.lua" type="client"/>
 
     <!-- Files: Assets: Fonts -->
     <file src="files/assets/fonts/teko_regular.rw"/>
