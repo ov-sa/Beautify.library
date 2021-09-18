@@ -52,16 +52,30 @@ end
 
 imports.addEventHandler("onClientResourceStart", resource, function(resourceSource)
 
-    local resourceName = imports.getResourceName(resourceSource)
     imports.fetchFileData = fetchFileData
+    local resourceName = imports.getResourceName(resourceSource)
+    local importedFiles = {
+        utilities = fetchFileData("utilities/client.lua"),
+        settings = fetchFileData("settings/client.lua"),
+        handlers = {
+            input = fetchFileData("handlers/element/input.lua")
+        }
+    }
 
-    local utilitiesData = fetchFileData("utilities/client.lua")..[[
+    importedFiles.utilities = importedFiles.utilities..[[
     cloneUIOutline = nil
     areUIParametersValid = nil
     ]]
-    imports.string.gsub(utilitiesData, "if CLIENT_ATTACHED_ELEMENT then return false end", "")
+    imports.string.gsub(importedFiles.utilities, "if CLIENT_ATTACHED_ELEMENT then return false end", "")
+    importedFiles.settings = importedFiles.settings..[[
+    UI_VALID_ALIGNMENT = nil
+    UI_VALID_SCROLLERS = nil
+    ]]
 
-    bundlerData = utilitiesData..[[
+    bundlerData = [[
+    ]]..importedFiles.utilities..[[
+    ]]..importedFiles.settings..[[
+    ]]..importedFiles.handlers.input..[[
     local BEAUTIFY_LIBRARY = {
         call = call,
         type = type,
@@ -75,7 +89,7 @@ imports.addEventHandler("onClientResourceStart", resource, function(resourceSour
     function BEAUTIFY_LIBRARY.renderClass:createRender(functionReference, elementReference)
         if not functionReference or (BEAUTIFY_LIBRARY.type(functionReference) ~= "function") then return false end
         if not elementReference then
-            BEAUTIFY_LIBRARY.addEventHandler("onClientRender", root, functionReference, false, "]]..UI_PRIORITY_LEVEL.RENDER..[[")
+            BEAUTIFY_LIBRARY.addEventHandler("onClientRender", root, functionReference, false, UI_PRIORITY_LEVEL.RENDER)
         else
             if not beautify.isUIValid(elementReference) then return false end
             if not beautify.render.ELEMENT_RENDERS[elementReference] then
