@@ -66,37 +66,25 @@ imports.addEventHandler("onClientResourceStart", resource, function(resourceSour
     imports.fetchFileData = fetchFileData
     local resourceName = imports.getResourceName(resourceSource)
     local importedFiles = {
-        utilities = fetchFileData("utilities/client.lua"),
-        settings = fetchFileData("settings/client.lua"),
+        utilities = imports.string.gsub(fetchFileData("utilities/client.lua")..[[
+            cloneUIOutline = nil
+            areUIParametersValid = nil
+        ]], "if CLIENT_ATTACHED_ELEMENT then return false end", ""),
+        settings = fetchFileData("settings/client.lua")..[[
+            UI_VALID_ALIGNMENT = nil
+            UI_VALID_SCROLLERS = nil
+        ]],
         handlers = {
-            input = fetchFileData("handlers/element/input.lua"),
+            input = fetchFileData("handlers/element/input.lua")..[[
+                imports.addEventHandler("onClientRender", root, function()
+                    CLIENT_MTA_RESTORED = false
+                    resetKeyClickCache()
+                    resetScrollCache()
+                end, false, UI_PRIORITY_LEVEL.RENDER)
+            ]],
             bundler = ""
         }
     }
-
-    importedFiles.utilities = importedFiles.utilities..[[
-    cloneUIOutline = nil
-    areUIParametersValid = nil
-    ]]
-
-    imports.string.gsub(importedFiles.utilities, "if CLIENT_ATTACHED_ELEMENT then return false end", "")
-    importedFiles.settings = importedFiles.settings..[[
-    UI_VALID_ALIGNMENT = nil
-    UI_VALID_SCROLLERS = nil
-    ]]
-
-    importedFiles.handlers.input = importedFiles.handlers.input..[[
-    CLIENT_HOVERED_ELEMENT = nil
-    local imports = {
-        addEventHandler = addEventHandler,
-        resetKeyClickCache = resetKeyClickCache,
-        resetScrollCache = resetScrollCache
-    }
-    imports.addEventHandler("onClientRender", root, function()
-        CLIENT_MTA_RESTORED = false
-        imports.resetKeyClickCache()
-        imports.resetScrollCache()
-    end, false, UI_PRIORITY_LEVEL.RENDER)]]
 
     importedFiles.handlers.bundler = [[
     local imports = {
