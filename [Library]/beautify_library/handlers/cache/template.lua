@@ -24,9 +24,9 @@ local imports = {
     collectgarbage = collectgarbage,
     fileExists = fileExists,
     dxCreateFont = dxCreateFont,
-    cloneTableDatas = cloneTableDatas,
     table = {
-        insert = table.insert
+        insert = table.insert,
+        clone = table.clone
     },
     math = {
         min = math.min,
@@ -163,7 +163,7 @@ function setUITemplate(elementType, elementTemplate)
         assets = {},
         template = false
     }
-    createdResourceTemplates[elementType][sourceResource].template = __createTemplate(elementType, imports.cloneTableDatas(availableTemplates[elementType], true), elementTemplate)
+    createdResourceTemplates[elementType][sourceResource].template = __createTemplate(elementType, imports.table.clone(availableTemplates[elementType], true), elementTemplate)
     CLIENT_RESOURCE_TEMPLATE_RELOAD[sourceResource][elementType] = true
     CLIENT_RESOURCE_TEMPLATE_RELOAD.__cache.loadStatus = "initialized"
     CLIENT_RESOURCE_TEMPLATE_RELOAD.__cache.loaded = false

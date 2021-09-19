@@ -27,7 +27,6 @@ local imports = {
     resetKeyClickCache = resetKeyClickCache,
     resetScrollCache = resetScrollCache,
     getUIAncestors = getUIAncestors,
-    cloneTableDatas = cloneTableDatas,
     getAbsoluteCursorPosition = getAbsoluteCursorPosition,
     interpolateBetween = interpolateBetween,
     isMouseOnPosition = isMouseOnPosition,
@@ -35,7 +34,8 @@ local imports = {
     dxSetRenderTarget = dxSetRenderTarget,
     dxSetBlendMode = dxSetBlendMode,
     table = {
-        insert = table.insert
+        insert = table.insert,
+        clone = table.clone
     },
     math = {
         ceil = math.ceil
@@ -108,7 +108,7 @@ function manageElementForceRender(element, renderState)
             CLIENT_ELEMENT_FORCE_RENDERED.__cache.nextTickRemoval[elementRoot] = nil
         end
         if not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] then
-            CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] = imports.cloneTableDatas(CLIENT_ELEMENT_FORCE_RENDERED.__cache.structure, false)
+            CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] = imports.table.clone(CLIENT_ELEMENT_FORCE_RENDERED.__cache.structure, false)
         end
         if not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[element] then
             CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[element] = true
@@ -225,7 +225,7 @@ function renderElementChildren(element, isActiveMode, isFetchingInput, mouseRefe
         if mouseReference.element == element then
             propagatedMouseReference = mouseReference
         else
-            propagatedMouseReference = imports.cloneTableDatas(mouseReference)
+            propagatedMouseReference = imports.table.clone(mouseReference)
             propagatedMouseReference.element = element
         end
         propagatedMouseReference.x = propagatedMouseReference.x + elementReference.gui.x + ((elementReference.gui.viewSection and elementReference.gui.viewSection.startX) or 0)
@@ -277,7 +277,7 @@ imports.addEventHandler("onClientRender", root, function()
         else
             if elementRoot then
                 if not CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] then
-                    CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] = imports.cloneTableDatas(CLIENT_ELEMENT_FORCE_RENDERED.__cache.structure, false)
+                    CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] = imports.table.clone(CLIENT_ELEMENT_FORCE_RENDERED.__cache.structure, false)
                 end
                 CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].isAttached = true
             end
@@ -305,7 +305,7 @@ imports.addEventHandler("onClientRender", root, function()
             CLIENT_RESOURCE_TEMPLATE_RELOAD.__cache.loadStatus = "reload"
         elseif CLIENT_RESOURCE_TEMPLATE_RELOAD.__cache.loadStatus == "reload" then
             CLIENT_RESOURCE_TEMPLATE_RELOAD = {
-                __cache = imports.cloneTableDatas(CLIENT_RESOURCE_TEMPLATE_RELOAD.__cache, false)
+                __cache = imports.table.clone(CLIENT_RESOURCE_TEMPLATE_RELOAD.__cache, false)
             }
             CLIENT_RESOURCE_TEMPLATE_RELOAD.__cache.loaded = true
             CLIENT_RESOURCE_TEMPLATE_RELOAD.__cache.loadStatus = false

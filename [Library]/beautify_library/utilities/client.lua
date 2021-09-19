@@ -19,6 +19,11 @@ local imports = {
     tonumber = tonumber,
     pairs = pairs,
     ipairs = ipairs,
+    fileExists = fileExists,
+    fileOpen = fileOpen,
+    fileRead = fileRead,
+    fileGetSize = fileGetSize,
+    fileClose = fileClose,
     getElementType = getElementType,
     dxSetBlendMode = dxSetBlendMode,
     string = {
@@ -33,12 +38,12 @@ local imports = {
 
 function fetchFileData(filePath)
 
-    if not filePath or not fileExists(filePath) then return false end
-    local file = fileOpen(filePath, true)
+    if not filePath or not imports.fileExists(filePath) then return false end
+    local file = imports.fileOpen(filePath, true)
     if not file then return false end
 
-    local fileData = fileRead(file, fileGetSize(file))
-    fileClose(file)
+    local fileData = imports.fileRead(file, imports.fileGetSize(file))
+    imports.fileClose(file)
     return fileData
 
 end
@@ -60,18 +65,30 @@ function dxSetBlendMode(blendMode)
 end
 
 
-------------------------------------------------------
---[[ Functions: Clones Table's/UI's Datas/Outline ]]--
-------------------------------------------------------
+-----------------------------------
+--[[ Function: Rounds A Number ]]--
+-----------------------------------
 
-function cloneTableDatas(recievedTable, isRecursiveMode)
+function math.round(number, decimals)
+    
+    decimals = decimals or 0
+    return imports.tonumber(imports.string.format(("%."..decimals.."f"), number))
+
+end
+
+
+----------------------------------------------
+--[[ Functions: Clones Table/UI's-Outline ]]--
+----------------------------------------------
+
+function table.clone(recievedTable, isRecursiveMode)
 
     if not recievedTable or imports.type(recievedTable) ~= "table" then return false end
 
     local clonedTable = {}
     for i, j in imports.pairs(recievedTable) do
         if imports.type(j) == "table" and isRecursiveMode then
-            clonedTable[i] = cloneTableDatas(j, true)
+            clonedTable[i] = table.clone(j, true)
         else
             clonedTable[i] = j
         end
@@ -176,18 +193,6 @@ function isMouseOnCircularPosition(x, y, radius)
     if not cursor_offsetX or not cursor_offsetY then return false end
 
     return ((cursor_offsetX - x)^2) + ((cursor_offsetY - y)^2) <= (radius^2)
-
-end
-
-
------------------------------------
---[[ Function: Rounds A Number ]]--
------------------------------------
-
-function math.round(number, decimals)
-    
-    decimals = decimals or 0
-    return imports.tonumber(imports.string.format(("%."..decimals.."f"), number))
 
 end
 
