@@ -109,6 +109,9 @@
     <!-- Params: fetchImports() | Returns Data; Else false Boolean -->
     <export function="fetchImports" type="client"/>
 
+    <!-- Params: fetchAssets() | Returns Data -->
+    <export function="fetchAssets" type="client"/>
+
     <!-- Params: clearResourceUITemplates() | Returns Boolean -->
     <export function="clearResourceUITemplates" type="client"/>
 

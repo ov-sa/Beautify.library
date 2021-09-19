@@ -29,6 +29,17 @@ local imports = {
 createdAssets = {}
 
 
+-----------------------------------
+--[[ Functions: Fetches Assets ]]--
+-----------------------------------
+
+function fetchAssets()
+
+    return createdAssets
+
+end
+
+
 -----------------------------------------
 --[[ Event: On Client Resource Start ]]--
 -----------------------------------------

@@ -173,6 +173,7 @@ imports.addEventHandler("onClientResourceStart", resource, function(resourceSour
     end
     imports.functionInit = setmetatable({}, imports.functionClass)
     beautify = {
+        assets = imports.call(imports.resource, "fetchAssets"),
         render = {
             NON_ELEMENT_RENDERS = {}, ELEMENT_RENDERS = {},
             create = function(...)
