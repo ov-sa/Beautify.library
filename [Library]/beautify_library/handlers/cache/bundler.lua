@@ -167,23 +167,40 @@ imports.addEventHandler("onClientResourceStart", resource, function(resourceSour
             end
             beautify.render.ELEMENT_RENDERS[(self.renderData.elementReference)].renderFunctions[functionReference][renderType] = self
             beautify.render.ELEMENT_RENDERS[(self.renderData.elementReference)].renderFunctions[functionReference].totalFunctions = beautify.render.ELEMENT_RENDERS[(self.renderData.elementReference)].renderFunctions[functionReference].totalFunctions + 1
-            imports.addEventHandler(self.renderTypes.types[renderType].eventName, self.renderData.elementReference, self.renderFunction)
+            imports.addEventHandler(self.renderTypes.types[(self.renderData.renderType)].eventName, self.renderData.elementReference, self.renderFunction)
         end
         return true 
     end
-    function imports.renderClass:removeRender(functionReference, elementReference)
+    function imports.renderClass:removeRender(functionReference, renderData)
         if not functionReference or (imports.type(functionReference) ~= "function") then return false end
+        renderData = renderData or {}
         if not elementReference then
             if not beautify.render.NON_ELEMENT_RENDERS[functionReference] then return false end
-            imports.removeEventHandler("onClientRender", root, beautify.render.NON_ELEMENT_RENDERS[functionReference].renderFunction)
-            beautify.render.NON_ELEMENT_RENDERS[functionReference] = nil
+            local renderType = self.renderTypes.render
+            if renderData.renderType == self.renderTypes.input then
+                renderType = (self.renderTypes.types[(renderData.renderType)] and renderData.renderType) or renderType
+            end
+            if not beautify.render.NON_ELEMENT_RENDERS[functionReference][renderType] then return false end
+            imports.removeEventHandler("onClientRender", root, beautify.render.NON_ELEMENT_RENDERS[functionReference][renderType].renderFunction)
+            beautify.render.NON_ELEMENT_RENDERS[functionReference][renderType] = nil
+            --TODO: ADD TOTAL FUNC COUNTER SOMEHOW & SET COMPLETE FUNC PTR (nil)
         else
-            if not beautify.render.ELEMENT_RENDERS[elementReference] or not beautify.render.ELEMENT_RENDERS[elementReference].renderFunctions[functionReference] then return false end
-            imports.removeEventHandler("onClientRender", root, beautify.render.ELEMENT_RENDERS[elementReference].renderFunctions[functionReference].renderFunction)
-            beautify.render.ELEMENT_RENDERS[elementReference].renderFunctions[functionReference] = nil
-            beautify.render.ELEMENT_RENDERS[elementReference].totalFunctions = beautify.render.ELEMENT_RENDERS[elementReference].totalFunctions - 1
-            if beautify.render.ELEMENT_RENDERS[elementReference].totalFunctions <= 0 then
-                beautify.render.ELEMENT_RENDERS[elementReference] = nil
+            if not beautify.render.ELEMENT_RENDERS[(renderData.elementReference)] or not beautify.render.ELEMENT_RENDERS[(renderData.elementReference)].renderFunctions[functionReference] then return false end
+            local renderType = self.renderTypes.render
+            if renderData.renderType then
+                renderType = (self.renderTypes.types[(renderData.renderType)] and renderData.renderType) or renderType
+            end
+            local selfReference = beautify.render.ELEMENT_RENDERS[(renderData.elementReference)].renderFunctions[functionReference][renderType]
+            if not selfReference then return false end
+            imports.removeEventHandler(self.renderTypes.types[(selfReference.renderData.renderType)].eventName, selfReference.renderData.elementReference, selfReference.renderFunction)
+            beautify.render.ELEMENT_RENDERS[(renderData.elementReference)].renderFunctions[functionReference][renderType] = nil
+            beautify.render.ELEMENT_RENDERS[(renderData.elementReference)].renderFunctions[functionReference].totalFunctions = beautify.render.ELEMENT_RENDERS[(renderData.elementReference)].renderFunctions[functionReference].totalFunctions - 1
+            if beautify.render.ELEMENT_RENDERS[(renderData.elementReference)].renderFunctions[functionReference].totalFunctions <= 0 then
+                beautify.render.ELEMENT_RENDERS[(renderData.elementReference)].renderFunctions[functionReference] = nil
+                beautify.render.ELEMENT_RENDERS[(renderData.elementReference)].totalFunctions = beautify.render.ELEMENT_RENDERS[(renderData.elementReference)].totalFunctions - 1
+                if beautify.render.ELEMENT_RENDERS[(renderData.elementReference)].totalFunctions <= 0 then
+                    beautify.render.ELEMENT_RENDERS[(renderData.elementReference)] = nil
+                end
             end
         end
         return true
