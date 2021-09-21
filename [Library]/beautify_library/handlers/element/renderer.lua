@@ -27,7 +27,6 @@ local imports = {
     resetKeyClickCache = resetKeyClickCache,
     resetScrollCache = resetScrollCache,
     getUIAncestors = getUIAncestors,
-    destroyUIElement = destroyUIElement,
     getAbsoluteCursorPosition = getAbsoluteCursorPosition,
     interpolateBetween = interpolateBetween,
     isMouseOnPosition = isMouseOnPosition,
@@ -323,9 +322,5 @@ imports.addEventHandler("onClientRender", root, function()
     CLIENT_HOVERED_ELEMENT.element = false
     imports.resetKeyClickCache()
     imports.resetScrollCache()
-    for i, j in imports.pairs(trashElements) do
-        imports.destroyUIElement(i)
-        trashElements[i] = nil
-    end
 
 end, false, UI_PRIORITY_LEVEL.RENDER)
