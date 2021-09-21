@@ -217,7 +217,9 @@ imports.addEventHandler("onClientResourceStart", resource, function(resourceSour
         if not beautify.render.ELEMENT_RENDERS[source] then return false end
         for i, j in imports.pairs(beautify.render.ELEMENT_RENDERS[source].renderFunctions) do
             for k, v in imports.pairs(j) do
-                imports.renderClass:removeRender(i, v.renderData)
+                if (k ~= "totalFunctions") then
+                    imports.renderClass:removeRender(i, v.renderData)
+                end
             end
         end
         beautify.render.ELEMENT_RENDERS[source] = nil

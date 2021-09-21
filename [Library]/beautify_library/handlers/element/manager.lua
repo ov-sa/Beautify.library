@@ -34,6 +34,7 @@ local imports = {
 -------------------
 
 local createdResourceElements = {}
+trashElements = {}
 createdElements = {}
 createdRenderingPriority = {}
 local createdNonParentElements = {}
@@ -213,7 +214,7 @@ function createUIElement(elementType, parentElement, sourceResource)
 
 end
 
-local function destroyUIElement(element)
+function destroyUIElement(element)
 
     if not element or not imports.isElement(element) or not createdElements[element] then return false end
 
@@ -276,7 +277,7 @@ end)
 imports.addEventHandler("onClientElementDestroy", resourceRoot, function()
 
     if not isLibraryResourceStopping then
-        destroyUIElement(source)
+        trashElements[source] = true
     end
 
 end)
