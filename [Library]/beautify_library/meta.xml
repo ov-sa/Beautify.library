@@ -157,6 +157,9 @@
     <!-- Params: getUIPosition(element) | Returns Float, Float; Else false Boolean -->
     <export function="getUIPosition" type="client"/>
 
+    <!-- Params: setUIPosition(element, x, y) | Returns Boolean -->
+    <export function="setUIPosition" type="client"/>
+
     <!-- Exports: Element: Window -->
     <export function="createWindow" type="client"/>
 

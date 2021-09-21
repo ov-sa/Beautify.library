@@ -14,6 +14,7 @@
 -----------------
 
 local imports = {
+    tonumber = tonumber,
     isElement = isElement,
     getElementType = getElementType,
     addEventHandler = addEventHandler,
@@ -139,14 +140,25 @@ function setUIDisabled(element, state)
 end
 
 
--------------------------------------------
---[[ Function: Retrieves UI's Position ]]--
--------------------------------------------
+-------------------------------------------------
+--[[ Functions: Retrieves/Sets UI's Position ]]--
+-------------------------------------------------
 
 function getUIPosition(element)
 
     if isUIValid(element) then
         return createdElements[element].gui.x, createdElements[element].gui.y
+    end
+    return false
+
+end
+
+function setUIPosition(element, x, y)
+
+    x, y = imports.tonumber(x), imports.tonumber(y)
+    if x and y and isUIValid(element) then
+        createdElements[element].gui.x, createdElements[element].gui.y = x, y
+        imports.updateElement(element)
     end
     return false
 
