@@ -94,8 +94,10 @@ imports.addEventHandler("onClientResourceStart", resource, function(resourceSour
     local imports = {
         call = call,
         type = type,
+        pairs = pairs,
         addEventHandler = addEventHandler,
         removeEventHandler = removeEventHandler,
+        getResourceRootElement = getResourceRootElement,
         resource = getResourceFromName("]]..resourceName..[["),
         renderClass = {
             renderTypes = {
@@ -117,7 +119,9 @@ imports.addEventHandler("onClientResourceStart", resource, function(resourceSour
         renderData = renderData or {}
         if not renderData.elementReference then
             if not beautify.render.NON_ELEMENT_RENDERS[functionReference] then
-                beautify.render.NON_ELEMENT_RENDERS[functionReference] = {}
+                beautify.render.NON_ELEMENT_RENDERS[functionReference] = {
+                    totalFunctions = 0
+                }
             end
             local renderType = self.renderTypes.render
             if renderData.renderType == self.renderTypes.input then
@@ -134,6 +138,7 @@ imports.addEventHandler("onClientResourceStart", resource, function(resourceSour
                 self.functionReference(self.renderData, self.cbArguments)
             end
             beautify.render.NON_ELEMENT_RENDERS[functionReference][renderType] = self
+            beautify.render.NON_ELEMENT_RENDERS[functionReference].totalFunctions = beautify.render.NON_ELEMENT_RENDERS[functionReference].totalFunctions + 1
             imports.addEventHandler("onClientRender", root, self.renderFunction, false, ((renderType == self.renderTypes.input) and UI_PRIORITY_LEVEL.INPUT) or UI_PRIORITY_LEVEL.RENDER)
         else
             if not beautify.isUIValid(renderData.elementReference) then return false end
@@ -183,7 +188,10 @@ imports.addEventHandler("onClientResourceStart", resource, function(resourceSour
             if not beautify.render.NON_ELEMENT_RENDERS[functionReference][renderType] then return false end
             imports.removeEventHandler("onClientRender", root, beautify.render.NON_ELEMENT_RENDERS[functionReference][renderType].renderFunction)
             beautify.render.NON_ELEMENT_RENDERS[functionReference][renderType] = nil
-            --TODO: ADD TOTAL FUNC COUNTER SOMEHOW & SET COMPLETE FUNC PTR (nil)
+            beautify.render.NON_ELEMENT_RENDERS[functionReference].totalFunctions = beautify.render.NON_ELEMENT_RENDERS[functionReference].totalFunctions - 1
+            if beautify.render.NON_ELEMENT_RENDERS[functionReference].totalFunctions <= 0 then
+                beautify.render.NON_ELEMENT_RENDERS[functionReference] = nil
+            end
         else
             if not beautify.render.ELEMENT_RENDERS[(renderData.elementReference)] or not beautify.render.ELEMENT_RENDERS[(renderData.elementReference)].renderFunctions[functionReference] then return false end
             local renderType = self.renderTypes.render
@@ -205,6 +213,15 @@ imports.addEventHandler("onClientResourceStart", resource, function(resourceSour
         end
         return true
     end
+    imports.addEventHandler("onClientElementDestroy", imports.getResourceRootElement(imports.resource), function()
+        if not beautify.render.ELEMENT_RENDERS[source] then return false end
+        for i, j in imports.pairs(beautify.render.ELEMENT_RENDERS[source].renderFunctions) do
+            for k, v in imports.pairs(j) do
+                imports.renderClass:removeRender(i, v.renderData)
+            end
+        end
+        beautify.render.ELEMENT_RENDERS[source] = nil
+    end)
     function imports.functionClass:__index(functionName)
         self[functionName] = function(...)
             return imports.call(imports.resource, functionName, ...)
