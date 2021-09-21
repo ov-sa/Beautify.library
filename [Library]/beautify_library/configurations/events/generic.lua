@@ -14,8 +14,9 @@
 ------------------------
 
 availableEvents["generic"] = {
-    "onClientUIPostViewRTRender",
+    "onClientUIPreRender",
     "onClientUIPreViewRTRender",
+    "onClientUIPostViewRTRender",
     "onClientUIClick",
     "onClientUIScroll",
     "onClientUIAltered",

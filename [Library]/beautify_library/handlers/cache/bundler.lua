@@ -76,6 +76,7 @@ imports.addEventHandler("onClientResourceStart", resource, function(resourceSour
         ]],
         handlers = {
             input = fetchFileData("handlers/element/input.lua")..[[
+                CLIENT_HOVERED_ELEMENT = nil
                 imports.tonumber = tonumber
                 imports.gettok = gettok
                 imports.addEventHandler("onClientRender", root, function()
@@ -96,48 +97,77 @@ imports.addEventHandler("onClientResourceStart", resource, function(resourceSour
         addEventHandler = addEventHandler,
         removeEventHandler = removeEventHandler,
         resource = getResourceFromName("]]..resourceName..[["),
-        renderClass = {},
+        renderClass = {
+            renderTypes = {
+                render = "render",
+                input = "input",
+                types = {
+                    ["input"] = {},
+                    ["render"] = {eventName = "onClientUIPostViewRTRender"},
+                    ["preRender"] = {eventName = "onClientUIPreRender"},
+                    ["preViewRTRender"] = {eventName = "onClientUIPreViewRTRender"}
+                }
+            }
+        },
         functionClass = {}
     }
     imports.renderClass.__index = imports.renderClass
-    function imports.renderClass:createRender(functionReference, elementReference, isFetchingInput, ...)
+    function imports.renderClass:createRender(functionReference, renderData, ...)
         if not functionReference or (imports.type(functionReference) ~= "function") then return false end
-        isFetchingInput = (isFetchingInput and true) or false
-        if not elementReference then
+        renderData = renderData or {}
+        if not renderData.elementReference then
             if not beautify.render.NON_ELEMENT_RENDERS[functionReference] then
                 beautify.render.NON_ELEMENT_RENDERS[functionReference] = {}
             end
-            local renderType = (isFetchingInput and "input") or "render"
+            local renderType = self.renderTypes.render
+            if renderData.renderType == self.renderTypes.input then
+                renderType = (self.renderTypes.types[(renderData.renderType)] and renderData.renderType) or renderType
+            end
             if beautify.render.NON_ELEMENT_RENDERS[functionReference][renderType] then return false end
             self = setmetatable({}, self) 
             self.functionReference = functionReference
-            self.elementReference = false
-            self.isFetchingInput = isFetchingInput
+            self.renderData = {
+                renderType = renderType
+            }
             self.cbArguments = {...}
             self.renderFunction = function()
-                self.functionReference(self.isFetchingInput, self.cbArguments)
+                self.functionReference(self.renderData, self.cbArguments)
             end
             beautify.render.NON_ELEMENT_RENDERS[functionReference][renderType] = self
-            imports.addEventHandler("onClientRender", root, self.renderFunction, false, (renderType == "input" and UI_PRIORITY_LEVEL.INPUT) or UI_PRIORITY_LEVEL.RENDER)
+            imports.addEventHandler("onClientRender", root, self.renderFunction, false, ((renderType == self.renderTypes.input) and UI_PRIORITY_LEVEL.INPUT) or UI_PRIORITY_LEVEL.RENDER)
         else
-            if not beautify.isUIValid(elementReference) then return false end
-            if not beautify.render.ELEMENT_RENDERS[elementReference] then
-                beautify.render.ELEMENT_RENDERS[elementReference] = {
+            if not beautify.isUIValid(renderData.elementReference) then return false end
+            if not beautify.render.ELEMENT_RENDERS[(renderData.elementReference)] then
+                beautify.render.ELEMENT_RENDERS[(renderData.elementReference)] = {
                     totalFunctions = 0,
                     renderFunctions = {}
                 }
             end
-            if beautify.render.ELEMENT_RENDERS[elementReference].renderFunctions[functionReference] then return false end
+            if not beautify.render.ELEMENT_RENDERS[(renderData.elementReference)].renderFunctions[functionReference] then
+                beautify.render.ELEMENT_RENDERS[(renderData.elementReference)].renderFunctions[functionReference] = {
+                    totalFunctions = 0
+                }
+                beautify.render.ELEMENT_RENDERS[(renderData.elementReference)].totalFunctions = beautify.render.ELEMENT_RENDERS[(renderData.elementReference)].totalFunctions + 1
+            end
+            local renderType = self.renderTypes.render
+            if renderData.renderType then
+                renderType = (self.renderTypes.types[(renderData.renderType)] and renderData.renderType) or renderType
+            end
+            if beautify.render.ELEMENT_RENDERS[(renderData.elementReference)].renderFunctions[functionReference][renderType] then return false end
             self = setmetatable({}, self) 
             self.functionReference = functionReference
-            self.elementReference = elementReference
-            self.isFetchingInput = isFetchingInput
+            self.renderData = {
+                elementReference = renderData.elementReference,
+                renderType = renderType
+            }
             self.cbArguments = {...}
             self.renderFunction = function()
-                self.functionReference(self.elementReference, beautify.getUIPosition(self.elementReference), self.cbArguments)
+                self.renderData.elementPosition = {beautify.getUIPosition(self.elementReference)}
+                self.functionReference(self.renderData, self.cbArguments)
             end
-            beautify.render.ELEMENT_RENDERS[elementReference].renderFunctions[functionReference] = self
-            beautify.render.ELEMENT_RENDERS[elementReference].totalFunctions = beautify.render.ELEMENT_RENDERS[elementReference].totalFunctions + 1
+            beautify.render.ELEMENT_RENDERS[(self.renderData.elementReference)].renderFunctions[functionReference][renderType] = self
+            beautify.render.ELEMENT_RENDERS[(self.renderData.elementReference)].renderFunctions[functionReference].totalFunctions = beautify.render.ELEMENT_RENDERS[(self.renderData.elementReference)].renderFunctions[functionReference].totalFunctions + 1
+            imports.addEventHandler(self.renderTypes.types[renderType].eventName, self.renderData.elementReference, self.renderFunction)
         end
         return true 
     end
@@ -158,13 +188,6 @@ imports.addEventHandler("onClientResourceStart", resource, function(resourceSour
         end
         return true
     end
-    imports.addEventHandler("onClientUIPostViewRTRender", root, function()
-        if beautify.render.ELEMENT_RENDERS[source] then
-            for i, j in pairs(beautify.render.ELEMENT_RENDERS[source].renderFunctions) do
-                j.renderFunction()
-            end
-        end
-    end)
     function imports.functionClass:__index(functionName)
         self[functionName] = function(...)
             return imports.call(imports.resource, functionName, ...)
@@ -172,6 +195,7 @@ imports.addEventHandler("onClientResourceStart", resource, function(resourceSour
         return self[functionName]
     end
     imports.functionInit = setmetatable({}, imports.functionClass)
+    
     beautify = {
         assets = imports.call(imports.resource, "fetchAssets"),
         render = {
@@ -200,7 +224,8 @@ imports.addEventHandler("onClientResourceStart", resource, function(resourceSour
             end
         end
     end
-    importedFiles.handlers.bundler = importedFiles.handlers.bundler..[[}]]
+    importedFiles.handlers.bundler = importedFiles.handlers.bundler..[[ 
+    }]]
 
     bundlerData = {}
     imports.table.insert(bundlerData, importedFiles.utilities)

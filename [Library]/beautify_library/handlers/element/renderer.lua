@@ -155,6 +155,7 @@ local function renderElements()
         local element = createdRenderingPriority[i].element
         if imports.isUIValid(element) and imports.isUIVisible(element) then
             local elementType = createdElements[element].elementType
+            imports.triggerEvent("onClientUIPreRender", element)
             availableElements[elementType].renderFunction(element, true)
             imports.table.insert(validatedRenderingPriority, {element = element, type = elementType})
         end
@@ -212,6 +213,7 @@ function renderElementChildren(element, isActiveMode, isFetchingInput, mouseRefe
                 if imports.isUIValid(childElement) and imports.isUIVisible(childElement) then
                     local childElementType = createdElements[childElement].elementType
                     local isChildActive = CLIENT_HOVERED_ELEMENT.traceMarks[childElement] or isChildrenToBeForceRendered or (CLIENT_ELEMENT_FORCE_RENDERED[elementRoot] and CLIENT_ELEMENT_FORCE_RENDERED[elementRoot].renderChildren[childElement])
+                    imports.triggerEvent("onClientUIPreRender", childElement)
                     availableElements[childElementType].renderFunction(childElement, isChildActive)
                     imports.dxSetRenderTarget(elementReference.gui.renderTarget)
                     imports.dxSetBlendMode("modulate_add")
