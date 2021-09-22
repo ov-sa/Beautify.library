@@ -83,6 +83,11 @@ availableElements[elementType]["APIs"] = {
             {name = "gridlist", type = "userdata", userDataType = elementType}
         }
     },
+    ["clearGridlistRows"] = {
+        parameters = {
+            {name = "gridlist", type = "userdata", userDataType = elementType}
+        }
+    },
     ["addGridlistRow"] = {
         parameters = {
             {name = "gridlist", type = "userdata", userDataType = elementType}

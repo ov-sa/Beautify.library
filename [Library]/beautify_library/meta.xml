@@ -171,6 +171,7 @@
     <export function="setGridlistColumnName" type="client"/>
     <export function="getGridlistColumnName" type="client"/>
     <export function="countGridlistRows" type="client"/>
+    <export function="clearGridlistRows" type="client"/>
     <export function="addGridlistRow" type="client"/>
     <export function="removeGridlistRow" type="client"/>
     <export function="setGridlistRowData" type="client"/>

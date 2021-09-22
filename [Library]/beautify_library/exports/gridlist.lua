@@ -182,9 +182,9 @@ function getGridlistColumnName(...)
 end
 
 
--------------------------------------------------------
---[[ Functions: Counts/Adds/Removes Grid List Rows ]]--
--------------------------------------------------------
+--------------------------------------------------------------
+--[[ Functions: Counts/Clears/Adds/Removes Grid List Rows ]]--
+--------------------------------------------------------------
 
 function countGridlistRows(...)
 
@@ -195,6 +195,25 @@ function countGridlistRows(...)
 
     local elementReference = createdElements[element]
     return #elementReference.gridData.rows
+
+end
+
+function clearGridlistRows(...)
+
+    local parameters = {...}
+    if not imports.areUIParametersValid(parameters, elementType, "clearGridlistRows") then return false end
+    local element = parameters[1]
+    if not imports.isUIValid(element) then return false end
+
+    local elementReference = createdElements[element]
+    elementReference.gridData.rows = {}
+    if elementReference.gridData.selection then
+        elementReference.gridData.selection = false
+        imports.triggerEvent("onClientUISelectionAltered", element, elementReference.gridData.selection)
+    end
+    imports.updateElement(element)
+    imports.triggerEvent("onClientUIAltered", element)
+    return true
 
 end
 
