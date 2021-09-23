@@ -14,6 +14,7 @@
 --[[ Imports ]]--
 -----------------
 
+angle = {}
 local imports = {
     type = type,
     tonumber = tonumber,
@@ -73,6 +74,27 @@ function math.round(number, decimals)
     
     decimals = decimals or 0
     return imports.tonumber(imports.string.format(("%."..decimals.."f"), number))
+
+end
+
+
+---------------------------------------------------
+--[[ Function: Retrieves Shortest Target Angle ]]--
+---------------------------------------------------
+
+function angle.shortTarget(startAngle, targetAngle)
+
+    local currentAngleLength = false
+    if startAngle < targetAngle then
+        currentAngleLength = targetAngle - startAngle
+    else
+        currentAngleLength = startAngle - targetAngle
+    end
+    local reverseAngleLength = 360 - currentAngleLength
+    if reverseAngleLength < currentAngleLength then
+        targetAngle = -reverseAngleLength
+    end
+    return targetAngle
 
 end
 
