@@ -243,7 +243,9 @@ function removeGridlistRow(...)
     if not elementReference.gridData.rows[(parameters[2])] then return false end
     imports.table.remove(elementReference.gridData.rows, parameters[2])
     if elementReference.gridData.selection and elementReference.gridData.selection == parameters[2] then
-        elementReference.gridData.selection = false
+        if not elementReference.gridData.rows[(elementReference.gridData.selection)] then
+            elementReference.gridData.selection = false
+        end
         imports.triggerEvent("onClientUISelectionAltered", element, elementReference.gridData.selection)
     end
     imports.updateElement(element)
