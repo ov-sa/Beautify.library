@@ -27,10 +27,16 @@ local imports = {
     fileClose = fileClose,
     getElementType = getElementType,
     dxSetBlendMode = dxSetBlendMode,
-    string = {
-        format = string.format
-    }
+    string = string
 }
+
+string = utf8
+for i, j in imports.pairs(imports.string) do
+    if not string[i] then
+        string[i] = j
+    end
+end
+imports.string = string
 
 
 ---------------------------------------
@@ -74,6 +80,20 @@ function math.round(number, decimals)
     
     decimals = decimals or 0
     return imports.tonumber(imports.string.format(("%."..decimals.."f"), number))
+
+end
+
+
+------------------------------------------------
+--[[ Function: Appends Space b/w Characters ]]--
+------------------------------------------------
+
+function string.spaceChars(baseString, appender)
+
+    if baseString then
+        return imports.string.sub(imports.string.gsub(baseString, ".", (appender or " ").."%0"), 2)
+    end
+    return false
 
 end
 
