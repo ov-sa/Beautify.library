@@ -102,7 +102,7 @@ local function __createTemplate(elementType, defaultTemplate, customTemplate)
                 if i == "font" then
                     if currentDataType == "table" and (#customTemplate[i] >= 2) then
                         local resourceName = imports.getResourceName(sourceResource)
-                        local fontPath = ":"..resourceName.."/"..customTemplate[i][1]
+                        local fontPath = ":"..(customTemplate[i][3] or resourceName).."/"..customTemplate[i][1]
                         if imports.fileExists(fontPath) then
                             local fontScale = imports.tonumber(customTemplate[i][2]) or 0
                             if fontScale > 0 then
