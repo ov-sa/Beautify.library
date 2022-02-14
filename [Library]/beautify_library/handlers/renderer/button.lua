@@ -31,9 +31,7 @@ local imports = {
     dxDrawRectangle = dxDrawRectangle,
     dxDrawText = dxDrawText,
     dxGetTexturePixels = dxGetTexturePixels,
-    math = {
-        max = math.max
-    }
+    math = math
 }
 
 

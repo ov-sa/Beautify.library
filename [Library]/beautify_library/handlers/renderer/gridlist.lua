@@ -31,12 +31,7 @@ local imports = {
     dxDrawImage = dxDrawImage,
     dxDrawRectangle = dxDrawRectangle,
     dxDrawText = dxDrawText,
-    math = {
-        min = math.min,
-        ceil = math.ceil,
-        floor = math.floor,
-        round = math.round
-    }
+    math = math
 }
 
 

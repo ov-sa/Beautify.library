@@ -19,6 +19,7 @@ local imports = {
     getUIParent = getUIParent,
     __getUITemplate = __getUITemplate,
     manageElementForceRender = manageElementForceRender,
+    setSliderPercent = setSliderPercent,
     attachUIElement = attachUIElement,
     unpackColor = unpackColor,
     getAbsoluteCursorPosition = getAbsoluteCursorPosition,
@@ -28,12 +29,7 @@ local imports = {
     dxSetRenderTarget = dxSetRenderTarget,
     dxDrawRectangle = dxDrawRectangle,
     dxDrawText = dxDrawText,
-    math = {
-        min = math.min,
-        max = math.max,
-        ceil = math.ceil,
-        round = math.round
-    }
+    math = math
 }
 
 
@@ -242,9 +238,9 @@ function renderSlider(element, isActiveMode, isFetchingInput, mouseReference)
                 local cursor_offsetX, cursor_offsetY = imports.getAbsoluteCursorPosition()
                 if cursor_offsetX and cursor_offsetY then
                     if elementReference.gui.type == "horizontal" then
-                        elementReference.gui.slideBar_Horizontal.finalPercent = imports.math.max(0, imports.math.min(100, (cursor_offsetX - (__mouseReference.x + elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX))/elementReference.gui["__UI_CACHE__"]["Track"].offsets.width*100))
+                        imports.setSliderPercent(element, imports.math.max(0, imports.math.min(100, (cursor_offsetX - (__mouseReference.x + elementReference.gui["__UI_CACHE__"]["Track"].offsets.startX))/elementReference.gui["__UI_CACHE__"]["Track"].offsets.width*100)))
                     elseif elementReference.gui.type == "vertical" then
-                        elementReference.gui.slideBar_Vertical.finalPercent = imports.math.max(0, imports.math.min(100, (cursor_offsetY - (__mouseReference.y + elementReference.gui["__UI_CACHE__"]["Track"].offsets.startY))/elementReference.gui["__UI_CACHE__"]["Track"].offsets.height*100))
+                        imports.setSliderPercent(element, imports.math.max(0, imports.math.min(100, (cursor_offsetY - (__mouseReference.y + elementReference.gui["__UI_CACHE__"]["Track"].offsets.startY))/elementReference.gui["__UI_CACHE__"]["Track"].offsets.height*100)))
                     end
                 end
             else

@@ -22,10 +22,7 @@ local imports = {
     createElement = createElement,
     destroyElement = destroyElement,
     collectgarbage = collectgarbage,
-    table = {
-        insert = table.insert,
-        remove = table.remove
-    }
+    table = table
 }
 
 

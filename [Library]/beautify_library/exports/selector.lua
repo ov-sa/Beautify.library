@@ -21,10 +21,7 @@ local imports = {
     isUIValid = isUIValid,
     cloneUIOutline = cloneUIOutline,
     areUIParametersValid = areUIParametersValid,
-    math = {
-        min = math.min,
-        max = math.max
-    }
+    math = math
 }
 
 imports.addEventHandler("onClientResourceStart", resource, function()

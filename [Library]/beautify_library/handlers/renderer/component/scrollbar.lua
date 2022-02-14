@@ -23,11 +23,7 @@ local imports = {
     unpackColor = unpackColor,
     interpolateBetween = interpolateBetween,
     dxDrawRectangle = dxDrawRectangle,
-    math = {
-        min = math.min,
-        max = math.max,
-        round = math.round
-    }
+    math = math
 }
 
 

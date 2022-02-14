@@ -33,13 +33,8 @@ local imports = {
     detachUIElement = detachUIElement,
     dxSetRenderTarget = dxSetRenderTarget,
     dxSetBlendMode = dxSetBlendMode,
-    table = {
-        insert = table.insert,
-        clone = table.clone
-    },
-    math = {
-        ceil = math.ceil
-    }
+    table = table,
+    math = math
 }
 
 

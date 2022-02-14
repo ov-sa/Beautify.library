@@ -21,9 +21,7 @@ local imports = {
     cloneUIOutline = cloneUIOutline,
     areUIParametersValid = areUIParametersValid,
     dxCreateRenderTarget = dxCreateRenderTarget,
-    math = {
-        max = math.max
-    }
+    math = math
 }
 
 imports.addEventHandler("onClientResourceStart", resource, function()

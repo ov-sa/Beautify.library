@@ -24,17 +24,9 @@ local imports = {
     collectgarbage = collectgarbage,
     fileExists = fileExists,
     dxCreateFont = dxCreateFont,
-    table = {
-        insert = table.insert,
-        clone = table.clone
-    },
-    math = {
-        min = math.min,
-        max = math.max
-    },
-    string = {
-        find = string.find
-    }
+    table = table,
+    math = math,
+    string = string
 }
 
 

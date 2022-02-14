@@ -21,13 +21,8 @@ local imports = {
     cloneUIOutline = cloneUIOutline,
     areUIParametersValid = areUIParametersValid,
     dxCreateRenderTarget = dxCreateRenderTarget,
-    table = {
-        insert = table.insert,
-        remove = table.remove
-    },
-    math = {
-        max = math.max
-    }
+    table = table,
+    math = math
 }
 
 imports.addEventHandler("onClientResourceStart", resource, function()

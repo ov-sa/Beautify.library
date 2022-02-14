@@ -18,14 +18,8 @@ local imports = {
     ipairs = ipairs,
     getResourceName = getResourceName,
     addEventHandler = addEventHandler,
-    table = {
-        insert = table.insert
-    },
-    string = {
-        sub = string.sub,
-        gsub = string.gsub,
-        upper = string.upper
-    }
+    table = table,
+    string = string
 }
 
 

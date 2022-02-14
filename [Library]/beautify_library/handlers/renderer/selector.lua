@@ -27,9 +27,7 @@ local imports = {
     dxSetRenderTarget = dxSetRenderTarget,
     dxDrawImage = dxDrawImage,
     dxDrawText = dxDrawText,
-    math = {
-        min = math.min
-    }
+    math = math
 }
 
 
