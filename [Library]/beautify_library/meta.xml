@@ -1,6 +1,7 @@
 <meta>
 
     <info author="OvileAmriam" name="Beautify Library" type="Library" version="1.0.0"/>
+    <min_mta_version server="1.5.9" client="1.5.9"/>
 
     <!-- Settings & Utilities -->
     <script src="utilities/client.lua" type="client"/>
