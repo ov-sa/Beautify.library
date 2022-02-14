@@ -87,15 +87,12 @@ function setSliderPercent(...)
     if elementReference.gui.type == "horizontal" then
         if (elementReference.gui.slideBar_Horizontal.finalPercent == parameters[2]) then return false end
         elementReference.gui.slideBar_Horizontal.finalPercent = parameters[2]
-        return true
     elseif elementReference.gui.type == "vertical" then
         if (elementReference.gui.slideBar_Vertical.finalPercent == parameters[2]) then return false end
         elementReference.gui.slideBar_Vertical.finalPercent = parameters[2]
-        return true
     end
-    if (elementReference.gui.text == parameters[2]) then return false end
     imports.updateElement(element)
-    elementReference.gui.text = parameters[2]
+    imports.triggerEvent("onClientUISliderAltered", element, ((elementReference.gui.type == "horizontal") and elementReference.gui.slideBar_Horizontal.currentPercent) or elementReference.gui.slideBar_Vertical.currentPercent, ((elementReference.gui.type == "horizontal") and elementReference.gui.slideBar_Horizontal.finalPercent) or elementReference.gui.slideBar_Vertical.finalPercent)
     return false
 
 end
