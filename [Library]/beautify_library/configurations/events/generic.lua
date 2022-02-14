@@ -22,5 +22,6 @@ availableEvents["generic"] = {
     "onClientUIAltered",
     "onClientUIVisibilityAltered",
     "onClientUIMaximizationAltered",
+    "onClientUISliderAltered",
     "onClientUISelectionAltered"
 }
