@@ -161,7 +161,7 @@ imports.addEventHandler("onClientResourceStart", resource, function(resourceSour
             }
             self.cbArguments = {...}
             self.renderFunction = function()
-                self.renderData.elementPosition = {beautify.getUIPosition(self.elementReference)}
+                self.renderData.elementPosition = {beautify.getUIPosition(self.renderData.elementReference)}
                 self.functionReference(self.renderData, self.cbArguments)
             end
             beautify.render.ELEMENT_RENDERS[(self.renderData.elementReference)].renderFunctions[functionReference][renderType] = self
