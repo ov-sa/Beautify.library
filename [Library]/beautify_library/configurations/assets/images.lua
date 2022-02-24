@@ -15,6 +15,8 @@
 
 availableAssets["images"] = {
     "canvas/circle.rw",
+    "canvas/plus.rw",
+    "canvas/minus.rw",
     "arrow/left.rw",
     "arrow/right.rw",
     "arrow/top.rw",
