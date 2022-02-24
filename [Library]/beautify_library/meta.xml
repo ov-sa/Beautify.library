@@ -79,6 +79,8 @@
 
     <!-- Files: Assets: Images -->
     <file src="files/assets/images/canvas/circle.rw"/>
+    <file src="files/assets/images/canvas/plus.rw"/>
+    <file src="files/assets/images/canvas/minus.rw"/>
     <file src="files/assets/images/arrow/left.rw"/>
     <file src="files/assets/images/arrow/right.rw"/>
     <file src="files/assets/images/arrow/top.rw"/>
