@@ -2,9 +2,9 @@
 --[[ Resource: Beautify Library
      Script: exports: essential.lua
      Server: -
-     Author: OvileAmriam
+     Author: vStudio
      Developer: -
-     DOC: 01/02/2021 (OvileAmriam)
+     DOC: 01/02/2021
      Desc: Essential Exports ]]--
 ----------------------------------------------------------------
 

@@ -2,9 +2,9 @@
 --[[ Resource: Beautify Library
      Script: configurations: assets: images.lua
      Server: -
-     Author: OvileAmriam
+     Author: vStudio
      Developer: -
-     DOC: 01/02/2021 (OvileAmriam)
+     DOC: 01/02/2021
      Desc: Asset's Confign ]]--
 ----------------------------------------------------------------
 
@@ -20,6 +20,8 @@ availableAssets["images"] = {
     "canvas/pick.rw",
     "canvas/save.rw",
     "canvas/back.rw",
+    "canvas/lock.rw",
+    "canvas/unlock.rw",
     "arrow/left.rw",
     "arrow/right.rw",
     "arrow/top.rw",

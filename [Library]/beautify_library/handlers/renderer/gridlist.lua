@@ -2,9 +2,9 @@
 --[[ Resource: Beautify Library
      Script: handlers: renderer: gridlist.lua
      Server: -
-     Author: OvileAmriam
+     Author: vStudio
      Developer: -
-     DOC: 01/02/2021 (OvileAmriam)
+     DOC: 01/02/2021
      Desc: Grid List's Renderer ]]--
 ----------------------------------------------------------------
 

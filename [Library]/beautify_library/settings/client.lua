@@ -3,9 +3,9 @@
 --[[ Resource: Beautify Library
      Script: settings: client.lua
      Server: -
-     Author: OvileAmriam
+     Author: vStudio
      Developer: -
-     DOC: 01/02/2021 (OvileAmriam)
+     DOC: 01/02/2021
      Desc: Client Sided Settings ]]--
 ----------------------------------------------------------------
 

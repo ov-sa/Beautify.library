@@ -2,9 +2,9 @@
 --[[ Resource: Beautify Library
      Script: configurations: templates: deckpane.lua
      Server: -
-     Author: OvileAmriam
+     Author: vStudio
      Developer: -
-     DOC: 01/02/2021 (OvileAmriam)
+     DOC: 01/02/2021
      Desc: Template's Confign ]]--
 ----------------------------------------------------------------
 
