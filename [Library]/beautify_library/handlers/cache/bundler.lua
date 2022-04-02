@@ -262,6 +262,7 @@ imports.addEventHandler("onClientResourceStart", resource, function(resourceSour
             setAspectRatioAdjustmentEnabled = dxSetAspectRatioAdjustmentEnabled,
             setPixelColor = dxSetPixelColor,
             setRenderTarget = dxSetRenderTarget,
+            setBlendMode = dxSetBlendMode,
             setShaderValue = dxSetShaderValue,
             setShaderTessellation = dxSetShaderTessellation,
             setShaderTransform = dxSetShaderTransform,

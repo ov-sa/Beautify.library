@@ -17,6 +17,7 @@
 angle = {}
 local imports = {
     type = type,
+    tostring = tostring,
     tonumber = tonumber,
     pairs = pairs,
     ipairs = ipairs,
@@ -168,6 +169,26 @@ function cloneUIOutline(elementType, nestedOutline)
         end
     end
     return clonedOutline
+
+end
+
+
+---------------------------------
+--[[ Function: Parses String ]]--
+---------------------------------
+
+function string.parse(rawString)
+
+    if not rawString then return false end
+
+    if imports.tostring(rawString) == "nil" then
+        rawString = nil
+    elseif imports.tostring(rawString) == "false" then
+        rawString = false
+    elseif imports.tostring(rawString) == "true" then
+        rawString = true
+    end
+    return imports.tonumber(rawString) or rawString
 
 end
 
