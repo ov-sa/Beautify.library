@@ -22,6 +22,13 @@ availableAssets["images"] = {
     "canvas/back.rw",
     "canvas/lock.rw",
     "canvas/unlock.rw",
+    "canvas/color.rw",
+    "canvas/gender.rw",
+    "canvas/hair.rw",
+    "canvas/face.rw",
+    "canvas/tshirt.rw",
+    "canvas/trouser.rw",
+    "canvas/shoes.rw",
     "arrow/left.rw",
     "arrow/right.rw",
     "arrow/top.rw",
@@ -49,4 +56,5 @@ availableAssets["images"] = {
     "curved_square/semi_thick/bottom_left.rw",
     "curved_square/semi_thick/bottom_right.rw",
     "curved_square/semi_thick/square.rw"
+
 }

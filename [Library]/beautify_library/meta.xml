@@ -89,6 +89,13 @@
     <file src="files/assets/images/canvas/back.rw"/>
     <file src="files/assets/images/canvas/lock.rw"/>
     <file src="files/assets/images/canvas/unlock.rw"/>
+    <file src="files/assets/images/canvas/color.rw"/>
+    <file src="files/assets/images/canvas/gender.rw"/>
+    <file src="files/assets/images/canvas/hair.rw"/>
+    <file src="files/assets/images/canvas/face.rw"/>
+    <file src="files/assets/images/canvas/tshirt.rw"/>
+    <file src="files/assets/images/canvas/trouser.rw"/>
+    <file src="files/assets/images/canvas/shoes.rw"/>
     <file src="files/assets/images/arrow/left.rw"/>
     <file src="files/assets/images/arrow/right.rw"/>
     <file src="files/assets/images/arrow/top.rw"/>
