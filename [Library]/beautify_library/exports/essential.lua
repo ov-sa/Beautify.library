@@ -140,6 +140,32 @@ function setUIDisabled(element, state)
 end
 
 
+---------------------------------------------------------------
+--[[ Functions: Retrieves/Sets UI's Forced Rendering State ]]--
+---------------------------------------------------------------
+
+function isUIForcedRendering(element)
+
+    if isUIValid(element) then
+        return createdElements[element].isForcedRendering
+    end
+    return false
+
+end
+
+function setUIForcedRendering(element, state)
+
+    if isUIValid(element) and (state == true or state == false) then
+        if createdElements[element].isForcedRendering ~= state then
+            createdElements[element].isForcedRendering = state
+            return true
+        end
+    end
+    return false
+
+end
+
+
 -------------------------------------------------
 --[[ Functions: Retrieves/Sets UI's Position ]]--
 -------------------------------------------------

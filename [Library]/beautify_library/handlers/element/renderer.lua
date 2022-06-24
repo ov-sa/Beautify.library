@@ -159,7 +159,7 @@ local function renderElements()
         local element = validatedRenderingPriority[i].element
         if not CLIENT_HOVERED_ELEMENT.element and not imports.isUIDisabled(element) then
             local elementReference = createdElements[element]
-            if imports.isMouseOnPosition(elementReference.gui.x, elementReference.gui.y, elementReference.gui.width, elementReference.gui.height) then
+            if imports.isMouseOnPosition(elementReference.gui.x, elementReference.gui.y, elementReference.gui.width, elementReference.gui.height) or elementReference.isForcedRendering then
                 local elementType = validatedRenderingPriority[i].type
                 CLIENT_HOVERED_ELEMENT.rootElement = element
                 CLIENT_HOVERED_ELEMENT.element = element

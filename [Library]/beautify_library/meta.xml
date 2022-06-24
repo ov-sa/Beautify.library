@@ -172,6 +172,12 @@
     <!-- Params: setUIDisabled(element, state) | Returns Boolean -->
     <export function="setUIDisabled" type="client"/>
 
+    <!-- Params: setUIDisabled(element) | Returns Boolean -->
+    <export function="isUIForcedRendering" type="client"/>
+
+    <!-- Params: setUIForcedRendering(element, state) | Returns Boolean -->
+    <export function="setUIForcedRendering" type="client"/>
+
     <!-- Params: getUIPosition(element) | Returns Float, Float; Else false Boolean -->
     <export function="getUIPosition" type="client"/>
 

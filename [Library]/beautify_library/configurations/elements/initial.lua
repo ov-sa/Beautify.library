@@ -29,6 +29,8 @@ availableElements = {
         "setUIDraggable",
         "isUIDisabled",
         "setUIDisabled",
+        "isUIForcedRendering",
+        "setUIForcedRendering",
         "getUIPosition",
         "setUIPosition"
     }
