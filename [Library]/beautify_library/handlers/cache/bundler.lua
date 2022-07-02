@@ -60,10 +60,7 @@ imports.addEventHandler("onClientResourceStart", resource, function(resourceSour
     imports.fetchFileData = fetchFileData
     local resourceName = imports.getResourceName(resourceSource)
     local importedFiles = {
-        utilities = imports.string.gsub(fetchFileData("utilities/client.lua")..[[
-            cloneUIOutline = nil
-            areUIParametersValid = nil
-        ]], "if CLIENT_ATTACHED_ELEMENT then return false end", ""),
+        utilities = imports.string.gsub(fetchFileData("utilities/client.lua"), "if CLIENT_ATTACHED_ELEMENT then return false end", ""),
         settings = fetchFileData("settings/client.lua")..[[
             UI_VALID_ALIGNMENT = nil
             UI_VALID_SCROLLERS = nil

@@ -5,6 +5,7 @@
 
     <!-- Settings & Utilities -->
     <script src="utilities/client.lua" type="client"/>
+    <script src="utilities/private.lua" type="client"/>
     <script src="settings/client.lua" type="client"/>
 
     <!-- Exports -->
